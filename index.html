@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id" class="dark scroll-smooth">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
-  <title>The Arich Study — Interactive Mathematics Universe | SMP & SMA</title>
+  <title>The Arich Study — Platform Pembelajaran & Ujian Matematika SMA</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,26 +14,24 @@
       theme: {
         extend: {
           colors: {
-            brand: {
+            primary: {
               50: '#eef2ff',
               100: '#e0e7ff',
-              400: '#818cf8',
+              200: '#c7d2fe',
               500: '#6366f1',
               600: '#4f46e5',
               700: '#4338ca',
               800: '#3730a3',
               900: '#312e81',
-              950: '#0f1123',
             },
-            space: {
-              900: '#0b0f19',
-              850: '#111726',
-              800: '#172033',
-              700: '#1e293b'
+            accent: {
+              50: '#eff6ff',
+              600: '#2563eb',
+              700: '#1d4ed8',
             }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           }
         }
@@ -49,7 +47,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- KaTeX for Crystal-Clear LaTeX Equations -->
+  <!-- KaTeX for Clean Mathematical Equations -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -59,774 +57,296 @@
 
   <style>
     body {
-      background-color: #080c16;
-      color: #e2e8f0;
+      background-color: #F8FAFC;
+      color: #0F172A;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
     }
 
-    /* Cosmic Grid Background */
-    .bg-grid-pattern {
-      background-size: 36px 36px;
-      background-image: 
-        linear-gradient(to right, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+    /* Custom Math Typography & KaTeX adjustments */
+    .katex {
+      font-size: 1.08em;
+      letter-spacing: normal;
+    }
+    .katex-display {
+      margin: 0.65em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 4px 0;
     }
 
-    /* Glow Cards */
-    .glass-card {
-      background: rgba(17, 23, 38, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(99, 102, 241, 0.16);
+    /* Clean Card Elevation */
+    .card-clean {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
     }
-    .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.35);
-    }
-
-    .neon-border-indigo {
-      box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
+    .card-clean:hover {
+      border-color: #CBD5E1;
     }
 
-    /* Smooth Scrollbar */
+    /* Number Grid Item Active States */
+    .num-btn-empty {
+      background-color: #F1F5F9;
+      color: #475569;
+      border-color: #E2E8F0;
+    }
+    .num-btn-answered {
+      background-color: #4F46E5;
+      color: #FFFFFF;
+      border-color: #4338CA;
+    }
+    .num-btn-doubt {
+      background-color: #F59E0B;
+      color: #FFFFFF;
+      border-color: #D97706;
+    }
+    .num-btn-current {
+      ring: 3px solid #818CF8;
+      font-weight: 800;
+    }
+
+    /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #0b0f19;
+      background: #F1F5F9;
     }
     ::-webkit-scrollbar-thumb {
-      background: #312e81;
+      background: #CBD5E1;
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #4f46e5;
-    }
-
-    /* Animated conveyor belt */
-    @keyframes conveyor {
-      0% { background-position: 0 0; }
-      100% { background-position: 30px 0; }
-    }
-    .conveyor-active {
-      background-image: repeating-linear-gradient(45deg, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.4) 10px, transparent 10px, transparent 20px);
-      animation: conveyor 1s linear infinite;
-    }
-
-    /* Pulse glow */
-    @keyframes pulseGlow {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)); }
-      50% { transform: scale(1.03); filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.8)); }
-    }
-    .machine-processing {
-      animation: pulseGlow 0.8s ease-in-out infinite;
+      background: #94A3B8;
     }
   </style>
 </head>
-<body class="min-h-screen bg-space-900 bg-grid-pattern selection:bg-brand-500 selection:text-white flex flex-col">
+<body class="min-h-screen flex flex-col antialiased">
 
   <!-- ======================================================== -->
-  <!-- 1. TOP NAVBAR                                            -->
+  <!-- 1. TOP APP BAR / HEADER (PROFESSIONAL LMS STYLE)         -->
   <!-- ======================================================== -->
-  <nav class="sticky top-0 z-50 bg-space-900/90 backdrop-blur-xl border-b border-indigo-950/60 px-4 sm:px-8 py-3.5 transition-all duration-300">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
-      <!-- Brand Logo -->
-      <a href="#" class="flex items-center space-x-3 group">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-purple-500 p-[1.5px] shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-          <div class="w-full h-full bg-space-900 rounded-[14px] flex items-center justify-center text-brand-400 font-extrabold text-lg">
-            <i data-lucide="compass" class="w-5 h-5 text-indigo-400"></i>
+      <!-- Brand & Course Context -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <a href="#" onclick="showView('exam-gate')" class="flex items-center space-x-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-600/20 group-hover:bg-indigo-700 transition">
+            <i data-lucide="compass" class="w-5 h-5"></i>
           </div>
-        </div>
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="text-lg sm:text-xl font-extrabold tracking-tight text-white group-hover:text-indigo-300 transition">The Arich <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Study</span></span>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">MATEMATIKA</span>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="font-extrabold text-slate-900 text-base sm:text-lg tracking-tight">The Arich <span class="text-indigo-600">Study</span></span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">LMS Portal</span>
+            </div>
+            <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Matematika SMA • Kelas 11 • Bab 1: Fungsi Komposisi & Invers</p>
           </div>
-          <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Interactive Learning Platform • Kelas 7 SMP — 12 SMA</p>
-        </div>
-      </a>
-
-      <!-- Quick Nav Buttons -->
-      <div class="hidden md:flex items-center space-x-1.5 bg-space-850/80 p-1.5 rounded-2xl border border-slate-800">
-        <a href="#kurikulum" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
-          <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i> Kurikulum
-        </a>
-        <a href="#lab-interaktif" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
-          <i data-lucide="flask-conical" class="w-3.5 h-3.5 text-purple-400"></i> Lab Fungsi
-        </a>
-        <a href="#teori" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
-          <i data-lucide="book-open" class="w-3.5 h-3.5 text-sky-400"></i> Modul Teori
-        </a>
-        <a href="#quiz-arena" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-indigo-600/80 hover:bg-indigo-600 transition flex items-center gap-1.5 shadow-md shadow-indigo-600/20">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i> Latihan Soal
         </a>
       </div>
 
-      <!-- Action Utilities -->
-      <div class="flex items-center space-x-2">
-        <button id="sfx-toggle-btn" onclick="toggleAudio()" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-space-850 border border-slate-700/60 text-slate-300 hover:text-white hover:border-indigo-500/40 text-xs font-semibold flex items-center gap-1.5 transition">
-          <i id="sfx-icon" data-lucide="volume-2" class="w-4 h-4 text-indigo-400"></i>
-          <span id="sfx-label" class="hidden sm:inline">SFX: ON</span>
+      <!-- Main Navigation Tabs -->
+      <nav class="hidden md:flex items-center space-x-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+        <button onclick="showView('exam')" id="nav-btn-exam" class="nav-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Ruang Latihan (10 Soal)
         </button>
-        <a href="#quiz-arena" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-500/25 hover:brightness-110 active:scale-95 transition">
-          <i data-lucide="play-circle" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Mulai Kuis</span>
-          <span class="sm:hidden">Kuis</span>
-        </a>
-      </div>
+        <button onclick="showView('theory')" id="nav-btn-theory" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+          <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Rangkuman Teori
+        </button>
+        <button onclick="showView('presentation')" id="nav-btn-presentation" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+          <i data-lucide="presentation" class="w-3.5 h-3.5"></i> Bahas Bareng Guru
+        </button>
+        <button onclick="showView('gradebook')" id="nav-btn-gradebook" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+          <i data-lucide="database" class="w-3.5 h-3.5"></i> Database Nilai
+        </button>
+      </nav>
 
-    </div>
-  </nav>
-
-  <!-- ======================================================== -->
-  <!-- 2. HERO INTRO BANNER                                     -->
-  <!-- ======================================================== -->
-  <header class="relative px-4 sm:px-8 pt-10 pb-14 overflow-hidden border-b border-indigo-950/40">
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-600/15 rounded-full blur-[120px]"></div>
-      <div class="absolute top-20 right-10 w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[100px]"></div>
-    </div>
-
-    <div class="max-w-5xl mx-auto text-center relative z-10">
-      
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold mb-6">
-        <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>PILOT MODULE AKTIF: MATEMATIKA KELAS 11 SMA</span>
-      </div>
-
-      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight mb-5">
-        Bikin Belajar Matematika Jadi <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">Visual, Interaktif & Gak Ngebosenin.</span>
-      </h1>
-
-      <p class="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
-        Selamat datang di <strong>The Arich Study</strong>! Eksplorasi konsep fungsi matematika lewat simulator visual, trik cepat, dan latihan soal interaktif berhadiah bintang & rapor otomatis.
-      </p>
-
-      <!-- Quick Action CTA -->
-      <div class="flex flex-wrap items-center justify-center gap-3">
-        <a href="#lab-interaktif" class="px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm flex items-center gap-2 shadow-xl shadow-indigo-600/30 transition transform hover:-translate-y-0.5">
-          <i data-lucide="cpu" class="w-4 h-4"></i> Coba Simulator Mesin Fungsi
-        </a>
-        <a href="#quiz-arena" class="px-5 py-3 rounded-2xl bg-space-850 hover:bg-space-800 border border-indigo-500/30 text-indigo-300 hover:text-white font-bold text-sm flex items-center gap-2 transition transform hover:-translate-y-0.5">
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> Kerjakan Latihan Soal
-        </a>
-      </div>
-
-      <!-- Quick Stats -->
-      <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto pt-8 border-t border-slate-800/80 text-left">
-        <div class="p-3.5 rounded-2xl bg-space-850/60 border border-slate-800">
-          <div class="text-indigo-400 font-extrabold text-lg sm:text-xl">Kelas 7 - 12</div>
-          <div class="text-[11px] text-slate-400 font-medium">Jenjang SMP & SMA</div>
+      <!-- User & Teacher Mode Actions -->
+      <div class="flex items-center space-x-2.5">
+        <div id="user-badge" class="hidden sm:flex items-center space-x-2 pl-2 pr-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700">
+          <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-[10px]" id="user-avatar-initial">M</div>
+          <span class="font-semibold" id="top-student-name">Murid</span>
         </div>
-        <div class="p-3.5 rounded-2xl bg-space-850/60 border border-slate-800">
-          <div class="text-purple-400 font-extrabold text-lg sm:text-xl">KaTeX LaTeX</div>
-          <div class="text-[11px] text-slate-400 font-medium">Rumus Super Rapi</div>
-        </div>
-        <div class="p-3.5 rounded-2xl bg-space-850/60 border border-slate-800">
-          <div class="text-emerald-400 font-extrabold text-lg sm:text-xl">Instant Step</div>
-          <div class="text-[11px] text-slate-400 font-medium">Pembahasan Detail</div>
-        </div>
-        <div class="p-3.5 rounded-2xl bg-space-850/60 border border-slate-800">
-          <div class="text-amber-400 font-extrabold text-lg sm:text-xl">WhatsApp</div>
-          <div class="text-[11px] text-slate-400 font-medium">Kirim Rapor ke Guru</div>
-        </div>
+
+        <button onclick="toggleTeacherMode()" id="teacher-mode-btn" class="px-3 py-1.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold flex items-center gap-1.5 transition">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-indigo-600"></i>
+          <span id="teacher-mode-label">Mode Guru</span>
+        </button>
       </div>
 
     </div>
   </header>
 
   <!-- ======================================================== -->
-  <!-- 3. JENJANG & KURIKULUM SELECTOR                          -->
+  <!-- 2. MAIN CONTAINER & SUB-VIEWS                            -->
   <!-- ======================================================== -->
-  <section id="kurikulum" class="py-12 px-4 sm:px-8 max-w-7xl mx-auto w-full">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-      <div>
-        <div class="text-xs font-bold text-indigo-400 tracking-wider uppercase mb-1">Struktur Kurikulum The Arich</div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Pilih Jenjang & Kelas Belajar</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Mencakup materi esensial matematika dari tingkat SMP hingga persiapan UTBK SMA.</p>
-      </div>
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
 
-      <!-- Tab Filter Jenjang -->
-      <div class="flex items-center gap-1.5 bg-space-850 p-1.5 rounded-2xl border border-slate-800 self-start md:self-auto">
-        <button onclick="filterCurriculum('all')" class="curriculum-tab active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition">Semua</button>
-        <button onclick="filterCurriculum('smp')" class="curriculum-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">SMP (7 - 9)</button>
-        <button onclick="filterCurriculum('sma')" class="curriculum-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">SMA (10 - 12)</button>
-      </div>
-    </div>
-
-    <!-- Curriculum Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="curriculum-grid">
-      
-      <!-- SMP Kelas 7 -->
-      <div class="curr-card smp glass-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition">
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 font-bold text-xs border border-sky-500/20">SMP Kelas 7</span>
-          <span class="text-[10px] text-slate-500 font-semibold uppercase">Roadmap</span>
-        </div>
-        <h3 class="text-base font-bold text-white mb-2">Fondasi Aljabar & Aritmatika</h3>
-        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Bilangan bulat, aljabar linear 1 variabel, perbandingan senilai/berbalik nilai, dan konsep dasar himpunan.</p>
-        <div class="flex flex-wrap gap-1.5 text-[10px] text-slate-300">
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Operasi Aljabar</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">PLSV</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Aritmatika Sosial</span>
-        </div>
-      </div>
-
-      <!-- SMP Kelas 8 -->
-      <div class="curr-card smp glass-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition">
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 font-bold text-xs border border-sky-500/20">SMP Kelas 8</span>
-          <span class="text-[10px] text-slate-500 font-semibold uppercase">Roadmap</span>
-        </div>
-        <h3 class="text-base font-bold text-white mb-2">Relasi, Fungsi & Geometri</h3>
-        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Pengenalan relasi & diagram panah, SPLDV eliminasi-substitusi, dan Teorema Pythagoras dasar.</p>
-        <div class="flex flex-wrap gap-1.5 text-[10px] text-slate-300">
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Diagram Panah</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">SPLDV</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Pythagoras</span>
-        </div>
-      </div>
-
-      <!-- SMP Kelas 9 -->
-      <div class="curr-card smp glass-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition">
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 font-bold text-xs border border-sky-500/20">SMP Kelas 9</span>
-          <span class="text-[10px] text-slate-500 font-semibold uppercase">Roadmap</span>
-        </div>
-        <h3 class="text-base font-bold text-white mb-2">Persamaan Kuadrat & Transformasi</h3>
-        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Faktorisasi kuadrat, bentuk akar & pangkat tak sebenarnya, translasi, rotasi, dan dilatasi.</p>
-        <div class="flex flex-wrap gap-1.5 text-[10px] text-slate-300">
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Akar Kuadrat</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Fungsi Kuadrat</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Transformasi</span>
-        </div>
-      </div>
-
-      <!-- SMA Kelas 10 -->
-      <div class="curr-card sma glass-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition">
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-400 font-bold text-xs border border-purple-500/20">SMA Kelas 10</span>
-          <span class="text-[10px] text-slate-500 font-semibold uppercase">Roadmap</span>
-        </div>
-        <h3 class="text-base font-bold text-white mb-2">Eksponen, Logaritma & Vektor</h3>
-        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Sifat eksponensial, persamaan logaritma, trigonometri sudut istimewa, dan aljabar vektor.</p>
-        <div class="flex flex-wrap gap-1.5 text-[10px] text-slate-300">
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Eksponen</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Logaritma</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Trigonometri</span>
-        </div>
-      </div>
-
-      <!-- SMA Kelas 11 (ACTIVE PILOT!) -->
-      <div class="curr-card sma glass-card rounded-2xl p-5 border-2 border-indigo-500/80 bg-gradient-to-br from-indigo-950/40 via-space-850 to-purple-950/30 shadow-xl shadow-indigo-500/15 relative overflow-hidden group">
-        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-2.5 py-1 rounded-lg bg-indigo-500/30 text-indigo-300 font-extrabold text-xs border border-indigo-500/50 flex items-center gap-1.5">
-            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping"></span> SMA Kelas 11 • MODUL AKTIF
-          </span>
-          <span class="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-extrabold text-[10px]">⭐ UNGGULAN</span>
-        </div>
-        <h3 class="text-lg font-black text-white mb-2 group-hover:text-indigo-300 transition">Fungsi Komposisi & Invers</h3>
-        <p class="text-xs text-slate-300 mb-4 leading-relaxed">Domain alami $(D_f)$, alur komposisi $(f \circ g)(x)$, sifat non-komutatif, dan rumus kilat fungsi invers $f^{-1}(x)$.</p>
-        <div class="flex flex-wrap gap-1.5 text-[10px] text-indigo-200 mb-5">
-          <span class="px-2 py-0.5 rounded-md bg-indigo-900/60 border border-indigo-500/30">Domain & Range</span>
-          <span class="px-2 py-0.5 rounded-md bg-indigo-900/60 border border-indigo-500/30">Komposisi (fog)</span>
-          <span class="px-2 py-0.5 rounded-md bg-indigo-900/60 border border-indigo-500/30">Invers Cepat</span>
-        </div>
-        <a href="#lab-interaktif" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-600/30 transition">
-          <i data-lucide="play" class="w-3.5 h-3.5"></i> Buka Modul Ini Sekarang
-        </a>
-      </div>
-
-      <!-- SMA Kelas 12 -->
-      <div class="curr-card sma glass-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition">
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-400 font-bold text-xs border border-purple-500/20">SMA Kelas 12</span>
-          <span class="text-[10px] text-slate-500 font-semibold uppercase">Roadmap</span>
-        </div>
-        <h3 class="text-base font-bold text-white mb-2">Kalkulus, Limit & UTBK-SNBT</h3>
-        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Limit aljabar & trigonometri, turunan pertama dan aplikasinya (titik stasioner), integral tak tentu & tentu.</p>
-        <div class="flex flex-wrap gap-1.5 text-[10px] text-slate-300">
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Limit Fungsi</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Diferensial</span>
-          <span class="px-2 py-0.5 rounded-md bg-slate-800/80">Integral</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 4. INTERACTIVE VISUAL LABS                               -->
-  <!-- ======================================================== -->
-  <section id="lab-interaktif" class="py-14 px-4 sm:px-8 border-y border-indigo-950/60 bg-space-850/40 relative">
-    <div class="max-w-7xl mx-auto">
-      
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-bold mb-3">
-          <i data-lucide="flask-conical" class="w-3.5 h-3.5"></i> EXPERIMENTAL FUNCTION LAB
-        </div>
-        <h2 class="text-2xl sm:text-4xl font-black text-white">Laboratorium Visual Matematika</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-2">Uji konsep fungsi secara langsung. Gerakkan angka, operasikan mesin pabrik, dan amati perubahan hasilnya secara real-time!</p>
-      </div>
-
-      <!-- Lab Selector Tabs -->
-      <div class="flex justify-center mb-8">
-        <div class="flex flex-wrap gap-2 bg-space-900/90 p-1.5 rounded-2xl border border-slate-800">
-          <button onclick="switchLabTab('machine')" id="tab-btn-machine" class="lab-tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white transition flex items-center gap-2">
-            <i data-lucide="cog" class="w-4 h-4"></i> Mesin Komposisi (f o g)
-          </button>
-          <button onclick="switchLabTab('domain')" id="tab-btn-domain" class="lab-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4"></i> Scanner Domain Terlarang
-          </button>
-          <button onclick="switchLabTab('invers')" id="tab-btn-invers" class="lab-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-2">
-            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Mesin Rewind Invers (f⁻¹)
-          </button>
-        </div>
-      </div>
-
-      <!-- LAB 1: MESIN PABRIK KOMPOSISI -->
-      <div id="lab-machine-panel" class="lab-panel glass-card rounded-3xl p-6 sm:p-8 border border-indigo-500/30 max-w-5xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-800">
+    <!-- VIEW 1: GATE / REGISTRATION (ENTER NAME & CLASS FIRST) -->
+    <div id="view-exam-gate" class="max-w-xl mx-auto w-full my-auto py-8">
+      <div class="card-clean rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+        
+        <div class="flex items-center space-x-3 mb-5">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          </div>
           <div>
-            <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-              <i data-lucide="factory" class="w-5 h-5 text-indigo-400"></i> Pabrik Komposisi Fungsi Berantai
-            </h3>
-            <p class="text-xs text-slate-400 mt-1">Mengapa $(f \circ g)(x)$ dihitung dari $g(x)$ dulu? Buktikan sendiri lewat simulasi pipa di bawah!</p>
+            <h1 class="text-xl font-bold text-slate-900">Ujian & Latihan Soal Mandiri</h1>
+            <p class="text-xs text-slate-500">Materi: Fungsi Komposisi & Invers (10 Soal Pilihan Ganda)</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs leading-relaxed mb-6 space-y-1">
+          <div class="font-bold flex items-center gap-1.5">
+            <i data-lucide="info" class="w-4 h-4 text-amber-600"></i> Petunjuk Ujian & Pembahasan:
+          </div>
+          <p>• Kerjakan 10 soal di bawah secara mandiri dan teliti.</p>
+          <p>• Jawaban dapat diganti atau ditandai <strong>Ragu-ragu</strong> kapan saja sebelum tombol kumpulkan ditekan.</p>
+          <p>• <strong>Skor dan hasil evaluasi baru akan dihitung di akhir</strong> setelah kamu menekan tombol <em>Kumpulkan Jawaban</em>.</p>
+          <p>• Setelah dikumpulkan, kita akan <strong>bahas tuntas bersama Pak Guru di depan kelas</strong>!</p>
+        </div>
+
+        <form onsubmit="handleStartExam(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap Murid <span class="text-rose-500">*</span></label>
+            <input type="text" id="input-student-name" required placeholder="Contoh: Muhammad Farhan" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
           </div>
 
-          <!-- Mode Toggle -->
-          <div class="flex items-center gap-2 bg-space-900 p-1.5 rounded-xl border border-slate-700/80">
-            <button onclick="setMachineOrder('fog')" id="order-fog-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition">
-              Mode: (f ∘ g)(x)
-            </button>
-            <button onclick="setMachineOrder('gof')" id="order-gof-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">
-              Mode: (g ∘ f)(x)
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Kelas & Asal Sekolah <span class="text-rose-500">*</span></label>
+            <input type="text" id="input-student-class" required placeholder="Contoh: XI MIPA 3 - SMAN 8 Jakarta" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition">
+              <i data-lucide="play" class="w-4 h-4 fill-current"></i> Mulai Mengerjakan Ujian (10 Soal)
             </button>
           </div>
-        </div>
-
-        <!-- Formula Definition Preview -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          <div class="p-3.5 rounded-2xl bg-indigo-950/30 border border-indigo-500/30">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400 block mb-1">Fungsi Pertama: f(x)</span>
-            <div class="text-sm font-mono text-white flex items-center justify-between">
-              <span id="tex-f-formula">$$f(x) = 2x + 3$$</span>
-              <span class="text-[10px] text-slate-400">Mesin Pengganda & Penambah</span>
-            </div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/30">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400 block mb-1">Fungsi Kedua: g(x)</span>
-            <div class="text-sm font-mono text-white flex items-center justify-between">
-              <span id="tex-g-formula">$$g(x) = x^2 - 1$$</span>
-              <span class="text-[10px] text-slate-400">Mesin Kuadrat & Pengurang</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Input Selector Controls -->
-        <div class="bg-space-900/90 p-4 rounded-2xl border border-slate-800 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3 w-full sm:w-auto">
-            <label class="text-xs font-bold text-slate-300">Pilih Nilai Input $x$:</label>
-            <div class="flex items-center gap-1.5">
-              <button onclick="setMachineInput(1)" class="in-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">1</button>
-              <button onclick="setMachineInput(2)" class="in-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">2</button>
-              <button onclick="setMachineInput(3)" class="in-btn active px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white">3</button>
-              <button onclick="setMachineInput(4)" class="in-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">4</button>
-              <button onclick="setMachineInput(5)" class="in-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">5</button>
-            </div>
-          </div>
-
-          <button onclick="runMachineSimulation()" id="run-sim-btn" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:brightness-110 active:scale-95 transition">
-            <i data-lucide="play" class="w-4 h-4 fill-current"></i> PROSES MESIN PABRIK
-          </button>
-        </div>
-
-        <!-- Visual Chained Machine Canvas / Graphic -->
-        <div class="relative bg-space-900 rounded-2xl p-6 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
-          
-          <!-- Box Input Asal -->
-          <div class="flex flex-col items-center z-10">
-            <span class="text-[11px] font-bold text-slate-400 mb-2 uppercase">Input Awal</span>
-            <div id="vis-input-ball" class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-indigo-500/30 transition-transform duration-300">
-              3
-            </div>
-            <span class="text-[11px] font-mono text-indigo-400 mt-2">$x = 3$</span>
-          </div>
-
-          <!-- Conveyor Belt 1 -->
-          <div class="flex-1 w-full md:w-auto flex flex-col items-center">
-            <div class="w-full h-3 rounded-full bg-slate-800 border border-slate-700 relative overflow-hidden" id="conveyor-1">
-              <div class="absolute inset-0 conveyor-active opacity-40"></div>
-            </div>
-            <span class="text-[10px] text-slate-500 font-medium mt-1">Masuk ke Mesin Pertama</span>
-          </div>
-
-          <!-- Mesin Tahap 1 -->
-          <div id="vis-machine-1" class="flex flex-col items-center p-4 rounded-2xl bg-space-850 border border-indigo-500/40 z-10 w-44 transition-all">
-            <div class="flex items-center gap-1.5 text-xs font-extrabold text-indigo-400 mb-1">
-              <i data-lucide="cog" class="w-4 h-4 animate-spin"></i> <span id="m1-title">MESIN g(x)</span>
-            </div>
-            <div class="text-[11px] font-mono text-slate-400 mb-2" id="m1-formula">$$g(x) = x^2 - 1$$</div>
-            <div id="m1-calc-box" class="w-full py-2 px-3 rounded-xl bg-space-900 border border-slate-700 text-center font-mono text-xs font-bold text-indigo-300">
-              $g(3) = 8$
-            </div>
-            <span class="text-[10px] text-emerald-400 font-semibold mt-1.5">Output Tahap 1: 8</span>
-          </div>
-
-          <!-- Conveyor Belt 2 -->
-          <div class="flex-1 w-full md:w-auto flex flex-col items-center">
-            <div class="w-full h-3 rounded-full bg-slate-800 border border-slate-700 relative overflow-hidden" id="conveyor-2">
-              <div class="absolute inset-0 conveyor-active opacity-40"></div>
-            </div>
-            <span class="text-[10px] text-slate-500 font-medium mt-1">Hasil Masuk ke Mesin Kedua</span>
-          </div>
-
-          <!-- Mesin Tahap 2 -->
-          <div id="vis-machine-2" class="flex flex-col items-center p-4 rounded-2xl bg-space-850 border border-purple-500/40 z-10 w-44 transition-all">
-            <div class="flex items-center gap-1.5 text-xs font-extrabold text-purple-400 mb-1">
-              <i data-lucide="cog" class="w-4 h-4"></i> <span id="m2-title">MESIN f(x)</span>
-            </div>
-            <div class="text-[11px] font-mono text-slate-400 mb-2" id="m2-formula">$$f(x) = 2x + 3$$</div>
-            <div id="m2-calc-box" class="w-full py-2 px-3 rounded-xl bg-space-900 border border-slate-700 text-center font-mono text-xs font-bold text-purple-300">
-              $f(8) = 2(8)+3$
-            </div>
-            <span class="text-[10px] text-emerald-400 font-semibold mt-1.5">Output Akhir: 19</span>
-          </div>
-
-          <!-- Conveyor Belt 3 -->
-          <div class="flex-1 w-full md:w-auto flex flex-col items-center">
-            <div class="w-full h-3 rounded-full bg-slate-800 border border-slate-700 relative overflow-hidden" id="conveyor-3">
-              <div class="absolute inset-0 conveyor-active opacity-40"></div>
-            </div>
-            <span class="text-[10px] text-slate-500 font-medium mt-1">Selesai Diproses</span>
-          </div>
-
-          <!-- Box Output Akhir -->
-          <div class="flex flex-col items-center z-10">
-            <span class="text-[11px] font-bold text-emerald-400 mb-2 uppercase">Hasil Akhir</span>
-            <div id="vis-output-ball" class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-emerald-500/30 transition-transform duration-300">
-              19
-            </div>
-            <span class="text-[11px] font-mono text-emerald-400 mt-2 font-bold" id="vis-output-label">$$= 19$$</span>
-          </div>
-
-        </div>
-
-        <!-- Takeaway Concept Card -->
-        <div class="mt-6 p-4 rounded-2xl bg-indigo-950/20 border border-indigo-500/20 flex items-start gap-3">
-          <div class="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 shrink-0">
-            <i data-lucide="lightbulb" class="w-4 h-4"></i>
-          </div>
-          <div class="text-xs text-slate-300 leading-relaxed">
-            <strong class="text-white block mb-0.5">Kesimpulan Super Penting:</strong>
-            Notasi <span class="text-indigo-400 font-mono font-bold">$(f \circ g)(x) = f(g(x))$</span> artinya nilai <span class="font-mono text-white">$x$</span> disuapkan ke dalam mesin terdekat yaitu <span class="font-mono text-purple-300">$g$</span> terlebih dahulu. Setelah mesin $g$ mengeluarkan hasil, barulah hasil tersebut dilahap oleh mesin <span class="font-mono text-indigo-300">$f$</span>!
-          </div>
-        </div>
-
-      </div>
-
-      <!-- LAB 2: SCANNER DOMAIN TERLARANG -->
-      <div id="lab-domain-panel" class="lab-panel hidden glass-card rounded-3xl p-6 sm:p-8 border border-purple-500/30 max-w-5xl mx-auto">
-        <div class="mb-6 pb-4 border-b border-slate-800">
-          <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i> Detektor Lubang Hitam Matematika (Domain Safety Scanner)
-          </h3>
-          <p class="text-xs text-slate-400 mt-1">Mengapa ada syarat domain? Karena di matematika dilarang membagi angka dengan nol ($0$) atau menarik akar dari bilangan negatif!</p>
-        </div>
-
-        <!-- Preset Fungsi Pecahan / Akar -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-          <button onclick="selectDomainPreset('frac')" id="dom-btn-frac" class="dom-preset active p-3 rounded-2xl bg-indigo-600 text-white text-left border border-indigo-400/40 transition">
-            <div class="text-[10px] font-extrabold uppercase tracking-wider mb-1 opacity-80">Tipe 1: Pecahan Biasa</div>
-            <div class="font-mono text-sm font-bold">$$f(x) = rac{10}{x - 3}$$</div>
-            <div class="text-[10px] opacity-80 mt-1">Syarat: Penyebut $
-e 0$</div>
-          </button>
-          
-          <button onclick="selectDomainPreset('root')" id="dom-btn-root" class="dom-preset p-3 rounded-2xl bg-space-850 text-slate-300 text-left border border-slate-700/80 hover:border-purple-500/40 transition">
-            <div class="text-[10px] font-extrabold uppercase tracking-wider mb-1 text-purple-400">Tipe 2: Bentuk Akar</div>
-            <div class="font-mono text-sm font-bold">$$g(x) = \sqrt{2x - 8}$$</div>
-            <div class="text-[10px] text-slate-400 mt-1">Syarat: Di dalam akar $\ge 0$</div>
-          </button>
-
-          <button onclick="selectDomainPreset('combo')" id="dom-btn-combo" class="dom-preset p-3 rounded-2xl bg-space-850 text-slate-300 text-left border border-slate-700/80 hover:border-purple-500/40 transition">
-            <div class="text-[10px] font-extrabold uppercase tracking-wider mb-1 text-pink-400">Tipe 3: Pecahan Berakar</div>
-            <div class="font-mono text-sm font-bold">$$h(x) = rac{6}{\sqrt{x + 2}}$$</div>
-            <div class="text-[10px] text-slate-400 mt-1">Syarat: Murni $> 0$</div>
-          </button>
-        </div>
-
-        <!-- Interactive Slider Input -->
-        <div class="bg-space-900 p-5 rounded-2xl border border-slate-800 mb-6">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-slate-300">Geser Nilai Uji $x$:</span>
-            <span id="slider-x-val" class="font-mono text-lg font-black text-indigo-400 px-3 py-0.5 rounded-lg bg-indigo-950/60 border border-indigo-500/30">$x = 3$</span>
-          </div>
-          <input type="range" id="domain-x-slider" min="-5" max="10" step="1" value="3" oninput="onDomainSliderChange(this.value)" class="w-full accent-indigo-500 cursor-pointer h-2 bg-slate-800 rounded-lg">
-          <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
-            <span>-5</span>
-            <span>0</span>
-            <span>3</span>
-            <span>6</span>
-            <span>10</span>
-          </div>
-        </div>
-
-        <!-- Scanner Result Gauge -->
-        <div id="domain-scanner-result" class="p-6 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-4 bg-rose-950/30 border-rose-500/50">
-          <div class="flex items-center gap-4">
-            <div id="domain-status-icon" class="w-14 h-14 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-2xl font-black shrink-0 border border-rose-500/40">
-              <i data-lucide="alert-octagon" class="w-7 h-7"></i>
-            </div>
-            <div>
-              <div id="domain-status-title" class="text-base font-extrabold text-rose-400">⚠️ STATUS: BAHAYA / DILARANG!</div>
-              <p id="domain-status-desc" class="text-xs text-slate-300 mt-0.5">Saat $x = 3$, penyebut $(3 - 3) = 0$. Pembagian dengan nol menghasilkan nilai TAK TERDEFINISI!</p>
-            </div>
-          </div>
-          <div class="text-right shrink-0">
-            <span class="text-[10px] font-bold uppercase text-slate-400 block mb-0.5">Domain Alami (Daerah Asal):</span>
-            <span id="domain-math-latex" class="text-sm font-mono font-bold text-white px-3 py-1 rounded-xl bg-space-900 border border-slate-700 inline-block">$$D_f = \{x \mid x 
-e 3, x \in \mathbb{R}\}$$</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- LAB 3: MESIN REWIND INVERS -->
-      <div id="lab-invers-panel" class="lab-panel hidden glass-card rounded-3xl p-6 sm:p-8 border border-teal-500/30 max-w-5xl mx-auto">
-        <div class="mb-6 pb-4 border-b border-slate-800">
-          <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <i data-lucide="rotate-ccw" class="w-5 h-5 text-teal-400"></i> Mesin Putar Balik & Rumus Kilat Invers $f^{-1}(x)$
-          </h3>
-          <p class="text-xs text-slate-400 mt-1">Fungsi invers bertugas mengembalikan output $y$ kembali ke input asal $x$. Jika $f(2) = 7$, maka $f^{-1}(7) = 2$!</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          
-          <!-- Box Rumus Kilat Pecahan Linear -->
-          <div class="p-5 rounded-2xl bg-space-900 border border-teal-500/30">
-            <span class="px-2.5 py-1 rounded-md bg-teal-500/20 text-teal-300 text-[10px] font-extrabold uppercase tracking-wider border border-teal-500/30 inline-block mb-3">
-              ⚡ TRIK KILAT KHUSUS UJIAN
-            </span>
-            <div class="space-y-3">
-              <div>
-                <span class="text-xs text-slate-400 block mb-1">Bentuk Pecahan Linear:</span>
-                <div class="text-sm font-mono text-white">$$f(x) = rac{ax + b}{cx + d}$$</div>
-              </div>
-              <div class="p-3 rounded-xl bg-teal-950/30 border border-teal-500/40 text-xs leading-relaxed text-teal-200">
-                <strong>Cara Cepat:</strong> Tukar posisi <span class="font-mono text-white font-bold">$a$</span> dan <span class="font-mono text-white font-bold">$d$</span>, lalu kalikan keduanya dengan minus ($-1$)!
-              </div>
-              <div>
-                <span class="text-xs text-slate-400 block mb-1">Hasil Invers Langsung:</span>
-                <div class="text-sm font-mono text-emerald-400 font-bold">$$f^{-1}(x) = rac{-dx + b}{cx - a}, x 
-e rac{a}{c}$$</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Uji Coba Angka Live -->
-          <div class="p-5 rounded-2xl bg-space-900 border border-slate-800 flex flex-col justify-between">
-            <div>
-              <span class="text-xs font-bold text-slate-300 block mb-2">Uji Coba Fungsi Linear:</span>
-              <div class="text-sm font-mono text-indigo-400 mb-4">$$f(x) = 3x - 1 \iff f^{-1}(x) = rac{x + 1}{3}$$</div>
-
-              <div class="space-y-3">
-                <div class="flex items-center justify-between p-3 rounded-xl bg-space-850 border border-slate-700">
-                  <span class="text-xs text-slate-300">1. Alur Maju: $x = 5 	o$</span>
-                  <span class="font-mono text-xs font-bold text-indigo-300">$f(5) = 3(5) - 1 = \mathbf{14}$</span>
-                </div>
-                <div class="flex items-center justify-between p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
-                  <span class="text-xs text-emerald-300">2. Alur Mundur: $y = 14 	o$</span>
-                  <span class="font-mono text-xs font-bold text-emerald-300">$f^{-1}(14) = rac{14+1}{3} = \mathbf{5}$</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="text-[11px] text-slate-400 italic mt-4 pt-3 border-t border-slate-800">
-              ✅ Terbukti: Angka 5 kembali utuh ke angka 5! Inilah sifat sejati fungsi invers.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 5. RINGKASAN MODUL TEORI (KATEK LATEX)                    -->
-  <!-- ======================================================== -->
-  <section id="teori" class="py-14 px-4 sm:px-8 max-w-5xl mx-auto w-full">
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold mb-3">
-        <i data-lucide="book-open" class="w-3.5 h-3.5"></i> MATERI RESMI KELAS 11 SMA
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-black text-white">Ringkasan Konsep Inti Fungsi</h2>
-      <p class="text-xs sm:text-sm text-slate-400 mt-1">Disusun ringkas dan padat untuk persiapan ulangan harian, PTS, dan UTBK-SNBT.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      
-      <!-- Card 1: Sifat Komposisi -->
-      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-3">
-        <div class="flex items-center gap-2">
-          <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">1</span>
-          <h3 class="text-base font-bold text-white">Sifat-Sifat Komposisi Fungsi</h3>
-        </div>
-        <p class="text-xs text-slate-400">Komposisi fungsi memiliki sifat aljabar unik yang sering diujikan:</p>
-        <ul class="text-xs text-slate-300 space-y-2 pl-2">
-          <li class="flex items-start gap-2">
-            <span class="text-rose-400 font-bold">•</span>
-            <span><strong>Tidak Komutatif:</strong> $(f \circ g)(x) 
-e (g \circ f)(x)$ (Urutan pengerjaan sangat mempengaruhi hasil!).</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-emerald-400 font-bold">•</span>
-            <span><strong>Bersifat Asosiatif:</strong> $(f \circ (g \circ h))(x) = ((f \circ g) \circ h)(x)$.</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-amber-400 font-bold">•</span>
-            <span><strong>Elemen Identitas $I(x) = x$:</strong> $(f \circ I)(x) = (I \circ f)(x) = f(x)$.</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Card 2: Invers Komposisi -->
-      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-3">
-        <div class="flex items-center gap-2">
-          <span class="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">2</span>
-          <h3 class="text-base font-bold text-white">Invers dari Komposisi Fungsi</h3>
-        </div>
-        <p class="text-xs text-slate-400">Rumus "Tukar dan Balik" saat invers bertemu komposisi:</p>
-        <div class="p-3 rounded-xl bg-space-900 border border-slate-700/80 font-mono text-xs text-purple-300 text-center">
-          $$(f \circ g)^{-1}(x) = (g^{-1} \circ f^{-1})(x)$$
-          $$(g \circ f)^{-1}(x) = (f^{-1} \circ g^{-1})(x)$$
-        </div>
-        <p class="text-[11px] text-slate-400 italic">
-          💡 <strong>Tips Mengingat:</strong> Seperti melepas kaus kaki dan sepatu: yang dipakai terakhir adalah yang pertama kali harus dilepas!
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 6. ARENA LATIHAN SOAL GAMIFIKASI                          -->
-  <!-- ======================================================== -->
-  <section id="quiz-arena" class="py-14 px-4 sm:px-8 border-t border-indigo-950/60 bg-gradient-to-b from-space-850/60 to-space-900 relative">
-    <div class="max-w-4xl mx-auto">
-      
-      <div class="text-center mb-8">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3">
-          <i data-lucide="trophy" class="w-3.5 h-3.5"></i> ARENA LATIHAN SOAL INTERAKTIF
-        </div>
-        <h2 class="text-2xl sm:text-4xl font-black text-white">Uji Kemampuanmu Sekarang!</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Dapatkan bintang ⭐, lihat pembahasan langkah demi langkah, dan kirimkan rapormu ke Guru.</p>
-      </div>
-
-      <!-- Identity Form Card (Before Starting) -->
-      <div id="quiz-identity-card" class="glass-card rounded-3xl p-6 sm:p-8 border border-indigo-500/30 max-w-xl mx-auto shadow-2xl">
-        <div class="text-center mb-6">
-          <div class="w-14 h-14 rounded-2xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-3 border border-indigo-500/30">
-            <i data-lucide="user-check" class="w-7 h-7"></i>
-          </div>
-          <h3 class="text-lg font-bold text-white">Masukkan Identitas Murid</h3>
-          <p class="text-xs text-slate-400 mt-1">Nama ini akan dicantumkan pada Rapor Kelulusan Latihan Soal.</p>
-        </div>
-
-        <form onsubmit="startQuiz(event)" class="space-y-4">
-          <div>
-            <label class="text-xs font-bold text-slate-300 block mb-1.5">Nama Lengkap Murid *</label>
-            <input type="text" id="student-name-input" required placeholder="Contoh: Budi Pratama" class="w-full px-4 py-2.5 rounded-xl bg-space-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500">
-          </div>
-          <div>
-            <label class="text-xs font-bold text-slate-300 block mb-1.5">Kelas & Asal Sekolah (Opsional)</label>
-            <input type="text" id="student-class-input" placeholder="Contoh: XI MIPA 2 - SMAN 1" class="w-full px-4 py-2.5 rounded-xl bg-space-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500">
-          </div>
-          <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25 hover:brightness-110 active:scale-98 transition">
-            <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i> Masuk ke Arena Soal (5 Soal)
-          </button>
         </form>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: ACTIVE EXAM INTERFACE (REAL EXAM / TRYOUT LAYOUT) -->
+    <div id="view-exam-active" class="hidden flex-1 flex flex-col">
+      
+      <!-- Exam Control Bar -->
+      <div class="card-clean rounded-2xl p-4 mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">
+            <i data-lucide="user" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-slate-900" id="exam-header-name">Murid: -</div>
+            <div class="text-[11px] text-slate-500" id="exam-header-class">Kelas: -</div>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <!-- Live Timer -->
+          <div class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 text-xs font-mono font-bold">
+            <i data-lucide="clock" class="w-4 h-4 text-indigo-600"></i>
+            <span id="exam-timer">00:00</span>
+          </div>
+
+          <!-- Answered Counter -->
+          <div class="text-xs text-slate-600 font-medium hidden sm:block">
+            Terjawab: <span id="answered-count-badge" class="font-bold text-indigo-600">0</span> / 10 Soal
+          </div>
+
+          <!-- Finish Button -->
+          <button onclick="openSubmitModal()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="check-check" class="w-4 h-4"></i>
+            <span>Kumpulkan Jawaban</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Active Quiz Container (Hidden initially) -->
-      <div id="quiz-active-container" class="hidden">
+      <!-- Main Question & Sidebar Grid Container -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
         
-        <!-- Header Info Bar -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-space-850 p-4 rounded-2xl border border-slate-800 mb-6">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-sm">
-              <i data-lucide="user" class="w-4 h-4"></i>
-            </div>
-            <div>
-              <div class="text-xs font-bold text-white" id="display-student-name">Murid: -</div>
-              <div class="text-[10px] text-slate-400" id="display-student-class">Kelas: -</div>
-            </div>
-          </div>
-
-          <!-- Score & Progress -->
-          <div class="flex items-center gap-4">
-            <div class="text-right">
-              <span class="text-[10px] text-slate-400 uppercase font-bold block">Skor Sementara</span>
-              <span class="text-sm font-black text-amber-400 font-mono" id="current-score-text">0 / 100</span>
-            </div>
-            <div class="text-right">
-              <span class="text-[10px] text-slate-400 uppercase font-bold block">Progress</span>
-              <span class="text-sm font-black text-indigo-400 font-mono" id="current-question-num">Soal 1 dari 5</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Progress Bar Line -->
-        <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden mb-6">
-          <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 w-[20%] transition-all duration-300"></div>
-        </div>
-
-        <!-- The Question Card -->
-        <div id="quiz-card" class="glass-card rounded-3xl p-6 sm:p-8 border border-indigo-500/30 shadow-2xl">
+        <!-- Left Column: The Question Pane (8 cols) -->
+        <div class="lg:col-span-8 flex flex-col space-y-4">
           
-          <div class="flex items-center justify-between mb-4">
-            <span id="q-tag" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 font-bold text-xs border border-indigo-500/30">
-              SOAL #1 • DOMAIN FUNGSI
-            </span>
-            <button onclick="toggleHint()" id="hint-toggle-btn" class="px-3 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center gap-1.5 transition">
-              <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> Butuh Petunjuk?
-            </button>
+          <div class="card-clean rounded-2xl p-6 sm:p-8 flex-1">
+            
+            <!-- Question Top Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+              <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-extrabold text-xs" id="q-number-pill">
+                  SOAL NO. 1
+                </span>
+                <span class="text-xs text-slate-500 font-medium" id="q-category-pill">
+                  Domain & Kodomain
+                </span>
+              </div>
+
+              <!-- Doubt Tag Button -->
+              <button onclick="toggleDoubtCurrentQuestion()" id="doubt-btn" class="px-3 py-1 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold flex items-center gap-1.5 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 transition">
+                <i data-lucide="flag" class="w-3.5 h-3.5"></i>
+                <span id="doubt-btn-label">Tandai Ragu-ragu</span>
+              </button>
+            </div>
+
+            <!-- Question Prompt Body -->
+            <div id="exam-q-prompt" class="text-slate-900 text-base sm:text-lg font-medium leading-relaxed mb-6">
+              <!-- Rendered via JavaScript with KaTeX -->
+            </div>
+
+            <!-- Multiple Choice Option Cards -->
+            <div id="exam-options-list" class="space-y-3 mb-6">
+              <!-- Rendered via JavaScript -->
+            </div>
+
+            <!-- Question Nav Controls (Prev / Next) -->
+            <div class="flex items-center justify-between pt-5 border-t border-slate-100">
+              <button onclick="navPrevQuestion()" id="btn-prev-q" class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold flex items-center gap-1.5 transition">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i> Sebelumnya
+              </button>
+
+              <button onclick="navNextQuestion()" id="btn-next-q" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+                <span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+
           </div>
 
-          <!-- Hint Box (Toggled) -->
-          <div id="q-hint-box" class="hidden mb-5 p-3.5 rounded-2xl bg-amber-950/20 border border-amber-500/30 text-xs text-amber-200 leading-relaxed">
-            💡 <strong>Petunjuk Langkah:</strong> Perhatikan letak bentuk akar! Karena akar berada di <em>penyebut pecahan</em>, nilai di dalam akar tidak hanya harus $\ge 0$, tetapi juga tidak boleh sama dengan $0$. Jadi syaratnya adalah murni $> 0$!
-          </div>
+        </div>
 
-          <!-- Question Prompt Text -->
-          <div id="q-text" class="text-base sm:text-lg font-bold text-white mb-6 leading-relaxed">
-            Diberikan fungsi pecahan berakar $f(x) = rac{5}{\sqrt{2x - 6}}$. Daerah asal alami ($D_f$) dari fungsi tersebut adalah...
-          </div>
+        <!-- Right Column: Number Grid Navigator (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col space-y-4">
+          
+          <div class="card-clean rounded-2xl p-5">
+            <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center justify-between">
+              <span>Lembar Nomor Soal</span>
+              <span class="text-[11px] font-semibold text-slate-500">10 Butir</span>
+            </h3>
 
-          <!-- Multiple Choice Options -->
-          <div id="q-options-container" class="space-y-3 mb-6">
-            <!-- Options injected via JavaScript -->
-          </div>
+            <!-- 10 Number Buttons Grid -->
+            <div class="grid grid-cols-5 gap-2.5 mb-5" id="number-grid-container">
+              <!-- 10 buttons rendered via JS -->
+            </div>
 
-          <!-- Explanation Box (Appears after answer submitted) -->
-          <div id="q-explanation-box" class="hidden mb-6 p-5 rounded-2xl border transition-all duration-300">
-            <!-- Injected explanation -->
-          </div>
+            <!-- Legend -->
+            <div class="pt-4 border-t border-slate-100 space-y-2 text-[11px] text-slate-600">
+              <div class="flex items-center space-x-2">
+                <span class="w-3.5 h-3.5 rounded bg-indigo-600 shrink-0"></span>
+                <span>Sudah Dijawab</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-3.5 h-3.5 rounded bg-amber-500 shrink-0"></span>
+                <span>Ragu-ragu</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-3.5 h-3.5 rounded bg-slate-200 border border-slate-300 shrink-0"></span>
+                <span>Belum Dijawab</span>
+              </div>
+            </div>
 
-          <!-- Action Buttons -->
-          <div class="flex items-center justify-between pt-4 border-t border-slate-800">
-            <button onclick="resetCurrentQuiz()" class="px-4 py-2 rounded-xl bg-space-850 hover:bg-slate-800 text-slate-400 hover:text-white text-xs font-semibold transition">
-              Batal & Keluar
-            </button>
-
-            <button onclick="submitAnswer()" id="submit-answer-btn" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition">
-              <span>Kunci Jawaban</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            <!-- Quick Finish CTA -->
+            <button onclick="openSubmitModal()" class="w-full mt-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+              <i data-lucide="send" class="w-4 h-4"></i> Selesai & Kumpulkan Ujian
             </button>
           </div>
 
@@ -834,682 +354,1064 @@ e (g \circ f)(x)$ (Urutan pengerjaan sangat mempengaruhi hasil!).</span>
 
       </div>
 
-      <!-- Quiz Final Report Result Card (Appears after all 5 questions) -->
-      <div id="quiz-result-card" class="hidden glass-card rounded-3xl p-6 sm:p-10 border-2 border-emerald-500/50 max-w-xl mx-auto text-center shadow-2xl">
+    </div>
+
+    <!-- VIEW 3: POST-SUBMISSION RESULTS & SCORE OVERVIEW -->
+    <div id="view-exam-result" class="hidden max-w-3xl mx-auto w-full py-6">
+      
+      <div class="card-clean rounded-2xl p-6 sm:p-8 text-center border-2 border-emerald-500/40 shadow-sm mb-6">
         
-        <div class="w-20 h-20 rounded-3xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/40">
-          <i data-lucide="award" class="w-10 h-10"></i>
+        <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3 border border-emerald-200">
+          <i data-lucide="check-circle" class="w-8 h-8"></i>
         </div>
 
-        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider inline-block mb-2">
-          LATIHAN SELESAI!
+        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-block mb-2">
+          UJIAN BERHASIL DIKUMPULKAN!
         </span>
 
-        <h3 class="text-2xl sm:text-3xl font-black text-white mb-1" id="report-student-name">Budi Pratama</h3>
-        <p class="text-xs text-slate-400 mb-6" id="report-student-class">Kelas: XI MIPA 2 • The Arich Study</p>
+        <h2 class="text-2xl font-black text-slate-900" id="result-student-name">Nama Murid</h2>
+        <p class="text-xs text-slate-500 mb-6" id="result-student-class">Kelas • The Arich Study</p>
 
-        <!-- Big Score Number -->
-        <div class="p-6 rounded-2xl bg-space-900 border border-slate-800 mb-6">
-          <span class="text-xs text-slate-400 uppercase font-bold block mb-1">Total Nilai Kamu</span>
-          <div class="text-5xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-mono" id="report-final-score">
-            100
-          </div>
-          <div class="text-amber-400 font-extrabold text-sm mt-2" id="report-stars">⭐⭐⭐ Predikat: Master of Functions!</div>
+        <!-- Big Score Card -->
+        <div class="max-w-xs mx-auto p-5 rounded-2xl bg-slate-50 border border-slate-200 mb-6">
+          <span class="text-xs text-slate-500 font-bold uppercase block mb-1">Nilai Akhir Ujian</span>
+          <div class="text-5xl font-black text-indigo-600 font-mono" id="result-score-val">80</div>
+          <div class="text-xs text-slate-600 font-semibold mt-2" id="result-score-detail">8 Benar dari 10 Soal (Skor: 80 / 100)</div>
         </div>
 
-        <!-- Buttons to Share with Teacher -->
-        <div class="space-y-3">
-          <button onclick="shareScoreToWhatsApp()" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-xl shadow-emerald-600/25 transition">
-            <i data-lucide="message-circle" class="w-4 h-4"></i> Kirim Rapor ke Guru via WhatsApp
+        <!-- Database Save Status Notification -->
+        <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-center gap-2 mb-6">
+          <i data-lucide="database" class="w-4 h-4 text-emerald-600"></i>
+          <span>Hasil jawabanmu <strong>sudah tersimpan otomatis di Database Guru</strong>!</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button onclick="showView('presentation')" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
+            <i data-lucide="presentation" class="w-4 h-4"></i> Masuk ke Mode Bahas di Depan Kelas
           </button>
           
-          <button onclick="restartQuiz()" class="w-full py-3 rounded-2xl bg-space-850 hover:bg-space-800 border border-slate-700 text-slate-300 text-xs font-bold transition">
-            🔄 Ulangi Latihan Soal dari Awal
+          <button onclick="shareResultToWhatsApp()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> Konfirmasi Nilai ke WhatsApp Guru
+          </button>
+
+          <button onclick="restartExam()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-xs transition">
+            Ulangi Ujian
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Quick Answer Summary Review Table -->
+      <div class="card-clean rounded-2xl p-5">
+        <h3 class="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <i data-lucide="list-checks" class="w-4 h-4 text-indigo-600"></i> Rekap Jawaban Kamu (10 Soal):
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5" id="result-summary-grid">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VIEW 4: PRESENTATION / DISCUSSION MODE (UNTUK DIBAHAS GURU DI DEPAN KELAS) -->
+    <div id="view-presentation" class="hidden flex-1 flex flex-col space-y-6">
+      
+      <div class="card-clean rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 bg-indigo-900 text-white border-indigo-900">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/40 text-indigo-200 border border-indigo-400/30 uppercase">
+            Mode Presentasi Proyektor Kelas
+          </span>
+          <h2 class="text-xl font-bold mt-1 text-white">Bahas Tuntas Soal Bersama Guru di Depan Kelas</h2>
+          <p class="text-xs text-indigo-200">Gunakan tombol nomor di bawah untuk membahas nomor mana saja yang murid rasa paling sulit.</p>
+        </div>
+
+        <!-- Quick Switch Question Selector -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="text-xs text-indigo-200 font-semibold mr-1">Lompat ke No:</span>
+          <div class="flex items-center gap-1" id="pres-jump-buttons">
+            <!-- 10 buttons -->
+          </div>
+        </div>
+      </div>
+
+      <!-- The Big Presentation Question Card -->
+      <div class="card-clean rounded-2xl p-6 sm:p-10 shadow-sm">
+        
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+          <div class="flex items-center space-x-3">
+            <span class="px-3 py-1 rounded-xl bg-indigo-600 text-white font-extrabold text-sm" id="pres-num-tag">
+              PEMBAHASAN NOMOR 1
+            </span>
+            <span class="text-sm font-bold text-slate-700" id="pres-cat-tag">
+              Kategori: Domain Alami Pecahan
+            </span>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <button onclick="prevPresQuestion()" class="p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <button onclick="nextPresQuestion()" class="p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question Prompt -->
+        <div class="text-lg sm:text-xl font-medium text-slate-900 mb-8 leading-relaxed" id="pres-prompt-body">
+          <!-- Text -->
+        </div>
+
+        <!-- Options with Verified Correct Answer Marked -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8" id="pres-options-grid">
+          <!-- Options -->
+        </div>
+
+        <!-- Detailed Teacher Explanation Box -->
+        <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-200" id="pres-explanation-box">
+          <div class="flex items-center gap-2 text-indigo-900 font-extrabold text-sm mb-3">
+            <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i> Pembahasan Langkah demi Langkah Guru:
+          </div>
+          <div class="text-xs sm:text-sm text-slate-800 leading-relaxed space-y-2" id="pres-explanation-content">
+            <!-- LaTeX Explanation -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- VIEW 5: THEORY MODULE (RANGKUMAN CEPAT MATERI) -->
+    <div id="view-theory" class="hidden flex-1 space-y-6">
+      <div class="card-clean rounded-2xl p-6 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Modul Materi & Trik Cepat Fungsi Kelas 11</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mb-6">Ringkasan konsep kunci yang paling sering keluar di ulangan harian dan UTBK-SNBT.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Box 1: Syarat Domain Alami -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+              <i data-lucide="shield-check" class="w-4 h-4"></i> 1. Dua Syarat Keramat Domain Alami ($D_f$)
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Di matematika, hanya ada 2 pantangan utama bilangan real:
+            </p>
+            <div class="p-3 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-800 space-y-1.5">
+              <div>• Pecahan $\frac{f(x)}{g(x)} \implies \text{Syarat: } g(x) \ne 0$</div>
+              <div>• Bentuk Akar $\sqrt{h(x)} \implies \text{Syarat: } h(x) \ge 0$</div>
+              <div>• Akar di Penyebut $\frac{1}{\sqrt{h(x)}} \implies \text{Syarat: } h(x) > 0$</div>
+            </div>
+          </div>
+
+          <!-- Box 2: Trik Cepat Invers Pecahan -->
+          <div class="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-200 space-y-3">
+            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+              <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i> 2. Trik Kilat Invers Pecahan Linear
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Jika $f(x) = \frac{ax + b}{cx + d}$, maka fungsi inversnya cukup menukar posisi $a$ dan $d$ lalu kalikan keduanya dengan minus:
+            </p>
+            <div class="p-3 rounded-xl bg-white border border-indigo-200 font-mono text-xs font-bold text-indigo-900 text-center">
+              $$f^{-1}(x) = \frac{-dx + b}{cx - a}, x \ne \frac{a}{c}$$
+            </div>
+          </div>
+
+          <!-- Box 3: Sifat Komposisi -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+              <i data-lucide="layers" class="w-4 h-4"></i> 3. Sifat Operasi Komposisi $(f \circ g)$
+            </div>
+            <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside">
+              <li><strong>Tidak Komutatif:</strong> $(f \circ g)(x) \ne (g \circ f)(x)$.</li>
+              <li><strong>Asosiatif:</strong> $(f \circ (g \circ h))(x) = ((f \circ g) \circ h)(x)$.</li>
+              <li><strong>Identitas:</strong> $(f \circ I)(x) = (I \circ f)(x) = f(x)$ dengan $I(x) = x$.</li>
+            </ul>
+          </div>
+
+          <!-- Box 4: Invers Komposisi -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i> 4. Invers dari Komposisi Fungsi
+            </div>
+            <p class="text-xs text-slate-600">Rumus tukar urutan saat kurung invers dibuka:</p>
+            <div class="p-3 rounded-xl bg-white border border-slate-200 font-mono text-xs text-indigo-900 text-center space-y-1">
+              <div>$$(f \circ g)^{-1}(x) = (g^{-1} \circ f^{-1})(x)$$</div>
+              <div>$$(g \circ f)^{-1}(x) = (f^{-1} \circ g^{-1})(x)$$</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 6: GRADEBOOK / DATABASE NILAI GURU (100% FREE REKAP) -->
+    <div id="view-gradebook" class="hidden flex-1 space-y-6">
+      
+      <div class="card-clean rounded-2xl p-6 sm:p-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200 mb-6">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-xl font-bold text-slate-900">Database Rekap Nilai Murid</h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">100% Free Database</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Seluruh hasil ujian murid tersimpan otomatis di browser ini dan dapat dihubungkan ke Google Sheets.</p>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <button onclick="openGoogleSheetModal()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+              <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Sambungkan ke Google Sheets
+            </button>
+            <button onclick="exportGradebookToCSV()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold flex items-center gap-1.5 transition">
+              <i data-lucide="download" class="w-4 h-4"></i> Export ke Excel (CSV)
+            </button>
+          </div>
+        </div>
+
+        <!-- Gradebook Table Container -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold uppercase text-[10px]">
+              <tr>
+                <th class="py-3 px-4">No</th>
+                <th class="py-3 px-4">Waktu Submit</th>
+                <th class="py-3 px-4">Nama Murid</th>
+                <th class="py-3 px-4">Kelas & Sekolah</th>
+                <th class="py-3 px-4 text-center">Benar / Total</th>
+                <th class="py-3 px-4 text-center">Nilai Akhir</th>
+                <th class="py-3 px-4 text-center">Status</th>
+                <th class="py-3 px-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="gradebook-tbody" class="divide-y divide-slate-100">
+              <!-- Submissions injected via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+          <span id="gradebook-total-entries">Total Murid Mengerjakan: 0</span>
+          <button onclick="clearGradebookConfirm()" class="text-rose-600 hover:underline text-[11px] font-semibold">
+            Reset Seluruh Data Murid
           </button>
         </div>
 
       </div>
 
     </div>
-  </section>
+
+  </main>
 
   <!-- ======================================================== -->
-  <!-- 7. FOOTER                                                -->
+  <!-- 3. CONFIRMATION SUBMIT EXAM MODAL                        -->
   <!-- ======================================================== -->
-  <footer class="mt-auto border-t border-slate-800/80 bg-space-900/90 px-4 sm:px-8 py-8 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center space-x-2">
-        <span class="font-extrabold text-white text-sm">The Arich <span class="text-indigo-400">Study</span></span>
-        <span>•</span>
-        <span>Platform Belajar Matematika Interaktif SMP — SMA</span>
+  <div id="submit-confirm-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="card-clean rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 animate-in fade-in duration-200">
+      <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-4 border border-indigo-100">
+        <i data-lucide="help-circle" class="w-6 h-6"></i>
       </div>
-      <div>
-        Dibuat khusus untuk mendukung pembelajaran interaktif murid • Powered by KaTeX & WebGL
+      <h3 class="text-lg font-bold text-slate-900 text-center mb-1">Kumpulkan Ujian Sekarang?</h3>
+      <p class="text-xs text-slate-500 text-center mb-4">Pastikan kamu sudah memeriksa seluruh jawaban sebelum mengumpulkan.</p>
+
+      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1.5 mb-6">
+        <div class="flex justify-between">
+          <span>Sudah Dijawab:</span>
+          <span class="font-bold text-indigo-600" id="modal-stat-answered">0 Soal</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Ragu-ragu:</span>
+          <span class="font-bold text-amber-600" id="modal-stat-doubt">0 Soal</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Belum Dijawab:</span>
+          <span class="font-bold text-rose-600" id="modal-stat-unanswered">10 Soal</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="closeSubmitModal()" class="py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition">
+          Periksa Lagi
+        </button>
+        <button onclick="executeFinalSubmit()" class="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition">
+          Ya, Kumpulkan!
+        </button>
       </div>
     </div>
-  </footer>
+  </div>
 
   <!-- ======================================================== -->
-  <!-- 8. APPLICATION LOGIC & INTERACTIVE SCRIPTS               -->
+  <!-- 4. GOOGLE SHEETS SETUP GUIDE MODAL (100% FREE DB)        -->
+  <!-- ======================================================== -->
+  <div id="gsheets-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="card-clean rounded-2xl max-w-xl w-full p-6 shadow-xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-600"></i> Cara Hubungkan ke Google Sheets (Gratis)
+        </h3>
+        <button onclick="closeGoogleSheetModal()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-600 space-y-3 leading-relaxed mb-5">
+        <p>Kamu tidak perlu sewa server berbayar! Cukup gunakan <strong>Google Sheets gratis</strong> sebagai database nilai murid dengan 3 langkah mudah:</p>
+        
+        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+          <li>Buat Google Spreadsheet baru di Google Drive kamu.</li>
+          <li>Klik menu <strong>Extensions (Ekstensi) > Apps Script</strong>, hapus kode lama, lalu paste kode di bawah:</li>
+        </ol>
+
+        <div class="p-3 rounded-xl bg-slate-900 text-indigo-300 font-mono text-[11px] overflow-x-auto whitespace-pre">
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    new Date(),
+    data.studentName,
+    data.studentClass,
+    data.score,
+    data.correctCount + "/10",
+    JSON.stringify(data.answers)
+  ]);
+  return ContentService.createTextOutput(JSON.stringify({"status":"success"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}</div>
+
+        <ol start="3" class="list-decimal list-inside space-y-2 text-slate-700">
+          <li>Klik <strong>Deploy > New deployment</strong>, pilih jenis <strong>Web App</strong>, atur <em>Who has access</em> ke <strong>Anyone</strong>, lalu salin URL Web App yang didapat.</li>
+        </ol>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Tempel Web App URL Google Script Kamu di Sini:</label>
+          <input type="url" id="gsheet-webhook-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500">
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-3 border-t border-slate-200">
+        <button onclick="saveGoogleSheetWebhook()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition">
+          Simpan Konfigurasi Webhook
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 5. 10 BANK SOAL STANDAR UTBK & KURIKULUM MERDEKA        -->
   <!-- ======================================================== -->
   <script>
-    // Audio Synthesizer State
-    let isAudioEnabled = true;
-    let audioCtx = null;
-
-    function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-    }
-
-    function toggleAudio() {
-      isAudioEnabled = !isAudioEnabled;
-      const label = document.getElementById('sfx-label');
-      const icon = document.getElementById('sfx-icon');
-      if (isAudioEnabled) {
-        label.textContent = 'SFX: ON';
-        icon.setAttribute('data-lucide', 'volume-2');
-        playSuccessTone();
-      } else {
-        label.textContent = 'SFX: OFF';
-        icon.setAttribute('data-lucide', 'volume-x');
-      }
-      lucide.createIcons();
-    }
-
-    function playSuccessTone() {
-      if (!isAudioEnabled) return;
-      initAudio();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-      osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.12); // E5
-      osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.25); // G5
-      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.35);
-    }
-
-    function playErrorTone() {
-      if (!isAudioEnabled) return;
-      initAudio();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(160, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.2);
-      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.25);
-    }
-
-    function playMachineGearTone() {
-      if (!isAudioEnabled) return;
-      initAudio();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(320, audioCtx.currentTime);
-      osc.frequency.linearRampToValueAtTime(540, audioCtx.currentTime + 0.15);
-      gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.2);
-    }
-
-    // ----------------------------------------------------
-    // CURRICULUM FILTER
-    // ----------------------------------------------------
-    function filterCurriculum(type) {
-      document.querySelectorAll('.curriculum-tab').forEach(b => {
-        b.classList.remove('bg-indigo-600', 'text-white', 'active');
-        b.classList.add('text-slate-400');
-      });
-      event.target.classList.add('bg-indigo-600', 'text-white', 'active');
-      event.target.classList.remove('text-slate-400');
-
-      const cards = document.querySelectorAll('.curr-card');
-      cards.forEach(card => {
-        if (type === 'all') {
-          card.style.display = 'block';
-        } else if (type === 'smp') {
-          card.style.display = card.classList.contains('smp') ? 'block' : 'none';
-        } else if (type === 'sma') {
-          card.style.display = card.classList.contains('sma') ? 'block' : 'none';
-        }
-      });
-    }
-
-    // ----------------------------------------------------
-    // LAB TABS SWITCHER
-    // ----------------------------------------------------
-    function switchLabTab(tab) {
-      document.querySelectorAll('.lab-tab-btn').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'active');
-        btn.classList.add('text-slate-400');
-      });
-      document.querySelectorAll('.lab-panel').forEach(p => p.classList.add('hidden'));
-
-      if (tab === 'machine') {
-        document.getElementById('tab-btn-machine').classList.add('bg-indigo-600', 'text-white', 'active');
-        document.getElementById('lab-machine-panel').classList.remove('hidden');
-      } else if (tab === 'domain') {
-        document.getElementById('tab-btn-domain').classList.add('bg-indigo-600', 'text-white', 'active');
-        document.getElementById('lab-domain-panel').classList.remove('hidden');
-      } else if (tab === 'invers') {
-        document.getElementById('tab-btn-invers').classList.add('bg-indigo-600', 'text-white', 'active');
-        document.getElementById('lab-invers-panel').classList.remove('hidden');
-      }
-      renderLatex();
-    }
-
-    // ----------------------------------------------------
-    // LAB 1: FUNCTION MACHINE SIMULATOR LOGIC
-    // ----------------------------------------------------
-    let machineOrder = 'fog'; // or 'gof'
-    let currentInputX = 3;
-
-    function setMachineOrder(order) {
-      machineOrder = order;
-      const fogBtn = document.getElementById('order-fog-btn');
-      const gofBtn = document.getElementById('order-gof-btn');
-      if (order === 'fog') {
-        fogBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition';
-        gofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition';
-        document.getElementById('m1-title').textContent = 'MESIN g(x)';
-        document.getElementById('m2-title').textContent = 'MESIN f(x)';
-        document.getElementById('m1-formula').innerHTML = '$$g(x) = x^2 - 1$$';
-        document.getElementById('m2-formula').innerHTML = '$$f(x) = 2x + 3$$';
-      } else {
-        gofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition';
-        fogBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition';
-        document.getElementById('m1-title').textContent = 'MESIN f(x)';
-        document.getElementById('m2-title').textContent = 'MESIN g(x)';
-        document.getElementById('m1-formula').innerHTML = '$$f(x) = 2x + 3$$';
-        document.getElementById('m2-formula').innerHTML = '$$g(x) = x^2 - 1$$';
-      }
-      updateMachineCalculations(currentInputX);
-      renderLatex();
-    }
-
-    function setMachineInput(val) {
-      currentInputX = val;
-      document.querySelectorAll('.in-btn').forEach(b => {
-        b.className = 'in-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700';
-      });
-      event.target.className = 'in-btn active px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white';
-      document.getElementById('vis-input-ball').textContent = val;
-      updateMachineCalculations(val);
-      runMachineSimulation();
-    }
-
-    function updateMachineCalculations(x) {
-      let intermediate, finalResult;
-      const m1Calc = document.getElementById('m1-calc-box');
-      const m2Calc = document.getElementById('m2-calc-box');
-      const outBall = document.getElementById('vis-output-ball');
-      const outLabel = document.getElementById('vis-output-label');
-
-      if (machineOrder === 'fog') {
-        // g(x) = x^2 - 1, then f(u) = 2u + 3
-        intermediate = (x * x) - 1;
-        finalResult = 2 * intermediate + 3;
-        m1Calc.innerHTML = `$$g(${x}) = ${x}^2 - 1 = ${intermediate}$$`;
-        m2Calc.innerHTML = `$$f(${intermediate}) = 2(${intermediate})+3 = ${finalResult}$$`;
-        outLabel.innerHTML = `$$= ${finalResult}$$`;
-      } else {
-        // f(x) = 2x + 3, then g(u) = u^2 - 1
-        intermediate = 2 * x + 3;
-        finalResult = (intermediate * intermediate) - 1;
-        m1Calc.innerHTML = `$$f(${x}) = 2(${x}) + 3 = ${intermediate}$$`;
-        m2Calc.innerHTML = `$$g(${intermediate}) = ${intermediate}^2 - 1 = ${finalResult}$$`;
-        outLabel.innerHTML = `$$= ${finalResult}$$`;
-      }
-      outBall.textContent = finalResult;
-      renderLatex();
-    }
-
-    function runMachineSimulation() {
-      playMachineGearTone();
-      const m1 = document.getElementById('vis-machine-1');
-      const m2 = document.getElementById('vis-machine-2');
-      const outBall = document.getElementById('vis-output-ball');
-
-      m1.classList.add('machine-processing');
-      setTimeout(() => {
-        playMachineGearTone();
-        m1.classList.remove('machine-processing');
-        m2.classList.add('machine-processing');
-        
-        setTimeout(() => {
-          m2.classList.remove('machine-processing');
-          playSuccessTone();
-          outBall.classList.add('scale-125');
-          setTimeout(() => outBall.classList.remove('scale-125'), 300);
-        }, 400);
-      }, 400);
-    }
-
-    // ----------------------------------------------------
-    // LAB 2: DOMAIN SAFETY SCANNER LOGIC
-    // ----------------------------------------------------
-    let currentDomainType = 'frac'; // 'frac', 'root', 'combo'
-
-    function selectDomainPreset(type) {
-      currentDomainType = type;
-      document.querySelectorAll('.dom-preset').forEach(b => {
-        b.className = 'dom-preset p-3 rounded-2xl bg-space-850 text-slate-300 text-left border border-slate-700/80 hover:border-purple-500/40 transition';
-      });
-      event.currentTarget.className = 'dom-preset active p-3 rounded-2xl bg-indigo-600 text-white text-left border border-indigo-400/40 transition';
-
-      const slider = document.getElementById('domain-x-slider');
-      if (type === 'frac') {
-        slider.value = 3;
-      } else if (type === 'root') {
-        slider.value = 4;
-      } else if (type === 'combo') {
-        slider.value = -2;
-      }
-      onDomainSliderChange(slider.value);
-    }
-
-    function onDomainSliderChange(val) {
-      val = parseInt(val, 10);
-      document.getElementById('slider-x-val').innerHTML = `$x = ${val}$`;
-      
-      const gauge = document.getElementById('domain-scanner-result');
-      const title = document.getElementById('domain-status-title');
-      const desc = document.getElementById('domain-status-desc');
-      const icon = document.getElementById('domain-status-icon');
-      const mathLatex = document.getElementById('domain-math-latex');
-
-      let isSafe = true;
-
-      if (currentDomainType === 'frac') {
-        // f(x) = 10 / (x - 3)
-        mathLatex.innerHTML = '$$D_f = \{x \mid x \ne 3, x \in \mathbb{R}\}$$';
-        if (val === 3) {
-          isSafe = false;
-          desc.innerHTML = `Saat $x = 3$, penyebut menjadi $(3 - 3) = 0$. Pembagian dengan nol menghasilkan nilai <strong>TAK TERDEFINISI</strong>!`;
-        } else {
-          const res = (10 / (val - 3)).toFixed(2);
-          desc.innerHTML = `Saat $x = ${val}$, penyebut aman $(${val} - 3 = ${val - 3} \ne 0)$. Nilai fungsi terdefinisi: $f(${val}) = ${res}$.`;
-        }
-      } else if (currentDomainType === 'root') {
-        // g(x) = sqrt(2x - 8), safe if 2x - 8 >= 0 => x >= 4
-        mathLatex.innerHTML = '$$D_g = \{x \mid x \ge 4, x \in \mathbb{R}\}$$';
-        if (val < 4) {
-          isSafe = false;
-          desc.innerHTML = `Saat $x = ${val}$, nilai dalam akar menjadi $2(${val}) - 8 = ${2*val - 8} < 0$. Akar dari bilangan negatif menghasilkan bilangan <strong>IMAGINER</strong> (tidak terdefinisi di bilangan real)!`;
-        } else {
-          const res = Math.sqrt(2 * val - 8).toFixed(2);
-          desc.innerHTML = `Saat $x = ${val}$, nilai dalam akar $2(${val}) - 8 = ${2*val - 8} \ge 0$. Nilai fungsi terdefinisi: $g(${val}) = ${res}$.`;
-        }
-      } else if (currentDomainType === 'combo') {
-        // h(x) = 6 / sqrt(x + 2), safe if x + 2 > 0 => x > -2
-        mathLatex.innerHTML = '$$D_h = \{x \mid x > -2, x \in \mathbb{R}\}$$';
-        if (val <= -2) {
-          isSafe = false;
-          if (val === -2) {
-            desc.innerHTML = `Saat $x = -2$, penyebut $\sqrt{-2 + 2} = \sqrt{0} = 0$. Penyebut bernilai nol sehingga <strong>TAK TERDEFINISI</strong>!`;
-          } else {
-            desc.innerHTML = `Saat $x = ${val}$, nilai dalam akar $(${val} + 2 = ${val + 2} < 0)$ bernilai negatif sehingga <strong>TIDAK REAL</strong>!`;
-          }
-        } else {
-          const res = (6 / Math.sqrt(val + 2)).toFixed(2);
-          desc.innerHTML = `Saat $x = ${val}$, penyebut aman $\sqrt{${val} + 2} = \sqrt{${val + 2}} > 0$. Nilai fungsi terdefinisi: $h(${val}) = ${res}$.`;
-        }
-      }
-
-      if (isSafe) {
-        gauge.className = 'p-6 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-4 bg-emerald-950/20 border-emerald-500/40';
-        icon.className = 'w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-black shrink-0 border border-emerald-500/40';
-        icon.innerHTML = '<i data-lucide="check-circle-2" class="w-7 h-7"></i>';
-        title.className = 'text-base font-extrabold text-emerald-400';
-        title.textContent = '✅ STATUS: AMAN & TERDEFINISI';
-      } else {
-        playErrorTone();
-        gauge.className = 'p-6 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-4 bg-rose-950/30 border-rose-500/50';
-        icon.className = 'w-14 h-14 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-2xl font-black shrink-0 border border-rose-500/40';
-        icon.innerHTML = '<i data-lucide="alert-octagon" class="w-7 h-7"></i>';
-        title.className = 'text-base font-extrabold text-rose-400';
-        title.textContent = '⚠️ STATUS: BAHAYA / DILARANG!';
-      }
-      lucide.createIcons();
-      renderLatex();
-    }
-
-    // ----------------------------------------------------
-    // GAMIFIED QUIZ ENGINE & CURRICULUM QUESTIONS
-    // ----------------------------------------------------
-    const QUIZ_QUESTIONS = [
+    const BANK_SOAL_10 = [
       {
-        tag: 'SOAL #1 • DOMAIN FUNGSI ALAMI',
-        text: 'Diberikan fungsi pecahan berakar $$f(x) = \frac{5}{\sqrt{2x - 6}}$$. Daerah asal alami ($D_f$) dari fungsi tersebut adalah...',
-        hint: 'Karena bentuk akar berada di penyebut pecahan, syaratnya tidak hanya harus lebih besar sama dengan nol, tetapi tidak boleh sama dengan nol! Jadi syarat murninya: $$2x - 6 > 0$$.',
+        id: 1,
+        category: "Konsep Relasi & Syarat Fungsi",
+        prompt: "Diberikan himpunan $A = \\{1, 2, 3\\}$ dan himpunan $B = \\{a, b, c, d\\}$. Di antara himpunan pasangan berurutan berikut, manakah yang merupakan <strong>fungsi (pemetaan)</strong> dari himpunan $A$ ke himpunan $B$?",
         options: [
-          '$$D_f = \{x \mid x \ge 3, x \in \mathbb{R}\}$$',
-          '$$D_f = \{x \mid x > 3, x \in \mathbb{R}\}$$',
-          '$$D_f = \{x \mid x \ne 3, x \in \mathbb{R}\}$$',
-          '$$D_f = \{x \mid x < 3, x \in \mathbb{R}\}$$'
+          "$$\\{(1, a), (2, b), (1, c), (3, d)\\}$$",
+          "$$\\{(1, b), (2, b), (3, b)\\}$$",
+          "$$\\{(1, a), (3, c)\\}$$",
+          "$$\\{(2, a), (3, b), (4, c)\\}$$"
         ],
         correct: 1, // B
+        hint: "Ingat definisi fungsi: Setiap anggota daerah asal (domain) $A$ harus dipasangkan tepat satu kali ke anggota $B$. Tidak boleh ada yang bercabang atau terlewat!",
         explanation: `
-          <strong class="text-white block mb-2">Pembahasan Langkah demi Langkah:</strong>
-          1. Fungsi berbentuk pecahan berakar $f(x) = \frac{c}{\sqrt{g(x)}}$.
-          2. Syarat agar terdefinisi di bilangan real:
-             - Bilangan dalam akar harus non-negatif: $2x - 6 \ge 0$.
-             - Penyebut tidak boleh nol: $\sqrt{2x - 6} \ne 0 \implies 2x - 6 \ne 0$.
-          3. Menggabungkan kedua syarat di atas menghasilkan syarat murni:
-             $$2x - 6 > 0 \implies 2x > 6 \implies x > 3$$
-          4. Jadi daerah asalnya adalah $$D_f = \{x \mid x > 3, x \in \mathbb{R}\}$$. (Pilihan B Benar!)
+          <strong>Pembahasan Konsep:</strong><br>
+          Syarat suatu relasi dari $A$ ke $B$ disebut fungsi adalah:
+          <ol class="list-decimal list-inside mt-1 space-y-1">
+            <li>Semua anggota himpunan $A$ (yaitu 1, 2, dan 3) harus muncul sebagai koordinat pertama.</li>
+            <li>Setiap anggota $A$ hanya boleh muncul tepat satu kali (tidak boleh selingkuh/bercabang).</li>
+          </ol>
+          Pada pilihan <strong>B</strong>: $\\{(1, b), (2, b), (3, b)\\}$, setiap anggota $\\{1, 2, 3\\}$ muncul tepat satu kali. Meskipun semuanya bermuara ke $b$, relasi ini tetap sah sebagai fungsi (disebut fungsi konstan).
         `
       },
       {
-        tag: 'SOAL #2 • EVALUASI NILAI KOMPOSISI',
-        text: 'Diketahui rumus fungsi $$f(x) = 3x - 5$$ dan $$g(x) = x^2 + 1$$. Nilai dari $$(f \circ g)(2)$$ adalah...',
-        hint: 'Sesuai definisi komposisi $$(f \circ g)(2) = f(g(2))$$. Hitung nilai $$g(2)$$ terlebih dahulu, lalu masukkan hasilnya ke rumus $$f(x)$$!',
+        id: 2,
+        category: "Domain Alami Pecahan Rasional",
+        prompt: "Daerah asal alami ($D_f$) dari fungsi rasional linear $$f(x) = \\frac{3x + 5}{2x - 8}$$ agar terdefinisi pada himpunan bilangan real adalah...",
         options: [
-          '$$8$$',
-          '$$10$$',
-          '$$12$$',
-          '$$15$$'
-        ],
-        correct: 1, // B
-        explanation: `
-          <strong class="text-white block mb-2">Pembahasan Langkah demi Langkah:</strong>
-          1. Cari output mesin $g$ terlebih dahulu untuk $x = 2$:
-             $$g(2) = (2)^2 + 1 = 4 + 1 = 5$$
-          2. Masukkan hasil $5$ ke dalam mesin $f$:
-             $$(f \circ g)(2) = f(g(2)) = f(5)$$
-             $$f(5) = 3(5) - 5 = 15 - 5 = 10$$
-          3. Jadi nilai dari $(f \circ g)(2)$ adalah <strong>10</strong>. (Pilihan B Benar!)
-        `
-      },
-      {
-        tag: 'SOAL #3 • ALJABAR KOMPOSISI FUNGSI',
-        text: 'Diketahui fungsi $$f(x) = 2x + 1$$ dan $$g(x) = \frac{x - 3}{x + 2}, x \ne -2$$. Rumus aljabar untuk $$(g \circ f)(x)$$ adalah...',
-        hint: 'Substitusikan seluruh ekspresi $$f(x) = (2x + 1)$$ ke setiap variabel $$x$$ yang ada pada rumus $$g(x)$$!',
-        options: [
-          '$$(g \circ f)(x) = \frac{2x - 2}{2x + 3}, x \ne -\frac{3}{2}$$',
-          '$$(g \circ f)(x) = \frac{2x + 4}{2x - 1}, x \ne \frac{1}{2}$$',
-          '$$(g \circ f)(x) = \frac{x - 2}{x + 3}, x \ne -3$$',
-          '$$(g \circ f)(x) = \frac{2x - 1}{2x + 3}, x \ne -\frac{3}{2}$$'
+          "$$D_f = \\{x \\mid x \\ne 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_f = \\{x \\mid x \\ne -4, x \\in \\mathbb{R}\\}$$",
+          "$$D_f = \\{x \\mid x > 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_f = \\{x \\mid x \\ne -\\frac{5}{3}, x \\in \\mathbb{R}\\}$$"
         ],
         correct: 0, // A
+        hint: "Pecahan dilarang memiliki penyebut sama dengan nol ($0$). Buat persamaan penyebut $\\ne 0$!",
         explanation: `
-          <strong class="text-white block mb-2">Pembahasan Langkah demi Langkah:</strong>
-          1. Berdasarkan definisi: $$(g \circ f)(x) = g(f(x)) = g(2x + 1)$$
-          2. Gantikan setiap $x$ pada $g(x) = \frac{x - 3}{x + 2}$ dengan $(2x + 1)$:
-             $$g(2x + 1) = \frac{(2x + 1) - 3}{(2x + 1) + 2}$$
-          3. Sederhanakan pembilang dan penyebut:
-             $$= \frac{2x - 2}{2x + 3}$$
-          4. Syarat penyebut: $2x + 3 \ne 0 \implies x \ne -\frac{3}{2}$. (Pilihan A Benar!)
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          Fungsi berbentuk pecahan $\\frac{P(x)}{Q(x)}$ terdefinisi jika dan hanya jika penyebutnya tidak sama dengan nol:
+          $$2x - 8 \\ne 0$$
+          $$2x \\ne 8 \\implies x \\ne 4$$
+          Jadi, daerah asalnya adalah $$D_f = \\{x \\mid x \\ne 4, x \\in \\mathbb{R}\\}$$. (Pilihan A Benar)
         `
       },
       {
-        tag: 'SOAL #4 • RUMUS KILAT INVERS PECAHAN',
-        text: 'Invers dari fungsi pecahan linear $$f(x) = \frac{4x - 7}{3x + 5}, x \ne -\frac{5}{3}$$ adalah $$f^{-1}(x) = \dots$$',
-        hint: 'Gunakan Trik Kilat Guru: Jika $$f(x) = \frac{ax + b}{cx + d}$$, maka inversnya adalah $$f^{-1}(x) = \frac{-dx + b}{cx - a}$$. Tukar $a$ dan $d$, lalu beri tanda minus!',
+        id: 3,
+        category: "Domain Alami Bentuk Akar Irasional",
+        prompt: "Daerah asal alami ($D_g$) dari fungsi irasional $$g(x) = \\sqrt{3x - 12}$$ pada himpunan bilangan real adalah...",
         options: [
-          '$$f^{-1}(x) = \frac{-5x - 7}{3x - 4}, x \ne \frac{4}{3}$$',
-          '$$f^{-1}(x) = \frac{5x - 7}{3x + 4}, x \ne -\frac{4}{3}$$',
-          '$$f^{-1}(x) = \frac{3x + 5}{4x - 7}, x \ne \frac{7}{4}$$',
-          '$$f^{-1}(x) = \frac{-4x - 7}{3x - 5}, x \ne \frac{5}{3}$$'
-        ],
-        correct: 0, // A
-        explanation: `
-          <strong class="text-white block mb-2">Pembahasan Langkah demi Langkah:</strong>
-          1. Bentuk umum: $f(x) = \frac{ax + b}{cx + d}$.
-             Di sini $a = 4, b = -7, c = 3, d = 5$.
-          2. Gunakan rumus kilat invers pecahan:
-             $$f^{-1}(x) = \frac{-dx + b}{cx - a}$$
-          3. Masukkan nilai $a=4$ dan $d=5$:
-             $$f^{-1}(x) = \frac{-(5)x + (-7)}{3x - 4} = \frac{-5x - 7}{3x - 4}$$
-          4. Syarat penyebut: $3x - 4 \ne 0 \implies x \ne \frac{4}{3}$. (Pilihan A Benar!)
-        `
-      },
-      {
-        tag: 'SOAL #5 • HOTS / TIPE UTBK-SNBT',
-        text: 'Diketahui $$(f \circ g)(x) = 6x + 7$$ dan $$f(x) = 2x - 3$$. Rumus untuk fungsi $$g(x)$$ adalah...',
-        hint: 'Tuliskan persamaan $$(f \circ g)(x) = f(g(x)) = 2\cdot g(x) - 3 = 6x + 7$$. Kemudian pindahkan konstanta ke ruas kanan untuk mencari $$g(x)$$!',
-        options: [
-          '$$g(x) = 3x + 2$$',
-          '$$g(x) = 3x + 5$$',
-          '$$g(x) = 6x + 10$$',
-          '$$g(x) = 3x - 5$$'
+          "$$D_g = \\{x \\mid x > 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_g = \\{x \\mid x \\ge 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_g = \\{x \\mid x \\le 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_g = \\{x \\mid x \\ge -4, x \\in \\mathbb{R}\\}$$"
         ],
         correct: 1, // B
+        hint: "Bilangan di dalam tanda akar pangkat genap tidak boleh bernilai negatif (harus $\\ge 0$).",
         explanation: `
-          <strong class="text-white block mb-2">Pembahasan Langkah demi Langkah:</strong>
-          1. Kita tahu bahwa $(f \circ g)(x) = f(g(x))$.
-          2. Karena $f(x) = 2x - 3$, maka jika dimasukkan $g(x)$:
-             $$f(g(x)) = 2\cdot g(x) - 3$$
-          3. Samakan dengan nilai yang diketahui:
-             $$2\cdot g(x) - 3 = 6x + 7$$
-          4. Tambahkan 3 pada kedua ruas:
-             $$2\cdot g(x) = 6x + 7 + 3$$
-             $$2\cdot g(x) = 6x + 10$$
-          5. Bagi kedua ruas dengan 2:
-             $$g(x) = \frac{6x + 10}{2} = 3x + 5$$
-          6. Jadi rumus $g(x)$ adalah <strong>3x + 5</strong>. (Pilihan B Benar!)
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          Syarat bilangan di bawah tanda akar terdefinisi pada bilangan real:
+          $$3x - 12 \\ge 0$$
+          $$3x \\ge 12 \\implies x \\ge 4$$
+          Jadi, daerah asalnya adalah $$D_g = \\{x \\mid x \\ge 4, x \\in \\mathbb{R}\\}$$. (Pilihan B Benar)
+        `
+      },
+      {
+        id: 4,
+        category: "Domain Pecahan Berakar di Penyebut",
+        prompt: "Daerah asal alami ($D_h$) dari fungsi $$h(x) = \\frac{7}{\\sqrt{x^2 - 16}}$$ adalah...",
+        options: [
+          "$$D_h = \\{x \\mid -4 < x < 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_h = \\{x \\mid -4 \\le x \\le 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_h = \\{x \\mid x < -4 \\text{ atau } x > 4, x \\in \\mathbb{R}\\}$$",
+          "$$D_h = \\{x \\mid x \\le -4 \\text{ atau } x \\ge 4, x \\in \\mathbb{R}\\}$$"
+        ],
+        correct: 2, // C
+        hint: "Karena akar berada di posisi penyebut pecahan, syaratnya harus lebih besar murni dari nol ($> 0$, tidak boleh ada tanda sama dengan!).",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          1. Karena bentuk akar berada di penyebut:
+             $$x^2 - 16 > 0$$
+          2. Faktorkan pertidaksamaan kuadrat:
+             $$(x - 4)(x + 4) > 0$$
+          3. Pembuat nol adalah $x = 4$ dan $x = -4$. Uji tanda pada garis bilangan menghasilkan interval di luar akar:
+             $$x < -4 \\text{ atau } x > 4$$
+          (Pilihan C Benar)
+        `
+      },
+      {
+        id: 5,
+        category: "Operasi Aljabar Fungsi",
+        prompt: "Jika diketahui fungsi $$f(x) = x^2 - 4$$ dan $$g(x) = x + 2$$, maka rumus untuk fungsi pembagian $$\\left(\\frac{f}{g}\\right)(x)$$ dengan daerah definisi $x \\ne -2$ adalah...",
+        options: [
+          "$$x - 2$$",
+          "$$x + 2$$",
+          "$$x^2 - x - 6$$",
+          "$$\\frac{1}{x - 2}$$"
+        ],
+        correct: 0, // A
+        hint: "Gunakan faktorisasi selisih dua kuadrat pada pembilang: $a^2 - b^2 = (a-b)(a+b)$.",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          $$\\left(\\frac{f}{g}\\right)(x) = \\frac{f(x)}{g(x)} = \\frac{x^2 - 4}{x + 2}$$
+          Faktorkan pembilang:
+          $$= \\frac{(x - 2)(x + 2)}{x + 2}$$
+          Bagi faktor yang sama $(x + 2)$ untuk $x \\ne -2$:
+          $$= x - 2$$
+          (Pilihan A Benar)
+        `
+      },
+      {
+        id: 6,
+        category: "Evaluasi Nilai Komposisi Angka",
+        prompt: "Diketahui fungsi kuadrat $$f(x) = 2x^2 - 3x + 1$$ dan fungsi linear $$g(x) = x - 2$$. Nilai dari $$(f \\circ g)(4)$$ adalah...",
+        options: [
+          "$$1$$",
+          "$$3$$",
+          "$$5$$",
+          "$$9$$"
+        ],
+        correct: 1, // B
+        hint: "Hitung nilai $g(4)$ terlebih dahulu. Setelah dapat angkanya, masukkan angka tersebut ke rumus $f(x)$!",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          1. Berdasarkan definisi komposisi: $$(f \\circ g)(4) = f(g(4))$$
+          2. Hitung $g(4)$:
+             $$g(4) = 4 - 2 = 2$$
+          3. Masukkan hasil 2 ke fungsi $f$:
+             $$f(2) = 2(2)^2 - 3(2) + 1 = 2(4) - 6 + 1 = 8 - 6 + 1 = 3$$
+          (Pilihan B Benar)
+        `
+      },
+      {
+        id: 7,
+        category: "Aljabar Komposisi Dua Fungsi",
+        prompt: "Diketahui fungsi $$f(x) = 3x + 2$$ dan $$g(x) = \\frac{2x - 1}{x + 3}, x \\ne -3$$. Rumus fungsi komposisi $$(f \\circ g)(x)$$ adalah...",
+        options: [
+          "$$(f \\circ g)(x) = \\frac{8x + 3}{x + 3}, x \\ne -3$$",
+          "$$(f \\circ g)(x) = \\frac{6x + 5}{x + 3}, x \\ne -3$$",
+          "$$(f \\circ g)(x) = \\frac{8x - 3}{x + 3}, x \\ne -3$$",
+          "$$(f \\circ g)(x) = \\frac{6x - 1}{3x + 5}, x \\ne -\\frac{5}{3}$$"
+        ],
+        correct: 0, // A
+        hint: "Substitusikan seluruh pecahan $g(x)$ ke dalam variabel $x$ pada $f(x)$, lalu samakan penyebutnya!",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          $$(f \\circ g)(x) = f(g(x)) = 3\\left(\\frac{2x - 1}{x + 3}\\right) + 2$$
+          $$= \\frac{6x - 3}{x + 3} + \\frac{2(x + 3)}{x + 3}$$
+          $$= \\frac{6x - 3 + 2x + 6}{x + 3} = \\frac{8x + 3}{x + 3}, x \\ne -3$$
+          (Pilihan A Benar)
+        `
+      },
+      {
+        id: 8,
+        category: "Trik Kilat Invers Pecahan Linear",
+        prompt: "Invers dari fungsi pecahan linear $$f(x) = \\frac{5x + 3}{2x - 4}, x \\ne 2$$ adalah $$f^{-1}(x) = \\dots$$",
+        options: [
+          "$$f^{-1}(x) = \\frac{4x + 3}{2x - 5}, x \\ne \\frac{5}{2}$$",
+          "$$f^{-1}(x) = \\frac{-4x + 3}{2x + 5}, x \\ne -\\frac{5}{2}$$",
+          "$$f^{-1}(x) = \\frac{2x - 4}{5x + 3}, x \\ne -\\frac{3}{5}$$",
+          "$$f^{-1}(x) = \\frac{4x - 3}{2x - 5}, x \\ne \\frac{5}{2}$$"
+        ],
+        correct: 0, // A
+        hint: "Gunakan rumus cepat guru: Jika $f(x) = \\frac{ax+b}{cx+d}$, maka $f^{-1}(x) = \\frac{-dx+b}{cx-a}$. Tukar 5 dan -4, lalu beri minus!",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          Bentuk umum: $$f(x) = \\frac{ax + b}{cx + d} \\implies f^{-1}(x) = \\frac{-dx + b}{cx - a}$$
+          Di sini: $a = 5, b = 3, c = 2, d = -4$.
+          Tukar $a$ dan $d$, ubah tanda:
+          $$f^{-1}(x) = \\frac{-(-4)x + 3}{2x - 5} = \\frac{4x + 3}{2x - 5}, x \\ne \\frac{5}{2}$$
+          (Pilihan A Benar)
+        `
+      },
+      {
+        id: 9,
+        category: "Mencari Fungsi Pembentuk (Tipe UTBK)",
+        prompt: "Diketahui $$(f \\circ g)(x) = 4x^2 + 8x - 5$$ dan rumus $$f(x) = x^2 - 9$$. Jika fungsi $$g(x)$$ memiliki koefisien positif, maka rumus untuk $$g(x)$$ adalah...",
+        options: [
+          "$$g(x) = 2x - 2$$",
+          "$$g(x) = 2x + 2$$",
+          "$$g(x) = 4x + 1$$",
+          "$$g(x) = 2x + 4$$"
+        ],
+        correct: 1, // B
+        hint: "Tuliskan $f(g(x)) = (g(x))^2 - 9 = 4x^2 + 8x - 5$. Pindahkan 9 ke kanan, lalu bentuk kuadrat sempurna!",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          1. Kita tahu $(f \\circ g)(x) = f(g(x))$.
+          2. Karena $f(x) = x^2 - 9$, maka:
+             $$(g(x))^2 - 9 = 4x^2 + 8x - 5$$
+          3. Tambahkan 9 pada kedua ruas:
+             $$(g(x))^2 = 4x^2 + 8x - 5 + 9$$
+             $$(g(x))^2 = 4x^2 + 8x + 4$$
+          4. Perhatikan bahwa $4x^2 + 8x + 4$ adalah bentuk kuadrat sempurna:
+             $$(g(x))^2 = (2x + 2)^2$$
+          5. Karena $g(x)$ memiliki koefisien positif:
+             $$g(x) = 2x + 2$$
+          (Pilihan B Benar)
+        `
+      },
+      {
+        id: 10,
+        category: "Sifat Invers Komposisi Fungsi",
+        prompt: "Jika diketahui fungsi invers $$f^{-1}(x) = \\frac{x - 1}{2}$$ dan $$g^{-1}(x) = 3x + 4$$, maka nilai dari $$(f \\circ g)^{-1}(5)$$ adalah...",
+        options: [
+          "$$7$$",
+          "$$10$$",
+          "$$13$$",
+          "$$16$$"
+        ],
+        correct: 1, // B
+        hint: "Gunakan sifat invers komposisi: $(f \\circ g)^{-1}(x) = (g^{-1} \\circ f^{-1})(x)$. Urutannya dibalik!",
+        explanation: `
+          <strong>Pembahasan Langkah demi Langkah:</strong><br>
+          1. Gunakan sifat dasar invers komposisi:
+             $$(f \\circ g)^{-1}(5) = (g^{-1} \\circ f^{-1})(5) = g^{-1}(f^{-1}(5))$$
+          2. Hitung $f^{-1}(5)$ terlebih dahulu:
+             $$f^{-1}(5) = \\frac{5 - 1}{2} = \\frac{4}{2} = 2$$
+          3. Masukkan hasil 2 ke dalam fungsi $g^{-1}$:
+             $$g^{-1}(2) = 3(2) + 4 = 6 + 4 = 10$$
+          (Pilihan B Benar)
         `
       }
     ];
 
-    let currentQIdx = 0;
-    let selectedOptionIdx = null;
-    let studentScore = 0;
-    let studentName = '';
-    let studentClass = '';
-    let isAnswerSubmitted = false;
+    // ========================================================
+    // STATE MANAGEMENT
+    // ========================================================
+    let currentQuestionIdx = 0;
+    let studentAnswers = new Array(10).fill(null);
+    let studentDoubts = new Array(10).fill(false);
+    let examStartTime = null;
+    let timerInterval = null;
+    let studentName = "";
+    let studentClass = "";
+    let presQuestionIdx = 0;
 
-    function startQuiz(e) {
-      e.preventDefault();
-      studentName = document.getElementById('student-name-input').value.trim() || 'Murid The Arich';
-      studentClass = document.getElementById('student-class-input').value.trim() || 'Kelas 11 SMA';
+    // Local Storage Database Key
+    const DB_KEY = "the_arich_study_submissions";
 
-      document.getElementById('quiz-identity-card').classList.add('hidden');
-      document.getElementById('quiz-active-container').classList.remove('hidden');
+    // ========================================================
+    // NAVIGATION & VIEW CONTROLLER
+    // ========================================================
+    function showView(viewName) {
+      const views = ['exam-gate', 'exam-active', 'exam-result', 'presentation', 'theory', 'gradebook'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.add('hidden');
+      });
 
-      document.getElementById('display-student-name').textContent = `Murid: ${studentName}`;
-      document.getElementById('display-student-class').textContent = `Kelas: ${studentClass}`;
+      document.querySelectorAll('.nav-tab').forEach(t => {
+        t.className = 'nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+      });
 
-      currentQIdx = 0;
-      studentScore = 0;
-      renderQuestion(0);
-    }
+      if (viewName === 'exam') {
+        const targetView = (studentName && examStartTime) ? 'exam-active' : 'exam-gate';
+        document.getElementById(`view-${targetView}`).classList.remove('hidden');
+        document.getElementById('nav-btn-exam').className = 'nav-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5';
+      } else {
+        const el = document.getElementById(`view-${viewName}`);
+        if (el) el.classList.remove('hidden');
+        const navBtn = document.getElementById(`nav-btn-${viewName}`);
+        if (navBtn) navBtn.className = 'nav-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5';
+      }
 
-    function renderQuestion(idx) {
-      isAnswerSubmitted = false;
-      selectedOptionIdx = null;
-      const q = QUIZ_QUESTIONS[idx];
-
-      document.getElementById('current-question-num').textContent = `Soal ${idx + 1} dari ${QUIZ_QUESTIONS.length}`;
-      document.getElementById('current-score-text').textContent = `${studentScore} / 100`;
-      document.getElementById('quiz-progress-bar').style.width = `${((idx + 1) / QUIZ_QUESTIONS.length) * 100}%`;
-
-      document.getElementById('q-tag').textContent = q.tag;
-      document.getElementById('q-text').innerHTML = q.text;
-
-      // Reset Hint & Explanation
-      document.getElementById('q-hint-box').classList.add('hidden');
-      document.getElementById('q-hint-box').innerHTML = `💡 <strong>Petunjuk Langkah:</strong> ${q.hint}`;
-      document.getElementById('hint-toggle-btn').innerHTML = '<i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> Butuh Petunjuk?';
-      
-      const expBox = document.getElementById('q-explanation-box');
-      expBox.classList.add('hidden');
-      expBox.innerHTML = '';
-
-      // Reset Submit Button
-      const submitBtn = document.getElementById('submit-answer-btn');
-      submitBtn.innerHTML = '<span>Kunci Jawaban</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>';
-      submitBtn.onclick = submitAnswer;
-
-      // Render Multiple Choice Options
-      const optContainer = document.getElementById('q-options-container');
-      optContainer.innerHTML = q.options.map((opt, oIdx) => `
-        <div onclick="selectQuizOption(${oIdx})" id="q-opt-${oIdx}" class="q-opt-card p-4 rounded-2xl bg-space-900 border border-slate-800 hover:border-indigo-500/50 cursor-pointer flex items-center justify-between transition group">
-          <div class="flex items-center gap-3">
-            <span class="w-7 h-7 rounded-xl bg-slate-800 text-slate-400 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center font-bold text-xs transition">
-              ${String.fromCharCode(65 + oIdx)}
-            </span>
-            <span class="text-sm font-mono text-slate-200 group-hover:text-white">${opt}</span>
-          </div>
-          <div class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center text-[10px] text-transparent check-circle">
-            ✓
-          </div>
-        </div>
-      `).join('');
+      if (viewName === 'presentation') {
+        renderPresQuestion(presQuestionIdx);
+      } else if (viewName === 'gradebook') {
+        loadGradebookTable();
+      }
 
       lucide.createIcons();
-      renderLatex();
+      triggerLatexRender();
     }
 
-    function selectQuizOption(oIdx) {
-      if (isAnswerSubmitted) return;
-      selectedOptionIdx = oIdx;
+    // ========================================================
+    // EXAM CONTROLLER (10 SOAL)
+    // ========================================================
+    function handleStartExam(e) {
+      e.preventDefault();
+      studentName = document.getElementById('input-student-name').value.trim();
+      studentClass = document.getElementById('input-student-class').value.trim();
 
-      document.querySelectorAll('.q-opt-card').forEach((card, idx) => {
-        if (idx === oIdx) {
-          card.className = 'q-opt-card p-4 rounded-2xl bg-indigo-950/40 border-2 border-indigo-500 cursor-pointer flex items-center justify-between transition';
-          const circle = card.querySelector('.check-circle');
-          circle.className = 'w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]';
-        } else {
-          card.className = 'q-opt-card p-4 rounded-2xl bg-space-900 border border-slate-800 cursor-pointer flex items-center justify-between transition opacity-60';
-          const circle = card.querySelector('.check-circle');
-          circle.className = 'w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center text-[10px] text-transparent';
+      if (!studentName || !studentClass) return;
+
+      document.getElementById('user-badge').classList.remove('hidden');
+      document.getElementById('top-student-name').textContent = studentName;
+      document.getElementById('user-avatar-initial').textContent = studentName.charAt(0).toUpperCase();
+
+      document.getElementById('exam-header-name').textContent = `Murid: ${studentName}`;
+      document.getElementById('exam-header-class').textContent = `Kelas: ${studentClass}`;
+
+      studentAnswers = new Array(10).fill(null);
+      studentDoubts = new Array(10).fill(false);
+      currentQuestionIdx = 0;
+
+      // Start Timer
+      examStartTime = new Date();
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimerDisplay, 1000);
+
+      document.getElementById('view-exam-gate').classList.add('hidden');
+      document.getElementById('view-exam-active').classList.remove('hidden');
+
+      renderNumberGrid();
+      renderExamQuestion(0);
+    }
+
+    function updateTimerDisplay() {
+      if (!examStartTime) return;
+      const now = new Date();
+      const diffSecs = Math.floor((now - examStartTime) / 1000);
+      const mins = String(Math.floor(diffSecs / 60)).padStart(2, '0');
+      const secs = String(diffSecs % 60).padStart(2, '0');
+      const timerEl = document.getElementById('exam-timer');
+      if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+    }
+
+    function renderNumberGrid() {
+      const container = document.getElementById('number-grid-container');
+      container.innerHTML = BANK_SOAL_10.map((q, idx) => {
+        let stateClass = "num-btn-empty";
+        if (studentDoubts[idx]) {
+          stateClass = "num-btn-doubt";
+        } else if (studentAnswers[idx] !== null) {
+          stateClass = "num-btn-answered";
+        }
+
+        const currentRing = (idx === currentQuestionIdx) ? "ring-2 ring-indigo-500 font-extrabold shadow-sm" : "";
+
+        return `
+          <button onclick="jumpToQuestion(${idx})" class="h-10 rounded-xl border text-xs font-bold transition flex items-center justify-center ${stateClass} ${currentRing}">
+            ${idx + 1}
+          </button>
+        `;
+      }).join('');
+
+      // Update answered count
+      const answeredTotal = studentAnswers.filter(a => a !== null).length;
+      document.getElementById('answered-count-badge').textContent = answeredTotal;
+    }
+
+    function renderExamQuestion(idx) {
+      currentQuestionIdx = idx;
+      const q = BANK_SOAL_10[idx];
+
+      document.getElementById('q-number-pill').textContent = `SOAL NO. ${idx + 1}`;
+      document.getElementById('q-category-pill').textContent = q.category;
+      document.getElementById('exam-q-prompt').innerHTML = q.prompt;
+
+      // Update Doubt Button State
+      const doubtBtn = document.getElementById('doubt-btn');
+      const doubtLabel = document.getElementById('doubt-btn-label');
+      if (studentDoubts[idx]) {
+        doubtBtn.className = "px-3 py-1 rounded-lg border border-amber-400 bg-amber-50 text-amber-800 text-xs font-bold flex items-center gap-1.5 transition";
+        doubtLabel.textContent = "Ditandai Ragu-ragu";
+      } else {
+        doubtBtn.className = "px-3 py-1 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold flex items-center gap-1.5 hover:bg-slate-50 transition";
+        doubtLabel.textContent = "Tandai Ragu-ragu";
+      }
+
+      // Render Options
+      const optContainer = document.getElementById('exam-options-list');
+      optContainer.innerHTML = q.options.map((opt, oIdx) => {
+        const isSelected = studentAnswers[idx] === oIdx;
+        const borderClass = isSelected ? "border-2 border-indigo-600 bg-indigo-50/70" : "border border-slate-200 bg-white hover:border-slate-300";
+        const badgeClass = isSelected ? "bg-indigo-600 text-white font-bold" : "bg-slate-100 text-slate-600 font-semibold";
+        const radioCircle = isSelected ? "w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]" : "w-4 h-4 rounded-full border border-slate-300";
+
+        return `
+          <div onclick="selectAnswerOption(${idx}, ${oIdx})" class="p-3.5 sm:p-4 rounded-xl cursor-pointer flex items-center justify-between transition ${borderClass}">
+            <div class="flex items-center space-x-3">
+              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${badgeClass}">
+                ${String.fromCharCode(65 + oIdx)}
+              </span>
+              <span class="text-sm text-slate-800 font-medium">${opt}</span>
+            </div>
+            <div class="${radioCircle}">
+              ${isSelected ? '✓' : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Prev & Next Buttons
+      const btnPrev = document.getElementById('btn-prev-q');
+      const btnNext = document.getElementById('btn-next-q');
+      btnPrev.disabled = (idx === 0);
+      btnPrev.style.opacity = (idx === 0) ? '0.4' : '1';
+
+      if (idx === BANK_SOAL_10.length - 1) {
+        btnNext.innerHTML = '<span>Kumpulkan Jawaban</span> <i data-lucide="check" class="w-4 h-4"></i>';
+        btnNext.className = 'px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition';
+        btnNext.onclick = openSubmitModal;
+      } else {
+        btnNext.innerHTML = '<span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>';
+        btnNext.className = 'px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition';
+        btnNext.onclick = navNextQuestion;
+      }
+
+      renderNumberGrid();
+      lucide.createIcons();
+      triggerLatexRender();
+    }
+
+    function selectAnswerOption(qIdx, oIdx) {
+      studentAnswers[qIdx] = oIdx;
+      // If was doubt, keep or un-doubt
+      renderExamQuestion(qIdx);
+    }
+
+    function toggleDoubtCurrentQuestion() {
+      studentDoubts[currentQuestionIdx] = !studentDoubts[currentQuestionIdx];
+      renderExamQuestion(currentQuestionIdx);
+    }
+
+    function navPrevQuestion() {
+      if (currentQuestionIdx > 0) {
+        renderExamQuestion(currentQuestionIdx - 1);
+      }
+    }
+
+    function navNextQuestion() {
+      if (currentQuestionIdx < BANK_SOAL_10.length - 1) {
+        renderExamQuestion(currentQuestionIdx + 1);
+      }
+    }
+
+    function jumpToQuestion(idx) {
+      renderExamQuestion(idx);
+    }
+
+    // ========================================================
+    // SUBMISSION & DATABASE LOGIC (100% FREE REKAP)
+    // ========================================================
+    function openSubmitModal() {
+      const answered = studentAnswers.filter(a => a !== null).length;
+      const doubt = studentDoubts.filter((d, idx) => d && studentAnswers[idx] !== null).length;
+      const unanswered = 10 - answered;
+
+      document.getElementById('modal-stat-answered').textContent = `${answered} Soal`;
+      document.getElementById('modal-stat-doubt').textContent = `${doubt} Soal`;
+      document.getElementById('modal-stat-unanswered').textContent = `${unanswered} Soal`;
+
+      document.getElementById('submit-confirm-modal').classList.remove('hidden');
+    }
+
+    function closeSubmitModal() {
+      document.getElementById('submit-confirm-modal').classList.add('hidden');
+    }
+
+    function executeFinalSubmit() {
+      closeSubmitModal();
+      clearInterval(timerInterval);
+
+      // Calculate score
+      let correctCount = 0;
+      BANK_SOAL_10.forEach((q, idx) => {
+        if (studentAnswers[idx] === q.correct) {
+          correctCount++;
         }
       });
+      const finalScore = correctCount * 10; // 10 questions = 100 points
+
+      // Prepare Submission Object
+      const submission = {
+        id: Date.now(),
+        timestamp: new Date().toLocaleString('id-ID'),
+        studentName: studentName,
+        studentClass: studentClass,
+        answers: studentAnswers,
+        correctCount: correctCount,
+        score: finalScore,
+        passed: finalScore >= 75
+      };
+
+      // 1. Save to Local Browser Database (Free)
+      saveToLocalDatabase(submission);
+
+      // 2. Post to Google Sheets if Webhook is configured
+      postToGoogleSheetsWebhook(submission);
+
+      // Display Final Results Screen
+      document.getElementById('view-exam-active').classList.add('hidden');
+      document.getElementById('view-exam-result').classList.remove('hidden');
+
+      document.getElementById('result-student-name').textContent = studentName;
+      document.getElementById('result-student-class').textContent = `${studentClass} • The Arich Study`;
+      document.getElementById('result-score-val').textContent = finalScore;
+      document.getElementById('result-score-detail').textContent = `${correctCount} Benar dari 10 Soal (Skor: ${finalScore} / 100)`;
+
+      // Render Summary Grid
+      const summaryGrid = document.getElementById('result-summary-grid');
+      summaryGrid.innerHTML = BANK_SOAL_10.map((q, idx) => {
+        const isCorrect = studentAnswers[idx] === q.correct;
+        const chosenLetter = studentAnswers[idx] !== null ? String.fromCharCode(65 + studentAnswers[idx]) : "-";
+        const correctLetter = String.fromCharCode(65 + q.correct);
+        const cardBg = isCorrect ? "bg-emerald-50 border-emerald-200 text-emerald-900" : "bg-rose-50 border-rose-200 text-rose-900";
+        const statusIcon = isCorrect ? "✓" : "✗";
+
+        return `
+          <div class="p-3 rounded-xl border ${cardBg} text-center text-xs">
+            <div class="font-bold text-[11px] mb-0.5">No. ${idx + 1}</div>
+            <div class="font-extrabold text-sm mb-1">${statusIcon} ${isCorrect ? 'Benar' : 'Salah'}</div>
+            <div class="text-[10px] opacity-80">Jawab: <strong>${chosenLetter}</strong> ${!isCorrect ? `(Kunci: ${correctLetter})` : ''}</div>
+          </div>
+        `;
+      }).join('');
+
+      if (finalScore >= 80) {
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      }
+
+      lucide.createIcons();
     }
 
-    function toggleHint() {
-      const hintBox = document.getElementById('q-hint-box');
-      hintBox.classList.toggle('hidden');
-      renderLatex();
+    function saveToLocalDatabase(submission) {
+      try {
+        const existing = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+        existing.unshift(submission);
+        localStorage.setItem(DB_KEY, JSON.stringify(existing));
+      } catch (err) {
+        console.error("Failed to save to local DB:", err);
+      }
     }
 
-    function submitAnswer() {
-      if (selectedOptionIdx === null) {
-        alert('Silakan pilih salah satu jawaban (A, B, C, atau D) terlebih dahulu!');
+    function postToGoogleSheetsWebhook(data) {
+      const webhookUrl = localStorage.getItem('the_arich_gsheet_url');
+      if (!webhookUrl) return;
+
+      try {
+        fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(() => {
+          console.log("Successfully posted to Google Sheets!");
+        }).catch(err => {
+          console.warn("Failed posting to Google Sheets:", err);
+        });
+      } catch (e) {
+        console.warn("Webhook error:", e);
+      }
+    }
+
+    function shareResultToWhatsApp() {
+      const answered = studentAnswers.filter(a => a !== null).length;
+      let correct = 0;
+      BANK_SOAL_10.forEach((q, idx) => {
+        if (studentAnswers[idx] === q.correct) correct++;
+      });
+      const score = correct * 10;
+
+      const msg = `Halo Pak Guru, saya *${studentName}* (${studentClass}) telah selesai mengerjakan Ujian Latihan *Fungsi Komposisi & Invers* di platform *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari 10 Soal). Siap untuk pembahasan di kelas! 📐🚀`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function restartExam() {
+      studentName = "";
+      studentClass = "";
+      studentAnswers = new Array(10).fill(null);
+      studentDoubts = new Array(10).fill(false);
+      showView('exam-gate');
+    }
+
+    // ========================================================
+    // PRESENTATION MODE (BAHAS DI DEPAN KELAS)
+    // ========================================================
+    function renderPresQuestion(idx) {
+      presQuestionIdx = idx;
+      const q = BANK_SOAL_10[idx];
+
+      document.getElementById('pres-num-tag').textContent = `PEMBAHASAN NOMOR ${idx + 1}`;
+      document.getElementById('pres-cat-tag').textContent = `Kategori: ${q.category}`;
+      document.getElementById('pres-prompt-body').innerHTML = q.prompt;
+
+      // Jump Buttons
+      const jumpContainer = document.getElementById('pres-jump-buttons');
+      jumpContainer.innerHTML = BANK_SOAL_10.map((_, i) => `
+        <button onclick="renderPresQuestion(${i})" class="w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center ${i === idx ? 'bg-white text-indigo-900 shadow-sm' : 'bg-indigo-800 text-indigo-200 hover:bg-indigo-700'}">
+          ${i + 1}
+        </button>
+      `).join('');
+
+      // Options with correct one marked green
+      const optGrid = document.getElementById('pres-options-grid');
+      optGrid.innerHTML = q.options.map((opt, oIdx) => {
+        const isCorrect = (oIdx === q.correct);
+        const cardStyle = isCorrect ? "bg-emerald-50 border-2 border-emerald-500 text-emerald-950 font-bold" : "bg-slate-50 border border-slate-200 text-slate-700 opacity-60";
+        const tag = isCorrect ? '<span class="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-bold">KUNCI JAWABAN BENAR</span>' : '';
+
+        return `
+          <div class="p-4 rounded-xl border flex items-center justify-between ${cardStyle}">
+            <div class="flex items-center space-x-3">
+              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${isCorrect ? 'bg-emerald-600 text-white font-extrabold' : 'bg-slate-200 text-slate-700'}">
+                ${String.fromCharCode(65 + oIdx)}
+              </span>
+              <span class="text-sm">${opt}</span>
+            </div>
+            ${tag}
+          </div>
+        `;
+      }).join('');
+
+      // Teacher Explanation Content
+      document.getElementById('pres-explanation-content').innerHTML = q.explanation;
+
+      lucide.createIcons();
+      triggerLatexRender();
+    }
+
+    function prevPresQuestion() {
+      if (presQuestionIdx > 0) renderPresQuestion(presQuestionIdx - 1);
+    }
+    function nextPresQuestion() {
+      if (presQuestionIdx < BANK_SOAL_10.length - 1) renderPresQuestion(presQuestionIdx + 1);
+    }
+
+    // ========================================================
+    // GRADEBOOK & GOOGLE SHEETS MODALS
+    // ========================================================
+    function loadGradebookTable() {
+      const tbody = document.getElementById('gradebook-tbody');
+      const list = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      document.getElementById('gradebook-total-entries').textContent = `Total Murid Mengerjakan: ${list.length}`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-8 text-center text-slate-400">
+              Belum ada data murid yang mengumpulkan ujian. Data akan muncul otomatis begitu murid menekan "Kumpulkan Jawaban".
+            </td>
+          </tr>
+        `;
         return;
       }
 
-      isAnswerSubmitted = true;
-      const q = QUIZ_QUESTIONS[currentQIdx];
-      const isCorrect = selectedOptionIdx === q.correct;
+      tbody.innerHTML = list.map((item, i) => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-4 font-bold text-slate-400">${i + 1}</td>
+          <td class="py-3 px-4 text-slate-500 font-mono text-[11px]">${item.timestamp}</td>
+          <td class="py-3 px-4 font-bold text-slate-900">${item.studentName}</td>
+          <td class="py-3 px-4 text-slate-600">${item.studentClass}</td>
+          <td class="py-3 px-4 text-center font-bold">${item.correctCount} / 10</td>
+          <td class="py-3 px-4 text-center font-mono font-extrabold text-indigo-600 text-sm">${item.score}</td>
+          <td class="py-3 px-4 text-center">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${item.passed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+              ${item.passed ? 'TUNTAS' : 'REMEDIAL'}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-center">
+            <button onclick="alert('Rincian Jawaban: ' + JSON.stringify(item.answers))" class="text-indigo-600 hover:underline font-semibold text-[11px]">
+              Lihat Lembar
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
 
-      const expBox = document.getElementById('q-explanation-box');
-      expBox.classList.remove('hidden');
-
-      if (isCorrect) {
-        studentScore += 20; // 5 questions = 100 points
-        playSuccessTone();
-        confetti({ particleCount: 30, spread: 60, origin: { y: 0.7 } });
-        expBox.className = 'mb-6 p-5 rounded-2xl border transition-all duration-300 bg-emerald-950/30 border-emerald-500/50 text-slate-200 text-xs leading-relaxed';
-        expBox.innerHTML = `
-          <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm mb-2">
-            <i data-lucide="check-circle-2" class="w-5 h-5"></i> HEBAT! JAWABAN KAMU BENAR (+20 Poin)
-          </div>
-          ${q.explanation}
-        `;
-      } else {
-        playErrorTone();
-        expBox.className = 'mb-6 p-5 rounded-2xl border transition-all duration-300 bg-rose-950/30 border-rose-500/50 text-slate-200 text-xs leading-relaxed';
-        expBox.innerHTML = `
-          <div class="flex items-center gap-2 text-rose-400 font-extrabold text-sm mb-2">
-            <i data-lucide="x-circle" class="w-5 h-5"></i> KURANG TEPAT, JAWABAN BENAR: PILIHAN ${String.fromCharCode(65 + q.correct)}
-          </div>
-          ${q.explanation}
-        `;
+    function exportGradebookToCSV() {
+      const list = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      if (list.length === 0) {
+        alert("Belum ada data nilai untuk diexport!");
+        return;
       }
 
-      // Highlight options
-      document.querySelectorAll('.q-opt-card').forEach((card, idx) => {
-        if (idx === q.correct) {
-          card.className = 'q-opt-card p-4 rounded-2xl bg-emerald-950/40 border-2 border-emerald-500 flex items-center justify-between';
-        } else if (idx === selectedOptionIdx && !isCorrect) {
-          card.className = 'q-opt-card p-4 rounded-2xl bg-rose-950/40 border-2 border-rose-500 flex items-center justify-between';
-        } else {
-          card.classList.add('opacity-40');
-        }
+      let csv = "No,Waktu,Nama Murid,Kelas,Benar,Nilai,Status\n";
+      list.forEach((item, i) => {
+        csv += `"${i + 1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.correctCount}/10","${item.score}","${item.passed ? 'TUNTAS' : 'REMEDIAL'}"\n`;
       });
 
-      document.getElementById('current-score-text').textContent = `${studentScore} / 100`;
-
-      // Transform button into "Lanjut ke Soal Berikutnya"
-      const submitBtn = document.getElementById('submit-answer-btn');
-      if (currentQIdx < QUIZ_QUESTIONS.length - 1) {
-        submitBtn.innerHTML = '<span>Lanjut ke Soal Berikutnya</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>';
-        submitBtn.onclick = nextQuestion;
-      } else {
-        submitBtn.innerHTML = '<span>Lihat Rapor Akhir</span> <i data-lucide="award" class="w-4 h-4"></i>';
-        submitBtn.className = 'px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-500/30 transition';
-        submitBtn.onclick = showFinalReport;
-      }
-
-      lucide.createIcons();
-      renderLatex();
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `Rekap_Nilai_The_Arich_Study_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
-    function nextQuestion() {
-      currentQIdx++;
-      renderQuestion(currentQIdx);
-    }
-
-    function showFinalReport() {
-      document.getElementById('quiz-active-container').classList.add('hidden');
-      document.getElementById('quiz-result-card').classList.remove('hidden');
-
-      document.getElementById('report-student-name').textContent = studentName;
-      document.getElementById('report-student-class').textContent = `Kelas: ${studentClass} • The Arich Study`;
-      document.getElementById('report-final-score').textContent = studentScore;
-
-      const stars = document.getElementById('report-stars');
-      if (studentScore === 100) {
-        stars.textContent = '⭐⭐⭐ Predikat: Sempurna! Master of Functions';
-        confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
-      } else if (studentScore >= 60) {
-        stars.textContent = '⭐⭐ Predikat: Sangat Baik, Terus Pertahankan!';
-        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
-      } else {
-        stars.textContent = '⭐ Predikat: Perlu Latihan Tambahan. Semangat!';
-      }
-      playSuccessTone();
-    }
-
-    function shareScoreToWhatsApp() {
-      const text = `Halo Guru, saya *${studentName}* (${studentClass}) telah menyelesaikan Latihan Soal *Fungsi Komposisi & Invers* di platform *The Arich Study* dengan skor: *${studentScore}/100*! 🚀📐`;
-      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    }
-
-    function resetCurrentQuiz() {
-      if (confirm('Yakin ingin keluar dari kuis sekarang? Skor kamu tidak akan tersimpan.')) {
-        document.getElementById('quiz-active-container').classList.add('hidden');
-        document.getElementById('quiz-identity-card').classList.remove('hidden');
+    function clearGradebookConfirm() {
+      if (confirm("Apakah kamu yakin ingin mereset seluruh data nilai murid di browser ini? Tindakan ini tidak dapat dibatalkan.")) {
+        localStorage.removeItem(DB_KEY);
+        loadGradebookTable();
       }
     }
 
-    function restartQuiz() {
-      document.getElementById('quiz-result-card').classList.add('hidden');
-      document.getElementById('quiz-identity-card').classList.remove('hidden');
+    function openGoogleSheetModal() {
+      const currentUrl = localStorage.getItem('the_arich_gsheet_url') || '';
+      document.getElementById('gsheet-webhook-url').value = currentUrl;
+      document.getElementById('gsheets-modal').classList.remove('hidden');
     }
 
-    // ----------------------------------------------------
-    // KATEX MATH RENDERING HELPER
-    // ----------------------------------------------------
-    function renderLatex() {
+    function closeGoogleSheetModal() {
+      document.getElementById('gsheets-modal').classList.add('hidden');
+    }
+
+    function saveGoogleSheetWebhook() {
+      const url = document.getElementById('gsheet-webhook-url').value.trim();
+      localStorage.setItem('the_arich_gsheet_url', url);
+      closeGoogleSheetModal();
+      alert(url ? "Webhook Google Sheets berhasil disimpan! Setiap murid submit, nilainya akan otomatis terkirim ke spreadsheet kamu." : "Webhook dikosongkan. Nilai tetap tersimpan di database lokal browser.");
+    }
+
+    function toggleTeacherMode() {
+      showView('gradebook');
+    }
+
+    // ========================================================
+    // KATEX MATH RENDERING BOOTSTRAPPER
+    // ========================================================
+    function triggerLatexRender() {
       if (window.renderMathInElement) {
         renderMathInElement(document.body, {
           delimiters: [
@@ -1521,12 +1423,10 @@ e (g \circ f)(x)$ (Urutan pengerjaan sangat mempengaruhi hasil!).</span>
       }
     }
 
-    // Run on startup
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      renderLatex();
-      updateMachineCalculations(3);
-      onDomainSliderChange(3);
+      triggerLatexRender();
+      showView('exam-gate');
     });
   </script>
 </body>
