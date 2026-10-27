@@ -245,6 +245,22 @@
             <p class="text-xs text-slate-400 mt-1">Pilih kelasmu untuk membuka materi dan latihan yang sesuai.</p>
           </div>
 
+          <!-- Saved Accounts on this Device -->
+          <div id="gate-saved-accounts-section" class="hidden mb-5 pb-5 border-b border-slate-800">
+            <label class="block text-xs font-semibold text-slate-300 mb-2 flex items-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Pilih Akun yang Tersimpan di Perangkat Ini:</span>
+            </label>
+            <div id="gate-saved-accounts-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+              <!-- Rendered via JS -->
+            </div>
+            <div class="relative flex py-3 items-center">
+              <div class="flex-grow border-t border-slate-800"></div>
+              <span class="flex-shrink mx-3 text-[10px] text-slate-500 uppercase tracking-wider">atau masuk akun baru</span>
+              <div class="flex-grow border-t border-slate-800"></div>
+            </div>
+          </div>
+
           <form onsubmit="handleStudentLogin(event)" class="space-y-4">
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Lengkap Murid *</label>
@@ -274,7 +290,10 @@
               </button>
             </div>
 
-            <p class="text-[10px] text-slate-500 text-center">Akunmu otomatis tersimpan di perangkat ini sehingga tidak perlu masuk ulang.</p>
+            <div class="flex items-center gap-2 p-2.5 rounded-lg bg-indigo-950/30 border border-indigo-500/20 text-[11px] text-indigo-300">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Akun dan riwayat nilai latihan tersimpan permanen di perangkat ini.</span>
+            </div>
           </form>
 
         </div>
@@ -304,6 +323,23 @@
             <button onclick="switchView('exam')" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition">
               <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Mulai Latihan Soal
             </button>
+            <button onclick="switchView('history')" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition">
+              <i data-lucide="history" class="w-3.5 h-3.5 text-indigo-400"></i> Riwayat Nilai Saya
+            </button>
+          </div>
+        </div>
+
+        <!-- Student Progress Summary Card on Dashboard -->
+        <div id="dash-stats-card" class="clean-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+              <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Perkembangan Latihan Kamu</h3>
+            </div>
+            <p class="text-xs text-slate-400" id="dash-stats-desc">Memuat riwayat latihan...</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0" id="dash-stats-pills">
+            <!-- Injected via JS -->
           </div>
         </div>
 
@@ -394,15 +430,22 @@
             <div class="clean-card rounded-2xl p-5 sm:p-6 flex-1 relative overflow-hidden" id="exam-slide-card">
               
               <!-- Question Header -->
-              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <span class="px-2.5 py-0.5 rounded bg-indigo-600 text-white font-bold text-xs" id="exam-q-num-pill">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4 gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded bg-indigo-600 text-white font-bold text-xs shrink-0" id="exam-q-num-pill">
                   Soal No. 1
                 </span>
 
-                <button onclick="toggleCurrentDoubt()" id="exam-doubt-btn" class="px-2.5 py-1 rounded border border-slate-700 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-400 hover:text-amber-300 transition">
-                  <i data-lucide="flag" class="w-3 h-3"></i>
-                  <span id="exam-doubt-label">Ragu-ragu</span>
-                </button>
+                <div class="flex items-center gap-2 ml-auto">
+                  <button onclick="toggleCurrentDoubt()" id="exam-doubt-btn" class="px-2.5 py-1 rounded border border-slate-700 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-400 hover:text-amber-300 transition shrink-0">
+                    <i data-lucide="flag" class="w-3 h-3"></i>
+                    <span id="exam-doubt-label">Ragu-ragu</span>
+                  </button>
+
+                  <button onclick="handleAnswerKeyClick()" id="exam-key-btn" title="Kunci & Pembahasan (Dilindungi Sandi)" class="px-2.5 py-1 rounded border border-slate-700 bg-dark-900 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-500 hover:text-amber-300 transition shrink-0">
+                    <i data-lucide="key" class="w-3 h-3 text-amber-400"></i>
+                    <span id="exam-key-label">Kunci & Pembahasan</span>
+                  </button>
+                </div>
               </div>
 
               <!-- Question Prompt (KaTeX) -->
@@ -413,6 +456,39 @@
               <!-- Options -->
               <div id="exam-options-body" class="space-y-2.5 mb-6">
                 <!-- Options -->
+              </div>
+
+              <!-- Protected Answer Key & Explanation Box (Sandi 090305) -->
+              <div id="exam-solution-box" class="hidden mb-6 p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 flex-wrap gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/30">
+                      <i data-lucide="key" class="w-3.5 h-3.5"></i>
+                    </span>
+                    <div class="flex items-center gap-1.5 text-xs">
+                      <span class="font-bold text-white">Kunci Jawaban:</span>
+                      <span id="sol-correct-badge" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold font-mono">Pilihan -</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 ml-auto">
+                    <button onclick="toggleSolutionBox()" class="text-[11px] text-slate-400 hover:text-white flex items-center gap-1">
+                      <i data-lucide="eye-off" class="w-3 h-3"></i> Sembunyikan
+                    </button>
+                    <button onclick="lockAnswerKey()" class="text-[11px] text-rose-400 hover:text-rose-300 flex items-center gap-1 border-l border-slate-700 pl-2">
+                      <i data-lucide="lock" class="w-3 h-3"></i> Kunci Lagi
+                    </button>
+                  </div>
+                </div>
+
+                <div id="sol-hint-card" class="hidden p-3 rounded-lg bg-dark-900 border border-slate-800 text-xs">
+                  <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block mb-1">Konsep / Petunjuk:</span>
+                  <div id="sol-hint-text" class="text-slate-300 leading-relaxed"></div>
+                </div>
+
+                <div class="text-xs text-slate-200">
+                  <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider block mb-1">Langkah Penyelesaian & Pembahasan:</span>
+                  <div id="sol-explanation-text" class="leading-relaxed space-y-1"></div>
+                </div>
               </div>
 
               <!-- Navigation Controls -->
@@ -607,6 +683,34 @@
   <!-- ======================================================== -->
   <!-- 4. MODALS (TEACHER PIN, CONFIRM SUBMIT, GSHEETS)        -->
   <!-- ======================================================== -->
+  <!-- Answer Key & Explanation PIN Modal (SANDI: 090305) -->
+  <div id="modal-answer-key-pin" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="clean-card rounded-2xl max-w-xs w-full p-6 shadow-2xl border-amber-500/40">
+      <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="key" class="w-5 h-5"></i>
+      </div>
+      <h3 class="text-sm font-bold text-white text-center">Kunci & Pembahasan Soal</h3>
+      <p class="text-xs text-slate-400 text-center mb-4">Masukkan 6 digit sandi khusus pembimbing untuk membuka pembahasan.</p>
+
+      <form onsubmit="handleAnswerKeyPinVerify(event)" class="space-y-3">
+        <input type="password" id="input-answer-key-pin" maxlength="10" placeholder="Sandi 6 Digit" class="w-full text-center font-mono py-2 rounded-xl bg-dark-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400" inputmode="numeric">
+        
+        <div id="answer-key-pin-error" class="hidden text-center text-xs text-rose-400 font-semibold">
+          Sandi salah! Silakan coba lagi.
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button type="button" onclick="closeAnswerKeyPinModal()" class="py-2 rounded-xl border border-slate-700 text-slate-400 hover:text-white text-xs font-semibold">
+            Batal
+          </button>
+          <button type="submit" class="py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold">
+            Buka Kunci
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Teacher PIN Modal -->
   <div id="modal-teacher-pin" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden flex items-center justify-center p-4">
     <div class="clean-card rounded-2xl max-w-xs w-full p-6 shadow-2xl border-amber-500/40">
@@ -707,12 +811,16 @@ function doPost(e) {
   <script>
     const USER_KEY = 'the_arich_user_session';
     const DB_KEY = 'the_arich_submissions_db';
+    const ACCOUNTS_KEY = 'the_arich_registered_students';
     const GSHEET_KEY = 'the_arich_gsheet_webhook';
     const TEACHER_PIN = '010822';
+    const ANSWER_KEY_PIN = '090305';
 
     let currentStudent = null;
     let currentGradeData = null;
     let isTeacherUnlocked = false;
+    let isAnswerKeyUnlocked = false;
+    let isSolutionVisible = false;
     let isAudio = true;
     let audioCtx = null;
 
@@ -725,10 +833,78 @@ function doPost(e) {
     let examSecondsLeft = 30 * 60;
 
     // ----------------------------------------------------
-    // STARTUP / SESSION CHECK
+    // STARTUP / SESSION & ACCOUNT PERSISTENCE
     // ----------------------------------------------------
+    function saveRegisteredStudent(student) {
+      try {
+        let accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+        const idx = accounts.findIndex(a => a.name.toLowerCase() === student.name.toLowerCase());
+        if (idx >= 0) {
+          accounts[idx] = { ...accounts[idx], ...student, lastLogin: Date.now() };
+        } else {
+          accounts.unshift({ ...student, lastLogin: Date.now() });
+        }
+        localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+      } catch (e) {}
+    }
+
+    function renderSavedAccounts() {
+      const container = document.getElementById('gate-saved-accounts-list');
+      const section = document.getElementById('gate-saved-accounts-section');
+      if (!container || !section) return;
+
+      const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+
+      if (accounts.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+
+      section.classList.remove('hidden');
+      container.innerHTML = accounts.map(acc => {
+        const gradeName = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[acc.grade]) 
+          ? window.ALL_GRADES_DATA[acc.grade].gradeName 
+          : `Kelas ${acc.grade}`;
+        const count = db.filter(r => r.studentName.toLowerCase() === acc.name.toLowerCase()).length;
+
+        return `
+          <div onclick="loginSavedAccount('${acc.name.replace(/'/g, "\\'")}')" class="p-2.5 rounded-xl bg-dark-900 border border-slate-800 hover:border-indigo-500 hover:bg-dark-850 cursor-pointer flex items-center justify-between group transition">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 font-bold flex items-center justify-center text-xs group-hover:bg-indigo-600 group-hover:text-white transition">
+                ${acc.name.charAt(0).toUpperCase()}
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white group-hover:text-indigo-300 transition">${acc.name}</div>
+                <div class="text-[10px] text-slate-400">${gradeName} ${acc.school ? '• ' + acc.school : ''}</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] px-2 py-0.5 rounded bg-dark-800 text-slate-300 border border-slate-700">
+                ${count} Riwayat Latihan
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function loginSavedAccount(name) {
+      const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+      const acc = accounts.find(a => a.name.toLowerCase() === name.toLowerCase());
+      if (acc) {
+        currentStudent = { name: acc.name, grade: acc.grade, school: acc.school || 'Sekolah' };
+        localStorage.setItem(USER_KEY, JSON.stringify(currentStudent));
+        saveRegisteredStudent(currentStudent);
+        loadGradeCurriculum(acc.grade);
+        updateHeaderProfile();
+        switchView('dashboard');
+      }
+    }
+
     function initApp() {
-      // Check if user session already exists
+      // Check if user session already exists in localStorage
       const stored = localStorage.getItem(USER_KEY);
       if (stored) {
         try {
@@ -737,10 +913,12 @@ function doPost(e) {
           updateHeaderProfile();
           switchView('dashboard');
         } catch (e) {
+          renderSavedAccounts();
           switchView('student-gate');
         }
       } else {
-        // ALWAYS show student gate first if no session exists!
+        // Show student gate with saved accounts on this device
+        renderSavedAccounts();
         switchView('student-gate');
       }
     }
@@ -755,6 +933,7 @@ function doPost(e) {
 
       currentStudent = { name, grade, school };
       localStorage.setItem(USER_KEY, JSON.stringify(currentStudent));
+      saveRegisteredStudent(currentStudent);
 
       loadGradeCurriculum(grade);
       updateHeaderProfile();
@@ -787,11 +966,12 @@ function doPost(e) {
     }
 
     function promptChangeAccount() {
-      if (confirm('Ingin berganti akun / kelas?')) {
+      if (confirm('Ingin berganti akun / kelas? Riwayat latihanmu tetap tersimpan aman di perangkat ini.')) {
         localStorage.removeItem(USER_KEY);
         currentStudent = null;
         currentGradeData = null;
         updateHeaderProfile();
+        renderSavedAccounts();
         switchView('student-gate');
       }
     }
@@ -839,6 +1019,7 @@ function doPost(e) {
       if (viewName === 'dashboard') {
         document.getElementById('top-bar-title').textContent = 'Dashboard';
         renderDashboardChapters();
+        renderDashboardStats();
       } else if (viewName === 'materi-catalog') {
         document.getElementById('top-bar-title').textContent = 'Katalog Materi';
         renderMateriCatalog();
@@ -867,27 +1048,65 @@ function doPost(e) {
     // ----------------------------------------------------
     // DASHBOARD & MATERI CATALOG
     // ----------------------------------------------------
+    function renderDashboardStats() {
+      const descEl = document.getElementById('dash-stats-desc');
+      const pillsEl = document.getElementById('dash-stats-pills');
+      if (!descEl || !pillsEl) return;
+
+      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
+      const list = db.filter(r => !myName || r.studentName.toLowerCase() === myName);
+
+      if (list.length === 0) {
+        descEl.innerHTML = "Belum ada latihan yang diselesaikan. Mulai latihan untuk mengukur kemampuanmu!";
+        pillsEl.innerHTML = `
+          <button onclick="switchView('exam')" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1 transition">
+            <span>Mulai Tes</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </button>
+        `;
+      } else {
+        const totalTests = list.length;
+        const avgScore = Math.round(list.reduce((acc, cur) => acc + cur.score, 0) / totalTests);
+        const latest = list[0];
+
+        descEl.innerHTML = `Kamu telah menyelesaikan <strong class="text-white">${totalTests} set latihan</strong>. Skor terbaru: <strong class="text-emerald-400 font-mono">${latest.score}/100</strong> pada ${latest.timestamp}.`;
+        pillsEl.innerHTML = `
+          <div class="px-2.5 py-1 rounded-lg bg-dark-900 border border-slate-800 text-[11px] text-slate-300">
+            Rata-rata: <span class="font-bold text-amber-400 font-mono">${avgScore}</span>
+          </div>
+          <button onclick="switchView('history')" class="px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white font-semibold text-xs flex items-center gap-1 transition">
+            <span>Riwayat Nilai</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        `;
+      }
+      lucide.createIcons();
+    }
+
     function renderDashboardChapters() {
       const container = document.getElementById('dash-chapters-overview');
       if (!currentGradeData || !currentGradeData.chapters) return;
 
-      container.innerHTML = currentGradeData.chapters.map(ch => `
+      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+        const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        return `
         <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer hover:border-indigo-500/50 transition group">
-          <div class="text-[10px] font-bold text-indigo-400 mb-1">Bab ${ch.number}</div>
+          <div class="text-[10px] font-bold text-indigo-400 mb-1">${badge}</div>
           <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition mb-1">${ch.title}</h4>
           <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">${ch.summary}</p>
         </div>
-      `).join('');
+      `}).join('');
     }
 
     function renderMateriCatalog() {
       const container = document.getElementById('materi-catalog-grid');
       if (!currentGradeData || !currentGradeData.chapters) return;
 
-      container.innerHTML = currentGradeData.chapters.map(ch => `
+      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+        const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        return `
         <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer hover:border-indigo-500/50 transition group flex flex-col justify-between">
           <div>
-            <div class="text-[10px] font-bold text-indigo-400 mb-1">Bab ${ch.number}</div>
+            <div class="text-[10px] font-bold text-indigo-400 mb-1">${badge}</div>
             <h4 class="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition mb-1.5">${ch.title}</h4>
             <p class="text-xs text-slate-400 leading-relaxed mb-4">${ch.summary}</p>
           </div>
@@ -896,7 +1115,7 @@ function doPost(e) {
             <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">Buka Bab <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
           </div>
         </div>
-      `).join('');
+      `}).join('');
     }
 
     function openChapterDetail(chapterId) {
@@ -904,7 +1123,7 @@ function doPost(e) {
       const ch = currentGradeData.chapters.find(c => c.id === chapterId);
       if (!ch) return;
 
-      document.getElementById('detail-chapter-num').textContent = `Bab ${ch.number}`;
+      document.getElementById('detail-chapter-num').textContent = ch.number ? `Bab ${ch.number}` : (ch.badge || 'Modul Bab');
       document.getElementById('detail-chapter-title').textContent = ch.title;
       document.getElementById('detail-chapter-summary').textContent = ch.summary;
 
@@ -1015,14 +1234,23 @@ function doPost(e) {
         doubtLabel.textContent = "Tandai Ragu";
       }
 
-      // Options
+      // Options with Answer Key Highlighting (when unlocked by PIN 090305)
       const optContainer = document.getElementById('exam-options-body');
       optContainer.innerHTML = q.options.map((opt, oIdx) => {
         const isSelected = userAnswers[idx] === oIdx;
-        const cls = isSelected 
-          ? 'p-3 rounded-xl bg-indigo-950/40 border-2 border-indigo-500 text-white cursor-pointer flex items-center justify-between'
-          : 'p-3 rounded-xl bg-dark-900 border border-slate-800 text-slate-300 hover:border-slate-700 cursor-pointer flex items-center justify-between';
-        const letterCls = isSelected ? 'bg-indigo-600 text-white font-bold' : 'bg-dark-800 text-slate-400';
+        const isKeyUnlocked = isAnswerKeyUnlocked && isSolutionVisible;
+        const isCorrectKey = isKeyUnlocked && (oIdx === q.correct);
+
+        let cls = isSelected 
+          ? 'p-3 rounded-xl bg-indigo-950/40 border-2 border-indigo-500 text-white cursor-pointer flex items-center justify-between transition'
+          : 'p-3 rounded-xl bg-dark-900 border border-slate-800 text-slate-300 hover:border-slate-700 cursor-pointer flex items-center justify-between transition';
+        
+        let letterCls = isSelected ? 'bg-indigo-600 text-white font-bold' : 'bg-dark-800 text-slate-400';
+
+        if (isCorrectKey) {
+          cls += ' ring-2 ring-emerald-500 bg-emerald-950/30';
+          letterCls = 'bg-emerald-600 text-white font-bold ring-1 ring-emerald-400';
+        }
 
         return `
           <div onclick="selectExamOption(${idx}, ${oIdx})" class="${cls}">
@@ -1032,7 +1260,10 @@ function doPost(e) {
               </span>
               <span class="text-xs sm:text-sm font-medium">${opt}</span>
             </div>
-            <div class="${isSelected ? 'text-indigo-400 text-xs' : 'text-transparent'}">✓</div>
+            <div class="flex items-center gap-1.5">
+              ${isCorrectKey ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Kunci Benar</span>' : ''}
+              <span class="${isSelected ? 'text-indigo-400 text-xs font-bold' : 'text-transparent'}">✓</span>
+            </div>
           </div>
         `;
       }).join('');
@@ -1042,6 +1273,7 @@ function doPost(e) {
       btnPrev.disabled = (idx === 0);
       btnPrev.style.opacity = (idx === 0) ? '0.3' : '1';
 
+      renderSolutionBox();
       renderExamMatrix();
       lucide.createIcons();
       triggerLatex();
@@ -1055,6 +1287,95 @@ function doPost(e) {
     function toggleCurrentDoubt() {
       userDoubts[currentQIdx] = !userDoubts[currentQIdx];
       renderCurrentExamQuestion(currentQIdx, 'none');
+    }
+
+    // ----------------------------------------------------
+    // PROTECTED ANSWER KEY & EXPLANATION (SANDI: 090305)
+    // ----------------------------------------------------
+    function handleAnswerKeyClick() {
+      if (!isAnswerKeyUnlocked) {
+        document.getElementById('input-answer-key-pin').value = '';
+        document.getElementById('answer-key-pin-error').classList.add('hidden');
+        document.getElementById('modal-answer-key-pin').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('input-answer-key-pin').focus();
+        }, 100);
+      } else {
+        isSolutionVisible = !isSolutionVisible;
+        renderSolutionBox();
+      }
+    }
+
+    function handleAnswerKeyPinVerify(e) {
+      e.preventDefault();
+      const entered = document.getElementById('input-answer-key-pin').value.trim();
+      if (entered === ANSWER_KEY_PIN) {
+        isAnswerKeyUnlocked = true;
+        isSolutionVisible = true;
+        closeAnswerKeyPinModal();
+        renderCurrentExamQuestion(currentQIdx, 'none');
+        playBeep(660, 0.15);
+      } else {
+        document.getElementById('answer-key-pin-error').classList.remove('hidden');
+        playBeep(220, 0.3);
+      }
+    }
+
+    function closeAnswerKeyPinModal() {
+      document.getElementById('modal-answer-key-pin').classList.add('hidden');
+    }
+
+    function toggleSolutionBox() {
+      isSolutionVisible = !isSolutionVisible;
+      renderCurrentExamQuestion(currentQIdx, 'none');
+    }
+
+    function lockAnswerKey() {
+      isAnswerKeyUnlocked = false;
+      isSolutionVisible = false;
+      renderCurrentExamQuestion(currentQIdx, 'none');
+    }
+
+    function renderSolutionBox() {
+      const box = document.getElementById('exam-solution-box');
+      const keyBtn = document.getElementById('exam-key-btn');
+      const keyLabel = document.getElementById('exam-key-label');
+
+      if (!box || !keyBtn) return;
+
+      if (isAnswerKeyUnlocked) {
+        keyBtn.className = isSolutionVisible
+          ? "px-2.5 py-1 rounded border border-amber-500 bg-amber-500/20 text-amber-300 text-xs flex items-center gap-1 transition shrink-0"
+          : "px-2.5 py-1 rounded border border-indigo-500/50 bg-indigo-500/10 text-indigo-300 text-xs flex items-center gap-1 transition shrink-0";
+        keyLabel.textContent = isSolutionVisible ? "Tutup Pembahasan" : "Buka Pembahasan";
+      } else {
+        keyBtn.className = "px-2.5 py-1 rounded border border-slate-700 bg-dark-900 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-500 hover:text-amber-300 transition shrink-0";
+        keyLabel.textContent = "Kunci & Pembahasan";
+      }
+
+      if (isAnswerKeyUnlocked && isSolutionVisible && activeQuestions[currentQIdx]) {
+        const q = activeQuestions[currentQIdx];
+        const letter = String.fromCharCode(65 + q.correct);
+        document.getElementById('sol-correct-badge').textContent = `Pilihan ${letter}`;
+
+        const hintCard = document.getElementById('sol-hint-card');
+        const hintText = document.getElementById('sol-hint-text');
+        if (q.hint) {
+          hintCard.classList.remove('hidden');
+          hintText.innerHTML = q.hint;
+        } else {
+          hintCard.classList.add('hidden');
+        }
+
+        const explText = document.getElementById('sol-explanation-text');
+        explText.innerHTML = q.explanation || "Pembahasan lengkap dibahas langsung bersama guru.";
+
+        box.classList.remove('hidden');
+        triggerLatex();
+        lucide.createIcons();
+      } else {
+        box.classList.add('hidden');
+      }
     }
 
     function slideExamPrev() {
@@ -1169,7 +1490,18 @@ function doPost(e) {
       const list = db.filter(r => !myName || r.studentName.toLowerCase() === myName);
 
       if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-5 text-center text-slate-500">Belum ada riwayat latihan yang diselesaikan.</td></tr>`;
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-slate-500 space-y-2">
+              <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
+              <p class="text-xs">Belum ada riwayat latihan untuk akun <strong>${currentStudent ? currentStudent.name : 'ini'}</strong>.</p>
+              <button onclick="switchView('exam')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition">
+                Mulai Latihan Sekarang <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+        lucide.createIcons();
         return;
       }
 
@@ -1186,6 +1518,7 @@ function doPost(e) {
           </td>
         </tr>
       `).join('');
+      lucide.createIcons();
     }
 
     // ----------------------------------------------------
