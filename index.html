@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,24 +14,28 @@
       theme: {
         extend: {
           colors: {
-            primary: {
+            brand: {
               50: '#eef2ff',
               100: '#e0e7ff',
-              200: '#c7d2fe',
+              400: '#818cf8',
               500: '#6366f1',
               600: '#4f46e5',
               700: '#4338ca',
               800: '#3730a3',
               900: '#312e81',
+              950: '#0b0f19',
             },
-            accent: {
-              50: '#eff6ff',
-              600: '#2563eb',
-              700: '#1d4ed8',
+            dark: {
+              950: '#070a13',
+              900: '#0c101d',
+              850: '#111728',
+              800: '#172036',
+              750: '#1f2b48',
+              700: '#283659'
             }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           }
         }
@@ -55,54 +59,55 @@
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
+  <!-- Local Curriculum & UTBK Question Bank Data -->
+  <script src="data/kurmer_kelas11_materi.js"></script>
+  <script src="data/utbk_soal_bank.js"></script>
+
   <style>
     body {
-      background-color: #F8FAFC;
-      color: #0F172A;
+      background-color: #070a13;
+      color: #e2e8f0;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
     }
 
-    /* Custom Math Typography & KaTeX adjustments */
+    /* Modern Glass Card */
+    .glass-panel {
+      background: rgba(17, 23, 40, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+    .glass-panel:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    /* KaTeX Typography Polish */
     .katex {
-      font-size: 1.08em;
-      letter-spacing: normal;
+      font-size: 1.05em;
     }
     .katex-display {
-      margin: 0.65em 0 !important;
+      margin: 0.6em 0 !important;
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 4px 0;
+      padding: 3px 0;
     }
 
-    /* Clean Card Elevation */
-    .card-clean {
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    /* UTBK Slide Animation Classes */
+    .slide-enter-right {
+      animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .card-clean:hover {
-      border-color: #CBD5E1;
+    .slide-enter-left {
+      animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Number Grid Item Active States */
-    .num-btn-empty {
-      background-color: #F1F5F9;
-      color: #475569;
-      border-color: #E2E8F0;
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(28px); }
+      to { opacity: 1; transform: translateX(0); }
     }
-    .num-btn-answered {
-      background-color: #4F46E5;
-      color: #FFFFFF;
-      border-color: #4338CA;
-    }
-    .num-btn-doubt {
-      background-color: #F59E0B;
-      color: #FFFFFF;
-      border-color: #D97706;
-    }
-    .num-btn-current {
-      ring: 3px solid #818CF8;
-      font-weight: 800;
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-28px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     /* Custom Scrollbar */
@@ -111,227 +116,377 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #F1F5F9;
+      background: #0c101d;
     }
     ::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
+      background: #1f2b48;
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #94A3B8;
+      background: #3730a3;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex bg-dark-950 text-slate-200 antialiased selection:bg-brand-500 selection:text-white">
 
   <!-- ======================================================== -->
-  <!-- 1. TOP APP BAR / HEADER (PROFESSIONAL LMS STYLE)         -->
+  <!-- 1. RESPONSIVE LEFT SIDEBAR DASHBOARD                     -->
   <!-- ======================================================== -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
-      <!-- Brand & Course Context -->
-      <div class="flex items-center space-x-3 sm:space-x-4">
-        <a href="#" onclick="showView('exam-gate')" class="flex items-center space-x-2.5 group">
-          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-600/20 group-hover:bg-indigo-700 transition">
-            <i data-lucide="compass" class="w-5 h-5"></i>
+  <aside id="sidebar-drawer" class="fixed inset-y-0 left-0 z-50 w-72 bg-dark-900 border-r border-slate-800/80 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+    
+    <!-- Sidebar Header & Brand Logo -->
+    <div class="p-5 border-b border-slate-800/80 flex items-center justify-between">
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-[1.5px] shadow-lg shadow-indigo-600/30 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-dark-900 rounded-[14px] flex items-center justify-center text-indigo-400 font-extrabold text-lg">
+            <i data-lucide="compass" class="w-5 h-5 text-indigo-400"></i>
           </div>
-          <div>
-            <div class="flex items-center space-x-1.5">
-              <span class="font-extrabold text-slate-900 text-base sm:text-lg tracking-tight">The Arich <span class="text-indigo-600">Study</span></span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">LMS Portal</span>
-            </div>
-            <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Matematika SMA • Kelas 11 • Bab 1: Fungsi Komposisi & Invers</p>
-          </div>
-        </a>
-      </div>
-
-      <!-- Main Navigation Tabs -->
-      <nav class="hidden md:flex items-center space-x-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
-        <button onclick="showView('exam')" id="nav-btn-exam" class="nav-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5">
-          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Ruang Latihan (10 Soal)
-        </button>
-        <button onclick="showView('theory')" id="nav-btn-theory" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-          <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Rangkuman Teori
-        </button>
-        <button onclick="showView('presentation')" id="nav-btn-presentation" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-          <i data-lucide="presentation" class="w-3.5 h-3.5"></i> Bahas Bareng Guru
-        </button>
-        <button onclick="showView('gradebook')" id="nav-btn-gradebook" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-          <i data-lucide="database" class="w-3.5 h-3.5"></i> Database Nilai
-        </button>
-      </nav>
-
-      <!-- User & Teacher Mode Actions -->
-      <div class="flex items-center space-x-2.5">
-        <div id="user-badge" class="hidden sm:flex items-center space-x-2 pl-2 pr-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700">
-          <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-[10px]" id="user-avatar-initial">M</div>
-          <span class="font-semibold" id="top-student-name">Murid</span>
         </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <span class="font-black text-white text-base tracking-tight">The Arich <span class="text-indigo-400">Study</span></span>
+          </div>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">LMS MATEMATIKA SMA</span>
+        </div>
+      </a>
 
-        <button onclick="toggleTeacherMode()" id="teacher-mode-btn" class="px-3 py-1.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold flex items-center gap-1.5 transition">
-          <i data-lucide="lock" class="w-3.5 h-3.5 text-indigo-600"></i>
-          <span id="teacher-mode-label">Mode Guru</span>
-        </button>
-      </div>
-
+      <!-- Mobile Close Drawer Button -->
+      <button onclick="toggleMobileSidebar()" class="lg:hidden p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
     </div>
-  </header>
+
+    <!-- Active Student Profile Card in Sidebar -->
+    <div class="p-4 mx-3 my-3 rounded-2xl bg-dark-850 border border-slate-800/80 flex items-center justify-between">
+      <div class="flex items-center space-x-3 overflow-hidden">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 text-white flex items-center justify-center font-bold text-sm shrink-0" id="sb-user-initial">
+          M
+        </div>
+        <div class="overflow-hidden">
+          <div class="text-xs font-bold text-white truncate" id="sb-user-name">Muhammad Farhan</div>
+          <div class="flex items-center space-x-1 mt-0.5">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="text-[10px] text-emerald-400 font-semibold truncate" id="sb-user-grade">Kelas 11 SMA</span>
+          </div>
+        </div>
+      </div>
+      <button onclick="openChangeAccountModal()" title="Ganti Akun Murid" class="p-1.5 rounded-lg text-slate-400 hover:text-indigo-400 hover:bg-dark-800 transition">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Sidebar Navigation Menu -->
+    <nav class="flex-1 px-3 space-y-1 overflow-y-auto">
+      <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Menu Utama</div>
+
+      <!-- Item 1: Dashboard Kelas 11 -->
+      <button onclick="switchView('dashboard')" id="sb-nav-dashboard" class="sb-nav-item active w-full px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-3 transition">
+        <i data-lucide="layout-dashboard" class="w-4 h-4 text-white"></i>
+        <span>Dashboard Kelas 11</span>
+      </button>
+
+      <!-- Item 2: Materi Kurikulum Merdeka -->
+      <button onclick="switchView('materi')" id="sb-nav-materi" class="sb-nav-item w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-3 transition">
+        <i data-lucide="book-open" class="w-4 h-4 text-purple-400"></i>
+        <span>Materi Kurmer (Bab 1 - 6)</span>
+      </button>
+
+      <!-- Item 3: Simulasi UTBK-SNBT (15 Soal) -->
+      <button onclick="switchView('utbk')" id="sb-nav-utbk" class="sb-nav-item w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center justify-between transition">
+        <div class="flex items-center gap-3">
+          <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-400"></i>
+          <span>Simulasi UTBK-SNBT</span>
+        </div>
+        <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">15 Soal</span>
+      </button>
+
+      <!-- Item 4: Riwayat Nilai Saya -->
+      <button onclick="switchView('my-results')" id="sb-nav-my-results" class="sb-nav-item w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-3 transition">
+        <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+        <span>Riwayat & Rapor Saya</span>
+      </button>
+
+      <div class="pt-4 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Akses Pengajar</div>
+
+      <!-- Item 5: Mode Guru (Sandi: 010822) -->
+      <button onclick="triggerTeacherModeAuth()" id="sb-nav-teacher" class="sb-nav-item w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 hover:bg-amber-500/10 border border-amber-500/20 flex items-center justify-between transition">
+        <div class="flex items-center gap-3">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+          <span id="sb-teacher-label">Mode Guru (Sandi)</span>
+        </div>
+        <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400" id="sb-teacher-lock-icon"></i>
+      </button>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-slate-800/80 text-[11px] text-slate-500 flex items-center justify-between">
+      <span>The Arich Study v2.4</span>
+      <span class="flex items-center gap-1 text-emerald-400 font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online
+      </span>
+    </div>
+
+  </aside>
+
+  <!-- Mobile Overlay Backdrop -->
+  <div id="mobile-sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs hidden lg:hidden"></div>
 
   <!-- ======================================================== -->
-  <!-- 2. MAIN CONTAINER & SUB-VIEWS                            -->
+  <!-- 2. MAIN CONTENT WRAPPER (RIGHT OF SIDEBAR)               -->
   <!-- ======================================================== -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
+  <div class="flex-1 lg:pl-72 flex flex-col min-h-screen">
+    
+    <!-- Top Nav Header Bar -->
+    <header class="sticky top-0 z-30 bg-dark-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Mobile Hamburger Toggle -->
+        <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
 
-    <!-- VIEW 1: GATE / REGISTRATION (ENTER NAME & CLASS FIRST) -->
-    <div id="view-exam-gate" class="max-w-xl mx-auto w-full my-auto py-8">
-      <div class="card-clean rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+        <div>
+          <h1 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2" id="top-bar-title">
+            <span>Dashboard Kelas 11 SMA</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Kurikulum Merdeka</span>
+          </h1>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2.5">
+        <!-- Audio Synthesizer SFX Button -->
+        <button onclick="toggleAudioSFX()" id="sfx-btn" class="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-dark-850 border border-slate-700/80 text-xs font-semibold text-slate-300 hover:text-white hover:border-indigo-500/40 flex items-center gap-1.5 transition">
+          <i id="sfx-icon" data-lucide="volume-2" class="w-4 h-4 text-indigo-400"></i>
+          <span id="sfx-label" class="hidden sm:inline">SFX: ON</span>
+        </button>
+
+        <!-- Quick Switch to UTBK Exam -->
+        <button onclick="switchView('utbk')" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 hover:brightness-110 active:scale-95 transition">
+          <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+          <span>Mulai Ujian</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main View Dynamic Container -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col">
+
+      <!-- ==================================================== -->
+      <!-- VIEW A: GATE / REGISTRATION (IF NOT LOGGED IN YET)    -->
+      <!-- ==================================================== -->
+      <div id="view-student-gate" class="hidden max-w-lg mx-auto w-full my-auto py-8">
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 shadow-2xl relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="text-center mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-3 border border-indigo-500/30">
+              <i data-lucide="user-plus" class="w-7 h-7"></i>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black text-white">Selamat Datang di The Arich Study</h2>
+            <p class="text-xs text-slate-400 mt-1">Masukkan identitas akunmu untuk mulai mengakses modul materi dan simulasi ujian.</p>
+          </div>
+
+          <form onsubmit="handleStudentRegistration(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Nama Lengkap Murid <span class="text-rose-400">*</span></label>
+              <input type="text" id="reg-name" required placeholder="Contoh: Muhammad Farhan" class="w-full px-4 py-2.5 rounded-xl bg-dark-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Pilih Kelas / Jenjang <span class="text-rose-400">*</span></label>
+              <select id="reg-grade" required class="w-full px-4 py-2.5 rounded-xl bg-dark-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-indigo-500">
+                <option value="11" selected>⭐ Kelas 11 SMA (Kurikulum Merdeka - Modul Penuh)</option>
+                <option value="10">Kelas 10 SMA</option>
+                <option value="12">Kelas 12 SMA (Persiapan UTBK)</option>
+                <option value="9">Kelas 9 SMP</option>
+                <option value="8">Kelas 8 SMP</option>
+                <option value="7">Kelas 7 SMP</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Asal Sekolah & No. WhatsApp (Opsional)</label>
+              <input type="text" id="reg-school" placeholder="Contoh: SMAN 8 Jakarta • 08123456789" class="w-full px-4 py-2.5 rounded-xl bg-dark-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 hover:brightness-110 active:scale-98 transition">
+                <i data-lucide="door-open" class="w-4 h-4"></i> Masuk ke Portal Belajar Saya
+              </button>
+            </div>
+
+            <p class="text-[11px] text-slate-500 text-center">Akunmu otomatis tersimpan di perangkat ini sehingga tidak akan hilang saat halaman ditutup.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW B: DASHBOARD UTAMA KELAS 11                     -->
+      <!-- ==================================================== -->
+      <div id="view-dashboard" class="space-y-6">
         
-        <div class="flex items-center space-x-3 mb-5">
-          <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
-            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h1 class="text-xl font-bold text-slate-900">Ujian & Latihan Soal Mandiri</h1>
-            <p class="text-xs text-slate-500">Materi: Fungsi Komposisi & Invers (10 Soal Pilihan Ganda)</p>
+        <!-- Welcome Hero Banner -->
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 relative overflow-hidden">
+          <div class="absolute -right-16 -top-16 w-56 h-56 bg-gradient-to-tr from-indigo-600/30 to-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="max-w-3xl relative z-10">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 inline-flex items-center gap-1.5 mb-3">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Portal Aktif Murid Kelas 11
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight mb-2">
+              Halo, <span id="dash-greeting-name" class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-300">Muhammad Farhan</span>! 👋
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+              Selamat datang di ruang belajar <strong>The Arich Study</strong>. Seluruh 6 bab Kurikulum Merdeka Matematika Fase F sudah siap kamu pelajari, lengkap dengan rumus KaTeX, trik kilat guru, dan simulasi 15 soal CBT standar UTBK-SNBT!
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+              <button onclick="switchView('utbk')" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5">
+                <i data-lucide="edit-3" class="w-4 h-4"></i> Kerjakan Ujian CBT (15 Soal)
+              </button>
+              <button onclick="switchView('materi')" class="px-5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-bold text-xs flex items-center gap-2 transition">
+                <i data-lucide="book-open" class="w-4 h-4 text-purple-400"></i> Buka 6 Bab Materi
+              </button>
+            </div>
           </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs leading-relaxed mb-6 space-y-1">
-          <div class="font-bold flex items-center gap-1.5">
-            <i data-lucide="info" class="w-4 h-4 text-amber-600"></i> Petunjuk Ujian & Pembahasan:
+        <!-- 6 Bab Kurikulum Merdeka Quick Cards -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+              <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i> Silabus Kurikulum Merdeka Fase F (Kelas 11)
+            </h3>
+            <span class="text-xs text-slate-400">Total 6 Bab Materi Lengkap</span>
           </div>
-          <p>• Kerjakan 10 soal di bawah secara mandiri dan teliti.</p>
-          <p>• Jawaban dapat diganti atau ditandai <strong>Ragu-ragu</strong> kapan saja sebelum tombol kumpulkan ditekan.</p>
-          <p>• <strong>Skor dan hasil evaluasi baru akan dihitung di akhir</strong> setelah kamu menekan tombol <em>Kumpulkan Jawaban</em>.</p>
-          <p>• Setelah dikumpulkan, kita akan <strong>bahas tuntas bersama Pak Guru di depan kelas</strong>!</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="dash-chapters-grid">
+            <!-- 6 cards rendered dynamically from kurmer_kelas11_materi.js -->
+          </div>
         </div>
 
-        <form onsubmit="handleStartExam(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap Murid <span class="text-rose-500">*</span></label>
-            <input type="text" id="input-student-name" required placeholder="Contoh: Muhammad Farhan" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW C: MATERI LENGKAP KURIKULUM MERDEKA (BAB 1 - 6) -->
+      <!-- ==================================================== -->
+      <div id="view-materi" class="hidden space-y-6">
+        
+        <!-- Chapter Switcher Navigation Tabs -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-2" id="materi-chapter-tabs">
+          <!-- 6 chapter pills -->
+        </div>
+
+        <!-- Selected Chapter Detail Body -->
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30" id="materi-chapter-content">
+          <!-- Injected via JS -->
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW D: SIMULASI UJIAN UTBK-SNBT (15 SOAL CBT ENGINE)-->
+      <!-- ==================================================== -->
+      <div id="view-utbk" class="hidden flex-1 flex flex-col space-y-4">
+        
+        <!-- UTBK Top Control Bar -->
+        <div class="glass-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 border border-indigo-500/30">
+          <div class="flex items-center space-x-3">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-extrabold text-xs border border-emerald-500/30 flex items-center gap-1.5">
+              <i data-lucide="monitor" class="w-3.5 h-3.5"></i> SISTEM UJIAN CBT UTBK
+            </span>
+            <span class="text-xs text-slate-300 font-semibold hidden sm:inline" id="utbk-peserta-label">Peserta: -</span>
           </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1.5">Kelas & Asal Sekolah <span class="text-rose-500">*</span></label>
-            <input type="text" id="input-student-class" required placeholder="Contoh: XI MIPA 3 - SMAN 8 Jakarta" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-          </div>
+          <!-- Timer & Action Bar -->
+          <div class="flex items-center space-x-3">
+            <!-- Countdown Timer -->
+            <div class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-xs font-black text-amber-400">
+              <i data-lucide="clock" class="w-4 h-4 text-amber-400 animate-pulse"></i>
+              <span id="utbk-timer-display">30:00</span>
+            </div>
 
-          <div class="pt-2">
-            <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition">
-              <i data-lucide="play" class="w-4 h-4 fill-current"></i> Mulai Mengerjakan Ujian (10 Soal)
+            <!-- Number Palette Drawer Button for Mobile -->
+            <button onclick="toggleNumberPaletteDrawer()" class="lg:hidden px-3 py-1.5 rounded-xl bg-dark-850 border border-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1">
+              <i data-lucide="grid" class="w-3.5 h-3.5"></i> Soal
+            </button>
+
+            <!-- Submit Exam Button -->
+            <button onclick="openUtbkSubmitConfirmation()" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-600/30 transition">
+              <i data-lucide="check-check" class="w-4 h-4"></i>
+              <span>Kumpulkan</span>
             </button>
           </div>
-        </form>
-
-      </div>
-    </div>
-
-    <!-- VIEW 2: ACTIVE EXAM INTERFACE (REAL EXAM / TRYOUT LAYOUT) -->
-    <div id="view-exam-active" class="hidden flex-1 flex flex-col">
-      
-      <!-- Exam Control Bar -->
-      <div class="card-clean rounded-2xl p-4 mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center space-x-3">
-          <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">
-            <i data-lucide="user" class="w-4 h-4"></i>
-          </div>
-          <div>
-            <div class="text-xs font-bold text-slate-900" id="exam-header-name">Murid: -</div>
-            <div class="text-[11px] text-slate-500" id="exam-header-class">Kelas: -</div>
-          </div>
         </div>
 
-        <div class="flex items-center space-x-4">
-          <!-- Live Timer -->
-          <div class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 text-xs font-mono font-bold">
-            <i data-lucide="clock" class="w-4 h-4 text-indigo-600"></i>
-            <span id="exam-timer">00:00</span>
-          </div>
-
-          <!-- Answered Counter -->
-          <div class="text-xs text-slate-600 font-medium hidden sm:block">
-            Terjawab: <span id="answered-count-badge" class="font-bold text-indigo-600">0</span> / 10 Soal
-          </div>
-
-          <!-- Finish Button -->
-          <button onclick="openSubmitModal()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
-            <i data-lucide="check-check" class="w-4 h-4"></i>
-            <span>Kumpulkan Jawaban</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Main Question & Sidebar Grid Container -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
-        
-        <!-- Left Column: The Question Pane (8 cols) -->
-        <div class="lg:col-span-8 flex flex-col space-y-4">
+        <!-- Main Examination Grid: Question Card & Number Matrix -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 items-start">
           
-          <div class="card-clean rounded-2xl p-6 sm:p-8 flex-1">
-            
-            <!-- Question Top Header -->
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
-              <div class="flex items-center space-x-2">
-                <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-extrabold text-xs" id="q-number-pill">
-                  SOAL NO. 1
-                </span>
-                <span class="text-xs text-slate-500 font-medium" id="q-category-pill">
-                  Domain & Kodomain
-                </span>
+          <!-- Left: Sliding Question Box (8 cols) -->
+          <div class="lg:col-span-8 flex flex-col">
+            <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 flex-1 relative overflow-hidden" id="utbk-question-card">
+              
+              <!-- Question Header -->
+              <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
+                <div class="flex items-center space-x-2">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-600 text-white font-black text-xs" id="utbk-q-num-badge">
+                    SOAL NO. 1
+                  </span>
+                  <span class="text-xs text-slate-400 font-semibold" id="utbk-q-chapter-badge">
+                    Fungsi Komposisi & Invers
+                  </span>
+                </div>
+
+                <!-- Doubt Tag Button -->
+                <button onclick="toggleUtbkDoubt()" id="utbk-doubt-btn" class="px-3 py-1 rounded-xl border border-slate-700 text-slate-400 text-xs font-semibold flex items-center gap-1.5 hover:border-amber-400 hover:text-amber-300 transition">
+                  <i data-lucide="flag" class="w-3.5 h-3.5"></i>
+                  <span id="utbk-doubt-label">Ragu-ragu</span>
+                </button>
               </div>
 
-              <!-- Doubt Tag Button -->
-              <button onclick="toggleDoubtCurrentQuestion()" id="doubt-btn" class="px-3 py-1 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold flex items-center gap-1.5 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 transition">
-                <i data-lucide="flag" class="w-3.5 h-3.5"></i>
-                <span id="doubt-btn-label">Tandai Ragu-ragu</span>
-              </button>
+              <!-- Question Prompt Text (KaTeX) -->
+              <div id="utbk-prompt-container" class="text-base sm:text-lg font-medium text-white leading-relaxed mb-6">
+                <!-- Injected via JS -->
+              </div>
+
+              <!-- 5 Options (A, B, C, D, E) -->
+              <div id="utbk-options-container" class="space-y-3 mb-8">
+                <!-- 5 options injected via JS -->
+              </div>
+
+              <!-- Navigation Footer (Previous, Slide, Next) -->
+              <div class="flex items-center justify-between pt-5 border-t border-slate-800">
+                <button onclick="slidePrevQuestion()" id="utbk-btn-prev" class="px-4 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-bold flex items-center gap-1.5 transition">
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i> Soal Sebelumnya
+                </button>
+
+                <div class="text-[11px] text-slate-500 font-mono hidden sm:block">
+                  Geser layar atau gunakan tombol panah
+                </div>
+
+                <button onclick="slideNextQuestion()" id="utbk-btn-next" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition">
+                  <span>Soal Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
             </div>
-
-            <!-- Question Prompt Body -->
-            <div id="exam-q-prompt" class="text-slate-900 text-base sm:text-lg font-medium leading-relaxed mb-6">
-              <!-- Rendered via JavaScript with KaTeX -->
-            </div>
-
-            <!-- Multiple Choice Option Cards -->
-            <div id="exam-options-list" class="space-y-3 mb-6">
-              <!-- Rendered via JavaScript -->
-            </div>
-
-            <!-- Question Nav Controls (Prev / Next) -->
-            <div class="flex items-center justify-between pt-5 border-t border-slate-100">
-              <button onclick="navPrevQuestion()" id="btn-prev-q" class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold flex items-center gap-1.5 transition">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i> Sebelumnya
-              </button>
-
-              <button onclick="navNextQuestion()" id="btn-next-q" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
-                <span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
-            </div>
-
           </div>
 
-        </div>
-
-        <!-- Right Column: Number Grid Navigator (4 cols) -->
-        <div class="lg:col-span-4 flex flex-col space-y-4">
-          
-          <div class="card-clean rounded-2xl p-5">
-            <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center justify-between">
-              <span>Lembar Nomor Soal</span>
-              <span class="text-[11px] font-semibold text-slate-500">10 Butir</span>
+          <!-- Right: Number Palette Matrix (4 cols) -->
+          <div id="utbk-palette-sidebar" class="lg:col-span-4 glass-panel rounded-3xl p-5 border border-indigo-500/30">
+            <h3 class="text-xs font-extrabold text-white uppercase tracking-wider mb-3 flex items-center justify-between">
+              <span>Daftar Nomor Soal</span>
+              <span class="text-indigo-400 font-mono" id="utbk-answered-counter">0 / 15 Terjawab</span>
             </h3>
 
-            <!-- 10 Number Buttons Grid -->
-            <div class="grid grid-cols-5 gap-2.5 mb-5" id="number-grid-container">
-              <!-- 10 buttons rendered via JS -->
+            <!-- 15 Matrix Buttons -->
+            <div class="grid grid-cols-5 gap-2 mb-4" id="utbk-matrix-grid">
+              <!-- 15 buttons injected via JS -->
             </div>
 
-            <!-- Legend -->
-            <div class="pt-4 border-t border-slate-100 space-y-2 text-[11px] text-slate-600">
+            <!-- Legend Indicator -->
+            <div class="pt-3 border-t border-slate-800 space-y-1.5 text-[11px] text-slate-400">
               <div class="flex items-center space-x-2">
-                <span class="w-3.5 h-3.5 rounded bg-indigo-600 shrink-0"></span>
+                <span class="w-3.5 h-3.5 rounded bg-emerald-500 shrink-0"></span>
                 <span>Sudah Dijawab</span>
               </div>
               <div class="flex items-center space-x-2">
@@ -339,13 +494,13 @@
                 <span>Ragu-ragu</span>
               </div>
               <div class="flex items-center space-x-2">
-                <span class="w-3.5 h-3.5 rounded bg-slate-200 border border-slate-300 shrink-0"></span>
+                <span class="w-3.5 h-3.5 rounded bg-dark-900 border border-slate-700 shrink-0"></span>
                 <span>Belum Dijawab</span>
               </div>
             </div>
 
-            <!-- Quick Finish CTA -->
-            <button onclick="openSubmitModal()" class="w-full mt-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+            <!-- Finish Exam Button -->
+            <button onclick="openUtbkSubmitConfirmation()" class="w-full mt-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-600/25 transition">
               <i data-lucide="send" class="w-4 h-4"></i> Selesai & Kumpulkan Ujian
             </button>
           </div>
@@ -354,287 +509,213 @@
 
       </div>
 
-    </div>
-
-    <!-- VIEW 3: POST-SUBMISSION RESULTS & SCORE OVERVIEW -->
-    <div id="view-exam-result" class="hidden max-w-3xl mx-auto w-full py-6">
-      
-      <div class="card-clean rounded-2xl p-6 sm:p-8 text-center border-2 border-emerald-500/40 shadow-sm mb-6">
-        
-        <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3 border border-emerald-200">
-          <i data-lucide="check-circle" class="w-8 h-8"></i>
-        </div>
-
-        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-block mb-2">
-          UJIAN BERHASIL DIKUMPULKAN!
-        </span>
-
-        <h2 class="text-2xl font-black text-slate-900" id="result-student-name">Nama Murid</h2>
-        <p class="text-xs text-slate-500 mb-6" id="result-student-class">Kelas • The Arich Study</p>
-
-        <!-- Big Score Card -->
-        <div class="max-w-xs mx-auto p-5 rounded-2xl bg-slate-50 border border-slate-200 mb-6">
-          <span class="text-xs text-slate-500 font-bold uppercase block mb-1">Nilai Akhir Ujian</span>
-          <div class="text-5xl font-black text-indigo-600 font-mono" id="result-score-val">80</div>
-          <div class="text-xs text-slate-600 font-semibold mt-2" id="result-score-detail">8 Benar dari 10 Soal (Skor: 80 / 100)</div>
-        </div>
-
-        <!-- Database Save Status Notification -->
-        <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-center gap-2 mb-6">
-          <i data-lucide="database" class="w-4 h-4 text-emerald-600"></i>
-          <span>Hasil jawabanmu <strong>sudah tersimpan otomatis di Database Guru</strong>!</span>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-3">
-          <button onclick="showView('presentation')" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
-            <i data-lucide="presentation" class="w-4 h-4"></i> Masuk ke Mode Bahas di Depan Kelas
-          </button>
+      <!-- ==================================================== -->
+      <!-- VIEW E: POST-EXAM RESULTS SCREEN                     -->
+      <!-- ==================================================== -->
+      <div id="view-exam-result" class="hidden max-w-2xl mx-auto w-full py-6">
+        <div class="glass-panel rounded-3xl p-6 sm:p-10 text-center border-2 border-emerald-500/40 shadow-2xl mb-6">
           
-          <button onclick="shareResultToWhatsApp()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
-            <i data-lucide="message-circle" class="w-4 h-4"></i> Konfirmasi Nilai ke WhatsApp Guru
-          </button>
+          <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3 border border-emerald-500/40">
+            <i data-lucide="award" class="w-8 h-8"></i>
+          </div>
 
-          <button onclick="restartExam()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-xs transition">
-            Ulangi Ujian
-          </button>
-        </div>
-
-      </div>
-
-      <!-- Quick Answer Summary Review Table -->
-      <div class="card-clean rounded-2xl p-5">
-        <h3 class="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-          <i data-lucide="list-checks" class="w-4 h-4 text-indigo-600"></i> Rekap Jawaban Kamu (10 Soal):
-        </h3>
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5" id="result-summary-grid">
-          <!-- Injected via JS -->
-        </div>
-      </div>
-
-    </div>
-
-    <!-- VIEW 4: PRESENTATION / DISCUSSION MODE (UNTUK DIBAHAS GURU DI DEPAN KELAS) -->
-    <div id="view-presentation" class="hidden flex-1 flex flex-col space-y-6">
-      
-      <div class="card-clean rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 bg-indigo-900 text-white border-indigo-900">
-        <div>
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/40 text-indigo-200 border border-indigo-400/30 uppercase">
-            Mode Presentasi Proyektor Kelas
+          <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider inline-block mb-2">
+            UJIAN SELESAI DIKUMPULKAN!
           </span>
-          <h2 class="text-xl font-bold mt-1 text-white">Bahas Tuntas Soal Bersama Guru di Depan Kelas</h2>
-          <p class="text-xs text-indigo-200">Gunakan tombol nomor di bawah untuk membahas nomor mana saja yang murid rasa paling sulit.</p>
-        </div>
 
-        <!-- Quick Switch Question Selector -->
-        <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="text-xs text-indigo-200 font-semibold mr-1">Lompat ke No:</span>
-          <div class="flex items-center gap-1" id="pres-jump-buttons">
-            <!-- 10 buttons -->
+          <h2 class="text-2xl font-black text-white" id="res-student-name">Muhammad Farhan</h2>
+          <p class="text-xs text-slate-400 mb-6" id="res-student-grade">Kelas 11 SMA • The Arich Study</p>
+
+          <!-- Score Card Display -->
+          <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 max-w-xs mx-auto mb-6">
+            <span class="text-xs text-slate-400 font-bold uppercase block mb-1">Skor Akhir UTBK</span>
+            <div class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-mono" id="res-score-value">
+              87
+            </div>
+            <div class="text-xs text-slate-300 font-semibold mt-2" id="res-score-breakdown">
+              13 Benar dari 15 Soal
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-emerald-300 text-xs flex items-center justify-center gap-2 mb-6">
+            <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i>
+            <span>Nilaimu telah <strong>tersimpan otomatis di Database Guru</strong>!</span>
+          </div>
+
+          <!-- Action CTAs -->
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button onclick="shareScoreToTeacherWhatsApp()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/30 transition">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> Konfirmasi Nilai via WhatsApp Guru
+            </button>
+
+            <button onclick="switchView('materi')" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2 transition">
+              <i data-lucide="book-open" class="w-4 h-4"></i> Kembali ke Modul Materi
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW F: RIWAYAT & RAPOR SAYA                         -->
+      <!-- ==================================================== -->
+      <div id="view-my-results" class="hidden space-y-6">
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30">
+          <h2 class="text-xl font-extrabold text-white mb-1 flex items-center gap-2">
+            <i data-lucide="award" class="w-5 h-5 text-amber-400"></i> Riwayat Ujian & Rapor Saya
+          </h2>
+          <p class="text-xs text-slate-400 mb-6">Daftar rekaman nilai ujian matematika yang telah kamu selesaikan di The Arich Study.</p>
+
+          <div class="overflow-x-auto rounded-2xl border border-slate-800">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-dark-900 border-b border-slate-800 text-[10px] font-bold uppercase text-slate-400">
+                <tr>
+                  <th class="py-3 px-4">Waktu Ujian</th>
+                  <th class="py-3 px-4">Nama Ujian</th>
+                  <th class="py-3 px-4 text-center">Jumlah Soal</th>
+                  <th class="py-3 px-4 text-center">Skor Akhir</th>
+                  <th class="py-3 px-4 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="my-results-tbody" class="divide-y divide-slate-800/80">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      <!-- The Big Presentation Question Card -->
-      <div class="card-clean rounded-2xl p-6 sm:p-10 shadow-sm">
-        
-        <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
-          <div class="flex items-center space-x-3">
-            <span class="px-3 py-1 rounded-xl bg-indigo-600 text-white font-extrabold text-sm" id="pres-num-tag">
-              PEMBAHASAN NOMOR 1
-            </span>
-            <span class="text-sm font-bold text-slate-700" id="pres-cat-tag">
-              Kategori: Domain Alami Pecahan
-            </span>
-          </div>
-
-          <div class="flex items-center space-x-2">
-            <button onclick="prevPresQuestion()" class="p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
-              <i data-lucide="chevron-left" class="w-5 h-5"></i>
-            </button>
-            <button onclick="nextPresQuestion()" class="p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
-              <i data-lucide="chevron-right" class="w-5 h-5"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- Question Prompt -->
-        <div class="text-lg sm:text-xl font-medium text-slate-900 mb-8 leading-relaxed" id="pres-prompt-body">
-          <!-- Text -->
-        </div>
-
-        <!-- Options with Verified Correct Answer Marked -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8" id="pres-options-grid">
-          <!-- Options -->
-        </div>
-
-        <!-- Detailed Teacher Explanation Box -->
-        <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-200" id="pres-explanation-box">
-          <div class="flex items-center gap-2 text-indigo-900 font-extrabold text-sm mb-3">
-            <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i> Pembahasan Langkah demi Langkah Guru:
-          </div>
-          <div class="text-xs sm:text-sm text-slate-800 leading-relaxed space-y-2" id="pres-explanation-content">
-            <!-- LaTeX Explanation -->
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- VIEW 5: THEORY MODULE (RANGKUMAN CEPAT MATERI) -->
-    <div id="view-theory" class="hidden flex-1 space-y-6">
-      <div class="card-clean rounded-2xl p-6 sm:p-8">
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Modul Materi & Trik Cepat Fungsi Kelas 11</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mb-6">Ringkasan konsep kunci yang paling sering keluar di ulangan harian dan UTBK-SNBT.</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- ==================================================== -->
+      <!-- VIEW G: TEACHER DASHBOARD (PROTECTED: PIN 010822)    -->
+      <!-- ==================================================== -->
+      <div id="view-teacher-dashboard" class="hidden space-y-6">
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-amber-500/40">
           
-          <!-- Box 1: Syarat Domain Alami -->
-          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
-              <i data-lucide="shield-check" class="w-4 h-4"></i> 1. Dua Syarat Keramat Domain Alami ($D_f$)
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800 mb-6">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  PORTAL GURU TERVERIFIKASI
+                </span>
+                <span class="text-xs text-slate-400">• Sandi: 010822</span>
+              </div>
+              <h2 class="text-xl font-black text-white mt-1">Database Rekap Nilai Ujian Murid</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Semua data pengerjaan murid tersimpan aman di browser ini & dapat diexport ke Excel.</p>
             </div>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Di matematika, hanya ada 2 pantangan utama bilangan real:
-            </p>
-            <div class="p-3 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-800 space-y-1.5">
-              <div>• Pecahan $\frac{f(x)}{g(x)} \implies \text{Syarat: } g(x) \ne 0$</div>
-              <div>• Bentuk Akar $\sqrt{h(x)} \implies \text{Syarat: } h(x) \ge 0$</div>
-              <div>• Akar di Penyebut $\frac{1}{\sqrt{h(x)}} \implies \text{Syarat: } h(x) > 0$</div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-2">
+              <button onclick="openGoogleSheetModal()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+                <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Hubungkan Google Sheets
+              </button>
+              <button onclick="exportTeacherDataToCSV()" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-bold flex items-center gap-1.5 transition">
+                <i data-lucide="download" class="w-4 h-4"></i> Export Excel (CSV)
+              </button>
             </div>
           </div>
 
-          <!-- Box 2: Trik Cepat Invers Pecahan -->
-          <div class="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-200 space-y-3">
-            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
-              <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i> 2. Trik Kilat Invers Pecahan Linear
-            </div>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Jika $f(x) = \frac{ax + b}{cx + d}$, maka fungsi inversnya cukup menukar posisi $a$ dan $d$ lalu kalikan keduanya dengan minus:
-            </p>
-            <div class="p-3 rounded-xl bg-white border border-indigo-200 font-mono text-xs font-bold text-indigo-900 text-center">
-              $$f^{-1}(x) = \frac{-dx + b}{cx - a}, x \ne \frac{a}{c}$$
-            </div>
+          <!-- Gradebook Table Container -->
+          <div class="overflow-x-auto rounded-2xl border border-slate-800">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-dark-900 border-b border-slate-800 text-[10px] font-bold uppercase text-slate-400">
+                <tr>
+                  <th class="py-3 px-4">No</th>
+                  <th class="py-3 px-4">Waktu Submit</th>
+                  <th class="py-3 px-4">Nama Murid</th>
+                  <th class="py-3 px-4">Kelas & Sekolah</th>
+                  <th class="py-3 px-4 text-center">Benar / Total</th>
+                  <th class="py-3 px-4 text-center">Nilai</th>
+                  <th class="py-3 px-4 text-center">Status</th>
+                  <th class="py-3 px-4 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="teacher-gradebook-tbody" class="divide-y divide-slate-800/80">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
           </div>
 
-          <!-- Box 3: Sifat Komposisi -->
-          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
-              <i data-lucide="layers" class="w-4 h-4"></i> 3. Sifat Operasi Komposisi $(f \circ g)$
-            </div>
-            <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside">
-              <li><strong>Tidak Komutatif:</strong> $(f \circ g)(x) \ne (g \circ f)(x)$.</li>
-              <li><strong>Asosiatif:</strong> $(f \circ (g \circ h))(x) = ((f \circ g) \circ h)(x)$.</li>
-              <li><strong>Identitas:</strong> $(f \circ I)(x) = (I \circ f)(x) = f(x)$ dengan $I(x) = x$.</li>
-            </ul>
-          </div>
-
-          <!-- Box 4: Invers Komposisi -->
-          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-            <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm">
-              <i data-lucide="rotate-ccw" class="w-4 h-4"></i> 4. Invers dari Komposisi Fungsi
-            </div>
-            <p class="text-xs text-slate-600">Rumus tukar urutan saat kurung invers dibuka:</p>
-            <div class="p-3 rounded-xl bg-white border border-slate-200 font-mono text-xs text-indigo-900 text-center space-y-1">
-              <div>$$(f \circ g)^{-1}(x) = (g^{-1} \circ f^{-1})(x)$$</div>
-              <div>$$(g \circ f)^{-1}(x) = (f^{-1} \circ g^{-1})(x)$$</div>
-            </div>
+          <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+            <span id="teacher-total-submissions-text">Total Ujian Masuk: 0 Murid</span>
+            <button onclick="clearAllSubmissionsConfirm()" class="text-rose-400 hover:underline text-[11px] font-semibold">
+              Reset Seluruh Database Nilai
+            </button>
           </div>
 
         </div>
       </div>
-    </div>
 
-    <!-- VIEW 6: GRADEBOOK / DATABASE NILAI GURU (100% FREE REKAP) -->
-    <div id="view-gradebook" class="hidden flex-1 space-y-6">
+    </main>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. TEACHER PIN AUTHENTICATION MODAL (SANDI: 010822)      -->
+  <!-- ======================================================== -->
+  <div id="teacher-pin-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-panel rounded-3xl max-w-sm w-full p-6 sm:p-8 border border-amber-500/40 shadow-2xl relative" id="teacher-pin-card">
       
-      <div class="card-clean rounded-2xl p-6 sm:p-8">
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200 mb-6">
-          <div>
-            <div class="flex items-center space-x-2">
-              <h2 class="text-xl font-bold text-slate-900">Database Rekap Nilai Murid</h2>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">100% Free Database</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-1">Seluruh hasil ujian murid tersimpan otomatis di browser ini dan dapat dihubungkan ke Google Sheets.</p>
-          </div>
+      <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3 border border-amber-500/40">
+        <i data-lucide="shield-check" class="w-7 h-7"></i>
+      </div>
 
-          <div class="flex items-center space-x-2">
-            <button onclick="openGoogleSheetModal()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
-              <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Sambungkan ke Google Sheets
-            </button>
-            <button onclick="exportGradebookToCSV()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold flex items-center gap-1.5 transition">
-              <i data-lucide="download" class="w-4 h-4"></i> Export ke Excel (CSV)
-            </button>
-          </div>
+      <h3 class="text-lg font-black text-white text-center">Akses Khusus Guru</h3>
+      <p class="text-xs text-slate-400 text-center mb-5">Masukkan Sandi Pengajar untuk melihat database nilai murid.</p>
+
+      <form onsubmit="handleTeacherPinSubmit(event)" class="space-y-4">
+        <div>
+          <input type="password" id="teacher-pin-input" maxlength="10" placeholder="Masukkan 6 Digit Sandi" class="w-full text-center tracking-widest font-mono text-lg py-2.5 rounded-xl bg-dark-900 border border-slate-700 text-white focus:outline-none focus:border-amber-400 placeholder-slate-600">
         </div>
 
-        <!-- Gradebook Table Container -->
-        <div class="overflow-x-auto rounded-xl border border-slate-200">
-          <table class="w-full text-left text-xs text-slate-700">
-            <thead class="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold uppercase text-[10px]">
-              <tr>
-                <th class="py-3 px-4">No</th>
-                <th class="py-3 px-4">Waktu Submit</th>
-                <th class="py-3 px-4">Nama Murid</th>
-                <th class="py-3 px-4">Kelas & Sekolah</th>
-                <th class="py-3 px-4 text-center">Benar / Total</th>
-                <th class="py-3 px-4 text-center">Nilai Akhir</th>
-                <th class="py-3 px-4 text-center">Status</th>
-                <th class="py-3 px-4 text-center">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="gradebook-tbody" class="divide-y divide-slate-100">
-              <!-- Submissions injected via JS -->
-            </tbody>
-          </table>
+        <div id="pin-error-msg" class="hidden text-center text-xs font-bold text-rose-400">
+          ❌ Sandi Guru Salah! Akses ditolak.
         </div>
 
-        <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
-          <span id="gradebook-total-entries">Total Murid Mengerjakan: 0</span>
-          <button onclick="clearGradebookConfirm()" class="text-rose-600 hover:underline text-[11px] font-semibold">
-            Reset Seluruh Data Murid
+        <div class="grid grid-cols-2 gap-2 pt-2">
+          <button type="button" onclick="closeTeacherPinModal()" class="py-2.5 rounded-xl border border-slate-700 text-slate-400 hover:text-white text-xs font-bold transition">
+            Batal
+          </button>
+          <button type="submit" class="py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-lg shadow-amber-500/20 transition">
+            Buka Kunci
           </button>
         </div>
-
-      </div>
+      </form>
 
     </div>
-
-  </main>
+  </div>
 
   <!-- ======================================================== -->
-  <!-- 3. CONFIRMATION SUBMIT EXAM MODAL                        -->
+  <!-- 4. UTBK SUBMIT CONFIRMATION MODAL                        -->
   <!-- ======================================================== -->
-  <div id="submit-confirm-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="card-clean rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 animate-in fade-in duration-200">
-      <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-4 border border-indigo-100">
+  <div id="utbk-submit-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-panel rounded-3xl max-w-md w-full p-6 sm:p-8 border border-indigo-500/40 shadow-2xl">
+      <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mx-auto mb-3 border border-indigo-500/30">
         <i data-lucide="help-circle" class="w-6 h-6"></i>
       </div>
-      <h3 class="text-lg font-bold text-slate-900 text-center mb-1">Kumpulkan Ujian Sekarang?</h3>
-      <p class="text-xs text-slate-500 text-center mb-4">Pastikan kamu sudah memeriksa seluruh jawaban sebelum mengumpulkan.</p>
 
-      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1.5 mb-6">
+      <h3 class="text-lg font-black text-white text-center mb-1">Kumpulkan Ujian Sekarang?</h3>
+      <p class="text-xs text-slate-400 text-center mb-5">Periksa status pengerjaan soal kamu sebelum mengakhiri ujian:</p>
+
+      <div class="p-4 rounded-2xl bg-dark-900 border border-slate-800 space-y-2 text-xs mb-6">
         <div class="flex justify-between">
-          <span>Sudah Dijawab:</span>
-          <span class="font-bold text-indigo-600" id="modal-stat-answered">0 Soal</span>
+          <span class="text-slate-400">Sudah Dijawab:</span>
+          <span class="font-bold text-emerald-400 font-mono" id="confirm-answered-text">0 / 15 Soal</span>
         </div>
         <div class="flex justify-between">
-          <span>Ragu-ragu:</span>
-          <span class="font-bold text-amber-600" id="modal-stat-doubt">0 Soal</span>
+          <span class="text-slate-400">Masih Ragu-ragu:</span>
+          <span class="font-bold text-amber-400 font-mono" id="confirm-doubt-text">0 Soal</span>
         </div>
         <div class="flex justify-between">
-          <span>Belum Dijawab:</span>
-          <span class="font-bold text-rose-600" id="modal-stat-unanswered">10 Soal</span>
+          <span class="text-slate-400">Belum Dijawab:</span>
+          <span class="font-bold text-rose-400 font-mono" id="confirm-unanswered-text">15 Soal</span>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-3">
-        <button onclick="closeSubmitModal()" class="py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition">
-          Periksa Lagi
+        <button onclick="closeUtbkSubmitModal()" class="py-2.5 rounded-xl border border-slate-700 text-slate-300 font-bold text-xs hover:bg-dark-850 transition">
+          Kembali Periksa
         </button>
-        <button onclick="executeFinalSubmit()" class="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition">
+        <button onclick="executeFinalUtbkSubmit()" class="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-lg shadow-emerald-600/30 transition">
           Ya, Kumpulkan!
         </button>
       </div>
@@ -642,28 +723,28 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 4. GOOGLE SHEETS SETUP GUIDE MODAL (100% FREE DB)        -->
+  <!-- 5. GOOGLE SHEETS SETUP MODAL (100% FREE DATABASE)        -->
   <!-- ======================================================== -->
-  <div id="gsheets-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="card-clean rounded-2xl max-w-xl w-full p-6 shadow-xl border border-slate-200 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
-        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-600"></i> Cara Hubungkan ke Google Sheets (Gratis)
+  <div id="gsheets-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-panel rounded-3xl max-w-xl w-full p-6 sm:p-8 border border-emerald-500/40 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+        <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+          <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-400"></i> Integrasi Google Sheets Gratis
         </h3>
-        <button onclick="closeGoogleSheetModal()" class="text-slate-400 hover:text-slate-600">
+        <button onclick="closeGoogleSheetModal()" class="text-slate-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div class="text-xs text-slate-600 space-y-3 leading-relaxed mb-5">
-        <p>Kamu tidak perlu sewa server berbayar! Cukup gunakan <strong>Google Sheets gratis</strong> sebagai database nilai murid dengan 3 langkah mudah:</p>
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed mb-5">
+        <p>Kamu tidak perlu sewa database berbayar! Nilai murid bisa langsung masuk otomatis ke <strong>Google Spreadsheet di Google Drive kamu</strong> secara gratis:</p>
         
-        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+        <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
           <li>Buat Google Spreadsheet baru di Google Drive kamu.</li>
-          <li>Klik menu <strong>Extensions (Ekstensi) > Apps Script</strong>, hapus kode lama, lalu paste kode di bawah:</li>
+          <li>Klik menu <strong>Extensions (Ekstensi) > Apps Script</strong>, hapus kode lama, lalu paste script ini:</li>
         </ol>
 
-        <div class="p-3 rounded-xl bg-slate-900 text-indigo-300 font-mono text-[11px] overflow-x-auto whitespace-pre">
+        <div class="p-3.5 rounded-xl bg-dark-900 text-indigo-300 font-mono text-[11px] overflow-x-auto whitespace-pre border border-slate-800">
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
@@ -672,703 +753,677 @@ function doPost(e) {
     data.studentName,
     data.studentClass,
     data.score,
-    data.correctCount + "/10",
+    data.correctCount + "/15",
     JSON.stringify(data.answers)
   ]);
   return ContentService.createTextOutput(JSON.stringify({"status":"success"}))
     .setMimeType(ContentService.MimeType.JSON);
 }</div>
 
-        <ol start="3" class="list-decimal list-inside space-y-2 text-slate-700">
-          <li>Klik <strong>Deploy > New deployment</strong>, pilih jenis <strong>Web App</strong>, atur <em>Who has access</em> ke <strong>Anyone</strong>, lalu salin URL Web App yang didapat.</li>
+        <ol start="3" class="list-decimal list-inside space-y-1.5 text-slate-300">
+          <li>Klik <strong>Deploy > New deployment</strong>, pilih <strong>Web App</strong>, atur akses ke <strong>Anyone</strong>, lalu salin URL Web App yang didapat.</li>
         </ol>
 
         <div>
-          <label class="block text-xs font-bold text-slate-800 mb-1">Tempel Web App URL Google Script Kamu di Sini:</label>
-          <input type="url" id="gsheet-webhook-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500">
+          <label class="block text-xs font-bold text-slate-300 mb-1">Tempel URL Web App Google Script Kamu:</label>
+          <input type="url" id="gsheet-webhook-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-xl bg-dark-900 border border-slate-700 text-white text-xs focus:border-emerald-400">
         </div>
       </div>
 
-      <div class="flex justify-end space-x-2 pt-3 border-t border-slate-200">
-        <button onclick="saveGoogleSheetWebhook()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition">
-          Simpan Konfigurasi Webhook
+      <div class="flex justify-end space-x-2 pt-3 border-t border-slate-800">
+        <button onclick="saveGoogleSheetUrl()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs transition">
+          Simpan Webhook Google Sheets
         </button>
       </div>
     </div>
   </div>
 
   <!-- ======================================================== -->
-  <!-- 5. 10 BANK SOAL STANDAR UTBK & KURIKULUM MERDEKA        -->
+  <!-- 6. CORE LOGIC JAVASCRIPT ENGINE                          -->
   <!-- ======================================================== -->
   <script>
-    const BANK_SOAL_10 = [
-      {
-        id: 1,
-        category: "Konsep Relasi & Syarat Fungsi",
-        prompt: "Diberikan himpunan $A = \\{1, 2, 3\\}$ dan himpunan $B = \\{a, b, c, d\\}$. Di antara himpunan pasangan berurutan berikut, manakah yang merupakan <strong>fungsi (pemetaan)</strong> dari himpunan $A$ ke himpunan $B$?",
-        options: [
-          "$$\\{(1, a), (2, b), (1, c), (3, d)\\}$$",
-          "$$\\{(1, b), (2, b), (3, b)\\}$$",
-          "$$\\{(1, a), (3, c)\\}$$",
-          "$$\\{(2, a), (3, b), (4, c)\\}$$"
-        ],
-        correct: 1, // B
-        hint: "Ingat definisi fungsi: Setiap anggota daerah asal (domain) $A$ harus dipasangkan tepat satu kali ke anggota $B$. Tidak boleh ada yang bercabang atau terlewat!",
-        explanation: `
-          <strong>Pembahasan Konsep:</strong><br>
-          Syarat suatu relasi dari $A$ ke $B$ disebut fungsi adalah:
-          <ol class="list-decimal list-inside mt-1 space-y-1">
-            <li>Semua anggota himpunan $A$ (yaitu 1, 2, dan 3) harus muncul sebagai koordinat pertama.</li>
-            <li>Setiap anggota $A$ hanya boleh muncul tepat satu kali (tidak boleh selingkuh/bercabang).</li>
-          </ol>
-          Pada pilihan <strong>B</strong>: $\\{(1, b), (2, b), (3, b)\\}$, setiap anggota $\\{1, 2, 3\\}$ muncul tepat satu kali. Meskipun semuanya bermuara ke $b$, relasi ini tetap sah sebagai fungsi (disebut fungsi konstan).
-        `
-      },
-      {
-        id: 2,
-        category: "Domain Alami Pecahan Rasional",
-        prompt: "Daerah asal alami ($D_f$) dari fungsi rasional linear $$f(x) = \\frac{3x + 5}{2x - 8}$$ agar terdefinisi pada himpunan bilangan real adalah...",
-        options: [
-          "$$D_f = \\{x \\mid x \\ne 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_f = \\{x \\mid x \\ne -4, x \\in \\mathbb{R}\\}$$",
-          "$$D_f = \\{x \\mid x > 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_f = \\{x \\mid x \\ne -\\frac{5}{3}, x \\in \\mathbb{R}\\}$$"
-        ],
-        correct: 0, // A
-        hint: "Pecahan dilarang memiliki penyebut sama dengan nol ($0$). Buat persamaan penyebut $\\ne 0$!",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          Fungsi berbentuk pecahan $\\frac{P(x)}{Q(x)}$ terdefinisi jika dan hanya jika penyebutnya tidak sama dengan nol:
-          $$2x - 8 \\ne 0$$
-          $$2x \\ne 8 \\implies x \\ne 4$$
-          Jadi, daerah asalnya adalah $$D_f = \\{x \\mid x \\ne 4, x \\in \\mathbb{R}\\}$$. (Pilihan A Benar)
-        `
-      },
-      {
-        id: 3,
-        category: "Domain Alami Bentuk Akar Irasional",
-        prompt: "Daerah asal alami ($D_g$) dari fungsi irasional $$g(x) = \\sqrt{3x - 12}$$ pada himpunan bilangan real adalah...",
-        options: [
-          "$$D_g = \\{x \\mid x > 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_g = \\{x \\mid x \\ge 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_g = \\{x \\mid x \\le 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_g = \\{x \\mid x \\ge -4, x \\in \\mathbb{R}\\}$$"
-        ],
-        correct: 1, // B
-        hint: "Bilangan di dalam tanda akar pangkat genap tidak boleh bernilai negatif (harus $\\ge 0$).",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          Syarat bilangan di bawah tanda akar terdefinisi pada bilangan real:
-          $$3x - 12 \\ge 0$$
-          $$3x \\ge 12 \\implies x \\ge 4$$
-          Jadi, daerah asalnya adalah $$D_g = \\{x \\mid x \\ge 4, x \\in \\mathbb{R}\\}$$. (Pilihan B Benar)
-        `
-      },
-      {
-        id: 4,
-        category: "Domain Pecahan Berakar di Penyebut",
-        prompt: "Daerah asal alami ($D_h$) dari fungsi $$h(x) = \\frac{7}{\\sqrt{x^2 - 16}}$$ adalah...",
-        options: [
-          "$$D_h = \\{x \\mid -4 < x < 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_h = \\{x \\mid -4 \\le x \\le 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_h = \\{x \\mid x < -4 \\text{ atau } x > 4, x \\in \\mathbb{R}\\}$$",
-          "$$D_h = \\{x \\mid x \\le -4 \\text{ atau } x \\ge 4, x \\in \\mathbb{R}\\}$$"
-        ],
-        correct: 2, // C
-        hint: "Karena akar berada di posisi penyebut pecahan, syaratnya harus lebih besar murni dari nol ($> 0$, tidak boleh ada tanda sama dengan!).",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          1. Karena bentuk akar berada di penyebut:
-             $$x^2 - 16 > 0$$
-          2. Faktorkan pertidaksamaan kuadrat:
-             $$(x - 4)(x + 4) > 0$$
-          3. Pembuat nol adalah $x = 4$ dan $x = -4$. Uji tanda pada garis bilangan menghasilkan interval di luar akar:
-             $$x < -4 \\text{ atau } x > 4$$
-          (Pilihan C Benar)
-        `
-      },
-      {
-        id: 5,
-        category: "Operasi Aljabar Fungsi",
-        prompt: "Jika diketahui fungsi $$f(x) = x^2 - 4$$ dan $$g(x) = x + 2$$, maka rumus untuk fungsi pembagian $$\\left(\\frac{f}{g}\\right)(x)$$ dengan daerah definisi $x \\ne -2$ adalah...",
-        options: [
-          "$$x - 2$$",
-          "$$x + 2$$",
-          "$$x^2 - x - 6$$",
-          "$$\\frac{1}{x - 2}$$"
-        ],
-        correct: 0, // A
-        hint: "Gunakan faktorisasi selisih dua kuadrat pada pembilang: $a^2 - b^2 = (a-b)(a+b)$.",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          $$\\left(\\frac{f}{g}\\right)(x) = \\frac{f(x)}{g(x)} = \\frac{x^2 - 4}{x + 2}$$
-          Faktorkan pembilang:
-          $$= \\frac{(x - 2)(x + 2)}{x + 2}$$
-          Bagi faktor yang sama $(x + 2)$ untuk $x \\ne -2$:
-          $$= x - 2$$
-          (Pilihan A Benar)
-        `
-      },
-      {
-        id: 6,
-        category: "Evaluasi Nilai Komposisi Angka",
-        prompt: "Diketahui fungsi kuadrat $$f(x) = 2x^2 - 3x + 1$$ dan fungsi linear $$g(x) = x - 2$$. Nilai dari $$(f \\circ g)(4)$$ adalah...",
-        options: [
-          "$$1$$",
-          "$$3$$",
-          "$$5$$",
-          "$$9$$"
-        ],
-        correct: 1, // B
-        hint: "Hitung nilai $g(4)$ terlebih dahulu. Setelah dapat angkanya, masukkan angka tersebut ke rumus $f(x)$!",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          1. Berdasarkan definisi komposisi: $$(f \\circ g)(4) = f(g(4))$$
-          2. Hitung $g(4)$:
-             $$g(4) = 4 - 2 = 2$$
-          3. Masukkan hasil 2 ke fungsi $f$:
-             $$f(2) = 2(2)^2 - 3(2) + 1 = 2(4) - 6 + 1 = 8 - 6 + 1 = 3$$
-          (Pilihan B Benar)
-        `
-      },
-      {
-        id: 7,
-        category: "Aljabar Komposisi Dua Fungsi",
-        prompt: "Diketahui fungsi $$f(x) = 3x + 2$$ dan $$g(x) = \\frac{2x - 1}{x + 3}, x \\ne -3$$. Rumus fungsi komposisi $$(f \\circ g)(x)$$ adalah...",
-        options: [
-          "$$(f \\circ g)(x) = \\frac{8x + 3}{x + 3}, x \\ne -3$$",
-          "$$(f \\circ g)(x) = \\frac{6x + 5}{x + 3}, x \\ne -3$$",
-          "$$(f \\circ g)(x) = \\frac{8x - 3}{x + 3}, x \\ne -3$$",
-          "$$(f \\circ g)(x) = \\frac{6x - 1}{3x + 5}, x \\ne -\\frac{5}{3}$$"
-        ],
-        correct: 0, // A
-        hint: "Substitusikan seluruh pecahan $g(x)$ ke dalam variabel $x$ pada $f(x)$, lalu samakan penyebutnya!",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          $$(f \\circ g)(x) = f(g(x)) = 3\\left(\\frac{2x - 1}{x + 3}\\right) + 2$$
-          $$= \\frac{6x - 3}{x + 3} + \\frac{2(x + 3)}{x + 3}$$
-          $$= \\frac{6x - 3 + 2x + 6}{x + 3} = \\frac{8x + 3}{x + 3}, x \\ne -3$$
-          (Pilihan A Benar)
-        `
-      },
-      {
-        id: 8,
-        category: "Trik Kilat Invers Pecahan Linear",
-        prompt: "Invers dari fungsi pecahan linear $$f(x) = \\frac{5x + 3}{2x - 4}, x \\ne 2$$ adalah $$f^{-1}(x) = \\dots$$",
-        options: [
-          "$$f^{-1}(x) = \\frac{4x + 3}{2x - 5}, x \\ne \\frac{5}{2}$$",
-          "$$f^{-1}(x) = \\frac{-4x + 3}{2x + 5}, x \\ne -\\frac{5}{2}$$",
-          "$$f^{-1}(x) = \\frac{2x - 4}{5x + 3}, x \\ne -\\frac{3}{5}$$",
-          "$$f^{-1}(x) = \\frac{4x - 3}{2x - 5}, x \\ne \\frac{5}{2}$$"
-        ],
-        correct: 0, // A
-        hint: "Gunakan rumus cepat guru: Jika $f(x) = \\frac{ax+b}{cx+d}$, maka $f^{-1}(x) = \\frac{-dx+b}{cx-a}$. Tukar 5 dan -4, lalu beri minus!",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          Bentuk umum: $$f(x) = \\frac{ax + b}{cx + d} \\implies f^{-1}(x) = \\frac{-dx + b}{cx - a}$$
-          Di sini: $a = 5, b = 3, c = 2, d = -4$.
-          Tukar $a$ dan $d$, ubah tanda:
-          $$f^{-1}(x) = \\frac{-(-4)x + 3}{2x - 5} = \\frac{4x + 3}{2x - 5}, x \\ne \\frac{5}{2}$$
-          (Pilihan A Benar)
-        `
-      },
-      {
-        id: 9,
-        category: "Mencari Fungsi Pembentuk (Tipe UTBK)",
-        prompt: "Diketahui $$(f \\circ g)(x) = 4x^2 + 8x - 5$$ dan rumus $$f(x) = x^2 - 9$$. Jika fungsi $$g(x)$$ memiliki koefisien positif, maka rumus untuk $$g(x)$$ adalah...",
-        options: [
-          "$$g(x) = 2x - 2$$",
-          "$$g(x) = 2x + 2$$",
-          "$$g(x) = 4x + 1$$",
-          "$$g(x) = 2x + 4$$"
-        ],
-        correct: 1, // B
-        hint: "Tuliskan $f(g(x)) = (g(x))^2 - 9 = 4x^2 + 8x - 5$. Pindahkan 9 ke kanan, lalu bentuk kuadrat sempurna!",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          1. Kita tahu $(f \\circ g)(x) = f(g(x))$.
-          2. Karena $f(x) = x^2 - 9$, maka:
-             $$(g(x))^2 - 9 = 4x^2 + 8x - 5$$
-          3. Tambahkan 9 pada kedua ruas:
-             $$(g(x))^2 = 4x^2 + 8x - 5 + 9$$
-             $$(g(x))^2 = 4x^2 + 8x + 4$$
-          4. Perhatikan bahwa $4x^2 + 8x + 4$ adalah bentuk kuadrat sempurna:
-             $$(g(x))^2 = (2x + 2)^2$$
-          5. Karena $g(x)$ memiliki koefisien positif:
-             $$g(x) = 2x + 2$$
-          (Pilihan B Benar)
-        `
-      },
-      {
-        id: 10,
-        category: "Sifat Invers Komposisi Fungsi",
-        prompt: "Jika diketahui fungsi invers $$f^{-1}(x) = \\frac{x - 1}{2}$$ dan $$g^{-1}(x) = 3x + 4$$, maka nilai dari $$(f \\circ g)^{-1}(5)$$ adalah...",
-        options: [
-          "$$7$$",
-          "$$10$$",
-          "$$13$$",
-          "$$16$$"
-        ],
-        correct: 1, // B
-        hint: "Gunakan sifat invers komposisi: $(f \\circ g)^{-1}(x) = (g^{-1} \\circ f^{-1})(x)$. Urutannya dibalik!",
-        explanation: `
-          <strong>Pembahasan Langkah demi Langkah:</strong><br>
-          1. Gunakan sifat dasar invers komposisi:
-             $$(f \\circ g)^{-1}(5) = (g^{-1} \\circ f^{-1})(5) = g^{-1}(f^{-1}(5))$$
-          2. Hitung $f^{-1}(5)$ terlebih dahulu:
-             $$f^{-1}(5) = \\frac{5 - 1}{2} = \\frac{4}{2} = 2$$
-          3. Masukkan hasil 2 ke dalam fungsi $g^{-1}$:
-             $$g^{-1}(2) = 3(2) + 4 = 6 + 4 = 10$$
-          (Pilihan B Benar)
-        `
+    // Constants & Storage Keys
+    const USER_STORAGE_KEY = 'the_arich_user_session';
+    const DB_STORAGE_KEY = 'the_arich_submissions_db';
+    const GSHEET_URL_KEY = 'the_arich_gsheet_webhook';
+    const TEACHER_SECRET_PIN = '010822';
+
+    // Application State
+    let currentStudent = null;
+    let isTeacherMode = false;
+    let isAudioSFX = true;
+    let audioCtx = null;
+
+    // UTBK Exam State
+    let utbkQuestions = [];
+    let utbkCurrentIdx = 0;
+    let utbkAnswers = new Array(15).fill(null);
+    let utbkDoubts = new Array(15).fill(false);
+    let utbkTimerInterval = null;
+    let utbkSecondsRemaining = 30 * 60; // 30 minutes countdown
+
+    // ----------------------------------------------------
+    // AUDIO SYNTHESIZER
+    // ----------------------------------------------------
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    function toggleAudioSFX() {
+      isAudioSFX = !isAudioSFX;
+      document.getElementById('sfx-label').textContent = isAudioSFX ? 'SFX: ON' : 'SFX: OFF';
+      document.getElementById('sfx-icon').setAttribute('data-lucide', isAudioSFX ? 'volume-2' : 'volume-x');
+      lucide.createIcons();
+      if (isAudioSFX) playTone(650, 'sine', 0.15);
+    }
+    function playTone(freq, type = 'sine', duration = 0.2) {
+      if (!isAudioSFX) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    // ----------------------------------------------------
+    // AUTHENTICATION & USER PERSISTENCE (ZERO DATA LOSS)
+    // ----------------------------------------------------
+    function checkExistingUserSession() {
+      const stored = localStorage.getItem(USER_STORAGE_KEY);
+      if (stored) {
+        try {
+          currentStudent = JSON.parse(stored);
+          updateSidebarStudentProfile();
+          // Always route automatically to their grade portal
+          switchView('dashboard');
+        } catch (e) {
+          switchView('student-gate');
+        }
+      } else {
+        switchView('student-gate');
       }
-    ];
+    }
 
-    // ========================================================
-    // STATE MANAGEMENT
-    // ========================================================
-    let currentQuestionIdx = 0;
-    let studentAnswers = new Array(10).fill(null);
-    let studentDoubts = new Array(10).fill(false);
-    let examStartTime = null;
-    let timerInterval = null;
-    let studentName = "";
-    let studentClass = "";
-    let presQuestionIdx = 0;
+    function handleStudentRegistration(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const grade = document.getElementById('reg-grade').value;
+      const school = document.getElementById('reg-school').value.trim() || 'SMA Indonesia';
 
-    // Local Storage Database Key
-    const DB_KEY = "the_arich_study_submissions";
+      if (!name) return;
 
-    // ========================================================
-    // NAVIGATION & VIEW CONTROLLER
-    // ========================================================
-    function showView(viewName) {
-      const views = ['exam-gate', 'exam-active', 'exam-result', 'presentation', 'theory', 'gradebook'];
-      views.forEach(v => {
+      currentStudent = {
+        name: name,
+        grade: grade,
+        school: school,
+        registeredAt: new Date().toISOString()
+      };
+
+      // Store permanently in browser so it is never lost!
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(currentStudent));
+      updateSidebarStudentProfile();
+      playTone(523, 'triangle', 0.3);
+      switchView('dashboard');
+    }
+
+    function updateSidebarStudentProfile() {
+      if (!currentStudent) return;
+      document.getElementById('sb-user-name').textContent = currentStudent.name;
+      document.getElementById('sb-user-initial').textContent = currentStudent.name.charAt(0).toUpperCase();
+      document.getElementById('sb-user-grade').textContent = `Kelas ${currentStudent.grade} SMA`;
+      document.getElementById('dash-greeting-name').textContent = currentStudent.name;
+      document.getElementById('utbk-peserta-label').textContent = `Peserta: ${currentStudent.name}`;
+    }
+
+    function openChangeAccountModal() {
+      if (confirm('Ingin berganti akun murid?')) {
+        localStorage.removeItem(USER_STORAGE_KEY);
+        currentStudent = null;
+        switchView('student-gate');
+      }
+    }
+
+    // ----------------------------------------------------
+    // SIDEBAR DRAWER TOGGLE (MOBILE)
+    // ----------------------------------------------------
+    function toggleMobileSidebar() {
+      const drawer = document.getElementById('sidebar-drawer');
+      const backdrop = document.getElementById('mobile-sidebar-backdrop');
+      drawer.classList.toggle('-translate-x-full');
+      backdrop.classList.toggle('hidden');
+    }
+
+    // ----------------------------------------------------
+    // VIEW SWITCHER CONTROLLER
+    // ----------------------------------------------------
+    function switchView(viewName) {
+      // Close mobile sidebar if open
+      const drawer = document.getElementById('sidebar-drawer');
+      if (!drawer.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
+        toggleMobileSidebar();
+      }
+
+      const allViews = ['student-gate', 'dashboard', 'materi', 'utbk', 'exam-result', 'my-results', 'teacher-dashboard'];
+      allViews.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
       });
 
-      document.querySelectorAll('.nav-tab').forEach(t => {
-        t.className = 'nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+      document.querySelectorAll('.sb-nav-item').forEach(btn => {
+        btn.className = 'sb-nav-item w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-3 transition';
       });
 
-      if (viewName === 'exam') {
-        const targetView = (studentName && examStartTime) ? 'exam-active' : 'exam-gate';
-        document.getElementById(`view-${targetView}`).classList.remove('hidden');
-        document.getElementById('nav-btn-exam').className = 'nav-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5';
-      } else {
-        const el = document.getElementById(`view-${viewName}`);
-        if (el) el.classList.remove('hidden');
-        const navBtn = document.getElementById(`nav-btn-${viewName}`);
-        if (navBtn) navBtn.className = 'nav-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5';
+      const activeBtn = document.getElementById(`sb-nav-${viewName}`);
+      if (activeBtn) {
+        activeBtn.className = 'sb-nav-item active w-full px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-3 transition';
       }
 
-      if (viewName === 'presentation') {
-        renderPresQuestion(presQuestionIdx);
-      } else if (viewName === 'gradebook') {
-        loadGradebookTable();
+      const targetViewEl = document.getElementById(`view-${viewName}`);
+      if (targetViewEl) targetViewEl.classList.remove('hidden');
+
+      // Specific initializers
+      if (viewName === 'dashboard') {
+        document.getElementById('top-bar-title').innerHTML = `<span>Dashboard Kelas 11 SMA</span> <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Kurikulum Merdeka</span>`;
+      } else if (viewName === 'materi') {
+        document.getElementById('top-bar-title').innerHTML = `<span>Modul Kurikulum Merdeka</span> <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Fase F (Bab 1 - 6)</span>`;
+        renderMateriChapterTabs();
+      } else if (viewName === 'utbk') {
+        document.getElementById('top-bar-title').innerHTML = `<span>Simulasi Ujian UTBK-SNBT</span> <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">15 Soal CBT</span>`;
+        initUtbkExam();
+      } else if (viewName === 'my-results') {
+        document.getElementById('top-bar-title').innerHTML = `<span>Riwayat & Rapor Murid</span>`;
+        loadMyResultsTable();
+      } else if (viewName === 'teacher-dashboard') {
+        document.getElementById('top-bar-title').innerHTML = `<span class="text-amber-400">Portal Mode Guru</span> <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Terverifikasi PIN</span>`;
+        loadTeacherGradebookTable();
       }
 
       lucide.createIcons();
       triggerLatexRender();
     }
 
-    // ========================================================
-    // EXAM CONTROLLER (10 SOAL)
-    // ========================================================
-    function handleStartExam(e) {
-      e.preventDefault();
-      studentName = document.getElementById('input-student-name').value.trim();
-      studentClass = document.getElementById('input-student-class').value.trim();
+    // ----------------------------------------------------
+    // DASHBOARD CHAPTERS QUICK CARDS
+    // ----------------------------------------------------
+    function renderDashboardChapters() {
+      const grid = document.getElementById('dash-chapters-grid');
+      if (!window.KURMER_KELAS11_DATA) return;
 
-      if (!studentName || !studentClass) return;
-
-      document.getElementById('user-badge').classList.remove('hidden');
-      document.getElementById('top-student-name').textContent = studentName;
-      document.getElementById('user-avatar-initial').textContent = studentName.charAt(0).toUpperCase();
-
-      document.getElementById('exam-header-name').textContent = `Murid: ${studentName}`;
-      document.getElementById('exam-header-class').textContent = `Kelas: ${studentClass}`;
-
-      studentAnswers = new Array(10).fill(null);
-      studentDoubts = new Array(10).fill(false);
-      currentQuestionIdx = 0;
-
-      // Start Timer
-      examStartTime = new Date();
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = setInterval(updateTimerDisplay, 1000);
-
-      document.getElementById('view-exam-gate').classList.add('hidden');
-      document.getElementById('view-exam-active').classList.remove('hidden');
-
-      renderNumberGrid();
-      renderExamQuestion(0);
+      grid.innerHTML = window.KURMER_KELAS11_DATA.map((ch, idx) => `
+        <div onclick="openChapterFromDashboard('${ch.id}')" class="glass-panel rounded-2xl p-5 border border-slate-800 hover:border-indigo-500/50 cursor-pointer transition transform hover:-translate-y-1 group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              BAB ${ch.number}
+            </span>
+            <span class="text-[10px] text-slate-500 uppercase font-semibold">${ch.badge}</span>
+          </div>
+          <h4 class="text-sm font-bold text-white group-hover:text-indigo-400 transition mb-1.5">${ch.title}</h4>
+          <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-4">${ch.summary}</p>
+          <div class="flex items-center justify-between text-xs font-bold text-indigo-400 pt-3 border-t border-slate-800/80">
+            <span>${ch.subtopics.length} Subtopik</span>
+            <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">Pelajari <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
+          </div>
+        </div>
+      `).join('');
     }
 
-    function updateTimerDisplay() {
-      if (!examStartTime) return;
-      const now = new Date();
-      const diffSecs = Math.floor((now - examStartTime) / 1000);
-      const mins = String(Math.floor(diffSecs / 60)).padStart(2, '0');
-      const secs = String(diffSecs % 60).padStart(2, '0');
-      const timerEl = document.getElementById('exam-timer');
-      if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+    function openChapterFromDashboard(chapterId) {
+      switchView('materi');
+      selectMateriChapter(chapterId);
     }
 
-    function renderNumberGrid() {
-      const container = document.getElementById('number-grid-container');
-      container.innerHTML = BANK_SOAL_10.map((q, idx) => {
-        let stateClass = "num-btn-empty";
-        if (studentDoubts[idx]) {
-          stateClass = "num-btn-doubt";
-        } else if (studentAnswers[idx] !== null) {
-          stateClass = "num-btn-answered";
+    // ----------------------------------------------------
+    // MATERI KURIKULUM MERDEKA RENDERER
+    // ----------------------------------------------------
+    let selectedChapterId = 'fungsi';
+
+    function renderMateriChapterTabs() {
+      const tabsContainer = document.getElementById('materi-chapter-tabs');
+      if (!window.KURMER_KELAS11_DATA) return;
+
+      tabsContainer.innerHTML = window.KURMER_KELAS11_DATA.map(ch => {
+        const isActive = ch.id === selectedChapterId;
+        const btnClass = isActive 
+          ? 'px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shrink-0 shadow-lg shadow-indigo-600/30 transition' 
+          : 'px-4 py-2 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-800 text-slate-400 hover:text-white shrink-0 transition';
+        return `
+          <button onclick="selectMateriChapter('${ch.id}')" class="${btnClass}">
+            Bab ${ch.number}: ${ch.title}
+          </button>
+        `;
+      }).join('');
+
+      renderSelectedChapterBody();
+    }
+
+    function selectMateriChapter(chapterId) {
+      selectedChapterId = chapterId;
+      renderMateriChapterTabs();
+    }
+
+    function renderSelectedChapterBody() {
+      const container = document.getElementById('materi-chapter-content');
+      const ch = window.KURMER_KELAS11_DATA.find(c => c.id === selectedChapterId);
+      if (!ch) return;
+
+      container.innerHTML = `
+        <div class="pb-6 border-b border-slate-800 mb-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              BAB ${ch.number} • ${ch.badge}
+            </span>
+          </div>
+          <h2 class="text-xl sm:text-3xl font-black text-white mb-2">${ch.title}</h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${ch.summary}</p>
+        </div>
+
+        <div class="space-y-6">
+          ${ch.subtopics.map((sub, sIdx) => `
+            <div class="p-5 sm:p-6 rounded-2xl bg-dark-900 border border-slate-800 space-y-4">
+              <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">${sIdx + 1}</span>
+                ${sub.title}
+              </h3>
+              
+              <div class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                ${sub.concept}
+              </div>
+
+              <!-- Quick Tip Card -->
+              <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs leading-relaxed flex items-start gap-2.5">
+                <i data-lucide="zap" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-amber-300 block mb-0.5">Trik Kilat Guru:</strong>
+                  ${sub.quickTip}
+                </div>
+              </div>
+
+              <!-- Example Problem Card -->
+              <div class="p-4 rounded-xl bg-dark-850 border border-slate-700/80 text-xs space-y-1.5">
+                <div class="font-extrabold text-indigo-300 flex items-center gap-1.5">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-400"></i> Contoh Soal & Solusi Langkah demi Langkah:
+                </div>
+                <div class="text-slate-200 leading-relaxed pt-1">
+                  ${sub.example}
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      lucide.createIcons();
+      triggerLatexRender();
+    }
+
+    // ----------------------------------------------------
+    // AUTHENTIC UTBK-SNBT CBT ENGINE (15 QUESTIONS)
+    // ----------------------------------------------------
+    function initUtbkExam() {
+      if (!window.UTBK_SOAL_BANK || window.UTBK_SOAL_BANK.length === 0) return;
+      utbkQuestions = window.UTBK_SOAL_BANK;
+      utbkAnswers = new Array(utbkQuestions.length).fill(null);
+      utbkDoubts = new Array(utbkQuestions.length).fill(false);
+      utbkCurrentIdx = 0;
+
+      // Start 30-min countdown timer
+      utbkSecondsRemaining = 30 * 60;
+      if (utbkTimerInterval) clearInterval(utbkTimerInterval);
+      utbkTimerInterval = setInterval(updateUtbkTimer, 1000);
+
+      renderUtbkNumberMatrix();
+      renderUtbkQuestion(0, 'none');
+    }
+
+    function updateUtbkTimer() {
+      if (utbkSecondsRemaining > 0) {
+        utbkSecondsRemaining--;
+        const mins = String(Math.floor(utbkSecondsRemaining / 60)).padStart(2, '0');
+        const secs = String(utbkSecondsRemaining % 60).padStart(2, '0');
+        document.getElementById('utbk-timer-display').textContent = `${mins}:${secs}`;
+      } else {
+        clearInterval(utbkTimerInterval);
+        alert('Waktu ujian habis! Sistem akan mengumpulkan lembar jawabanmu secara otomatis.');
+        executeFinalUtbkSubmit();
+      }
+    }
+
+    function renderUtbkNumberMatrix() {
+      const container = document.getElementById('utbk-matrix-grid');
+      container.innerHTML = utbkQuestions.map((q, idx) => {
+        let stateStyle = "bg-dark-900 border-slate-700 text-slate-400";
+        if (utbkDoubts[idx]) {
+          stateStyle = "bg-amber-500 text-slate-950 font-bold border-amber-400";
+        } else if (utbkAnswers[idx] !== null) {
+          stateStyle = "bg-emerald-600 text-white font-bold border-emerald-500";
         }
 
-        const currentRing = (idx === currentQuestionIdx) ? "ring-2 ring-indigo-500 font-extrabold shadow-sm" : "";
+        const activeRing = (idx === utbkCurrentIdx) ? "ring-2 ring-indigo-400 font-extrabold" : "";
 
         return `
-          <button onclick="jumpToQuestion(${idx})" class="h-10 rounded-xl border text-xs font-bold transition flex items-center justify-center ${stateClass} ${currentRing}">
+          <button onclick="jumpToUtbkQuestion(${idx})" class="h-9 rounded-xl border text-xs transition flex items-center justify-center ${stateStyle} ${activeRing}">
             ${idx + 1}
           </button>
         `;
       }).join('');
 
-      // Update answered count
-      const answeredTotal = studentAnswers.filter(a => a !== null).length;
-      document.getElementById('answered-count-badge').textContent = answeredTotal;
+      const answeredCount = utbkAnswers.filter(a => a !== null).length;
+      document.getElementById('utbk-answered-counter').textContent = `${answeredCount} / 15 Terjawab`;
     }
 
-    function renderExamQuestion(idx) {
-      currentQuestionIdx = idx;
-      const q = BANK_SOAL_10[idx];
+    function renderUtbkQuestion(idx, direction = 'right') {
+      utbkCurrentIdx = idx;
+      const q = utbkQuestions[idx];
 
-      document.getElementById('q-number-pill').textContent = `SOAL NO. ${idx + 1}`;
-      document.getElementById('q-category-pill').textContent = q.category;
-      document.getElementById('exam-q-prompt').innerHTML = q.prompt;
-
-      // Update Doubt Button State
-      const doubtBtn = document.getElementById('doubt-btn');
-      const doubtLabel = document.getElementById('doubt-btn-label');
-      if (studentDoubts[idx]) {
-        doubtBtn.className = "px-3 py-1 rounded-lg border border-amber-400 bg-amber-50 text-amber-800 text-xs font-bold flex items-center gap-1.5 transition";
-        doubtLabel.textContent = "Ditandai Ragu-ragu";
-      } else {
-        doubtBtn.className = "px-3 py-1 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold flex items-center gap-1.5 hover:bg-slate-50 transition";
-        doubtLabel.textContent = "Tandai Ragu-ragu";
+      const card = document.getElementById('utbk-question-card');
+      if (direction === 'right') {
+        card.classList.remove('slide-enter-left');
+        card.classList.add('slide-enter-right');
+      } else if (direction === 'left') {
+        card.classList.remove('slide-enter-right');
+        card.classList.add('slide-enter-left');
       }
 
-      // Render Options
-      const optContainer = document.getElementById('exam-options-list');
+      document.getElementById('utbk-q-num-badge').textContent = `SOAL NO. ${idx + 1}`;
+      document.getElementById('utbk-q-chapter-badge').textContent = `${q.chapter} • ${q.level}`;
+      document.getElementById('utbk-prompt-container').innerHTML = q.prompt;
+
+      // Doubt button state
+      const doubtBtn = document.getElementById('utbk-doubt-btn');
+      const doubtLabel = document.getElementById('utbk-doubt-label');
+      if (utbkDoubts[idx]) {
+        doubtBtn.className = "px-3 py-1 rounded-xl border border-amber-400 bg-amber-500/20 text-amber-300 text-xs font-bold flex items-center gap-1.5 transition";
+        doubtLabel.textContent = "Ditandai Ragu-ragu";
+      } else {
+        doubtBtn.className = "px-3 py-1 rounded-xl border border-slate-700 text-slate-400 text-xs font-semibold flex items-center gap-1.5 hover:border-amber-400 hover:text-amber-300 transition";
+        doubtLabel.textContent = "Ragu-ragu";
+      }
+
+      // 5 Options (A, B, C, D, E)
+      const optContainer = document.getElementById('utbk-options-container');
       optContainer.innerHTML = q.options.map((opt, oIdx) => {
-        const isSelected = studentAnswers[idx] === oIdx;
-        const borderClass = isSelected ? "border-2 border-indigo-600 bg-indigo-50/70" : "border border-slate-200 bg-white hover:border-slate-300";
-        const badgeClass = isSelected ? "bg-indigo-600 text-white font-bold" : "bg-slate-100 text-slate-600 font-semibold";
-        const radioCircle = isSelected ? "w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]" : "w-4 h-4 rounded-full border border-slate-300";
+        const isSelected = utbkAnswers[idx] === oIdx;
+        const cardClass = isSelected
+          ? 'p-3.5 sm:p-4 rounded-2xl bg-indigo-950/40 border-2 border-indigo-500 text-white cursor-pointer flex items-center justify-between transition shadow-md shadow-indigo-600/10'
+          : 'p-3.5 sm:p-4 rounded-2xl bg-dark-900 border border-slate-800 text-slate-300 hover:border-slate-700 cursor-pointer flex items-center justify-between transition';
+        const letterClass = isSelected 
+          ? 'bg-indigo-600 text-white font-extrabold' 
+          : 'bg-dark-800 text-slate-400 font-semibold';
+        const radioIcon = isSelected 
+          ? '<div class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">✓</div>' 
+          : '<div class="w-5 h-5 rounded-full border border-slate-700"></div>';
 
         return `
-          <div onclick="selectAnswerOption(${idx}, ${oIdx})" class="p-3.5 sm:p-4 rounded-xl cursor-pointer flex items-center justify-between transition ${borderClass}">
+          <div onclick="selectUtbkOption(${idx}, ${oIdx})" class="${cardClass}">
             <div class="flex items-center space-x-3">
-              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${badgeClass}">
+              <span class="w-7 h-7 rounded-xl text-xs flex items-center justify-center shrink-0 ${letterClass}">
                 ${String.fromCharCode(65 + oIdx)}
               </span>
-              <span class="text-sm text-slate-800 font-medium">${opt}</span>
+              <span class="text-sm font-medium">${opt}</span>
             </div>
-            <div class="${radioCircle}">
-              ${isSelected ? '✓' : ''}
-            </div>
+            ${radioIcon}
           </div>
         `;
       }).join('');
 
-      // Prev & Next Buttons
-      const btnPrev = document.getElementById('btn-prev-q');
-      const btnNext = document.getElementById('btn-next-q');
+      // Buttons
+      const btnPrev = document.getElementById('utbk-btn-prev');
       btnPrev.disabled = (idx === 0);
-      btnPrev.style.opacity = (idx === 0) ? '0.4' : '1';
+      btnPrev.style.opacity = (idx === 0) ? '0.3' : '1';
 
-      if (idx === BANK_SOAL_10.length - 1) {
-        btnNext.innerHTML = '<span>Kumpulkan Jawaban</span> <i data-lucide="check" class="w-4 h-4"></i>';
-        btnNext.className = 'px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition';
-        btnNext.onclick = openSubmitModal;
-      } else {
-        btnNext.innerHTML = '<span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>';
-        btnNext.className = 'px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition';
-        btnNext.onclick = navNextQuestion;
-      }
-
-      renderNumberGrid();
+      renderUtbkNumberMatrix();
       lucide.createIcons();
       triggerLatexRender();
     }
 
-    function selectAnswerOption(qIdx, oIdx) {
-      studentAnswers[qIdx] = oIdx;
-      // If was doubt, keep or un-doubt
-      renderExamQuestion(qIdx);
+    function selectUtbkOption(qIdx, oIdx) {
+      utbkAnswers[qIdx] = oIdx;
+      playTone(480, 'sine', 0.1);
+      renderUtbkQuestion(qIdx, 'none');
     }
 
-    function toggleDoubtCurrentQuestion() {
-      studentDoubts[currentQuestionIdx] = !studentDoubts[currentQuestionIdx];
-      renderExamQuestion(currentQuestionIdx);
+    function toggleUtbkDoubt() {
+      utbkDoubts[utbkCurrentIdx] = !utbkDoubts[utbkCurrentIdx];
+      playTone(340, 'triangle', 0.15);
+      renderUtbkQuestion(utbkCurrentIdx, 'none');
     }
 
-    function navPrevQuestion() {
-      if (currentQuestionIdx > 0) {
-        renderExamQuestion(currentQuestionIdx - 1);
+    function slidePrevQuestion() {
+      if (utbkCurrentIdx > 0) {
+        renderUtbkQuestion(utbkCurrentIdx - 1, 'left');
       }
     }
 
-    function navNextQuestion() {
-      if (currentQuestionIdx < BANK_SOAL_10.length - 1) {
-        renderExamQuestion(currentQuestionIdx + 1);
+    function slideNextQuestion() {
+      if (utbkCurrentIdx < utbkQuestions.length - 1) {
+        renderUtbkQuestion(utbkCurrentIdx + 1, 'right');
       }
     }
 
-    function jumpToQuestion(idx) {
-      renderExamQuestion(idx);
+    function jumpToUtbkQuestion(idx) {
+      const dir = idx > utbkCurrentIdx ? 'right' : 'left';
+      renderUtbkQuestion(idx, dir);
     }
 
-    // ========================================================
-    // SUBMISSION & DATABASE LOGIC (100% FREE REKAP)
-    // ========================================================
-    function openSubmitModal() {
-      const answered = studentAnswers.filter(a => a !== null).length;
-      const doubt = studentDoubts.filter((d, idx) => d && studentAnswers[idx] !== null).length;
-      const unanswered = 10 - answered;
-
-      document.getElementById('modal-stat-answered').textContent = `${answered} Soal`;
-      document.getElementById('modal-stat-doubt').textContent = `${doubt} Soal`;
-      document.getElementById('modal-stat-unanswered').textContent = `${unanswered} Soal`;
-
-      document.getElementById('submit-confirm-modal').classList.remove('hidden');
+    function toggleNumberPaletteDrawer() {
+      const sidebar = document.getElementById('utbk-palette-sidebar');
+      sidebar.classList.toggle('hidden');
     }
 
-    function closeSubmitModal() {
-      document.getElementById('submit-confirm-modal').classList.add('hidden');
+    // ----------------------------------------------------
+    // UTBK SUBMIT CONFIRMATION & RESULTS
+    // ----------------------------------------------------
+    function openUtbkSubmitConfirmation() {
+      const answered = utbkAnswers.filter(a => a !== null).length;
+      const doubt = utbkDoubts.filter((d, i) => d && utbkAnswers[i] !== null).length;
+      const unanswered = utbkQuestions.length - answered;
+
+      document.getElementById('confirm-answered-text').textContent = `${answered} / 15 Soal`;
+      document.getElementById('confirm-doubt-text').textContent = `${doubt} Soal`;
+      document.getElementById('confirm-unanswered-text').textContent = `${unanswered} Soal`;
+
+      document.getElementById('utbk-submit-modal').classList.remove('hidden');
     }
 
-    function executeFinalSubmit() {
-      closeSubmitModal();
-      clearInterval(timerInterval);
+    function closeUtbkSubmitModal() {
+      document.getElementById('utbk-submit-modal').classList.add('hidden');
+    }
 
-      // Calculate score
+    function executeFinalUtbkSubmit() {
+      closeUtbkSubmitModal();
+      clearInterval(utbkTimerInterval);
+
+      // Calculate score out of 100
       let correctCount = 0;
-      BANK_SOAL_10.forEach((q, idx) => {
-        if (studentAnswers[idx] === q.correct) {
-          correctCount++;
-        }
+      utbkQuestions.forEach((q, idx) => {
+        if (utbkAnswers[idx] === q.correct) correctCount++;
       });
-      const finalScore = correctCount * 10; // 10 questions = 100 points
+      const finalScore = Math.round((correctCount / utbkQuestions.length) * 100);
 
-      // Prepare Submission Object
       const submission = {
         id: Date.now(),
         timestamp: new Date().toLocaleString('id-ID'),
-        studentName: studentName,
-        studentClass: studentClass,
-        answers: studentAnswers,
-        correctCount: correctCount,
+        studentName: currentStudent ? currentStudent.name : 'Murid The Arich',
+        studentClass: currentStudent ? `Kelas ${currentStudent.grade} SMA` : 'Kelas 11 SMA',
+        examName: 'Simulasi UTBK-SNBT Matematika Kelas 11',
         score: finalScore,
+        correctCount: correctCount,
+        totalQuestions: utbkQuestions.length,
+        answers: utbkAnswers,
         passed: finalScore >= 75
       };
 
-      // 1. Save to Local Browser Database (Free)
-      saveToLocalDatabase(submission);
+      // 1. Save to Database (localStorage - Zero cost)
+      saveToSubmissionsDatabase(submission);
 
-      // 2. Post to Google Sheets if Webhook is configured
-      postToGoogleSheetsWebhook(submission);
+      // 2. Post to Google Sheets webhook if configured
+      postToGoogleSheets(submission);
 
-      // Display Final Results Screen
-      document.getElementById('view-exam-active').classList.add('hidden');
+      // 3. Render Results View
+      document.getElementById('view-utbk').classList.add('hidden');
       document.getElementById('view-exam-result').classList.remove('hidden');
 
-      document.getElementById('result-student-name').textContent = studentName;
-      document.getElementById('result-student-class').textContent = `${studentClass} • The Arich Study`;
-      document.getElementById('result-score-val').textContent = finalScore;
-      document.getElementById('result-score-detail').textContent = `${correctCount} Benar dari 10 Soal (Skor: ${finalScore} / 100)`;
+      document.getElementById('res-student-name').textContent = submission.studentName;
+      document.getElementById('res-student-grade').textContent = `${submission.studentClass} • The Arich Study`;
+      document.getElementById('res-score-value').textContent = finalScore;
+      document.getElementById('res-score-breakdown').textContent = `${correctCount} Benar dari ${utbkQuestions.length} Soal (${finalScore} / 100)`;
 
-      // Render Summary Grid
-      const summaryGrid = document.getElementById('result-summary-grid');
-      summaryGrid.innerHTML = BANK_SOAL_10.map((q, idx) => {
-        const isCorrect = studentAnswers[idx] === q.correct;
-        const chosenLetter = studentAnswers[idx] !== null ? String.fromCharCode(65 + studentAnswers[idx]) : "-";
-        const correctLetter = String.fromCharCode(65 + q.correct);
-        const cardBg = isCorrect ? "bg-emerald-50 border-emerald-200 text-emerald-900" : "bg-rose-50 border-rose-200 text-rose-900";
-        const statusIcon = isCorrect ? "✓" : "✗";
-
-        return `
-          <div class="p-3 rounded-xl border ${cardBg} text-center text-xs">
-            <div class="font-bold text-[11px] mb-0.5">No. ${idx + 1}</div>
-            <div class="font-extrabold text-sm mb-1">${statusIcon} ${isCorrect ? 'Benar' : 'Salah'}</div>
-            <div class="text-[10px] opacity-80">Jawab: <strong>${chosenLetter}</strong> ${!isCorrect ? `(Kunci: ${correctLetter})` : ''}</div>
-          </div>
-        `;
-      }).join('');
-
-      if (finalScore >= 80) {
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-      }
-
-      lucide.createIcons();
-    }
-
-    function saveToLocalDatabase(submission) {
-      try {
-        const existing = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-        existing.unshift(submission);
-        localStorage.setItem(DB_KEY, JSON.stringify(existing));
-      } catch (err) {
-        console.error("Failed to save to local DB:", err);
+      if (finalScore >= 75) {
+        confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
+        playTone(600, 'triangle', 0.4);
       }
     }
 
-    function postToGoogleSheetsWebhook(data) {
-      const webhookUrl = localStorage.getItem('the_arich_gsheet_url');
-      if (!webhookUrl) return;
-
+    function saveToSubmissionsDatabase(submission) {
       try {
-        fetch(webhookUrl, {
+        const list = JSON.parse(localStorage.getItem(DB_STORAGE_KEY) || '[]');
+        list.unshift(submission);
+        localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(list));
+      } catch (e) {}
+    }
+
+    function postToGoogleSheets(data) {
+      const url = localStorage.getItem(GSHEET_URL_KEY);
+      if (!url) return;
+      try {
+        fetch(url, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
-        }).then(() => {
-          console.log("Successfully posted to Google Sheets!");
-        }).catch(err => {
-          console.warn("Failed posting to Google Sheets:", err);
         });
-      } catch (e) {
-        console.warn("Webhook error:", e);
-      }
+      } catch (e) {}
     }
 
-    function shareResultToWhatsApp() {
-      const answered = studentAnswers.filter(a => a !== null).length;
+    function shareScoreToTeacherWhatsApp() {
+      const student = currentStudent ? currentStudent.name : 'Murid';
+      const grade = currentStudent ? `Kelas ${currentStudent.grade} SMA` : 'Kelas 11';
       let correct = 0;
-      BANK_SOAL_10.forEach((q, idx) => {
-        if (studentAnswers[idx] === q.correct) correct++;
+      utbkQuestions.forEach((q, idx) => {
+        if (utbkAnswers[idx] === q.correct) correct++;
       });
-      const score = correct * 10;
+      const score = Math.round((correct / utbkQuestions.length) * 100);
 
-      const msg = `Halo Pak Guru, saya *${studentName}* (${studentClass}) telah selesai mengerjakan Ujian Latihan *Fungsi Komposisi & Invers* di platform *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari 10 Soal). Siap untuk pembahasan di kelas! 📐🚀`;
+      const msg = `Halo Pak Guru, saya *${student}* (${grade}) telah selesai mengerjakan *Simulasi UTBK-SNBT Matematika* di *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari 15 Soal). Mohon arahan pembahasannya di kelas ya Pak! 🚀📐`;
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    function restartExam() {
-      studentName = "";
-      studentClass = "";
-      studentAnswers = new Array(10).fill(null);
-      studentDoubts = new Array(10).fill(false);
-      showView('exam-gate');
-    }
+    // ----------------------------------------------------
+    // MY RESULTS TABLE (STUDENT VIEW)
+    // ----------------------------------------------------
+    function loadMyResultsTable() {
+      const tbody = document.getElementById('my-results-tbody');
+      const allSubmissions = JSON.parse(localStorage.getItem(DB_STORAGE_KEY) || '[]');
+      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
+      const filtered = allSubmissions.filter(s => !myName || s.studentName.toLowerCase() === myName);
 
-    // ========================================================
-    // PRESENTATION MODE (BAHAS DI DEPAN KELAS)
-    // ========================================================
-    function renderPresQuestion(idx) {
-      presQuestionIdx = idx;
-      const q = BANK_SOAL_10[idx];
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">Belum ada riwayat ujian yang diselesaikan. Klik "Mulai Ujian" untuk memulai latihan.</td></tr>`;
+        return;
+      }
 
-      document.getElementById('pres-num-tag').textContent = `PEMBAHASAN NOMOR ${idx + 1}`;
-      document.getElementById('pres-cat-tag').textContent = `Kategori: ${q.category}`;
-      document.getElementById('pres-prompt-body').innerHTML = q.prompt;
-
-      // Jump Buttons
-      const jumpContainer = document.getElementById('pres-jump-buttons');
-      jumpContainer.innerHTML = BANK_SOAL_10.map((_, i) => `
-        <button onclick="renderPresQuestion(${i})" class="w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center ${i === idx ? 'bg-white text-indigo-900 shadow-sm' : 'bg-indigo-800 text-indigo-200 hover:bg-indigo-700'}">
-          ${i + 1}
-        </button>
+      tbody.innerHTML = filtered.map(item => `
+        <tr class="hover:bg-dark-900 transition">
+          <td class="py-3 px-4 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
+          <td class="py-3 px-4 font-bold text-white">${item.examName}</td>
+          <td class="py-3 px-4 text-center font-bold text-slate-300">${item.correctCount} / ${item.totalQuestions}</td>
+          <td class="py-3 px-4 text-center font-black font-mono text-emerald-400 text-sm">${item.score}</td>
+          <td class="py-3 px-4 text-center">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${item.passed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
+              ${item.passed ? 'LULUS' : 'REMEDIAL'}
+            </span>
+          </td>
+        </tr>
       `).join('');
-
-      // Options with correct one marked green
-      const optGrid = document.getElementById('pres-options-grid');
-      optGrid.innerHTML = q.options.map((opt, oIdx) => {
-        const isCorrect = (oIdx === q.correct);
-        const cardStyle = isCorrect ? "bg-emerald-50 border-2 border-emerald-500 text-emerald-950 font-bold" : "bg-slate-50 border border-slate-200 text-slate-700 opacity-60";
-        const tag = isCorrect ? '<span class="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-bold">KUNCI JAWABAN BENAR</span>' : '';
-
-        return `
-          <div class="p-4 rounded-xl border flex items-center justify-between ${cardStyle}">
-            <div class="flex items-center space-x-3">
-              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${isCorrect ? 'bg-emerald-600 text-white font-extrabold' : 'bg-slate-200 text-slate-700'}">
-                ${String.fromCharCode(65 + oIdx)}
-              </span>
-              <span class="text-sm">${opt}</span>
-            </div>
-            ${tag}
-          </div>
-        `;
-      }).join('');
-
-      // Teacher Explanation Content
-      document.getElementById('pres-explanation-content').innerHTML = q.explanation;
-
-      lucide.createIcons();
-      triggerLatexRender();
     }
 
-    function prevPresQuestion() {
-      if (presQuestionIdx > 0) renderPresQuestion(presQuestionIdx - 1);
-    }
-    function nextPresQuestion() {
-      if (presQuestionIdx < BANK_SOAL_10.length - 1) renderPresQuestion(presQuestionIdx + 1);
+    // ----------------------------------------------------
+    // TEACHER MODE PIN AUTHENTICATION (SANDI: 010822)
+    // ----------------------------------------------------
+    function triggerTeacherModeAuth() {
+      if (isTeacherMode) {
+        switchView('teacher-dashboard');
+      } else {
+        document.getElementById('teacher-pin-input').value = '';
+        document.getElementById('pin-error-msg').classList.add('hidden');
+        document.getElementById('teacher-pin-modal').classList.remove('hidden');
+      }
     }
 
-    // ========================================================
-    // GRADEBOOK & GOOGLE SHEETS MODALS
-    // ========================================================
-    function loadGradebookTable() {
-      const tbody = document.getElementById('gradebook-tbody');
-      const list = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-      document.getElementById('gradebook-total-entries').textContent = `Total Murid Mengerjakan: ${list.length}`;
+    function closeTeacherPinModal() {
+      document.getElementById('teacher-pin-modal').classList.add('hidden');
+    }
+
+    function handleTeacherPinSubmit(e) {
+      e.preventDefault();
+      const inputPin = document.getElementById('teacher-pin-input').value.trim();
+
+      if (inputPin === TEACHER_SECRET_PIN) {
+        isTeacherMode = true;
+        closeTeacherPinModal();
+        playTone(700, 'sine', 0.25);
+        document.getElementById('sb-teacher-label').textContent = 'Mode Guru (Aktif)';
+        document.getElementById('sb-teacher-lock-icon').setAttribute('data-lucide', 'unlock');
+        lucide.createIcons();
+        switchView('teacher-dashboard');
+      } else {
+        playTone(180, 'sawtooth', 0.3);
+        const card = document.getElementById('teacher-pin-card');
+        card.classList.add('animate-bounce');
+        setTimeout(() => card.classList.remove('animate-bounce'), 500);
+        document.getElementById('pin-error-msg').classList.remove('hidden');
+      }
+    }
+
+    function loadTeacherGradebookTable() {
+      const tbody = document.getElementById('teacher-gradebook-tbody');
+      const list = JSON.parse(localStorage.getItem(DB_STORAGE_KEY) || '[]');
+      document.getElementById('teacher-total-submissions-text').textContent = `Total Ujian Masuk: ${list.length} Murid`;
 
       if (list.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" class="py-8 text-center text-slate-400">
-              Belum ada data murid yang mengumpulkan ujian. Data akan muncul otomatis begitu murid menekan "Kumpulkan Jawaban".
-            </td>
-          </tr>
-        `;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500">Belum ada murid yang mengumpulkan ujian. Data akan muncul otomatis saat murid mengumpulkan hasil ujiannya.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = list.map((item, i) => `
-        <tr class="hover:bg-slate-50 transition">
-          <td class="py-3 px-4 font-bold text-slate-400">${i + 1}</td>
-          <td class="py-3 px-4 text-slate-500 font-mono text-[11px]">${item.timestamp}</td>
-          <td class="py-3 px-4 font-bold text-slate-900">${item.studentName}</td>
-          <td class="py-3 px-4 text-slate-600">${item.studentClass}</td>
-          <td class="py-3 px-4 text-center font-bold">${item.correctCount} / 10</td>
-          <td class="py-3 px-4 text-center font-mono font-extrabold text-indigo-600 text-sm">${item.score}</td>
+        <tr class="hover:bg-dark-900 transition">
+          <td class="py-3 px-4 font-bold text-slate-500">${i + 1}</td>
+          <td class="py-3 px-4 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
+          <td class="py-3 px-4 font-bold text-white">${item.studentName}</td>
+          <td class="py-3 px-4 text-slate-400">${item.studentClass}</td>
+          <td class="py-3 px-4 text-center font-bold text-slate-300">${item.correctCount} / ${item.totalQuestions || 15}</td>
+          <td class="py-3 px-4 text-center font-mono font-black text-emerald-400 text-sm">${item.score}</td>
           <td class="py-3 px-4 text-center">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${item.passed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${item.passed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
               ${item.passed ? 'TUNTAS' : 'REMEDIAL'}
             </span>
           </td>
           <td class="py-3 px-4 text-center">
-            <button onclick="alert('Rincian Jawaban: ' + JSON.stringify(item.answers))" class="text-indigo-600 hover:underline font-semibold text-[11px]">
-              Lihat Lembar
+            <button onclick="alert('Rincian Jawaban: ' + JSON.stringify(item.answers))" class="text-indigo-400 hover:underline font-semibold text-[11px]">
+              Lembar Jawaban
             </button>
           </td>
         </tr>
       `).join('');
     }
 
-    function exportGradebookToCSV() {
-      const list = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+    function exportTeacherDataToCSV() {
+      const list = JSON.parse(localStorage.getItem(DB_STORAGE_KEY) || '[]');
       if (list.length === 0) {
         alert("Belum ada data nilai untuk diexport!");
         return;
       }
 
-      let csv = "No,Waktu,Nama Murid,Kelas,Benar,Nilai,Status\n";
+      let csv = "No,Waktu Submit,Nama Murid,Kelas,Benar,Nilai,Status\n";
       list.forEach((item, i) => {
-        csv += `"${i + 1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.correctCount}/10","${item.score}","${item.passed ? 'TUNTAS' : 'REMEDIAL'}"\n`;
+        csv += `"${i + 1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.correctCount}/15","${item.score}","${item.passed ? 'TUNTAS' : 'REMEDIAL'}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -1380,37 +1435,31 @@ function doPost(e) {
       document.body.removeChild(link);
     }
 
-    function clearGradebookConfirm() {
-      if (confirm("Apakah kamu yakin ingin mereset seluruh data nilai murid di browser ini? Tindakan ini tidak dapat dibatalkan.")) {
-        localStorage.removeItem(DB_KEY);
-        loadGradebookTable();
+    function clearAllSubmissionsConfirm() {
+      if (confirm('Yakin ingin mereset seluruh database nilai murid di browser ini?')) {
+        localStorage.removeItem(DB_STORAGE_KEY);
+        loadTeacherGradebookTable();
       }
     }
 
     function openGoogleSheetModal() {
-      const currentUrl = localStorage.getItem('the_arich_gsheet_url') || '';
-      document.getElementById('gsheet-webhook-url').value = currentUrl;
+      const cur = localStorage.getItem(GSHEET_URL_KEY) || '';
+      document.getElementById('gsheet-webhook-input').value = cur;
       document.getElementById('gsheets-modal').classList.remove('hidden');
     }
-
     function closeGoogleSheetModal() {
       document.getElementById('gsheets-modal').classList.add('hidden');
     }
-
-    function saveGoogleSheetWebhook() {
-      const url = document.getElementById('gsheet-webhook-url').value.trim();
-      localStorage.setItem('the_arich_gsheet_url', url);
+    function saveGoogleSheetUrl() {
+      const url = document.getElementById('gsheet-webhook-input').value.trim();
+      localStorage.setItem(GSHEET_URL_KEY, url);
       closeGoogleSheetModal();
-      alert(url ? "Webhook Google Sheets berhasil disimpan! Setiap murid submit, nilainya akan otomatis terkirim ke spreadsheet kamu." : "Webhook dikosongkan. Nilai tetap tersimpan di database lokal browser.");
+      alert(url ? "Webhook Google Sheets tersimpan! Setiap nilai murid akan masuk otomatis ke spreadsheet kamu." : "Webhook dikosongkan. Data tetap tersimpan di database lokal browser.");
     }
 
-    function toggleTeacherMode() {
-      showView('gradebook');
-    }
-
-    // ========================================================
-    // KATEX MATH RENDERING BOOTSTRAPPER
-    // ========================================================
+    // ----------------------------------------------------
+    // KATEX MATH BOOTSTRAPPER
+    // ----------------------------------------------------
     function triggerLatexRender() {
       if (window.renderMathInElement) {
         renderMathInElement(document.body, {
@@ -1423,10 +1472,24 @@ function doPost(e) {
       }
     }
 
+    // Swipe support for UTBK Question Card
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const cardEl = document.getElementById('utbk-question-card');
+    if (cardEl) {
+      cardEl.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+      cardEl.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) slideNextQuestion();
+        if (touchEndX > touchStartX + 50) slidePrevQuestion();
+      }, {passive: true});
+    }
+
+    // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      triggerLatexRender();
-      showView('exam-gate');
+      renderDashboardChapters();
+      checkExistingUserSession();
     });
   </script>
 </body>
