@@ -57,6 +57,7 @@
   <script src="data/kurmer_kelas11_materi.js"></script>
   <script src="data/utbk_soal_bank.js"></script>
   <script src="data/curriculum_all_grades.js"></script>
+  <script src="data/soal_bank_per_bab.js"></script>
 
   <style>
     body {
@@ -172,7 +173,7 @@
         <span>Materi</span>
       </button>
 
-      <button onclick="switchView('exam')" id="sb-nav-exam" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
+      <button onclick="switchView('exam-catalog')" id="sb-nav-exam" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
         <i data-lucide="edit-3" class="w-4 h-4"></i>
         <span>Latihan Soal</span>
       </button>
@@ -320,7 +321,7 @@
             <button onclick="switchView('materi-catalog')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center gap-1.5 transition">
               <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Buka Materi
             </button>
-            <button onclick="switchView('exam')" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition">
+            <button onclick="switchView('exam-catalog')" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition">
               <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Mulai Latihan Soal
             </button>
             <button onclick="switchView('history')" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition">
@@ -391,6 +392,54 @@
           <!-- Injected via JS -->
         </div>
 
+        <!-- Call-to-action: Take Exam for this Chapter -->
+        <div class="clean-card rounded-2xl p-5 border-indigo-500/30 bg-indigo-950/20 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-6 h-6 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-xs">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </span>
+              <h4 class="text-sm font-bold text-white">Sudah Paham Konsep Bab Ini?</h4>
+            </div>
+            <p class="text-xs text-slate-300">Uji kemampuanmu dengan 15 latihan soal terstandar lengkap dengan kunci & pembahasan.</p>
+          </div>
+          <button id="btn-materi-start-exam" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shrink-0 shadow-lg shadow-indigo-600/30 transition">
+            <i data-lucide="play" class="w-3.5 h-3.5"></i>
+            <span>Mulai 15 Latihan Soal</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- ==================================================== -->
+      <!-- VIEW 5A: KATALOG PAKET LATIHAN SOAL PER MATERI/BAB   -->
+      <!-- ==================================================== -->
+      <div id="view-exam-catalog" class="hidden space-y-5">
+        <div class="clean-card rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center space-x-2 mb-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30" id="exam-catalog-grade-badge">Kelas 11 SMA</span>
+              <span class="text-xs text-slate-400">• Standar UTBK & Kurikulum Merdeka</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-1">Paket Latihan Soal Per Bab</h2>
+            <p class="text-xs text-slate-400 leading-relaxed max-w-xl">
+              Pilih bab materi yang ingin kamu uji. Masing-masing bab terdiri dari 15 soal pilihan ganda lengkap dengan timer 30 menit, serta kunci jawaban & pembahasan ber-sandi.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-800 text-xs text-slate-300 font-mono" id="exam-catalog-total-stats">
+              6 Bab • 90 Soal
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Daftar Paket Latihan Materi</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="exam-catalog-grid">
+            <!-- Injected via JS -->
+          </div>
+        </div>
       </div>
 
       <!-- ==================================================== -->
@@ -399,11 +448,14 @@
       <div id="view-exam" class="hidden flex-1 flex flex-col space-y-4">
         
         <!-- Exam Control Bar -->
-        <div class="clean-card rounded-xl p-3 flex items-center justify-between text-xs">
+        <div class="clean-card rounded-xl p-3 flex flex-wrap items-center justify-between text-xs gap-2">
           <div class="flex items-center space-x-2">
-            <span class="font-bold text-white" id="exam-badge-grade">Latihan Soal</span>
+            <button onclick="confirmExitExam()" class="px-2.5 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-[11px] font-semibold flex items-center gap-1 transition" title="Kembali ke Daftar Latihan Bab">
+              <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i> Bab
+            </button>
+            <span class="font-bold text-white text-xs truncate max-w-[200px] sm:max-w-xs" id="exam-badge-grade">Latihan Soal</span>
             <span class="text-slate-500">•</span>
-            <span class="text-slate-400" id="exam-answered-stat">0 Terjawab</span>
+            <span class="text-slate-400 text-[11px]" id="exam-answered-stat">0 Terjawab</span>
           </div>
 
           <div class="flex items-center space-x-2">
@@ -550,7 +602,8 @@
           </div>
 
           <span class="text-xs font-bold text-emerald-400 uppercase block mb-1">Hasil Latihan Soal</span>
-          <h3 class="text-lg font-bold text-white mb-4" id="res-student-name">-</h3>
+          <h3 class="text-lg font-bold text-white mb-0.5" id="res-student-name">-</h3>
+          <p class="text-xs text-indigo-300 font-semibold mb-4" id="res-chapter-title">-</p>
 
           <!-- Score -->
           <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 max-w-xs mx-auto mb-4">
@@ -567,8 +620,16 @@
             <button onclick="shareScoreWhatsApp()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
               <i data-lucide="message-circle" class="w-4 h-4"></i> Konfirmasi Nilai ke WhatsApp Guru
             </button>
-            <button onclick="switchView('dashboard')" class="w-full py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-semibold transition">
-              Kembali ke Dashboard
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="repeatCurrentExam()" class="py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 text-xs font-semibold flex items-center justify-center gap-1 transition">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Ulangi Bab Ini
+              </button>
+              <button onclick="switchView('exam-catalog')" class="py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
+                <i data-lucide="book" class="w-3.5 h-3.5"></i> Bab Lainnya
+              </button>
+            </div>
+            <button onclick="switchView('history')" class="w-full py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-semibold transition">
+              Lihat Riwayat Nilai
             </button>
           </div>
 
@@ -589,7 +650,7 @@
             <thead class="bg-dark-900 border-b border-slate-800 text-[10px] uppercase text-slate-400 font-bold">
               <tr>
                 <th class="py-2.5 px-3">Waktu</th>
-                <th class="py-2.5 px-3">Kelas</th>
+                <th class="py-2.5 px-3">Kelas & Materi Bab</th>
                 <th class="py-2.5 px-3 text-center">Benar</th>
                 <th class="py-2.5 px-3 text-center">Skor</th>
                 <th class="py-2.5 px-3 text-center">Status</th>
@@ -670,7 +731,7 @@
       <i data-lucide="book-open" class="w-4 h-4 mb-0.5"></i>
       <span>Materi</span>
     </button>
-    <button onclick="switchView('exam')" id="mob-nav-exam" class="flex flex-col items-center py-1 px-3 text-slate-400 hover:text-white">
+    <button onclick="switchView('exam-catalog')" id="mob-nav-exam" class="flex flex-col items-center py-1 px-3 text-slate-400 hover:text-white">
       <i data-lucide="edit-3" class="w-4 h-4 mb-0.5"></i>
       <span>Latihan</span>
     </button>
@@ -825,6 +886,7 @@ function doPost(e) {
     let audioCtx = null;
 
     // Exam State
+    let currentExamChapter = null;
     let activeQuestions = [];
     let currentQIdx = 0;
     let userAnswers = [];
@@ -946,6 +1008,14 @@ function doPost(e) {
       if (!currentGradeData) {
         currentGradeData = window.ALL_GRADES_DATA['11']; // fallback
       }
+      // Bind dedicated 15 questions per chapter from window.SOAL_BANK_PER_BAB
+      if (currentGradeData && currentGradeData.chapters && window.SOAL_BANK_PER_BAB) {
+        currentGradeData.chapters.forEach(ch => {
+          if (window.SOAL_BANK_PER_BAB[ch.id]) {
+            ch.questions = window.SOAL_BANK_PER_BAB[ch.id];
+          }
+        });
+      }
     }
 
     function updateHeaderProfile() {
@@ -986,7 +1056,7 @@ function doPost(e) {
         toggleMobileSidebar();
       }
 
-      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam', 'exam-result', 'history', 'teacher-dashboard'];
+      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'history', 'teacher-dashboard'];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
@@ -996,7 +1066,8 @@ function doPost(e) {
       document.querySelectorAll('.sb-nav-item').forEach(b => {
         b.className = 'sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition';
       });
-      const navBtn = document.getElementById(`sb-nav-${viewName}`);
+      const activeNavId = (viewName === 'exam-catalog' || viewName === 'exam') ? 'sb-nav-exam' : `sb-nav-${viewName}`;
+      const navBtn = document.getElementById(activeNavId);
       if (navBtn) {
         navBtn.className = 'sb-nav-item active w-full px-3 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white flex items-center gap-2.5 transition';
       }
@@ -1007,7 +1078,8 @@ function doPost(e) {
           b.className = 'flex flex-col items-center py-1 px-3 text-slate-400 hover:text-white';
         }
       });
-      const mobBtn = document.getElementById(`mob-nav-${viewName}`);
+      const activeMobId = (viewName === 'exam-catalog' || viewName === 'exam') ? 'mob-nav-exam' : `mob-nav-${viewName}`;
+      const mobBtn = document.getElementById(activeMobId);
       if (mobBtn) {
         mobBtn.className = 'flex flex-col items-center py-1 px-3 text-indigo-400 font-bold';
       }
@@ -1023,9 +1095,11 @@ function doPost(e) {
       } else if (viewName === 'materi-catalog') {
         document.getElementById('top-bar-title').textContent = 'Katalog Materi';
         renderMateriCatalog();
+      } else if (viewName === 'exam-catalog') {
+        document.getElementById('top-bar-title').textContent = 'Pilih Bab Latihan';
+        renderExamCatalog();
       } else if (viewName === 'exam') {
-        document.getElementById('top-bar-title').textContent = 'Latihan Soal';
-        initGradeExam();
+        document.getElementById('top-bar-title').textContent = 'Latihan Soal CBT';
       } else if (viewName === 'history') {
         document.getElementById('top-bar-title').textContent = 'Riwayat Nilai';
         renderHistoryTable();
@@ -1060,7 +1134,7 @@ function doPost(e) {
       if (list.length === 0) {
         descEl.innerHTML = "Belum ada latihan yang diselesaikan. Mulai latihan untuk mengukur kemampuanmu!";
         pillsEl.innerHTML = `
-          <button onclick="switchView('exam')" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1 transition">
+          <button onclick="switchView('exam-catalog')" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1 transition">
             <span>Mulai Tes</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
         `;
@@ -1152,12 +1226,135 @@ function doPost(e) {
         </div>
       `).join('');
 
+      const startExamBtn = document.getElementById('btn-materi-start-exam');
+      if (startExamBtn) {
+        startExamBtn.onclick = () => startChapterExam(ch.id);
+      }
+
       switchView('materi-detail');
     }
 
     // ----------------------------------------------------
-    // EXAM CBT ENGINE
+    // EXAM CBT ENGINE & CHAPTER CATALOG
     // ----------------------------------------------------
+    function renderExamCatalog() {
+      const container = document.getElementById('exam-catalog-grid');
+      const badgeEl = document.getElementById('exam-catalog-grade-badge');
+      const statsEl = document.getElementById('exam-catalog-total-stats');
+      if (!container || !currentGradeData || !currentGradeData.chapters) return;
+
+      if (badgeEl) badgeEl.textContent = currentGradeData.gradeName;
+      const totalChapters = currentGradeData.chapters.length;
+      const totalQuestions = currentGradeData.chapters.reduce((sum, ch) => sum + (ch.questions ? ch.questions.length : 15), 0);
+      if (statsEl) statsEl.textContent = `${totalChapters} Bab • ${totalQuestions} Soal`;
+
+      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
+
+      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+        const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        const qCount = ch.questions ? ch.questions.length : 15;
+        
+        // Check highest score for this chapter & student
+        const historyList = db.filter(r => 
+          (!myName || r.studentName.toLowerCase() === myName) && 
+          (r.chapterId === ch.id || r.chapterTitle === ch.title)
+        );
+        let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-dark-900 border border-slate-800 text-slate-400">Belum Dikerjakan</span>`;
+        if (historyList.length > 0) {
+          const maxScore = Math.max(...historyList.map(h => h.score));
+          const isPassed = maxScore >= 70;
+          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">Skor Tertinggi: ${maxScore}/100</span>`;
+        }
+
+        return `
+          <div class="clean-card rounded-2xl p-5 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">${badge}</span>
+                ${statusBadge}
+              </div>
+              <h4 class="text-sm sm:text-base font-bold text-white group-hover:text-indigo-300 transition mb-1.5">${ch.title}</h4>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${ch.summary}</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-3 text-slate-400 text-xs mb-3 font-mono">
+                <span class="flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-400"></i> ${qCount} Soal</span>
+                <span>•</span>
+                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i> 30 Menit</span>
+                <span>•</span>
+                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Kunci Ber-sandi</span>
+              </div>
+              <div class="flex items-center gap-2 pt-3 border-t border-slate-800">
+                <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Baca Materi
+                </button>
+                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-1 shadow-lg shadow-indigo-600/30 transition">
+                  <i data-lucide="play" class="w-3.5 h-3.5"></i> Mulai Latihan
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function startChapterExam(chapterId) {
+      if (!currentGradeData || !currentGradeData.chapters) return;
+      let ch = currentGradeData.chapters.find(c => c.id === chapterId);
+      if (!ch) ch = currentGradeData.chapters[0];
+      if (!ch) return;
+
+      if (!ch.questions || ch.questions.length === 0) {
+        if (window.SOAL_BANK_PER_BAB && window.SOAL_BANK_PER_BAB[ch.id]) {
+          ch.questions = window.SOAL_BANK_PER_BAB[ch.id];
+        } else {
+          alert('Soal untuk bab ini sedang disiapkan.');
+          return;
+        }
+      }
+
+      currentExamChapter = ch;
+      activeQuestions = ch.questions;
+      userAnswers = new Array(activeQuestions.length).fill(null);
+      userDoubts = new Array(activeQuestions.length).fill(false);
+      currentQIdx = 0;
+      isSolutionVisible = false;
+
+      const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || 'Bab');
+      const badgeGradeEl = document.getElementById('exam-badge-grade');
+      if (badgeGradeEl) badgeGradeEl.textContent = `${badge}: ${ch.title}`;
+
+      // Reset timer to 30 mins
+      examSecondsLeft = 30 * 60;
+      if (examTimerInterval) clearInterval(examTimerInterval);
+      examTimerInterval = setInterval(updateExamTimer, 1000);
+
+      switchView('exam');
+      renderExamMatrix();
+      renderCurrentExamQuestion(0, 'none');
+    }
+
+    function confirmExitExam() {
+      const answered = userAnswers.filter(a => a !== null).length;
+      if (answered > 0) {
+        if (!confirm(`Kamu telah menjawab ${answered} dari ${activeQuestions.length} soal. Yakin ingin keluar ke daftar bab? Progres sesi ini tidak akan disimpan.`)) {
+          return;
+        }
+      }
+      clearInterval(examTimerInterval);
+      switchView('exam-catalog');
+    }
+
+    function repeatCurrentExam() {
+      if (currentExamChapter) {
+        startChapterExam(currentExamChapter.id);
+      } else {
+        switchView('exam-catalog');
+      }
+    }
+
     function initGradeExam() {
       if (!currentGradeData || !currentGradeData.questions || currentGradeData.questions.length === 0) return;
       activeQuestions = currentGradeData.questions;
@@ -1423,12 +1620,20 @@ function doPost(e) {
       });
       const score = Math.round((correct / activeQuestions.length) * 100);
 
+      const chTitle = currentExamChapter ? currentExamChapter.title : 'Latihan Mandiri';
+      const chId = currentExamChapter ? currentExamChapter.id : 'general';
+      const chBadge = currentExamChapter ? (currentExamChapter.number ? `Bab ${currentExamChapter.number}` : currentExamChapter.badge) : '';
+      const displaySubj = currentGradeData ? `${currentGradeData.gradeShort} - ${chBadge ? chBadge + ': ' : ''}${chTitle}` : chTitle;
+
       const record = {
         id: Date.now(),
         timestamp: new Date().toLocaleString('id-ID'),
         studentName: currentStudent ? currentStudent.name : 'Murid',
         studentClass: currentGradeData ? currentGradeData.gradeName : 'Kelas',
         gradeCode: currentStudent ? currentStudent.grade : '11',
+        chapterId: chId,
+        chapterTitle: chTitle,
+        displaySubject: displaySubj,
         correctCount: correct,
         totalQuestions: activeQuestions.length,
         score: score,
@@ -1457,6 +1662,8 @@ function doPost(e) {
 
       // Show Results View
       document.getElementById('res-student-name').textContent = record.studentName;
+      const resChEl = document.getElementById('res-chapter-title');
+      if (resChEl) resChEl.textContent = displaySubj;
       document.getElementById('res-score-number').textContent = score;
       document.getElementById('res-score-detail').textContent = `${correct} Benar dari ${activeQuestions.length} Soal (${score}/100)`;
 
@@ -1470,13 +1677,14 @@ function doPost(e) {
     function shareScoreWhatsApp() {
       const name = currentStudent ? currentStudent.name : 'Murid';
       const grade = currentGradeData ? currentGradeData.gradeName : 'Kelas';
+      const chTitle = currentExamChapter ? currentExamChapter.title : 'Latihan Soal';
       let correct = 0;
       activeQuestions.forEach((q, idx) => {
         if (userAnswers[idx] === q.correct) correct++;
       });
       const score = Math.round((correct / activeQuestions.length) * 100);
 
-      const msg = `Halo Pak Guru, saya *${name}* (${grade}) telah menyelesaikan Latihan Soal di *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari ${activeQuestions.length} Soal).`;
+      const msg = `Halo Pak Guru, saya *${name}* (${grade}) telah menyelesaikan Latihan Soal Bab *${chTitle}* di *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari ${activeQuestions.length} Soal).`;
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
@@ -1495,7 +1703,7 @@ function doPost(e) {
             <td colspan="5" class="py-8 text-center text-slate-500 space-y-2">
               <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
               <p class="text-xs">Belum ada riwayat latihan untuk akun <strong>${currentStudent ? currentStudent.name : 'ini'}</strong>.</p>
-              <button onclick="switchView('exam')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition">
+              <button onclick="switchView('exam-catalog')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition">
                 Mulai Latihan Sekarang <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </td>
@@ -1508,7 +1716,10 @@ function doPost(e) {
       tbody.innerHTML = list.map(item => `
         <tr class="hover:bg-dark-900 transition">
           <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
-          <td class="py-2.5 px-3 font-semibold text-white">${item.studentClass}</td>
+          <td class="py-2.5 px-3">
+            <div class="font-semibold text-white text-xs">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
+            <div class="text-[10px] text-slate-500">${item.studentClass}</div>
+          </td>
           <td class="py-2.5 px-3 text-center text-slate-300 font-bold">${item.correctCount} / ${item.totalQuestions}</td>
           <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono">${item.score}</td>
           <td class="py-2.5 px-3 text-center">
@@ -1568,7 +1779,10 @@ function doPost(e) {
           <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
           <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
           <td class="py-2.5 px-3 font-bold text-white">${item.studentName}</td>
-          <td class="py-2.5 px-3 text-slate-400">${item.studentClass}</td>
+          <td class="py-2.5 px-3">
+            <div class="text-xs font-semibold text-slate-200">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
+            <div class="text-[10px] text-slate-500">${item.studentClass}</div>
+          </td>
           <td class="py-2.5 px-3 text-center text-slate-300 font-semibold">${item.correctCount} / ${item.totalQuestions}</td>
           <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono text-sm">${item.score}</td>
           <td class="py-2.5 px-3 text-center">
@@ -1583,9 +1797,9 @@ function doPost(e) {
     function exportTeacherCSV() {
       const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
       if (db.length === 0) return alert('Belum ada data nilai.');
-      let csv = "No,Waktu,Nama Murid,Kelas,Benar,Nilai,Status\n";
+      let csv = "No,Waktu,Nama Murid,Kelas,Materi Bab,Benar,Nilai,Status\n";
       db.forEach((item, i) => {
-        csv += `"${i+1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.correctCount}/${item.totalQuestions}","${item.score}","${item.passed ? 'TUNTAS':'REMEDIAL'}"\n`;
+        csv += `"${i+1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.displaySubject || item.chapterTitle || ''}","${item.correctCount}/${item.totalQuestions}","${item.score}","${item.passed ? 'TUNTAS':'REMEDIAL'}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
@@ -1628,6 +1842,28 @@ function doPost(e) {
           throwOnError: false
         });
       }
+    }
+
+    function playBeep(freq = 440, duration = 0.1) {
+      if (!isAudio) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
     }
 
     function toggleAudioSFX() {
