@@ -894,31 +894,31 @@ window.SOAL_PER_BAB_KELAS11 = {
     },
     {
       "id": 4,
-      "prompt": "Modal sebesar Rp10.000.000 disimpan di bank dengan bunga tunggal $6\\%$ per tahun. Besar modal akhir setelah $3$ tahun adalah...",
+      "prompt": "Suku pertama suatu barisan geometri adalah $a = 3$ dan suku ke-$5$ adalah $48$. Jika rasio barisan tersebut positif, maka jumlah $6$ suku pertama ($S_6$) barisan tersebut adalah...",
       "options": [
-        "Rp11.800.000",
-        "Rp11.600.000",
-        "Rp11.910.160",
-        "Rp12.000.000",
-        "Rp10.600.000"
+        "$189$",
+        "$186$",
+        "$192$",
+        "$96$",
+        "$381$"
       ],
       "correct": 0,
-      "hint": "Bunga tunggal: $B = M \\times i \\times t$, Modal akhir $= M + B$.",
-      "explanation": "Bunga $= 10.000.000 \\times 6\\% \\times 3 = 1.800.000$. Modal akhir $= 10.000.000 + 1.800.000 = \\text{Rp}11.800.000$."
+      "hint": "$U_5 = ar^4 = 48 \\implies 3r^4 = 48 \\implies r^4 = 16 \\implies r = 2$. Gunakan $S_n = \\frac{a(r^n - 1)}{r - 1}$.",
+      "explanation": "$$r^4 = 16 \\implies r = 2$$. Jumlah 6 suku pertama: $$S_6 = \\frac{3(2^6 - 1)}{2 - 1} = 3(64 - 1) = 3 \\times 63 = 189$$."
     },
     {
       "id": 5,
-      "prompt": "Uang sejumlah Rp5.000.000 dibungakan dengan sistem bunga majemuk $10\\%$ per tahun. Nilai uang tersebut setelah $2$ tahun adalah...",
+      "prompt": "Diberikan barisan bilangan bertingkat dua: $2, 5, 10, 17, 26, \\dots$. Rumus suku ke-$n$ dan nilai dari suku ke-$10$ ($U_{10}$) barisan tersebut adalah...",
       "options": [
-        "Rp6.050.000",
-        "Rp6.000.000",
-        "Rp5.500.000",
-        "Rp6.100.000",
-        "Rp6.250.000"
+        "$U_n = n^2 + 1$ dan $U_{10} = 101$",
+        "$U_n = n^2 + 2$ dan $U_{10} = 102$",
+        "$U_n = 2n^2 - 1$ dan $U_{10} = 199$",
+        "$U_n = n^2 - 1$ dan $U_{10} = 99$",
+        "$U_n = n^2 + n$ dan $U_{10} = 110$"
       ],
       "correct": 0,
-      "hint": "Bunga majemuk: $M_n = M_0 (1 + i)^n$.",
-      "explanation": "$M_2 = 5.000.000 \\times (1 + 0.10)^2 = 5.000.000 \\times 1.21 = \\text{Rp}6.050.000$."
+      "hint": "Cek selisih tingkat pertama: $+3, +5, +7, +9$. Pola kuadrat: $1^2+1, 2^2+1, 3^2+1, \\dots$.",
+      "explanation": "Pola suku-suku barisan: $U_1 = 1^2 + 1 = 2$, $U_2 = 2^2 + 1 = 5$, $U_3 = 3^2 + 1 = 10$, sehingga $U_n = n^2 + 1$. Maka $U_{10} = 10^2 + 1 = 101$."
     },
     {
       "id": 6,
@@ -992,17 +992,17 @@ window.SOAL_PER_BAB_KELAS11 = {
     },
     {
       "id": 11,
-      "prompt": "Nilai anuitas dari suatu pinjaman adalah Rp500.000. Jika bunga pada periode pertama adalah Rp120.000, maka besar angsuran pertama adalah...",
+      "prompt": "Jumlah suatu deret geometri tak hingga konvergen adalah $S_\\infty = 24$ dan rasionya adalah $r = \\frac{2}{3}$. Suku pertama ($a$) deret tersebut adalah...",
       "options": [
-        "Rp380.000",
-        "Rp620.000",
-        "Rp420.000",
-        "Rp280.000",
-        "Rp350.000"
+        "$8$",
+        "$6$",
+        "$12$",
+        "$16$",
+        "$4$"
       ],
       "correct": 0,
-      "hint": "Rumus anuitas: $A = a_n + b_n \\implies a_1 = A - b_1$.",
-      "explanation": "Angsuran pertama $a_1 = 500.000 - 120.000 = \\text{Rp}380.000$."
+      "hint": "$S_\\infty = \\frac{a}{1 - r} \\implies a = S_\\infty \\times (1 - r)$.",
+      "explanation": "$$a = 24 \\times \\left(1 - \\frac{2}{3}\\right) = 24 \\times \\frac{1}{3} = 8$$."
     },
     {
       "id": 12,
@@ -1048,17 +1048,17 @@ window.SOAL_PER_BAB_KELAS11 = {
     },
     {
       "id": 15,
-      "prompt": "Harga beli sebuah sepeda motor adalah Rp20.000.000. Setiap tahun nilainya menyusut sebesar $10\\%$ dari harga tahun sebelumnya. Harga motor tersebut setelah $2$ tahun adalah...",
+      "prompt": "Seutas tali dipotong menjadi $5$ bagian yang panjangnya membentuk barisan geometri. Jika potongan tali terpendek adalah $4\\text{ cm}$ dan potongan tali terpanjang adalah $64\\text{ cm}$, maka panjang tali mula-mula sebelum dipotong adalah...",
       "options": [
-        "Rp16.200.000",
-        "Rp16.000.000",
-        "Rp18.000.000",
-        "Rp15.800.000",
-        "Rp14.500.000"
+        "$124\\text{ cm}$",
+        "$120\\text{ cm}$",
+        "$128\\text{ cm}$",
+        "$116\\text{ cm}$",
+        "$132\\text{ cm}$"
       ],
       "correct": 0,
-      "hint": "Peluruhan eksponensial: $M_2 = M_0 (1 - p)^2$.",
-      "explanation": "$M_2 = 20.000.000 \\times (1 - 0.10)^2 = 20.000.000 \\times (0.9)^2 = 20.000.000 \\times 0.81 = \\text{Rp}16.200.000$."
+      "hint": "$a = 4$ dan $U_5 = ar^4 = 64 \\implies r^4 = 16 \\implies r = 2$. Panjang tali mula-mula adalah $S_5$.",
+      "explanation": "$$4r^4 = 64 \\implies r^4 = 16 \\implies r = 2$$. Panjang tali mula-mula: $$S_5 = \\frac{4(2^5 - 1)}{2 - 1} = 4(32 - 1) = 4 \\times 31 = 124\\text{ cm}$$."
     }
   ],
   "polinomial": [
@@ -1272,5 +1272,221 @@ window.SOAL_PER_BAB_KELAS11 = {
       "hint": "Rumus Vieta jumlah hasil kali dua akar: $\\sum x_i x_j = c/a$.",
       "explanation": "$\\sum x_i x_j = c/a = 8/2 = 4$."
     }
+  ],
+  "bunga-anuitas": [
+    {
+      "id": 1,
+      "prompt": "Modal sebesar Rp10.000.000,00 ditabungkan di sebuah bank dengan sistem bunga majemuk $6\\%$ per tahun. Jika pihak bank menghitung bunga pada setiap akhir tahun, maka besar saldo modal akhir setelah $3$ tahun adalah... (Diketahui $(1{,}06)^3 = 1{,}191016$)",
+      "options": [
+        "Rp11.910.160,00",
+        "Rp11.800.000,00",
+        "Rp11.900.000,00",
+        "Rp12.100.160,00",
+        "Rp12.600.000,00"
+      ],
+      "correct": 0,
+      "hint": "Gunakan rumus bunga majemuk $M_n = M_0 (1 + i)^n$ dengan $M_0 = 10.000.000$ dan $n = 3$.",
+      "explanation": "$$M_3 = M_0(1 + i)^3 = 10.000.000 \\times (1{,}06)^3 = 10.000.000 \\times 1{,}191016 = \\text{Rp}11.910.160{,}00$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Ibu Dewi menaruh deposito sebesar Rp8.000.000,00 dengan suku bunga majemuk $8\\%$ per tahun yang dikapitalisasi setiap semester (6 bulan sekali). Berapakah perkiraan saldo akhir deposito Ibu Dewi setelah $2$ tahun? (Gunakan nilai $(1{,}04)^4 = 1{,}16986$)",
+      "options": [
+        "Rp9.358.880,00",
+        "Rp9.280.000,00",
+        "Rp9.420.000,00",
+        "Rp9.600.000,00",
+        "Rp8.960.000,00"
+      ],
+      "correct": 0,
+      "hint": "Semesteran berarti $m = 2$. Suku bunga per periode: $i = 8\\% / 2 = 4\\%$. Banyak periode: $n = 2 \\times 2 = 4$.",
+      "explanation": "$$M_4 = 8.000.000 \\times (1 + 0{,}04)^4 = 8.000.000 \\times 1{,}16986 = \\text{Rp}9.358.880{,}00$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Suatu modal investasi sebesar Rp20.000.000,00 dibungakan dengan bunga majemuk $12\\%$ per tahun yang dikapitalisasi setiap triwulan (3 bulan sekali). Nilai suku bunga per periode dan banyaknya periode pemajemukan selama $1{,}5$ tahun berturut-turut adalah...",
+      "options": [
+        "$3\\%$ per periode dan $6$ periode",
+        "$4\\%$ per periode dan $6$ periode",
+        "$3\\%$ per periode dan $4$ periode",
+        "$6\\%$ per periode dan $3$ periode",
+        "$12\\%$ per periode dan $6$ periode"
+      ],
+      "correct": 0,
+      "hint": "Satu tahun ada 4 triwulan ($m = 4$). Bunga per periode $= 12\\% / 4$. Total periode $= 1{,}5 \\times 4$.",
+      "explanation": "Triwulan berarti $m = 4$. Suku bunga per periode: $i = \\frac{12\\%}{4} = 3\\%$. Total periode: $n = 1{,}5 \\times 4 = 6$ periode pemajemukan."
+    },
+    {
+      "id": 4,
+      "prompt": "Pak Hendra menabung modal sebesar Rp50.000.000,00 di bank dengan bunga majemuk $5\\%$ per tahun. Besar keuntungan bunga murni yang diterima Pak Hendra setelah menabung selama $2$ tahun adalah...",
+      "options": [
+        "Rp5.125.000,00",
+        "Rp5.000.000,00",
+        "Rp5.250.000,00",
+        "Rp5.500.000,00",
+        "Rp4.875.000,00"
+      ],
+      "correct": 0,
+      "hint": "Hitung saldo akhir $M_2 = M_0 (1{,}05)^2$, lalu keuntungan bunga adalah $B = M_2 - M_0$.",
+      "explanation": "$$M_2 = 50.000.000 \\times (1{,}05)^2 = 50.000.000 \\times 1{,}1025 = \\text{Rp}55.125.000{,}00$$. Besar bunga yang diperoleh: $$B = 55.125.000 - 50.000.000 = \\text{Rp}5.125.000{,}00$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Setelah dibungakan selama $3$ tahun dengan sistem bunga majemuk $10\\%$ per tahun, suatu modal bertumbuh menjadi bernilai Rp26.620.000,00. Besar modal awal (nilai tunai / present value) yang pertama kali diinvestasikan adalah...",
+      "options": [
+        "Rp20.000.000,00",
+        "Rp19.500.000,00",
+        "Rp21.000.000,00",
+        "Rp22.000.000,00",
+        "Rp18.500.000,00"
+      ],
+      "correct": 0,
+      "hint": "Gunakan rumus nilai tunai: $M_0 = \\frac{M_3}{(1 + i)^3} = \\frac{26.620.000}{(1{,}10)^3}$.",
+      "explanation": "$$(1{,}10)^3 = 1{,}331$$. Maka modal awal: $$M_0 = \\frac{26.620.000}{1{,}331} = \\text{Rp}20.000.000{,}00$$."
+    },
+    {
+      "id": 6,
+      "prompt": "Sebuah mesin pabrik dibeli seharga Rp100.000.000,00. Setiap tahun nilai mesin tersebut mengalami penyusutan (depresiasi) sebesar $20\\%$ dari nilai buku tahun sebelumnya. Taksiran nilai jual mesin tersebut setelah $3$ tahun pemakaian adalah...",
+      "options": [
+        "Rp51.200.000,00",
+        "Rp40.000.000,00",
+        "Rp48.800.000,00",
+        "Rp60.000.000,00",
+        "Rp52.400.000,00"
+      ],
+      "correct": 0,
+      "hint": "Gunakan rumus peluruhan nilai aset: $M_n = M_0 (1 - p)^n$.",
+      "explanation": "$$M_3 = 100.000.000 \\times (1 - 0{,}20)^3 = 100.000.000 \\times (0{,}8)^3 = 100.000.000 \\times 0{,}512 = \\text{Rp}51.200.000{,}00$$."
+    },
+    {
+      "id": 7,
+      "prompt": "Sebuah mobil operasional dibeli seharga Rp250.000.000,00 dan mengalami penyusutan nilai sebesar $10\\%$ per tahun secara saldo menurun. Berapakah besar penurunan harga mobil tersebut khusus pada tahun kedua saja?",
+      "options": [
+        "Rp22.500.000,00",
+        "Rp25.000.000,00",
+        "Rp20.250.000,00",
+        "Rp24.000.000,00",
+        "Rp18.000.000,00"
+      ],
+      "correct": 0,
+      "hint": "Cari nilai mobil akhir tahun ke-1 ($M_1$), lalu kalikan $10\\%$.",
+      "explanation": "Nilai mobil akhir tahun ke-1: $$M_1 = 250.000.000 \\times 0{,}9 = \\text{Rp}225.000.000$$. Besar penurunan pada tahun ke-2: $$D_2 = 10\\% \\times 225.000.000 = \\text{Rp}22.500.000{,}00$$."
+    },
+    {
+      "id": 8,
+      "prompt": "Suatu pinjaman bank dilunasi menggunakan sistem anuitas bulanan sebesar Rp1.200.000,00. Jika beban bunga pada bulan pertama adalah Rp350.000,00, maka besar angsuran pokok pinjaman pada bulan pertama ($a_1$) adalah...",
+      "options": [
+        "Rp850.000,00",
+        "Rp950.000,00",
+        "Rp1.550.000,00",
+        "Rp750.000,00",
+        "Rp800.000,00"
+      ],
+      "correct": 0,
+      "hint": "Gunakan persamaan dasar anuitas: $A = a_n + b_n \\implies a_1 = A - b_1$.",
+      "explanation": "$$a_1 = A - b_1 = 1.200.000 - 350.000 = \\text{Rp}850.000{,}00$$."
+    },
+    {
+      "id": 9,
+      "prompt": "Pinjaman modal usaha dilunasi dengan skema anuitas berkala dengan suku bunga majemuk $2\\%$ per bulan. Jika besar angsuran pokok pertama adalah $a_1 = \\text{Rp}500.000,00$, maka besar angsuran pokok pada bulan ketiga ($a_3$) adalah...",
+      "options": [
+        "Rp520.200,00",
+        "Rp510.000,00",
+        "Rp530.604,00",
+        "Rp540.000,00",
+        "Rp515.200,00"
+      ],
+      "correct": 0,
+      "hint": "Angsuran pokok bertumbuh secara geometri: $a_n = a_1 (1 + i)^{n-1}$.",
+      "explanation": "$$a_3 = a_1 (1 + i)^2 = 500.000 \\times (1{,}02)^2 = 500.000 \\times 1{,}0404 = \\text{Rp}520.200{,}00$$."
+    },
+    {
+      "id": 10,
+      "prompt": "Besar pembayaran anuitas bulanan dari suatu kredit adalah Rp800.000,00. Jika besar angsuran pokok pinjaman pada bulan ke-4 adalah Rp620.000,00, maka beban bunga yang dibayarkan pada bulan ke-4 ($b_4$) adalah...",
+      "options": [
+        "Rp180.000,00",
+        "Rp160.000,00",
+        "Rp220.000,00",
+        "Rp200.000,00",
+        "Rp140.000,00"
+      ],
+      "correct": 0,
+      "hint": "Hubungan anuitas: $A = a_k + b_k \\implies b_k = A - a_k$.",
+      "explanation": "$$b_4 = A - a_4 = 800.000 - 620.000 = \\text{Rp}180.000{,}00$$."
+    },
+    {
+      "id": 11,
+      "prompt": "Pada pelunasan suatu utang dengan anuitas berkala, angsuran pokok pada periode pertama adalah Rp400.000,00 dan angsuran pokok pada periode kedua adalah Rp424.000,00. Suku bunga yang diberlakukan pada pinjaman tersebut adalah...",
+      "options": [
+        "$6\\%$ per periode",
+        "$5\\%$ per periode",
+        "$4\\%$ per periode",
+        "$8\\%$ per periode",
+        "$7{,}5\\%$ per periode"
+      ],
+      "correct": 0,
+      "hint": "Hubungan dua angsuran berurutan: $a_2 = a_1 (1 + i)$.",
+      "explanation": "$$424.000 = 400.000 (1 + i) \\implies 1 + i = \\frac{424.000}{400.000} = 1{,}06 \\implies i = 0{,}06 = 6\\%$$."
+    },
+    {
+      "id": 12,
+      "prompt": "Suatu pinjaman sebesar Rp10.000.000,00 akan dilunasi dalam $4$ kali anuitas tahunan dengan suku bunga majemuk $5\\%$ per tahun. Jika nilai $(1{,}05)^{-4} = 0{,}8227$, maka besar anuitas tahunan yang harus dibayarkan adalah mendekati...",
+      "options": [
+        "Rp2.820.079,00",
+        "Rp2.750.000,00",
+        "Rp2.910.000,00",
+        "Rp2.650.000,00",
+        "Rp3.000.000,00"
+      ],
+      "correct": 0,
+      "hint": "Rumus anuitas: $A = \\frac{M \\cdot i}{1 - (1 + i)^{-n}}$.",
+      "explanation": "$$A = \\frac{10.000.000 \\times 0{,}05}{1 - 0{,}8227} = \\frac{500.000}{0{,}1773} \\approx \\text{Rp}2.820.079{,}00$$."
+    },
+    {
+      "id": 13,
+      "prompt": "Pada pelunasan kredit dengan suku bunga majemuk $3\\%$ per bulan, beban bunga pinjaman pada bulan ke-4 tercatat sebesar Rp90.000,00. Berapakah besar sisa utang pinjaman pada akhir bulan ke-3 ($S_3$)?",
+      "options": [
+        "Rp3.000.000,00",
+        "Rp2.700.000,00",
+        "Rp3.300.000,00",
+        "Rp2.500.000,00",
+        "Rp3.500.000,00"
+      ],
+      "correct": 0,
+      "hint": "Bunga bulan ke-4 dihitung dari sisa utang akhir bulan ke-3: $b_4 = S_3 \\cdot i \\implies S_3 = \\frac{b_4}{i}$.",
+      "explanation": "$$S_3 = \\frac{b_4}{i} = \\frac{90.000}{0{,}03} = \\text{Rp}3.000.000{,}00$$."
+    },
+    {
+      "id": 14,
+      "prompt": "Dari suatu tabel rencana pelunasan utang dengan suku bunga majemuk $5\\%$ per periode dan anuitas sebesar Rp2.500.000,00, diketahui sisa utang pada awal periode ke-2 adalah Rp8.000.000,00. Sisa utang pinjaman pada akhir periode ke-2 ($S_2$) adalah...",
+      "options": [
+        "Rp5.900.000,00",
+        "Rp5.500.000,00",
+        "Rp6.000.000,00",
+        "Rp6.200.000,00",
+        "Rp5.750.000,00"
+      ],
+      "correct": 0,
+      "hint": "Hitung $b_2 = 8.000.000 \\times 5\\% = 400.000$, lalu $a_2 = A - b_2$, kemudian $S_2 = S_1 - a_2$.",
+      "explanation": "Beban bunga ke-2: $b_2 = 8.000.000 \\times 0{,}05 = \\text{Rp}400.000$. Angsuran pokok ke-2: $a_2 = 2.500.000 - 400.000 = \\text{Rp}2.100.000$. Sisa utang akhir: $$S_2 = 8.000.000 - 2.100.000 = \\text{Rp}5.900.000{,}00$$."
+    },
+    {
+      "id": 15,
+      "prompt": "Pak Joko meminjam uang sebesar Rp30.000.000,00 di koperasi yang dilunasi dengan $12$ kali anuitas bulanan masing-masing sebesar Rp2.800.000,00. Berapakah total seluruh beban bunga yang dibayarkan oleh Pak Joko selama masa pinjaman sampai lunas?",
+      "options": [
+        "Rp3.600.000,00",
+        "Rp3.200.000,00",
+        "Rp4.000.000,00",
+        "Rp2.800.000,00",
+        "Rp4.200.000,00"
+      ],
+      "correct": 0,
+      "hint": "Total pembayaran $= 12 \\times A$. Total bunga $= \\text{Total Pembayaran} - \\text{Modal Pinjaman}$.",
+      "explanation": "Total seluruh uang yang dibayarkan: $$12 \\times 2.800.000 = \\text{Rp}33.600.000$$. Total bunga yang dibayarkan: $$33.600.000 - 30.000.000 = \\text{Rp}3.600.000{,}00$$."
+    }
   ]
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = window.SOAL_PER_BAB_KELAS11;
+}
