@@ -54,6 +54,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <!-- Data Modules for All 6 Grades -->
+  <script src="data/cloud_config.js"></script>
   <script src="data/kurmer_kelas11_materi.js"></script>
   <script src="data/utbk_soal_bank.js"></script>
   <script src="data/curriculum_all_grades.js"></script>
@@ -667,48 +668,143 @@
       <!-- VIEW 8: TEACHER DASHBOARD (SANDI: 010822)            -->
       <!-- ==================================================== -->
       <div id="view-teacher-dashboard" class="hidden space-y-4">
-        <div class="clean-card rounded-2xl p-5 border-amber-500/30">
+        <!-- Main Card -->
+        <div class="clean-card rounded-2xl p-4 sm:p-6 border-amber-500/30 space-y-5">
           
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800 mb-4">
+          <!-- Top Control Header -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-800">
             <div>
-              <span class="text-[10px] font-bold text-amber-400 uppercase">Portal Pengajar</span>
-              <h2 class="text-base font-bold text-white">Database Nilai Murid</h2>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">MODE GURU</span>
+                <div id="teacher-cloud-status-badge">
+                  <!-- Injected via JS: Cloud connected or Local mode -->
+                </div>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white">Database Kelas The Arich Study</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Pantau seluruh akun murid yang login serta rekapitulasi nilai latihan soal dari semua perangkat.</p>
             </div>
 
-            <div class="flex items-center space-x-2">
-              <button onclick="openGoogleSheetModal()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1 transition">
-                <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i> Google Sheets
+            <div class="flex flex-wrap items-center gap-2 shrink-0">
+              <button onclick="refreshTeacherData()" id="btn-teacher-refresh" class="px-3 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition" title="Tarik data terbaru">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="teacher-refresh-icon"></i>
+                <span>Tarik Data</span>
               </button>
-              <button onclick="exportTeacherCSV()" class="px-3 py-1.5 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 transition">
-                <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh CSV
+              <button onclick="openGoogleSheetModal()" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-600/20 transition">
+                <i data-lucide="cloud" class="w-3.5 h-3.5"></i>
+                <span>Koneksi Cloud</span>
+              </button>
+              <button onclick="exportTeacherCSV()" class="px-3 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>Unduh CSV</span>
               </button>
             </div>
           </div>
 
-          <!-- Table -->
-          <div class="overflow-x-auto rounded-xl border border-slate-800">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-dark-900 border-b border-slate-800 text-[10px] uppercase text-slate-400 font-bold">
-                <tr>
-                  <th class="py-2.5 px-3">No</th>
-                  <th class="py-2.5 px-3">Waktu</th>
-                  <th class="py-2.5 px-3">Nama Murid</th>
-                  <th class="py-2.5 px-3">Kelas</th>
-                  <th class="py-2.5 px-3 text-center">Benar</th>
-                  <th class="py-2.5 px-3 text-center">Nilai</th>
-                  <th class="py-2.5 px-3 text-center">Status</th>
-                </tr>
-              </thead>
-              <tbody id="teacher-tbody" class="divide-y divide-slate-800/80">
-                <!-- Injected via JS -->
-              </tbody>
-            </table>
+          <!-- Quick Stats Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3.5 rounded-xl bg-dark-900 border border-slate-800">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Siswa Terdaftar</span>
+              <div class="text-lg sm:text-2xl font-bold text-indigo-400 font-mono" id="teacher-stat-students">0</div>
+              <span class="text-[10px] text-slate-500">Akun tersimpan</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-dark-900 border border-slate-800">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Latihan Selesai</span>
+              <div class="text-lg sm:text-2xl font-bold text-white font-mono" id="teacher-stat-submissions">0</div>
+              <span class="text-[10px] text-slate-500">Total sesi tes</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-dark-900 border border-slate-800">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Rata-rata Kelas</span>
+              <div class="text-lg sm:text-2xl font-bold text-amber-400 font-mono" id="teacher-stat-avg">0</div>
+              <span class="text-[10px] text-slate-500">Skor / 100</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-dark-900 border border-slate-800">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Ketuntasan (≥70)</span>
+              <div class="text-lg sm:text-2xl font-bold text-emerald-400 font-mono" id="teacher-stat-pass">0%</div>
+              <span class="text-[10px] text-slate-500">Siswa tuntas</span>
+            </div>
           </div>
 
-          <div class="mt-3 flex items-center justify-between text-[11px] text-slate-500">
-            <span id="teacher-total-text">Total Ujian: 0</span>
-            <button onclick="clearDatabaseConfirm()" class="text-rose-400 hover:underline">
-              Reset Data
+          <!-- Tab Navigation Switcher -->
+          <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+            <button onclick="switchTeacherTab('students')" id="tab-btn-students" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+              <span>Daftar Akun Siswa</span>
+              <span class="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px]" id="tab-count-students">0</span>
+            </button>
+            <button onclick="switchTeacherTab('submissions')" id="tab-btn-submissions" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition">
+              <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+              <span>Rekap Nilai Latihan</span>
+              <span class="px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px]" id="tab-count-submissions">0</span>
+            </button>
+          </div>
+
+          <!-- TAB 1: DAFTAR AKUN SISWA TERDAFTAR -->
+          <div id="teacher-tab-content-students" class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="relative flex-1 max-w-xs">
+                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-3 top-3"></i>
+                <input type="text" id="teacher-student-search" oninput="filterTeacherStudents()" placeholder="Cari nama murid / sekolah..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-dark-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500">
+              </div>
+              <select id="teacher-student-grade-filter" onchange="filterTeacherStudents()" class="px-3 py-2 rounded-xl bg-dark-900 border border-slate-800 text-slate-300 text-xs focus:outline-none focus:border-indigo-500">
+                <option value="ALL">Semua Kelas</option>
+                <option value="7">Kelas 7 SMP</option>
+                <option value="8">Kelas 8 SMP</option>
+                <option value="9">Kelas 9 SMP</option>
+                <option value="10">Kelas 10 SMA</option>
+                <option value="11">Kelas 11 SMA</option>
+                <option value="12">Kelas 12 SMA</option>
+              </select>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-800">
+              <table class="w-full text-left text-xs text-slate-300">
+                <thead class="bg-dark-900 border-b border-slate-800 text-[10px] uppercase text-slate-400 font-bold">
+                  <tr>
+                    <th class="py-2.5 px-3">No</th>
+                    <th class="py-2.5 px-3">Nama Siswa</th>
+                    <th class="py-2.5 px-3">Kelas</th>
+                    <th class="py-2.5 px-3">Asal Sekolah</th>
+                    <th class="py-2.5 px-3 text-center">Latihan Dikerjakan</th>
+                    <th class="py-2.5 px-3 text-center">Rata-rata Skor</th>
+                    <th class="py-2.5 px-3">Terakhir Aktif</th>
+                  </tr>
+                </thead>
+                <tbody id="teacher-students-tbody" class="divide-y divide-slate-800/80">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 2: REKAP NILAI LATIHAN SOAL -->
+          <div id="teacher-tab-content-submissions" class="hidden space-y-3">
+            <div class="overflow-x-auto rounded-xl border border-slate-800">
+              <table class="w-full text-left text-xs text-slate-300">
+                <thead class="bg-dark-900 border-b border-slate-800 text-[10px] uppercase text-slate-400 font-bold">
+                  <tr>
+                    <th class="py-2.5 px-3">No</th>
+                    <th class="py-2.5 px-3">Waktu</th>
+                    <th class="py-2.5 px-3">Nama Murid</th>
+                    <th class="py-2.5 px-3">Kelas & Bab Materi</th>
+                    <th class="py-2.5 px-3 text-center">Benar</th>
+                    <th class="py-2.5 px-3 text-center">Skor</th>
+                    <th class="py-2.5 px-3 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="teacher-tbody" class="divide-y divide-slate-800/80">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Bottom Notice & Reset -->
+          <div class="pt-3 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-2">
+            <div id="teacher-sync-notice" class="text-[11px] leading-relaxed">
+              <!-- Injected via JS: notice about cloud or local status -->
+            </div>
+            <button onclick="clearDatabaseConfirm()" class="text-rose-400 hover:text-rose-300 text-xs shrink-0 self-start sm:self-auto">
+              Reset Data Lokal
             </button>
           </div>
 
@@ -832,36 +928,114 @@
     </div>
   </div>
 
-  <!-- Google Sheets Setup Modal -->
-  <div id="modal-gsheets" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="clean-card rounded-2xl max-w-md w-full p-5 shadow-2xl max-h-[85vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-        <h3 class="text-xs font-bold text-white flex items-center gap-1.5">
-          <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-400"></i> Google Sheets Gratis
-        </h3>
-        <button onclick="closeGSheetsModal()" class="text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-4 h-4"></i>
+  <!-- Google Sheets Cloud Setup Modal -->
+  <div id="modal-gsheets" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="clean-card rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto space-y-4 border-emerald-500/30">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="cloud" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Koneksi Database Cloud (Google Sheets)</h3>
+            <p class="text-[11px] text-slate-400">Hubungkan HP seluruh murid & guru secara gratis 100% selamanya.</p>
+          </div>
+        </div>
+        <button onclick="closeGSheetsModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div class="text-[11px] text-slate-300 space-y-2 mb-4 leading-relaxed">
-        <p>1. Buat Google Spreadsheet baru di Google Drive.</p>
-        <p>2. Buka <strong>Extensions > Apps Script</strong>, paste kode ini:</p>
-        <div class="p-2.5 rounded bg-dark-900 font-mono text-[10px] text-indigo-300 overflow-x-auto whitespace-pre border border-slate-800">
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
+        <p class="text-amber-300 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">
+          <strong>Kenapa akun murid belum masuk ke Mode Guru?</strong><br>
+          Karena murid membuka web dari HP mereka masing-masing sehingga data tersimpan di memori HP mereka. Agar data dari semua HP murid otomatis terkumpul di Mode Guru ini, Anda cukup menyambungkan Google Sheet gratis.
+        </p>
+
+        <div class="space-y-1">
+          <h4 class="font-bold text-white flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">1</span>
+            Buat Spreadsheet Baru & Buka Apps Script:
+          </h4>
+          <p class="text-slate-400 pl-6 text-[11px]">Buka <a href="https://sheets.new" target="_blank" class="text-indigo-400 underline font-bold">sheets.new</a> di browser Google Anda, lalu klik menu <strong>Ekstensi (Extensions) &gt; Apps Script</strong>.</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-white flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">2</span>
+              Salin & Tempel Kode Script Lengkap Ini:
+            </h4>
+            <button onclick="copyAppsScriptCode()" id="btn-copy-script" class="px-2.5 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-emerald-400 hover:text-white text-[10px] font-bold flex items-center gap-1 transition">
+              <i data-lucide="copy" class="w-3 h-3"></i> Salin Kode
+            </button>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 font-mono text-[10px] text-emerald-300 overflow-x-auto max-h-40 whitespace-pre border border-slate-800" id="apps-script-code-block">
+function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheetSiswa = ss.getSheetByName("Daftar_Siswa");
+  var students = [];
+  if (sheetSiswa && sheetSiswa.getLastRow() > 1) {
+    var sData = sheetSiswa.getRange(2, 1, sheetSiswa.getLastRow() - 1, 5).getValues();
+    students = sData.map(function(r) { return { timestamp: r[0], name: r[1], gradeName: r[2], school: r[3], lastLogin: r[4] }; });
+  }
+  var sheetNilai = ss.getSheetByName("Rekap_Nilai");
+  var submissions = [];
+  if (sheetNilai && sheetNilai.getLastRow() > 1) {
+    var nData = sheetNilai.getRange(2, 1, sheetNilai.getLastRow() - 1, 8).getValues();
+    submissions = nData.map(function(r) { return { timestamp: r[0], studentName: r[1], studentClass: r[2], displaySubject: r[3], correctCount: r[4], totalQuestions: r[5], score: r[6], passed: r[7] === "TUNTAS" || r[7] === true }; });
+  }
+  return ContentService.createTextOutput(JSON.stringify({ status: "success", students: students, submissions: submissions })).setMimeType(ContentService.MimeType.JSON);
+}
+
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var d = JSON.parse(e.postData.contents);
-  sheet.appendRow([new Date(), d.studentName, d.studentClass, d.score, d.correctCount]);
-  return ContentService.createTextOutput("ok");
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var data = JSON.parse(e.postData.contents);
+  if (data.action === "register_student") {
+    var sSiswa = ss.getSheetByName("Daftar_Siswa") || ss.insertSheet("Daftar_Siswa");
+    if (sSiswa.getLastRow() === 0) sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir"]);
+    var rows = sSiswa.getDataRange().getValues(), found = -1;
+    for (var i = 1; i < rows.length; i++) { if (rows[i][1].toString().toLowerCase() === data.name.toString().toLowerCase()) { found = i + 1; break; } }
+    var now = data.timestamp || new Date().toLocaleString("id-ID");
+    if (found > 0) { sSiswa.getRange(found, 3).setValue(data.gradeName || data.grade); sSiswa.getRange(found, 4).setValue(data.school || "Sekolah"); sSiswa.getRange(found, 5).setValue(now); }
+    else { sSiswa.appendRow([now, data.name, data.gradeName || data.grade, data.school || "Sekolah", now]); }
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" })).setMimeType(ContentService.MimeType.JSON);
+  }
+  if (data.action === "submit_exam" || data.score !== undefined) {
+    var sNilai = ss.getSheetByName("Rekap_Nilai") || ss.insertSheet("Rekap_Nilai");
+    if (sNilai.getLastRow() === 0) sNilai.appendRow(["Waktu Ujian", "Nama Siswa", "Kelas", "Materi Bab", "Benar", "Total Soal", "Skor", "Status"]);
+    sNilai.appendRow([data.timestamp || new Date().toLocaleString("id-ID"), data.studentName, data.studentClass, data.displaySubject || data.chapterTitle || "-", data.correctCount, data.totalQuestions, data.score, data.passed ? "TUNTAS" : "REMEDIAL"]);
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" })).setMimeType(ContentService.MimeType.JSON);
+  }
+  return ContentService.createTextOutput(JSON.stringify({ status: "unknown" })).setMimeType(ContentService.MimeType.JSON);
 }</div>
-        <p>3. Deploy as Web App (Akses: Anyone), lalu paste URL di bawah:</p>
-        <input type="url" id="input-gsheet-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-1.5 rounded-lg bg-dark-900 border border-slate-700 text-white text-xs">
+        </div>
+
+        <div class="space-y-1">
+          <h4 class="font-bold text-white flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">3</span>
+            Deploy Web App & Tempel URL:
+          </h4>
+          <p class="text-slate-400 pl-6 text-[11px]">Di Apps Script, klik tombol biru <strong>Terapkan (Deploy) &gt; Deployment baru &gt; Jenis: Aplikasi Web</strong>. Pastikan pada bagian <em>"Yang memiliki akses (Who has access)"</em> pilih <strong>Siapa saja (Anyone)</strong>, lalu salin URL-nya dan tempel di bawah:</p>
+          <div class="pl-6 pt-1">
+            <input type="url" id="input-gsheet-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-xl bg-dark-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-emerald-500">
+            <div id="gsheet-test-status" class="text-[11px] mt-1.5 hidden font-semibold"></div>
+          </div>
+        </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
-        <button onclick="saveGSheetsUrl()" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs">
-          Simpan Webhook
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+        <button onclick="clearGSheetsUrl()" class="text-slate-400 hover:text-rose-400 text-xs">
+          Kosongkan Webhook
         </button>
+        <div class="flex gap-2">
+          <button onclick="closeGSheetsModal()" class="px-3.5 py-1.5 rounded-xl border border-slate-700 text-slate-300 text-xs font-semibold">
+            Tutup
+          </button>
+          <button onclick="testAndSaveGSheetsUrl()" id="btn-save-webhook" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-600/30 transition">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Simpan & Hubungkan
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -885,6 +1059,12 @@ function doPost(e) {
     let isAudio = true;
     let audioCtx = null;
 
+    // Cloud Database & Sync State
+    let cloudStudents = [];
+    let cloudSubmissions = [];
+    let isCloudLoading = false;
+    let activeTeacherTab = 'students';
+
     // Exam State
     let currentExamChapter = null;
     let activeQuestions = [];
@@ -897,16 +1077,91 @@ function doPost(e) {
     // ----------------------------------------------------
     // STARTUP / SESSION & ACCOUNT PERSISTENCE
     // ----------------------------------------------------
+    // ----------------------------------------------------
+    // CLOUD DATABASE & REALTIME SYNC (GOOGLE SHEETS)
+    // ----------------------------------------------------
+    function getActiveCloudWebhook() {
+      return (window.THE_ARICH_CONFIG && window.THE_ARICH_CONFIG.cloudWebhookUrl)
+        || localStorage.getItem(GSHEET_KEY)
+        || '';
+    }
+
+    function syncStudentAccountToCloud(student) {
+      const webhook = getActiveCloudWebhook();
+      if (!webhook || !student || !student.name) return;
+      try {
+        const payload = {
+          action: 'register_student',
+          timestamp: student.registeredAt || new Date().toLocaleString('id-ID'),
+          name: student.name,
+          grade: student.grade,
+          school: student.school || 'Sekolah',
+          gradeName: (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[student.grade]) ? window.ALL_GRADES_DATA[student.grade].gradeName : `Kelas ${student.grade}`
+        };
+        fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+      } catch (e) {}
+    }
+
+    function syncSubmissionToCloud(record) {
+      const webhook = getActiveCloudWebhook();
+      if (!webhook || !record) return;
+      try {
+        const payload = {
+          action: 'submit_exam',
+          ...record
+        };
+        fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).then(res => res.json()).then(data => {
+          record.syncedToCloud = true;
+          try {
+            const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+            const idx = db.findIndex(r => r.id === record.id);
+            if (idx >= 0) {
+              db[idx].syncedToCloud = true;
+              localStorage.setItem(DB_KEY, JSON.stringify(db));
+            }
+          } catch (e) {}
+        }).catch(() => {});
+      } catch (e) {}
+    }
+
+    function syncExistingLocalDataToCloud() {
+      const webhook = getActiveCloudWebhook();
+      if (!webhook) return;
+
+      // 1. Sync student accounts stored on this device
+      const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+      if (currentStudent) {
+        syncStudentAccountToCloud(currentStudent);
+      }
+      accounts.forEach(acc => syncStudentAccountToCloud(acc));
+
+      // 2. Sync local exam submissions
+      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const unsynced = db.filter(r => !r.syncedToCloud);
+      unsynced.forEach(rec => syncSubmissionToCloud(rec));
+    }
+
     function saveRegisteredStudent(student) {
       try {
         let accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
         const idx = accounts.findIndex(a => a.name.toLowerCase() === student.name.toLowerCase());
+        const now = new Date().toLocaleString('id-ID');
         if (idx >= 0) {
-          accounts[idx] = { ...accounts[idx], ...student, lastLogin: Date.now() };
+          accounts[idx] = { ...accounts[idx], ...student, lastLogin: Date.now(), lastActive: now };
         } else {
-          accounts.unshift({ ...student, lastLogin: Date.now() });
+          accounts.unshift({ ...student, registeredAt: now, lastLogin: Date.now(), lastActive: now });
         }
         localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+        // Auto-sync account to cloud
+        syncStudentAccountToCloud(student);
       } catch (e) {}
     }
 
@@ -966,6 +1221,9 @@ function doPost(e) {
     }
 
     function initApp() {
+      // Auto-sync any previously filled student data to cloud
+      syncExistingLocalDataToCloud();
+
       // Check if user session already exists in localStorage
       const stored = localStorage.getItem(USER_KEY);
       if (stored) {
@@ -1104,8 +1362,8 @@ function doPost(e) {
         document.getElementById('top-bar-title').textContent = 'Riwayat Nilai';
         renderHistoryTable();
       } else if (viewName === 'teacher-dashboard') {
-        document.getElementById('top-bar-title').textContent = 'Portal Guru';
-        renderTeacherTable();
+        document.getElementById('top-bar-title').textContent = 'Portal Pengajar';
+        refreshTeacherData();
       }
 
       lucide.createIcons();
@@ -1647,18 +1905,8 @@ function doPost(e) {
         localStorage.setItem(DB_KEY, JSON.stringify(db));
       } catch (e) {}
 
-      // Post to Google Sheets if set
-      const webhook = localStorage.getItem(GSHEET_KEY);
-      if (webhook) {
-        try {
-          fetch(webhook, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(record)
-          });
-        } catch (e) {}
-      }
+      // Post to Cloud Database (Google Sheets)
+      syncSubmissionToCloud(record);
 
       // Show Results View
       document.getElementById('res-student-name').textContent = record.studentName;
@@ -1764,69 +2012,355 @@ function doPost(e) {
       }
     }
 
-    function renderTeacherTable() {
-      const tbody = document.getElementById('teacher-tbody');
-      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-      document.getElementById('teacher-total-text').textContent = `Total Ujian: ${db.length} Murid`;
+    // ----------------------------------------------------
+    // TEACHER DASHBOARD (DUAL-TAB & REALTIME CLOUD SYNC)
+    // ----------------------------------------------------
+    function switchTeacherTab(tabName) {
+      activeTeacherTab = tabName;
+      const btnStudents = document.getElementById('tab-btn-students');
+      const btnSubmissions = document.getElementById('tab-btn-submissions');
+      const secStudents = document.getElementById('teacher-tab-content-students');
+      const secSubmissions = document.getElementById('teacher-tab-content-submissions');
 
-      if (db.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-500">Belum ada murid yang mengumpulkan latihan. Data akan muncul otomatis.</td></tr>`;
+      if (!btnStudents || !btnSubmissions) return;
+
+      if (tabName === 'students') {
+        btnStudents.className = "px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition";
+        btnSubmissions.className = "px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition";
+        secStudents.classList.remove('hidden');
+        secSubmissions.classList.add('hidden');
+      } else {
+        btnStudents.className = "px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition";
+        btnSubmissions.className = "px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition";
+        secStudents.classList.add('hidden');
+        secSubmissions.classList.remove('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    async function refreshTeacherData() {
+      const webhook = getActiveCloudWebhook();
+      const refreshIcon = document.getElementById('teacher-refresh-icon');
+      if (refreshIcon) refreshIcon.classList.add('animate-spin');
+
+      if (webhook) {
+        try {
+          const sep = webhook.includes('?') ? '&' : '?';
+          const res = await fetch(webhook + sep + 't=' + Date.now());
+          const json = await res.json();
+          if (json.status === 'success') {
+            cloudStudents = json.students || [];
+            cloudSubmissions = json.submissions || [];
+          }
+        } catch (e) {
+          console.warn('Could not fetch from cloud webhook:', e);
+        }
+      }
+
+      if (refreshIcon) {
+        setTimeout(() => refreshIcon.classList.remove('animate-spin'), 600);
+      }
+      renderTeacherDashboard();
+    }
+
+    function renderTeacherDashboard() {
+      const webhook = getActiveCloudWebhook();
+      const statusBadge = document.getElementById('teacher-cloud-status-badge');
+      const syncNotice = document.getElementById('teacher-sync-notice');
+
+      if (webhook) {
+        if (statusBadge) {
+          statusBadge.innerHTML = `<span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Cloud Aktif (Sinkron Real-time)</span>`;
+        }
+        if (syncNotice) {
+          syncNotice.innerHTML = `Terhubung ke Google Spreadsheet. Data murid dari semua perangkat otomatis masuk secara real-time.`;
+        }
+      } else {
+        if (statusBadge) {
+          statusBadge.innerHTML = `<span class="flex items-center gap-1.5 text-[10px] font-bold text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2.5 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Mode Offline (Perangkat Lokal)</span>`;
+        }
+        if (syncNotice) {
+          syncNotice.innerHTML = `Mode offline: Data di bawah adalah data dari HP/perangkat ini. <button onclick="openGoogleSheetModal()" class="text-emerald-400 underline font-bold hover:text-emerald-300">Hubungkan Google Sheets</button> agar akun &amp; nilai dari HP murid langsung masuk ke sini.`;
+        }
+      }
+
+      // Gather merged students and submissions
+      const localAccounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+      const localDb = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+
+      // Merge students
+      const mergedStudentsMap = new Map();
+      localAccounts.forEach(acc => {
+        mergedStudentsMap.set(acc.name.toLowerCase(), {
+          name: acc.name,
+          gradeName: (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[acc.grade]) ? window.ALL_GRADES_DATA[acc.grade].gradeName : `Kelas ${acc.grade}`,
+          grade: acc.grade,
+          school: acc.school || 'Sekolah',
+          lastActive: acc.lastActive || acc.registeredAt || 'Lokal'
+        });
+      });
+      cloudStudents.forEach(cs => {
+        mergedStudentsMap.set(cs.name.toLowerCase(), {
+          name: cs.name,
+          gradeName: cs.gradeName || `Kelas ${cs.grade}`,
+          grade: cs.grade || '',
+          school: cs.school || 'Sekolah',
+          lastActive: cs.lastLogin || cs.timestamp || '-'
+        });
+      });
+      const allStudentsList = Array.from(mergedStudentsMap.values());
+
+      // Merge submissions
+      const allSubmissionsList = [...cloudSubmissions];
+      localDb.forEach(localItem => {
+        const exists = allSubmissionsList.some(cs => 
+          cs.studentName.toLowerCase() === localItem.studentName.toLowerCase() && 
+          cs.timestamp === localItem.timestamp &&
+          cs.score === localItem.score
+        );
+        if (!exists) {
+          allSubmissionsList.push(localItem);
+        }
+      });
+      allSubmissionsList.sort((a, b) => (b.id || 0) - (a.id || 0));
+
+      // Calculate stats
+      const totalStudents = allStudentsList.length;
+      const totalSubmissions = allSubmissionsList.length;
+      const avgScore = totalSubmissions > 0 
+        ? Math.round(allSubmissionsList.reduce((acc, cur) => acc + (Number(cur.score) || 0), 0) / totalSubmissions) 
+        : 0;
+      const passedCount = allSubmissionsList.filter(s => s.passed || Number(s.score) >= 70).length;
+      const passRate = totalSubmissions > 0 ? Math.round((passedCount / totalSubmissions) * 100) : 0;
+
+      // Update stat cards
+      const statStu = document.getElementById('teacher-stat-students');
+      if (statStu) statStu.textContent = totalStudents;
+      const statSub = document.getElementById('teacher-stat-submissions');
+      if (statSub) statSub.textContent = totalSubmissions;
+      const statAvg = document.getElementById('teacher-stat-avg');
+      if (statAvg) statAvg.textContent = avgScore;
+      const statPass = document.getElementById('teacher-stat-pass');
+      if (statPass) statPass.textContent = `${passRate}%`;
+
+      const cntStu = document.getElementById('tab-count-students');
+      if (cntStu) cntStu.textContent = totalStudents;
+      const cntSub = document.getElementById('tab-count-submissions');
+      if (cntSub) cntSub.textContent = totalSubmissions;
+
+      // Render Tables
+      renderTeacherStudentsTable(allStudentsList, allSubmissionsList);
+      renderTeacherSubmissionsTable(allSubmissionsList);
+
+      lucide.createIcons();
+    }
+
+    function renderTeacherStudentsTable(studentsList, submissionsList) {
+      const tbody = document.getElementById('teacher-students-tbody');
+      if (!tbody) return;
+
+      if (!studentsList || studentsList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">
+          <i data-lucide="users" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
+          <p class="text-xs">Belum ada akun murid yang terdata.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Setelah murid login di HP mereka dan Google Sheets terhubung, nama mereka akan langsung muncul di sini.</p>
+        </td></tr>`;
+        lucide.createIcons();
         return;
       }
 
-      tbody.innerHTML = db.map((item, i) => `
-        <tr class="hover:bg-dark-900 transition">
-          <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
-          <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
-          <td class="py-2.5 px-3 font-bold text-white">${item.studentName}</td>
-          <td class="py-2.5 px-3">
-            <div class="text-xs font-semibold text-slate-200">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
-            <div class="text-[10px] text-slate-500">${item.studentClass}</div>
-          </td>
-          <td class="py-2.5 px-3 text-center text-slate-300 font-semibold">${item.correctCount} / ${item.totalQuestions}</td>
-          <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono text-sm">${item.score}</td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.passed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
-              ${item.passed ? 'Tuntas' : 'Remedial'}
-            </span>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = studentsList.map((st, i) => {
+        const mySubs = submissionsList.filter(s => s.studentName.toLowerCase() === st.name.toLowerCase());
+        const testCount = mySubs.length;
+        const avg = testCount > 0 ? Math.round(mySubs.reduce((a, b) => a + Number(b.score), 0) / testCount) : '-';
+
+        return `
+          <tr class="hover:bg-dark-900 transition">
+            <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
+            <td class="py-2.5 px-3 font-bold text-white flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-indigo-600/30 text-indigo-400 font-bold flex items-center justify-center text-[10px]">
+                ${st.name.charAt(0).toUpperCase()}
+              </span>
+              <span>${st.name}</span>
+            </td>
+            <td class="py-2.5 px-3 text-indigo-300 font-semibold">${st.gradeName}</td>
+            <td class="py-2.5 px-3 text-slate-400">${st.school}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${testCount > 0 ? 'bg-indigo-600/20 text-indigo-300' : 'bg-dark-800 text-slate-500'}">
+                ${testCount} Latihan
+              </span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-bold text-amber-400 font-mono">${avg}</td>
+            <td class="py-2.5 px-3 text-slate-400 text-[11px] font-mono">${st.lastActive}</td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function renderTeacherSubmissionsTable(submissionsList) {
+      const tbody = document.getElementById('teacher-tbody');
+      if (!tbody) return;
+
+      if (!submissionsList || submissionsList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">
+          <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
+          <p class="text-xs">Belum ada murid yang mengumpulkan latihan soal.</p>
+        </td></tr>`;
+        lucide.createIcons();
+        return;
+      }
+
+      tbody.innerHTML = submissionsList.map((item, i) => {
+        const isPassed = item.passed || Number(item.score) >= 70;
+        return `
+          <tr class="hover:bg-dark-900 transition">
+            <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
+            <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
+            <td class="py-2.5 px-3 font-bold text-white">${item.studentName}</td>
+            <td class="py-2.5 px-3">
+              <div class="text-xs font-semibold text-slate-200">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
+              <div class="text-[10px] text-slate-500">${item.studentClass}</div>
+            </td>
+            <td class="py-2.5 px-3 text-center text-slate-300 font-semibold">${item.correctCount} / ${item.totalQuestions}</td>
+            <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono text-sm">${item.score}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
+                ${isPassed ? 'Tuntas' : 'Remedial'}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function filterTeacherStudents() {
+      const q = (document.getElementById('teacher-student-search').value || '').toLowerCase();
+      const grade = document.getElementById('teacher-student-grade-filter').value;
+      const rows = document.querySelectorAll('#teacher-students-tbody tr');
+
+      rows.forEach(r => {
+        const text = r.innerText.toLowerCase();
+        const matchText = !q || text.includes(q);
+        const matchGrade = (grade === 'ALL') || text.includes(`kelas ${grade}`);
+        r.style.display = (matchText && matchGrade) ? '' : 'none';
+      });
+    }
+
+    function copyAppsScriptCode() {
+      const code = document.getElementById('apps-script-code-block').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('btn-copy-script');
+        btn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> Tersalin!`;
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = `<i data-lucide="copy" class="w-3 h-3"></i> Salin Kode`;
+          lucide.createIcons();
+        }, 2000);
+      });
+    }
+
+    function openGoogleSheetModal() {
+      document.getElementById('input-gsheet-url').value = getActiveCloudWebhook();
+      document.getElementById('gsheet-test-status').classList.add('hidden');
+      document.getElementById('modal-gsheets').classList.remove('hidden');
+    }
+
+    function closeGSheetsModal() {
+      document.getElementById('modal-gsheets').classList.add('hidden');
+    }
+
+    async function testAndSaveGSheetsUrl() {
+      const val = document.getElementById('input-gsheet-url').value.trim();
+      const statusEl = document.getElementById('gsheet-test-status');
+      const btn = document.getElementById('btn-save-webhook');
+
+      if (!val) {
+        localStorage.removeItem(GSHEET_KEY);
+        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = '';
+        closeGSheetsModal();
+        renderTeacherDashboard();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i> Menghubungkan...`;
+      lucide.createIcons();
+
+      try {
+        const sep = val.includes('?') ? '&' : '?';
+        const res = await fetch(val + sep + 't=' + Date.now());
+        const json = await res.json();
+        if (json.status === 'success') {
+          localStorage.setItem(GSHEET_KEY, val);
+          if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = val;
+          cloudStudents = json.students || [];
+          cloudSubmissions = json.submissions || [];
+          statusEl.className = "text-[11px] mt-1.5 font-semibold text-emerald-400 block";
+          statusEl.textContent = "✓ Terhubung! Berhasil memuat data dari Google Spreadsheet.";
+          setTimeout(() => {
+            closeGSheetsModal();
+            renderTeacherDashboard();
+          }, 800);
+        } else {
+          statusEl.className = "text-[11px] mt-1.5 font-semibold text-rose-400 block";
+          statusEl.textContent = "Gagal: Respons server tidak valid. Pastikan deployment berizin 'Anyone'.";
+        }
+      } catch (err) {
+        localStorage.setItem(GSHEET_KEY, val);
+        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = val;
+        statusEl.className = "text-[11px] mt-1.5 font-semibold text-emerald-400 block";
+        statusEl.textContent = "✓ Webhook disimpan! (Akan dicoba saat pengiriman data)";
+        setTimeout(() => {
+          closeGSheetsModal();
+          renderTeacherDashboard();
+        }, 1000);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> Simpan & Hubungkan`;
+        lucide.createIcons();
+      }
+    }
+
+    function clearGSheetsUrl() {
+      if (confirm('Kosongkan koneksi webhook Google Sheets?')) {
+        document.getElementById('input-gsheet-url').value = '';
+        localStorage.removeItem(GSHEET_KEY);
+        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = '';
+        cloudStudents = [];
+        cloudSubmissions = [];
+        closeGSheetsModal();
+        renderTeacherDashboard();
+      }
     }
 
     function exportTeacherCSV() {
-      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-      if (db.length === 0) return alert('Belum ada data nilai.');
-      let csv = "No,Waktu,Nama Murid,Kelas,Materi Bab,Benar,Nilai,Status\n";
-      db.forEach((item, i) => {
-        csv += `"${i+1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.displaySubject || item.chapterTitle || ''}","${item.correctCount}/${item.totalQuestions}","${item.score}","${item.passed ? 'TUNTAS':'REMEDIAL'}"\n`;
+      const localDb = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const allSubmissions = [...cloudSubmissions];
+      localDb.forEach(localItem => {
+        if (!allSubmissions.some(s => s.studentName === localItem.studentName && s.timestamp === localItem.timestamp)) {
+          allSubmissions.push(localItem);
+        }
+      });
+
+      if (allSubmissions.length === 0) return alert('Belum ada data nilai latihan yang dapat diekspor.');
+      let csv = "No,Waktu,Nama Murid,Kelas,Materi Bab,Benar,Total Soal,Nilai,Status\n";
+      allSubmissions.forEach((item, i) => {
+        csv += `"${i+1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.displaySubject || item.chapterTitle || ''}","${item.correctCount}","${item.totalQuestions}","${item.score}","${item.passed ? 'TUNTAS':'REMEDIAL'}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `Rekap_Nilai_${new Date().toISOString().slice(0,10)}.csv`;
+      a.download = `Rekap_Nilai_TheArich_${new Date().toISOString().slice(0,10)}.csv`;
       a.click();
     }
 
     function clearDatabaseConfirm() {
-      if (confirm('Yakin ingin mereset seluruh database nilai murid?')) {
+      if (confirm('Yakin ingin mereset data riwayat lokal pada perangkat ini? Data di Google Sheets cloud tidak akan terhapus.')) {
         localStorage.removeItem(DB_KEY);
-        renderTeacherTable();
+        renderTeacherDashboard();
       }
-    }
-
-    function openGoogleSheetModal() {
-      document.getElementById('input-gsheet-url').value = localStorage.getItem(GSHEET_KEY) || '';
-      document.getElementById('modal-gsheets').classList.remove('hidden');
-    }
-    function closeGSheetsModal() {
-      document.getElementById('modal-gsheets').classList.add('hidden');
-    }
-    function saveGSheetsUrl() {
-      const val = document.getElementById('input-gsheet-url').value.trim();
-      localStorage.setItem(GSHEET_KEY, val);
-      closeGSheetsModal();
-      alert(val ? 'Webhook Google Sheets disimpan!' : 'Webhook dikosongkan.');
     }
 
     // ----------------------------------------------------
