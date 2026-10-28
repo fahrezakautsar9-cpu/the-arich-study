@@ -748,6 +748,10 @@
                 <i data-lucide="cloud" class="w-3.5 h-3.5"></i>
                 <span>Koneksi Cloud</span>
               </button>
+              <a id="btn-open-live-sheet" href="https://docs.google.com/spreadsheets/d/1djy7r36dsxLBXa8a9dIr3OlFLa0aUV00X08cFL87sck/edit" target="_blank" class="px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 transition">
+                <i data-lucide="table-2" class="w-3.5 h-3.5"></i>
+                <span>Buka Spreadsheet</span>
+              </a>
               <button onclick="exportTeacherCSV()" class="px-3 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition">
                 <i data-lucide="download" class="w-3.5 h-3.5"></i>
                 <span>Unduh CSV</span>
@@ -2377,6 +2381,10 @@ function doPost(e) {
           if (json.status === 'success') {
             cloudStudents = json.students || [];
             cloudSubmissions = json.submissions || [];
+            if (json.sheetUrl) {
+              const sheetBtn = document.getElementById('btn-open-live-sheet');
+              if (sheetBtn) sheetBtn.href = json.sheetUrl;
+            }
           }
         } catch (e) {
           console.warn('Could not fetch from cloud webhook:', e);
