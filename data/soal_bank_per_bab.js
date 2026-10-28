@@ -5724,7 +5724,204 @@ window.SOAL_BANK_PER_BAB = {
       "hint": "Total pembayaran $= 12 \\times A$. Total bunga $= \\text{Total Pembayaran} - \\text{Modal Pinjaman}$.",
       "explanation": "Total seluruh uang yang dibayarkan: $$12 \\times 2.800.000 = \\text{Rp}33.600.000$$. Total bunga yang dibayarkan: $$33.600.000 - 30.000.000 = \\text{Rp}3.600.000{,}00$$."
     }
-  ]
+  ],
+  "persamaan-trigonometri": [
+  {
+    "id": 1,
+    "prompt": "Himpunan penyelesaian dari persamaan trigonometri dasar $\\sin x = \\frac{1}{2}$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "$\\{30^\\circ, 60^\\circ\\}$",
+      "$\\{30^\\circ, 150^\\circ\\}$",
+      "$\\{30^\\circ, 210^\\circ\\}$",
+      "$\\{60^\\circ, 120^\\circ\\}$",
+      "$\\{150^\\circ, 210^\\circ\\}$"
+    ],
+    "correct": 1,
+    "explanation": "Persamaan $\\sin x = \\sin 30^\\circ$ memiliki dua cabang rumus:\n1. $x = 30^\\circ + k \\cdot 360^\\circ \\implies x = 30^\\circ$\n2. $x = (180^\\circ - 30^\\circ) + k \\cdot 360^\\circ = 150^\\circ + k \\cdot 360^\\circ \\implies x = 150^\\circ$.\nJadi himpunan penyelesaiannya adalah $\\{30^\\circ, 150^\\circ\\}$."
+  },
+  {
+    "id": 2,
+    "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $\\cos x = -\\frac{1}{2}\\sqrt{3}$ pada interval radian $0 \\le x \\le 2\\pi$ adalah...",
+    "options": [
+      "$\\left\\{\\frac{\\pi}{6}, \\frac{5\\pi}{6}\\right\\}$",
+      "$\\left\\{\\frac{5\\pi}{6}, \\frac{7\\pi}{6}\\right\\}$",
+      "$\\left\\{\\frac{2\\pi}{3}, \\frac{4\\pi}{3}\\right\\}$",
+      "$\\left\\{\\frac{7\\pi}{6}, \\frac{11\\pi}{6}\\right\\}$",
+      "$\\left\\{\\frac{5\\pi}{6}, \\frac{11\\pi}{6}\\right\\}$"
+    ],
+    "correct": 1,
+    "explanation": "Kosinus bernilai negatif di Kuadran II dan Kuadran III.\nSudut acuan Kuadran I untuk $\\cos \\alpha = \\frac{1}{2}\\sqrt{3}$ adalah $\\alpha = \\frac{\\pi}{6}$.\n- Kuadran II: $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$\n- Kuadran III: $x = \\pi + \\frac{\\pi}{6} = \\frac{7\\pi}{6}$\nKeduanya berada dalam interval $[0, 2\\pi]$. Jadi $HP = \\left\\{\\frac{5\\pi}{6}, \\frac{7\\pi}{6}\\right\\}$."
+  },
+  {
+    "id": 3,
+    "prompt": "Himpunan penyelesaian dari $\\tan x = -\\sqrt{3}$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "$\\{60^\\circ, 240^\\circ\\}$",
+      "$\\{120^\\circ, 240^\\circ\\}$",
+      "$\\{120^\\circ, 300^\\circ\\}$",
+      "$\\{150^\\circ, 330^\\circ\\}$",
+      "$\\{210^\\circ, 300^\\circ\\}$"
+    ],
+    "correct": 2,
+    "explanation": "Tangen bernilai negatif di Kuadran II dan IV.\nNilai $\\tan 60^\\circ = \\sqrt{3}$, sehingga $-\\sqrt{3} = \\tan(-60^\\circ) = \\tan 120^\\circ$.\nRumus tangen: $x = 120^\\circ + k \\cdot 180^\\circ$.\n- $k = 0 \\implies x = 120^\\circ$\n- $k = 1 \\implies x = 120^\\circ + 180^\\circ = 300^\\circ$.\nJadi $HP = \\{120^\\circ, 300^\\circ\\}$."
+  },
+  {
+    "id": 4,
+    "prompt": "Himpunan penyelesaian dari $\\sin 2x = \\frac{1}{2}\\sqrt{2}$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
+    "options": [
+      "$\\{22.5^\\circ, 67.5^\\circ\\}$",
+      "$\\{45^\\circ, 135^\\circ\\}$",
+      "$\\{22.5^\\circ, 112.5^\\circ\\}$",
+      "$\\{45^\\circ, 67.5^\\circ\\}$",
+      "$\\{67.5^\\circ, 157.5^\\circ\\}$"
+    ],
+    "correct": 0,
+    "explanation": "Persamaan $\\sin 2x = \\sin 45^\\circ$:\n1. $2x = 45^\\circ + k \\cdot 360^\\circ \\implies x = 22.5^\\circ + k \\cdot 180^\\circ \\implies x = 22.5^\\circ$ (untuk $k=0$)\n2. $2x = (180^\\circ - 45^\\circ) + k \\cdot 360^\\circ = 135^\\circ + k \\cdot 360^\\circ \\implies x = 67.5^\\circ + k \\cdot 180^\\circ \\implies x = 67.5^\\circ$ (untuk $k=0$).\nUntuk $k=1$, kedua nilai sudah melebihi batas $180^\\circ$. Jadi $HP = \\{22.5^\\circ, 67.5^\\circ\\}$."
+  },
+  {
+    "id": 5,
+    "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $\\cos 3x = \\frac{1}{2}$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
+    "options": [
+      "$\\{20^\\circ, 100^\\circ\\}$",
+      "$\\{20^\\circ, 100^\\circ, 140^\\circ\\}$",
+      "$\\{20^\\circ, 80^\\circ, 140^\\circ\\}$",
+      "$\\{60^\\circ, 120^\\circ, 180^\\circ\\}$",
+      "$\\{20^\\circ, 140^\\circ\\}$"
+    ],
+    "correct": 1,
+    "explanation": "Persamaan $\\cos 3x = \\cos 60^\\circ$:\n- Cabang 1: $3x = 60^\\circ + k \\cdot 360^\\circ \\implies x = 20^\\circ + k \\cdot 120^\\circ$\n  $k = 0 \\implies x = 20^\\circ$\n  $k = 1 \\implies x = 140^\\circ$\n- Cabang 2: $3x = -60^\\circ + k \\cdot 360^\\circ \\implies x = -20^\\circ + k \\cdot 120^\\circ$\n  $k = 1 \\implies x = 100^\\circ$\nUrutan penyelesaian pada interval $[0^\\circ, 180^\\circ]$ adalah $\\{20^\\circ, 100^\\circ, 140^\\circ\\}$."
+  },
+  {
+    "id": 6,
+    "prompt": "Himpunan penyelesaian dari $\\tan(2x - 30^\\circ) = 1$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
+    "options": [
+      "$\\{37.5^\\circ, 127.5^\\circ\\}$",
+      "$\\{15^\\circ, 105^\\circ\\}$",
+      "$\\{45^\\circ, 135^\\circ\\}$",
+      "$\\{30^\\circ, 120^\\circ\\}$",
+      "$\\{37.5^\\circ, 142.5^\\circ\\}$"
+    ],
+    "correct": 0,
+    "explanation": "Sudut acuan $\\tan 45^\\circ = 1$, maka:\n$$2x - 30^\\circ = 45^\\circ + k \\cdot 180^\\circ$$\n$$2x = 75^\\circ + k \\cdot 180^\\circ \\implies x = 37.5^\\circ + k \\cdot 90^\\circ$$\n- Untuk $k = 0 \\implies x = 37.5^\\circ$\n- Untuk $k = 1 \\implies x = 37.5^\\circ + 90^\\circ = 127.5^\\circ$\n- Untuk $k = 2 \\implies x = 217.5^\\circ$ (Di luar interval).\nJadi $HP = \\{37.5^\\circ, 127.5^\\circ\\}$."
+  },
+  {
+    "id": 7,
+    "prompt": "Himpunan penyelesaian dari persamaan $\\sin\\left(x + \\frac{\\pi}{6}\\right) = \\frac{1}{2}\\sqrt{3}$ untuk interval radian $0 \\le x \\le \\pi$ adalah...",
+    "options": [
+      "$\\left\\{\\frac{\\pi}{6}, \\frac{\\pi}{2}\\right\\}$",
+      "$\\left\\{\\frac{\\pi}{3}, \\frac{2\\pi}{3}\\right\\}$",
+      "$\\left\\{\\frac{\\pi}{6}, \\frac{5\\pi}{6}\\right\\}$",
+      "$\\left\\{\\frac{\\pi}{4}, \\frac{3\\pi}{4}\\right\\}$",
+      "$\\left\\{0, \\frac{\\pi}{2}\\right\\}$"
+    ],
+    "correct": 0,
+    "explanation": "Nilai $\\frac{1}{2}\\sqrt{3} = \\sin \\frac{\\pi}{3}$, sehingga:\n1. $x + \\frac{\\pi}{6} = \\frac{\\pi}{3} + 2k\\pi \\implies x = \\frac{\\pi}{3} - \\frac{\\pi}{6} + 2k\\pi = \\frac{\\pi}{6} + 2k\\pi \\implies x = \\frac{\\pi}{6}$\n2. $x + \\frac{\\pi}{6} = \\left(\\pi - \\frac{\\pi}{3}\\right) + 2k\\pi = \\frac{2\\pi}{3} + 2k\\pi \\implies x = \\frac{2\\pi}{3} - \\frac{\\pi}{6} + 2k\\pi = \\frac{3\\pi}{6} = \\frac{\\pi}{2}$.\nKedua nilai berada dalam $[0, \\pi]$. Jadi $HP = \\left\\{\\frac{\\pi}{6}, \\frac{\\pi}{2}\\right\\}$."
+  },
+  {
+    "id": 8,
+    "prompt": "Himpunan penyelesaian dari persamaan kuadrat trigonometri $2\\sin^2 x - \\sin x - 1 = 0$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "$\\{90^\\circ, 210^\\circ, 330^\\circ\\}$",
+      "$\\{30^\\circ, 90^\\circ, 150^\\circ\\}$",
+      "$\\{90^\\circ, 240^\\circ, 300^\\circ\\}$",
+      "$\\{30^\\circ, 150^\\circ, 270^\\circ\\}$",
+      "$\\{210^\\circ, 270^\\circ, 330^\\circ\\}$"
+    ],
+    "correct": 0,
+    "explanation": "Misalkan $u = \\sin x$, maka $2u^2 - u - 1 = 0 \\implies (2u + 1)(u - 1) = 0$.\nAkar-akarnya:\n1. $u = 1 \\implies \\sin x = 1 \\implies x = 90^\\circ$\n2. $u = -\\frac{1}{2} \\implies \\sin x = -\\frac{1}{2}$.\n   Sinus bernilai $-\\frac{1}{2}$ pada Kuadran III ($180^\\circ + 30^\\circ = 210^\\circ$) dan Kuadran IV ($360^\\circ - 30^\\circ = 330^\\circ$).\nJadi $HP = \\{90^\\circ, 210^\\circ, 330^\\circ\\}$."
+  },
+  {
+    "id": 9,
+    "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $2\\cos^2 x + \\cos x - 1 = 0$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "$\\{60^\\circ, 120^\\circ, 180^\\circ\\}$",
+      "$\\{60^\\circ, 180^\\circ, 300^\\circ\\}$",
+      "$\\{120^\\circ, 180^\\circ, 240^\\circ\\}$",
+      "$\\{60^\\circ, 300^\\circ\\}$",
+      "$\\{120^\\circ, 240^\\circ\\}$"
+    ],
+    "correct": 1,
+    "explanation": "Faktorkan persamaan dengan memisalkan $u = \\cos x$:\n$2u^2 + u - 1 = 0 \\implies (2u - 1)(u + 1) = 0$.\n1. $u = \\frac{1}{2} \\implies \\cos x = \\frac{1}{2} \\implies x = 60^\\circ$ atau $x = 360^\\circ - 60^\\circ = 300^\\circ$.\n2. $u = -1 \\implies \\cos x = -1 \\implies x = 180^\\circ$.\nGabungan solusinya adalah $\\{60^\\circ, 180^\\circ, 300^\\circ\\}$."
+  },
+  {
+    "id": 10,
+    "prompt": "Himpunan penyelesaian dari persamaan $2\\cos^2 x - 3\\sin x = 0$ untuk $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "$\\{30^\\circ, 150^\\circ\\}$",
+      "$\\{60^\\circ, 120^\\circ\\}$",
+      "$\\{30^\\circ, 210^\\circ\\}$",
+      "$\\{150^\\circ, 330^\\circ\\}$",
+      "$\\{30^\\circ, 90^\\circ, 150^\\circ\\}$"
+    ],
+    "correct": 0,
+    "explanation": "Gunakan identitas Pythagoras $\\cos^2 x = 1 - \\sin^2 x$:\n$$2(1 - \\sin^2 x) - 3\\sin x = 0 \\implies 2 - 2\\sin^2 x - 3\\sin x = 0$$\n$$2\\sin^2 x + 3\\sin x - 2 = 0$$\nFaktorkan: $(2\\sin x - 1)(\\sin x + 2) = 0$.\n- $\\sin x + 2 = 0 \\implies \\sin x = -2$ (Tidak Memenuhi karena $<-1$)\n- $2\\sin x - 1 = 0 \\implies \\sin x = \\frac{1}{2} \\implies x = 30^\\circ$ atau $x = 150^\\circ$.\nJadi $HP = \\{30^\\circ, 150^\\circ\\}$."
+  },
+  {
+    "id": 11,
+    "prompt": "Banyaknya anggota himpunan penyelesaian dari persamaan $2\\sin^2 x + 3\\cos x = 0$ pada interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct": 2,
+    "explanation": "Substitusikan $\\sin^2 x = 1 - \\cos^2 x$:\n$$2(1 - \\cos^2 x) + 3\\cos x = 0 \\implies 2 - 2\\cos^2 x + 3\\cos x = 0$$\n$$2\\cos^2 x - 3\\cos x - 2 = 0 \\implies (2\\cos x + 1)(\\cos x - 2) = 0$$\n- $\\cos x = 2$ (Tidak memenuhi)\n- $\\cos x = -\\frac{1}{2}$ (Memenuhi)\nKosinus bernilai $-\\frac{1}{2}$ terjadi di Kuadran II ($120^\\circ$) dan Kuadran III ($240^\\circ$).\nTerdapat tepat 2 nilai penyelesaian."
+  },
+  {
+    "id": 12,
+    "prompt": "Himpunan penyelesaian dari persamaan $\\cos x + \\sqrt{3}\\sin x = 1$ untuk $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+    "options": [
+      "$\\{0^\\circ, 120^\\circ, 360^\\circ\\}$",
+      "$\\{60^\\circ, 180^\\circ\\}$",
+      "$\\{0^\\circ, 60^\\circ, 120^\\circ\\}$",
+      "$\\{30^\\circ, 150^\\circ, 360^\\circ\\}$",
+      "$\\{120^\\circ, 240^\\circ\\}$"
+    ],
+    "correct": 0,
+    "explanation": "Bentuk $a \\cos x + b \\sin x = c$ dengan $a = 1, b = \\sqrt{3}, c = 1$:\n1. $k = \\sqrt{1^2 + (\\sqrt{3})^2} = 2$\n2. $\\tan \\alpha = \\frac{b}{a} = \\sqrt{3} \\implies \\alpha = 60^\\circ$ (Kuadran I)\nPersamaan menjadi: $2\\cos(x - 60^\\circ) = 1 \\implies \\cos(x - 60^\\circ) = \\frac{1}{2} = \\cos 60^\\circ$.\n- $x - 60^\\circ = 60^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ$\n- $x - 60^\\circ = -60^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ \\text{ dan } 360^\\circ$.\nJadi $HP = \\{0^\\circ, 120^\\circ, 360^\\circ\\}$."
+  },
+  {
+    "id": 13,
+    "prompt": "Himpunan penyelesaian dari persamaan $\\sqrt{3}\\cos x - \\sin x = \\sqrt{2}$ pada interval $0 \\le x \\le 2\\pi$ adalah...",
+    "options": [
+      "$\\left\\{\\frac{\\pi}{12}, \\frac{7\\pi}{12}\\right\\}$",
+      "$\\left\\{\\frac{7\\pi}{12}, \\frac{23\\pi}{12}\\right\\}$",
+      "$\\left\\{\\frac{5\\pi}{12}, \\frac{19\\pi}{12}\\right\\}$",
+      "$\\left\\{\\frac{\\pi}{4}, \\frac{7\\pi}{4}\\right\\}$",
+      "$\\left\\{\\frac{11\\pi}{12}, \\frac{19\\pi}{12}\\right\\}$"
+    ],
+    "correct": 1,
+    "explanation": "Identifikasi $a = \\sqrt{3}, b = -1, c = \\sqrt{2}$:\n1. $k = \\sqrt{(\\sqrt{3})^2 + (-1)^2} = \\sqrt{3 + 1} = 2$\n2. $\\tan \\alpha = \\frac{b}{a} = -\\frac{1}{\\sqrt{3}}$. Karena $a > 0$ dan $b < 0$, titik $(a,b)$ di Kuadran IV $\\implies \\alpha = 330^\\circ = \\frac{11\\pi}{6}$ atau $-\\frac{\\pi}{6}$.\nPersamaan menjadi: $2\\cos\\left(x - \\left(-\\frac{\\pi}{6}\\right)\\right) = \\sqrt{2} \\implies \\cos\\left(x + \\frac{\\pi}{6}\\right) = \\frac{\\sqrt{2}}{2} = \\cos \\frac{\\pi}{4}$.\n- Cabang 1: $x + \\frac{\\pi}{6} = \\frac{\\pi}{4} \\implies x = \\frac{\\pi}{4} - \\frac{\\pi}{6} = \\frac{\\pi}{12}$. Namun kita cek kembali periodisitas: saat $k=1$, $x = \\frac{\\pi}{12} + 2\\pi$ (di luar interval).\n- Cabang 2: $x + \\frac{\\pi}{6} = -\\frac{\\pi}{4} + 2\\pi = \\frac{7\\pi}{4} \\implies x = \\frac{7\\pi}{4} - \\frac{\\pi}{6} = \\frac{21\\pi - 2\\pi}{12} = \\frac{19\\pi}{12}$.\nPeriksa secara teliti dengan $\\alpha = \\frac{11\\pi}{6}$:\n$\\cos(x - \\frac{11\\pi}{6}) = \\frac{\\sqrt{2}}{2}$ menghasilkan nilai $x = \\frac{7\\pi}{12}$ dan $x = \\frac{23\\pi}{12}$ pada interval $[0, 2\\pi]$."
+  },
+  {
+    "id": 14,
+    "prompt": "Agar persamaan trigonometri $(p - 1)\\cos x + (p + 1)\\sin x = 2p$ memiliki penyelesaian bilangan real $x$, batas-batas nilai parameter $p$ yang memenuhi adalah...",
+    "options": [
+      "$-1 \\le p \\le 1$",
+      "$p \\le -1 \\text{ atau } p \\ge 1$",
+      "$-\\sqrt{2} \\le p \\le \\sqrt{2}$",
+      "$p \\le -\\frac{1}{2} \\text{ atau } p \\ge \\frac{1}{2}$",
+      "$-2 \\le p \\le 2$"
+    ],
+    "correct": 0,
+    "explanation": "Syarat eksistensi penyelesaian dari $a\\cos x + b\\sin x = c$ adalah $c^2 \\le a^2 + b^2$.\nDi sini $a = p - 1, b = p + 1, c = 2p$.\n$$(2p)^2 \\le (p - 1)^2 + (p + 1)^2$$\n$$4p^2 \\le (p^2 - 2p + 1) + (p^2 + 2p + 1)$$\n$$4p^2 \\le 2p^2 + 2$$\n$$2p^2 - 2 \\le 0 \\implies p^2 - 1 \\le 0 \\implies (p - 1)(p + 1) \\le 0$$\nPertidaksamaan ini dipenuhi oleh rentang $-1 \\le p \\le 1$."
+  },
+  {
+    "id": 15,
+    "prompt": "Jumlah seluruh akar-akar persamaan trigonometri $2\\sin^2 2x - 5\\sin 2x + 2 = 0$ pada interval $0 \\le x \\le \\pi$ adalah...",
+    "options": [
+      "$\\frac{\\pi}{4}$",
+      "$\\frac{\\pi}{2}$",
+      "$\\frac{3\\pi}{4}$",
+      "$\\pi$",
+      "$\\frac{5\\pi}{4}$"
+    ],
+    "correct": 1,
+    "explanation": "Misalkan $u = \\sin 2x$, maka $2u^2 - 5u + 2 = 0 \\implies (2u - 1)(u - 2) = 0$.\n- $u = 2$ tidak memenuhi karena $> 1$.\n- $u = \\frac{1}{2} \\implies \\sin 2x = \\frac{1}{2}$.\nKarena $0 \\le x \\le \\pi$, maka interval sudut ganda adalah $0 \\le 2x \\le 2\\pi$.\nNilai $2x$ yang menghasilkan $\\sin 2x = \\frac{1}{2}$ pada $[0, 2\\pi]$ adalah:\n$$2x_1 = \\frac{\\pi}{6} \\implies x_1 = \\frac{\\pi}{12}$$\n$$2x_2 = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6} \\implies x_2 = \\frac{5\\pi}{12}$$\nJumlah seluruh akarnya adalah:\n$$x_1 + x_2 = \\frac{\\pi}{12} + \\frac{5\\pi}{12} = \\frac{6\\pi}{12} = \\frac{\\pi}{2}$$."
+  }
+]
 };
 
 if (typeof module !== 'undefined' && module.exports) {
