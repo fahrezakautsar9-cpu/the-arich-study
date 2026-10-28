@@ -53,9 +53,14 @@
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-  <!-- Data Modules for All 6 Grades -->
+  <!-- Data Modules for All 6 Grades (Kurikulum Merdeka Lengkap) -->
   <script src="data/cloud_config.js"></script>
+  <script src="data/kurmer_kelas7_materi.js"></script>
+  <script src="data/kurmer_kelas8_materi.js"></script>
+  <script src="data/kurmer_kelas9_materi.js"></script>
+  <script src="data/kurmer_kelas10_materi.js"></script>
   <script src="data/kurmer_kelas11_materi.js"></script>
+  <script src="data/kurmer_kelas12_materi.js"></script>
   <script src="data/utbk_soal_bank.js"></script>
   <script src="data/curriculum_all_grades.js"></script>
   <script src="data/soal_bank_per_bab.js"></script>
@@ -209,8 +214,21 @@
         <span>Latihan Soal</span>
       </button>
 
+      <button onclick="switchView('mathlab')" id="sb-nav-mathlab" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center justify-between transition">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="flask-conical" class="w-4 h-4 text-emerald-400"></i>
+          <span>Lab Interaktif</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">Baru</span>
+      </button>
+
+      <button onclick="switchView('cheatsheet')" id="sb-nav-cheatsheet" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
+        <i data-lucide="bookmark" class="w-4 h-4 text-amber-400"></i>
+        <span>Lembar Rumus Sakti</span>
+      </button>
+
       <button onclick="switchView('history')" id="sb-nav-history" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
-        <i data-lucide="award" class="w-4 h-4"></i>
+        <i data-lucide="award" class="w-4 h-4 text-indigo-400"></i>
         <span>Riwayat Nilai</span>
       </button>
 
@@ -253,6 +271,19 @@
       </div>
 
       <div class="flex items-center space-x-2">
+        <!-- Global Search Button (Ctrl + K) -->
+        <button onclick="openGlobalSearchModal()" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-800 hover:border-slate-700 text-xs text-slate-400 hover:text-white flex items-center gap-2 transition group" title="Cari Materi & Rumus (Ctrl + K)">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-indigo-400 group-hover:scale-110 transition-transform"></i>
+          <span class="hidden md:inline text-[11px] text-slate-300">Cari Materi & Rumus...</span>
+          <kbd class="hidden md:inline-block px-1.5 py-0.2 rounded bg-dark-900 border border-slate-700 text-[9px] text-slate-400 font-mono">Ctrl K</kbd>
+        </button>
+
+        <!-- Student XP & Level Badge -->
+        <div id="top-xp-badge" onclick="showLevelDetailsModal()" class="cursor-pointer px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-500/15 to-indigo-500/15 border border-amber-500/30 hover:border-amber-400/50 text-amber-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition" title="Lihat Level & Target Belajar">
+          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400 animate-pulse"></i>
+          <span id="top-xp-text" class="text-[11px]">0 XP • Lv 1</span>
+        </div>
+
         <button onclick="toggleAudioSFX()" id="sfx-btn" class="p-1.5 px-2.5 rounded-lg bg-dark-850 border border-slate-800 text-xs text-slate-400 hover:text-white flex items-center gap-1">
           <i id="sfx-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-indigo-400"></i>
           <span id="sfx-label" class="hidden sm:inline text-[11px]">SFX</span>
@@ -722,7 +753,394 @@
       <!-- ==================================================== -->
       <!-- VIEW 8: TEACHER DASHBOARD (SANDI: 010822)            -->
       <!-- ==================================================== -->
-      <div id="view-teacher-dashboard" class="hidden space-y-4">
+      
+      <!-- ==================================================== -->
+      <!-- VIEW 7: LABORATORIUM MATEMATIKA INTERAKTIF (BARU!)    -->
+      <!-- ==================================================== -->
+      <div id="view-mathlab" class="hidden space-y-6">
+        
+        <!-- Header -->
+        <div class="clean-card rounded-2xl p-5 sm:p-7 border border-emerald-500/30 bg-gradient-to-r from-emerald-950/20 via-dark-900 to-indigo-950/20 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="flask-conical" class="w-3 h-3"></i>
+                <span>Laboratorium Visual Interaktif</span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white">Eksplorasi Konsep Matematika</h2>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                Ubah angka variabel dan saksikan bagaimana grafik, lingkaran trigonometri, matriks, dan geometri berubah seketika secara dinamis!
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400 font-semibold hidden sm:inline">Pilih Alat:</span>
+            </div>
+          </div>
+
+          <!-- Tool Selector Pills -->
+          <div class="flex items-center gap-2 mt-5 overflow-x-auto pb-1">
+            <button onclick="switchMathLabTool('trig')" id="ml-tab-trig" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white flex items-center gap-2 transition shrink-0 shadow-lg shadow-emerald-600/20">
+              <i data-lucide="circle" class="w-4 h-4"></i>
+              <span>Lingkaran Satuan Trigonometri</span>
+            </button>
+            <button onclick="switchMathLabTool('parabola')" id="ml-tab-parabola" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="trending-up" class="w-4 h-4"></i>
+              <span>Eksplorer Parabola Kuadrat</span>
+            </button>
+            <button onclick="switchMathLabTool('matrix')" id="ml-tab-matrix" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="grid" class="w-4 h-4"></i>
+              <span>Kalkulator Matriks Cerdas</span>
+            </button>
+            <button onclick="switchMathLabTool('pythagoras')" id="ml-tab-pythagoras" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="triangle" class="w-4 h-4"></i>
+              <span>Visual Teorema Pythagoras</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TOOL 1: TRIGONOMETRI LINGKARAN SATUAN -->
+        <div id="ml-panel-trig" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Interactive Visual SVG Canvas -->
+            <div class="lg:col-span-7 clean-card rounded-2xl p-5 border border-slate-800 flex flex-col items-center justify-center relative">
+              <div class="text-xs font-bold text-slate-400 mb-2 self-start flex items-center gap-2">
+                <i data-lucide="eye" class="w-4 h-4 text-emerald-400"></i>
+                <span>Simulasi Lingkaran Satuan (Radius R = 1)</span>
+              </div>
+              <svg id="unit-circle-svg" width="300" height="300" viewBox="-150 -150 300 300" class="select-none max-w-full">
+                <!-- Axes -->
+                <line x1="-135" y1="0" x2="135" y2="0" stroke="#334155" stroke-width="1.5" />
+                <line x1="0" y1="-135" x2="0" y2="135" stroke="#334155" stroke-width="1.5" />
+                <text x="135" y="-5" fill="#64748b" font-size="10" font-family="monospace">+X</text>
+                <text x="5" y="-130" fill="#64748b" font-size="10" font-family="monospace">+Y</text>
+                
+                <!-- Unit Circle (R = 100) -->
+                <circle cx="0" cy="0" r="100" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="4 4" />
+                
+                <!-- Triangle inside -->
+                <polygon id="uc-triangle" points="0,0 100,0 100,0" fill="rgba(99, 102, 241, 0.15)" stroke="none" />
+                
+                <!-- Cos line (X - Blue) -->
+                <line id="uc-cos-line" x1="0" y1="0" x2="100" y2="0" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+                
+                <!-- Sin line (Y - Red) -->
+                <line id="uc-sin-line" x1="100" y1="0" x2="100" y2="0" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" />
+                
+                <!-- Hypotenuse line -->
+                <line id="uc-hyp-line" x1="0" y1="0" x2="100" y2="0" stroke="#e2e8f0" stroke-width="2.5" />
+                
+                <!-- Pointer dot -->
+                <circle id="uc-point" cx="100" cy="0" r="6" fill="#10b981" stroke="#ffffff" stroke-width="2" />
+                
+                <!-- Angle Arc -->
+                <path id="uc-angle-arc" d="" fill="none" stroke="#fbbf24" stroke-width="2" />
+              </svg>
+
+              <!-- Legend -->
+              <div class="flex items-center gap-4 text-xs font-semibold mt-3 pt-3 border-t border-slate-800/80 w-full justify-center">
+                <span class="flex items-center gap-1.5 text-sky-400"><span class="w-3 h-1 bg-sky-400 rounded"></span> Cos (&Delta;X)</span>
+                <span class="flex items-center gap-1.5 text-rose-400"><span class="w-3 h-1 bg-rose-400 rounded"></span> Sin (&Delta;Y)</span>
+                <span class="flex items-center gap-1.5 text-amber-400"><span class="w-2.5 h-2.5 rounded-full border border-amber-400"></span> Sudut &theta;</span>
+              </div>
+            </div>
+
+            <!-- Controls & Live Readout -->
+            <div class="lg:col-span-5 space-y-4">
+              
+              <!-- Slider Controller -->
+              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-white flex items-center gap-2">
+                    <i data-lucide="sliders" class="w-4 h-4 text-indigo-400"></i>
+                    <span>Besar Sudut &theta;:</span>
+                  </label>
+                  <span id="uc-angle-readout" class="font-mono text-base font-extrabold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-lg border border-amber-400/20">45&deg;</span>
+                </div>
+                <input type="range" id="uc-angle-slider" min="0" max="360" step="1" value="45" oninput="handleUnitCircleAngle(this.value)" class="w-full accent-emerald-500 cursor-pointer">
+                
+                <!-- Quick Preset Buttons -->
+                <div class="pt-2">
+                  <span class="text-[10px] uppercase font-bold text-slate-500 block mb-1.5">Sudut Istimewa Populer:</span>
+                  <div class="grid grid-cols-6 gap-1.5">
+                    <button onclick="setUCAngle(0)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">0&deg;</button>
+                    <button onclick="setUCAngle(30)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">30&deg;</button>
+                    <button onclick="setUCAngle(45)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono text-emerald-400 border-emerald-500/40">45&deg;</button>
+                    <button onclick="setUCAngle(60)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">60&deg;</button>
+                    <button onclick="setUCAngle(90)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">90&deg;</button>
+                    <button onclick="setUCAngle(120)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">120&deg;</button>
+                    <button onclick="setUCAngle(135)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">135&deg;</button>
+                    <button onclick="setUCAngle(150)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">150&deg;</button>
+                    <button onclick="setUCAngle(180)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">180&deg;</button>
+                    <button onclick="setUCAngle(270)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">270&deg;</button>
+                    <button onclick="setUCAngle(315)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">315&deg;</button>
+                    <button onclick="setUCAngle(360)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">360&deg;</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Real-time Values Card -->
+              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                  <span class="text-xs font-bold text-white">Posisi Kuadran:</span>
+                  <span id="uc-kuadran-badge" class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-extrabold border border-indigo-500/30">Kuadran I (Semua +)</span>
+                </div>
+
+                <div class="space-y-2 font-mono text-xs">
+                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-dark-900 border border-slate-800">
+                    <span class="text-slate-400">sin(&theta;) =</span>
+                    <span id="uc-sin-val" class="font-bold text-rose-400 text-sm">0.7071</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-dark-900 border border-slate-800">
+                    <span class="text-slate-400">cos(&theta;) =</span>
+                    <span id="uc-cos-val" class="font-bold text-sky-400 text-sm">0.7071</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-dark-900 border border-slate-800">
+                    <span class="text-slate-400">tan(&theta;) =</span>
+                    <span id="uc-tan-val" class="font-bold text-emerald-400 text-sm">1.0000</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOOL 2: EKSPLORER PARABOLA -->
+        <div id="ml-panel-parabola" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-7 clean-card rounded-2xl p-5 border border-slate-800 flex flex-col items-center justify-center">
+              <div class="text-xs font-bold text-white mb-2 self-start flex items-center justify-between w-full">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="line-chart" class="w-4 h-4 text-indigo-400"></i>
+                  <span>Grafik Kurva Parabola:</span>
+                </span>
+                <span id="parabola-eq-display" class="font-mono text-emerald-400 font-extrabold text-sm">y = 1x&sup2; + 0x + 0</span>
+              </div>
+              <svg id="parabola-svg" width="340" height="260" viewBox="-170 -130 340 260" class="select-none max-w-full bg-dark-950/60 rounded-xl border border-slate-800/80">
+                <!-- Axes -->
+                <line x1="-160" y1="0" x2="160" y2="0" stroke="#334155" stroke-width="1.5" />
+                <line x1="0" y1="-120" x2="0" y2="120" stroke="#334155" stroke-width="1.5" />
+                <!-- Axis of Symmetry line -->
+                <line id="para-axis-line" x1="0" y1="-120" x2="0" y2="120" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" />
+                <!-- Parabola curve -->
+                <path id="para-curve" d="" fill="none" stroke="#6366f1" stroke-width="3" />
+                <!-- Vertex Point -->
+                <circle id="para-vertex-dot" cx="0" cy="0" r="5" fill="#f43f5e" stroke="#ffffff" stroke-width="2" />
+              </svg>
+            </div>
+
+            <div class="lg:col-span-5 space-y-4">
+              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3.5">
+                <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Atur Koefisien Parabola:</span>
+                </h4>
+                
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span class="text-slate-300">Nilai a (Keterbukaan):</span>
+                    <span id="para-val-a" class="font-mono text-indigo-400 font-bold">1</span>
+                  </div>
+                  <input type="range" id="para-slider-a" min="-3" max="3" step="0.5" value="1" oninput="updateParabola()" class="w-full accent-indigo-500 cursor-pointer">
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span class="text-slate-300">Nilai b (Kemiringan):</span>
+                    <span id="para-val-b" class="font-mono text-indigo-400 font-bold">0</span>
+                  </div>
+                  <input type="range" id="para-slider-b" min="-6" max="6" step="1" value="0" oninput="updateParabola()" class="w-full accent-indigo-500 cursor-pointer">
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span class="text-slate-300">Nilai c (Titik Potong Sumbu Y):</span>
+                    <span id="para-val-c" class="font-mono text-indigo-400 font-bold">0</span>
+                  </div>
+                  <input type="range" id="para-slider-c" min="-6" max="6" step="1" value="0" oninput="updateParabola()" class="w-full accent-indigo-500 cursor-pointer">
+                </div>
+              </div>
+
+              <!-- Computed Properties -->
+              <div class="clean-card rounded-2xl p-4 border border-slate-800 space-y-2 text-xs font-mono">
+                <div class="flex justify-between p-2 rounded-lg bg-dark-900 border border-slate-800">
+                  <span class="text-slate-400">Titik Puncak (Xp, Yp):</span>
+                  <span id="para-res-vertex" class="font-bold text-rose-400">(0, 0)</span>
+                </div>
+                <div class="flex justify-between p-2 rounded-lg bg-dark-900 border border-slate-800">
+                  <span class="text-slate-400">Diskriminan (D):</span>
+                  <span id="para-res-d" class="font-bold text-amber-400">0</span>
+                </div>
+                <div class="flex justify-between p-2 rounded-lg bg-dark-900 border border-slate-800">
+                  <span class="text-slate-400">Karakteristik Akar:</span>
+                  <span id="para-res-roots" class="font-bold text-emerald-400">1 Akar Kembar</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOOL 3: KALKULATOR MATRIKS CERDAS -->
+        <div id="ml-panel-matrix" class="hidden space-y-6">
+          <div class="clean-card rounded-2xl p-5 sm:p-7 border border-slate-800 space-y-5">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="grid" class="w-5 h-5 text-indigo-400"></i>
+              <span>Kalkulator Matriks Ordo 2x2 Cepat</span>
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Matriks A -->
+              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-indigo-300 block">Matriks A:</span>
+                <div class="grid grid-cols-2 gap-2 max-w-xs">
+                  <input type="number" id="mat-a11" value="4" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
+                  <input type="number" id="mat-a12" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
+                  <input type="number" id="mat-a21" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
+                  <input type="number" id="mat-a22" value="3" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
+                </div>
+              </div>
+
+              <!-- Matriks B -->
+              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-emerald-300 block">Matriks B:</span>
+                <div class="grid grid-cols-2 gap-2 max-w-xs">
+                  <input type="number" id="mat-b11" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
+                  <input type="number" id="mat-b12" value="-1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
+                  <input type="number" id="mat-b21" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
+                  <input type="number" id="mat-b22" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Operations Buttons -->
+            <div class="flex flex-wrap gap-2 pt-2">
+              <button onclick="calcMatrixAction('detA')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20">
+                <i data-lucide="hash" class="w-3.5 h-3.5"></i>
+                <span>det(A)</span>
+              </button>
+              <button onclick="calcMatrixAction('invA')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span>Invers A&sup1;</span>
+              </button>
+              <button onclick="calcMatrixAction('transA')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20">
+                <i data-lucide="flip-horizontal" class="w-3.5 h-3.5"></i>
+                <span>Transpose A^T</span>
+              </button>
+              <button onclick="calcMatrixAction('add')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/20">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                <span>A + B</span>
+              </button>
+              <button onclick="calcMatrixAction('mult')" class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-amber-600/20">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                <span>A &times; B</span>
+              </button>
+            </div>
+
+            <!-- Matrix Result Output -->
+            <div id="matrix-result-box" class="p-4 rounded-xl bg-dark-900 border border-slate-700/80 space-y-2">
+              <span class="text-xs font-bold text-slate-400 block">Langkah Pembahasan & Hasil:</span>
+              <div id="matrix-result-content" class="text-slate-200 text-sm leading-relaxed font-mono">
+                Pilih salah satu tombol operasi di atas untuk melihat langkah penyelesaian matematis.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOOL 4: VISUAL PYTHAGORAS -->
+        <div id="ml-panel-pythagoras" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7 clean-card rounded-2xl p-5 border border-slate-800 flex flex-col items-center justify-center">
+              <div class="text-xs font-bold text-white mb-2 self-start flex items-center gap-2">
+                <i data-lucide="triangle" class="w-4 h-4 text-emerald-400"></i>
+                <span>Visual Segitiga Siku-Siku: a&sup2; + b&sup2; = c&sup2;</span>
+              </div>
+              <svg id="pythagoras-svg" width="300" height="260" viewBox="0 0 300 260" class="select-none max-w-full bg-dark-950/60 rounded-xl border border-slate-800/80">
+                <!-- Triangle -->
+                <polygon id="pyt-triangle" points="50,210 230,210 50,50" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2.5" />
+                <!-- Siku-siku mark -->
+                <polyline points="50,195 65,195 65,210" fill="none" stroke="#e2e8f0" stroke-width="1.5" />
+                <!-- Labels -->
+                <text id="pyt-label-a" x="35" y="130" fill="#f43f5e" font-size="12" font-family="monospace" font-weight="bold">a = 6</text>
+                <text id="pyt-label-b" x="140" y="230" fill="#38bdf8" font-size="12" font-family="monospace" font-weight="bold">b = 8</text>
+                <text id="pyt-label-c" x="145" y="120" fill="#fbbf24" font-size="12" font-family="monospace" font-weight="bold">c = 10</text>
+              </svg>
+            </div>
+
+            <div class="lg:col-span-5 space-y-4">
+              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3.5">
+                <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Atur Panjang Sisi Siku-Siku:</span>
+                </h4>
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span class="text-rose-400">Sisi Tegak a:</span>
+                    <span id="pyt-val-a" class="font-mono text-rose-300 font-bold">6</span>
+                  </div>
+                  <input type="range" id="pyt-slider-a" min="3" max="15" step="1" value="6" oninput="updatePythagoras()" class="w-full accent-rose-500 cursor-pointer">
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span class="text-sky-400">Sisi Alas b:</span>
+                    <span id="pyt-val-b" class="font-mono text-sky-300 font-bold">8</span>
+                  </div>
+                  <input type="range" id="pyt-slider-b" min="3" max="15" step="1" value="8" oninput="updatePythagoras()" class="w-full accent-sky-500 cursor-pointer">
+                </div>
+              </div>
+
+              <!-- Computed Hypotenuse -->
+              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-2.5">
+                <span class="text-xs font-bold text-slate-400 block">Kalkulasi Hipotenusa:</span>
+                <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 font-mono text-xs text-slate-200 leading-relaxed" id="pyt-calc-text">
+                  c = &radic;(6&sup2; + 8&sup2;) = &radic;(36 + 64) = &radic;100 = 10
+                </div>
+                <div id="pyt-triple-badge" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/30 flex items-center gap-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Tripel Pythagoras Sempurna (6, 8, 10)!</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW 8: LEMBAR RUMUS SAKTI (CHEAT SHEET HUB) (BARU!)  -->
+      <!-- ==================================================== -->
+      <div id="view-cheatsheet" class="hidden space-y-6">
+        
+        <div class="clean-card rounded-2xl p-5 sm:p-7 border border-amber-500/30 bg-gradient-to-r from-amber-950/20 via-dark-900 to-indigo-950/20 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+              <i data-lucide="bookmark" class="w-3 h-3"></i>
+              <span>Ringkasan Rumus Sakti Praktis</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white">Lembar Rumus Cepat Seluruh Jenjang</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+              Kompilasi rumus esensial matematika dari Kelas 7 SMP hingga Kelas 12 SMA dan persiapan UTBK SNBT.
+            </p>
+          </div>
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-bold flex items-center gap-2 transition shrink-0">
+            <i data-lucide="printer" class="w-4 h-4 text-amber-400"></i>
+            <span>Cetak / PDF</span>
+          </button>
+        </div>
+
+        <!-- Cheat Sheet Formula Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="cheatsheet-grid">
+          <!-- Will be rendered dynamically via JS -->
+        </div>
+
+      </div>
+
+<div id="view-teacher-dashboard" class="hidden space-y-4">
         <!-- Main Card -->
         <div class="clean-card rounded-2xl p-4 sm:p-6 border-amber-500/30 space-y-5">
           
@@ -1421,6 +1839,7 @@ function doPost(e) {
     }
 
     function initApp() {
+      updateXPDisplay();
       // Auto-sync any previously filled student data to cloud
       syncExistingLocalDataToCloud();
 
@@ -1514,7 +1933,7 @@ function doPost(e) {
         toggleMobileSidebar();
       }
 
-      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'history', 'teacher-dashboard'];
+      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'history', 'teacher-dashboard', 'mathlab', 'cheatsheet'];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
@@ -1546,7 +1965,13 @@ function doPost(e) {
       if (targetEl) targetEl.classList.remove('hidden');
 
       // Specific initializations
-      if (viewName === 'dashboard') {
+      if (viewName === 'mathlab') {
+        document.getElementById('top-bar-title').textContent = 'Laboratorium Interaktif';
+        initMathLab();
+      } else if (viewName === 'cheatsheet') {
+        document.getElementById('top-bar-title').textContent = 'Lembar Rumus Sakti';
+        renderCheatSheets();
+      } else if (viewName === 'dashboard') {
         document.getElementById('top-bar-title').textContent = 'Dashboard';
         renderDashboardChapters();
         renderDashboardStats();
@@ -1816,6 +2241,7 @@ function doPost(e) {
         startExamBtn.onclick = () => startChapterExam(ch.id);
       }
 
+      addStudentXP(25, 'Membaca Bab');
       switchView('materi-detail');
       updateReaderFontSizeButtons(curSize);
       lucide.createIcons();
@@ -2249,6 +2675,7 @@ function doPost(e) {
         confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
       }
 
+      addStudentXP(50 + Math.round(score / 2), `Selesai Kuis ${score}/100`);
       switchView('exam-result');
     }
 
@@ -2759,6 +3186,715 @@ function doPost(e) {
       lucide.createIcons();
       initApp();
     });
+  
+    // ========================================================
+    // 6. SUITE FITUR UNIK & LABORATORIUM MATEMATIKA INTERAKTIF
+    // ========================================================
+
+    // ----------------------------------------------------
+    // GAMIFIKASI XP & LEVEL BELAJAR
+    // ----------------------------------------------------
+    const XP_KEY = 'the_arich_user_xp';
+
+    function getStudentXP() {
+      try {
+        return parseInt(localStorage.getItem(XP_KEY) || '0', 10);
+      } catch (e) {
+        return 0;
+      }
+    }
+
+    function getStudentLevel(xp) {
+      if (xp >= 2000) return { level: 6, title: 'Dewa Matematika', icon: 'crown', nextXP: 5000, prevXP: 2000 };
+      if (xp >= 1000) return { level: 5, title: 'Master Kalkulus', icon: 'zap', nextXP: 2000, prevXP: 1000 };
+      if (xp >= 500)  return { level: 4, title: 'Penakluk Geometri', icon: 'compass', nextXP: 1000, prevXP: 500 };
+      if (xp >= 250)  return { level: 3, title: 'Ahli Aljabar', icon: 'sparkles', nextXP: 500, prevXP: 250 };
+      if (xp >= 100)  return { level: 2, title: 'Pembelajar Tekun', icon: 'book-open', nextXP: 250, prevXP: 100 };
+      return { level: 1, title: 'Penjelajah Pemula', icon: 'feather', nextXP: 100, prevXP: 0 };
+    }
+
+    function addStudentXP(amount, reason) {
+      try {
+        const cur = getStudentXP();
+        const next = cur + amount;
+        localStorage.setItem(XP_KEY, next.toString());
+        updateXPDisplay();
+
+        // Show toast
+        showXPToast(amount, reason);
+
+        // Check if level up
+        const oldLvl = getStudentLevel(cur);
+        const newLvl = getStudentLevel(next);
+        if (newLvl.level > oldLvl.level) {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 } });
+        }
+      } catch (e) {}
+    }
+
+    function showXPToast(amount, reason) {
+      let toast = document.getElementById('xp-toast-notify');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'xp-toast-notify';
+        toast.className = 'fixed bottom-20 right-4 z-50 bg-gradient-to-r from-amber-500 to-indigo-600 text-white font-bold text-xs px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-2 transform translate-y-2 opacity-0 transition-all duration-300 pointer-events-none border border-white/20';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-amber-200"></i><span>+${amount} XP (${reason})</span>`;
+      lucide.createIcons();
+      toast.classList.remove('translate-y-2', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+      }, 2500);
+    }
+
+    function updateXPDisplay() {
+      const xp = getStudentXP();
+      const lvl = getStudentLevel(xp);
+      const badge = document.getElementById('top-xp-text');
+      if (badge) {
+        badge.textContent = `${xp} XP • Lv ${lvl.level}`;
+      }
+    }
+
+    function showLevelDetailsModal() {
+      const xp = getStudentXP();
+      const lvl = getStudentLevel(xp);
+      document.getElementById('modal-lvl-title').textContent = `Level ${lvl.level}: ${lvl.title}`;
+      document.getElementById('modal-lvl-desc').textContent = `Total capaian belajarmu: ${xp} XP`;
+      document.getElementById('modal-lvl-xp-text').textContent = `${xp} / ${lvl.nextXP} XP`;
+      const pct = Math.min(100, Math.max(0, Math.round(((xp - lvl.prevXP) / (lvl.nextXP - lvl.prevXP)) * 100)));
+      document.getElementById('modal-lvl-progress-bar').style.width = `${pct}%`;
+      document.getElementById('modal-level-details').classList.remove('hidden');
+    }
+
+    function closeLevelDetailsModal() {
+      document.getElementById('modal-level-details').classList.add('hidden');
+    }
+
+    // ----------------------------------------------------
+    // GLOBAL SEARCH (CTRL + K)
+    // ----------------------------------------------------
+    let activeSearchCategory = 'all';
+
+    function openGlobalSearchModal() {
+      document.getElementById('modal-global-search').classList.remove('hidden');
+      const input = document.getElementById('input-global-search');
+      if (input) {
+        input.value = '';
+        input.focus();
+        performGlobalSearch('');
+      }
+    }
+
+    function closeGlobalSearchModal() {
+      document.getElementById('modal-global-search').classList.add('hidden');
+    }
+
+    function filterSearchCategory(cat) {
+      activeSearchCategory = cat;
+      document.querySelectorAll('.search-cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold shrink-0 search-cat-btn';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn';
+        }
+      });
+      const query = document.getElementById('input-global-search').value;
+      performGlobalSearch(query);
+    }
+
+    function performGlobalSearch(query) {
+      const q = (query || '').toLowerCase().trim();
+      const list = document.getElementById('search-results-list');
+      if (!list || !window.ALL_GRADES_DATA) return;
+
+      const results = [];
+      const gradesToSearch = (activeSearchCategory === 'all') 
+        ? Object.keys(window.ALL_GRADES_DATA) 
+        : [activeSearchCategory];
+
+      gradesToSearch.forEach(gId => {
+        const gradeObj = window.ALL_GRADES_DATA[gId];
+        if (!gradeObj || !gradeObj.chapters) return;
+
+        gradeObj.chapters.forEach(ch => {
+          let score = 0;
+          let matchedSnippet = '';
+
+          // Match chapter title & summary
+          if (ch.title.toLowerCase().includes(q)) score += 10;
+          if (ch.summary && ch.summary.toLowerCase().includes(q)) {
+            score += 5;
+            matchedSnippet = ch.summary.substring(0, 110) + '...';
+          }
+
+          // Match subtopics
+          if (ch.subtopics) {
+            ch.subtopics.forEach(sub => {
+              if (sub.title.toLowerCase().includes(q)) score += 8;
+              if (sub.quickTip && sub.quickTip.toLowerCase().includes(q)) {
+                score += 4;
+                if (!matchedSnippet) matchedSnippet = '💡 ' + sub.quickTip.substring(0, 100) + '...';
+              }
+              if (sub.concept && sub.concept.toLowerCase().includes(q)) {
+                score += 3;
+                if (!matchedSnippet) matchedSnippet = sub.concept.substring(0, 100) + '...';
+              }
+            });
+          }
+
+          if (q === '' || score > 0) {
+            results.push({
+              gradeId: gId,
+              gradeName: gradeObj.gradeName,
+              chapterId: ch.id,
+              chapterNumber: ch.number || '01',
+              title: ch.title,
+              badge: ch.badge || gradeObj.gradeShort,
+              snippet: matchedSnippet || ch.summary || 'Klik untuk membuka modul bab ini.',
+              score
+            });
+          }
+        });
+      });
+
+      // Sort by score
+      results.sort((a, b) => b.score - a.score);
+
+      if (results.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-8 text-slate-500 text-xs">
+            Tidak ditemukan materi untuk kata kunci "${query}". Coba kata kunci lain (contoh: Pythagoras, Eksponen, Invers).
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = results.slice(0, 12).map(r => `
+        <div onclick="jumpToSearchTarget('${r.gradeId}', '${r.chapterId}')" class="p-3 rounded-xl bg-dark-900 border border-slate-800 hover:border-indigo-500 hover:bg-dark-850 cursor-pointer transition group">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="text-[10px] px-2 py-0.5 rounded font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/25">${r.gradeName}</span>
+            <span class="text-[10px] text-slate-500 font-mono">Bab ${r.chapterNumber}</span>
+          </div>
+          <div class="text-xs font-bold text-white group-hover:text-indigo-300 transition">${r.title}</div>
+          <div class="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">${r.snippet}</div>
+        </div>
+      `).join('');
+    }
+
+    function jumpToSearchTarget(gradeId, chapterId) {
+      closeGlobalSearchModal();
+      loadGradeCurriculum(gradeId);
+      updateHeaderProfile();
+      openChapterDetail(chapterId);
+      addStudentXP(10, 'Pencarian Cepat');
+    }
+
+    // Keyboard Shortcut Listener (Ctrl + K / Cmd + K)
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openGlobalSearchModal();
+      }
+      if (e.key === 'Escape') {
+        closeGlobalSearchModal();
+        closeLevelDetailsModal();
+      }
+    });
+
+    // ----------------------------------------------------
+    // LABORATORIUM MATEMATIKA INTERAKTIF (MATH LAB)
+    // ----------------------------------------------------
+    function initMathLab() {
+      switchMathLabTool('trig');
+      updateUnitCircle(45);
+      updateParabola();
+      updatePythagoras();
+    }
+
+    function switchMathLabTool(tool) {
+      ['trig', 'parabola', 'matrix', 'pythagoras'].forEach(t => {
+        const panel = document.getElementById(`ml-panel-${t}`);
+        const tab = document.getElementById(`ml-tab-${t}`);
+        if (panel) panel.classList.add('hidden');
+        if (tab) {
+          tab.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-2 transition shrink-0';
+        }
+      });
+
+      const activePanel = document.getElementById(`ml-panel-${tool}`);
+      const activeTab = document.getElementById(`ml-tab-${tool}`);
+      if (activePanel) activePanel.classList.remove('hidden');
+      if (activeTab) {
+        activeTab.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white flex items-center gap-2 transition shrink-0 shadow-lg shadow-emerald-600/20';
+      }
+      lucide.createIcons();
+    }
+
+    // 1. UNIT CIRCLE
+    function handleUnitCircleAngle(val) {
+      updateUnitCircle(parseFloat(val));
+    }
+
+    function setUCAngle(deg) {
+      const slider = document.getElementById('uc-angle-slider');
+      if (slider) slider.value = deg;
+      updateUnitCircle(deg);
+    }
+
+    function updateUnitCircle(deg) {
+      const rad = (deg * Math.PI) / 180;
+      const cosVal = Math.cos(rad);
+      const sinVal = Math.sin(rad);
+      const tanVal = Math.abs(cosVal) < 0.0001 ? '&infin;' : Math.tan(rad).toFixed(4);
+
+      // Readouts
+      document.getElementById('uc-angle-readout').textContent = `${deg}°`;
+      document.getElementById('uc-sin-val').textContent = sinVal.toFixed(4);
+      document.getElementById('uc-cos-val').textContent = cosVal.toFixed(4);
+      document.getElementById('uc-tan-val').textContent = tanVal;
+
+      // Kuadran Badge
+      const badge = document.getElementById('uc-kuadran-badge');
+      if (deg >= 0 && deg < 90) {
+        badge.textContent = 'Kuadran I (All Positif)';
+        badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold border border-emerald-500/30';
+      } else if (deg >= 90 && deg < 180) {
+        badge.textContent = 'Kuadran II (Sinus +)';
+        badge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-extrabold border border-rose-500/30';
+      } else if (deg >= 180 && deg < 270) {
+        badge.textContent = 'Kuadran III (Tangen +)';
+        badge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-extrabold border border-amber-500/30';
+      } else {
+        badge.textContent = 'Kuadran IV (Cosinus +)';
+        badge.className = 'px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 text-xs font-extrabold border border-sky-500/30';
+      }
+
+      // SVG Updates (R = 100)
+      const cx = cosVal * 100;
+      const cy = -sinVal * 100; // SVG Y axis is inverted
+
+      const pt = document.getElementById('uc-point');
+      if (pt) {
+        pt.setAttribute('cx', cx);
+        pt.setAttribute('cy', cy);
+      }
+
+      const hyp = document.getElementById('uc-hyp-line');
+      if (hyp) {
+        hyp.setAttribute('x2', cx);
+        hyp.setAttribute('y2', cy);
+      }
+
+      const cosLine = document.getElementById('uc-cos-line');
+      if (cosLine) {
+        cosLine.setAttribute('x2', cx);
+      }
+
+      const sinLine = document.getElementById('uc-sin-line');
+      if (sinLine) {
+        sinLine.setAttribute('x1', cx);
+        sinLine.setAttribute('y1', 0);
+        sinLine.setAttribute('x2', cx);
+        sinLine.setAttribute('y2', cy);
+      }
+
+      const tri = document.getElementById('uc-triangle');
+      if (tri) {
+        tri.setAttribute('points', `0,0 ${cx},0 ${cx},${cy}`);
+      }
+
+      // Angle Arc (R = 25)
+      const arc = document.getElementById('uc-angle-arc');
+      if (arc) {
+        const arcR = 25;
+        const arcX = Math.cos(rad) * arcR;
+        const arcY = -Math.sin(rad) * arcR;
+        const largeArc = deg > 180 ? 1 : 0;
+        arc.setAttribute('d', `M ${arcR} 0 A ${arcR} ${arcR} 0 ${largeArc} 0 ${arcX} ${arcY}`);
+      }
+    }
+
+    // 2. PARABOLA EXPLORER
+    function updateParabola() {
+      const a = parseFloat(document.getElementById('para-slider-a').value);
+      const b = parseFloat(document.getElementById('para-slider-b').value);
+      const c = parseFloat(document.getElementById('para-slider-c').value);
+
+      document.getElementById('para-val-a').textContent = a;
+      document.getElementById('para-val-b').textContent = b;
+      document.getElementById('para-val-c').textContent = c;
+
+      // Formula string
+      const bStr = b >= 0 ? `+ ${b}x` : `- ${Math.abs(b)}x`;
+      const cStr = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+      document.getElementById('parabola-eq-display').textContent = `y = ${a}x² ${bStr} ${cStr}`;
+
+      // Vertex
+      const xp = a !== 0 ? -b / (2 * a) : 0;
+      const yp = a * xp * xp + b * xp + c;
+      document.getElementById('para-res-vertex').textContent = `(${xp.toFixed(2)}, ${yp.toFixed(2)})`;
+
+      // Discriminant
+      const D = b * b - 4 * a * c;
+      document.getElementById('para-res-d').textContent = D.toFixed(1);
+
+      const rootsBadge = document.getElementById('para-res-roots');
+      if (D > 0) {
+        rootsBadge.textContent = '2 Akar Real Berbeda (Memotong Sumbu X di 2 Titik)';
+        rootsBadge.className = 'font-bold text-emerald-400';
+      } else if (D === 0) {
+        rootsBadge.textContent = '1 Akar Kembar (Menyinggung Sumbu X Tepat di Puncak)';
+        rootsBadge.className = 'font-bold text-amber-400';
+      } else {
+        rootsBadge.textContent = 'Tidak Ada Akar Real (Kurva Melayang/Definit)';
+        rootsBadge.className = 'font-bold text-rose-400';
+      }
+
+      // Draw SVG curve (scale: 1 unit = 10 px)
+      let dPath = '';
+      for (let x = -15; x <= 15; x += 0.5) {
+        const y = a * x * x + b * x + c;
+        const svgX = x * 10;
+        const svgY = -y * 10; // SVG invert
+        if (dPath === '') dPath += `M ${svgX} ${svgY}`;
+        else dPath += ` L ${svgX} ${svgY}`;
+      }
+      const curve = document.getElementById('para-curve');
+      if (curve) curve.setAttribute('d', dPath);
+
+      // Axis of Symmetry line
+      const axis = document.getElementById('para-axis-line');
+      if (axis) {
+        const axisX = xp * 10;
+        axis.setAttribute('x1', axisX);
+        axis.setAttribute('x2', axisX);
+      }
+
+      // Vertex Dot
+      const vDot = document.getElementById('para-vertex-dot');
+      if (vDot) {
+        vDot.setAttribute('cx', xp * 10);
+        vDot.setAttribute('cy', -yp * 10);
+      }
+    }
+
+    // 3. MATRIX CALCULATOR
+    function getMatrixValues() {
+      return {
+        a11: parseFloat(document.getElementById('mat-a11').value) || 0,
+        a12: parseFloat(document.getElementById('mat-a12').value) || 0,
+        a21: parseFloat(document.getElementById('mat-a21').value) || 0,
+        a22: parseFloat(document.getElementById('mat-a22').value) || 0,
+        b11: parseFloat(document.getElementById('mat-b11').value) || 0,
+        b12: parseFloat(document.getElementById('mat-b12').value) || 0,
+        b21: parseFloat(document.getElementById('mat-b21').value) || 0,
+        b22: parseFloat(document.getElementById('mat-b22').value) || 0,
+      };
+    }
+
+    function calcMatrixAction(op) {
+      const m = getMatrixValues();
+      const out = document.getElementById('matrix-result-content');
+      if (!out) return;
+
+      if (op === 'detA') {
+        const det = m.a11 * m.a22 - m.a12 * m.a21;
+        out.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="text-indigo-300 font-bold">Langkah Perhitungan Determinan Matriks A:</div>
+            <div>$$\det(A) = (a_{11} \cdot a_{22}) - (a_{12} \cdot a_{21})$$</div>
+            <div>$$\det(A) = (${m.a11} \cdot ${m.a22}) - (${m.a12} \cdot ${m.a21}) = ${m.a11 * m.a22} - ${m.a12 * m.a21} = \mathbf{${det}}$$</div>
+          </div>
+        `;
+      } else if (op === 'invA') {
+        const det = m.a11 * m.a22 - m.a12 * m.a21;
+        if (det === 0) {
+          out.innerHTML = `<span class="text-rose-400 font-bold">&det;(A) = 0 (Matriks Singular), sehingga matriks A TIDAK MEMILIKI INVERS!</span>`;
+        } else {
+          out.innerHTML = `
+            <div class="space-y-1.5">
+              <div class="text-indigo-300 font-bold">Langkah Perhitungan Invers Matriks A:</div>
+              <div>$$A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$</div>
+              <div>$$A^{-1} = \frac{1}{${det}} \begin{pmatrix} ${m.a22} & ${-m.a12} \\ ${-m.a21} & ${m.a11} \end{pmatrix}$$</div>
+            </div>
+          `;
+        }
+      } else if (op === 'transA') {
+        out.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="text-indigo-300 font-bold">Transpose Matriks A (Tukar Baris Menjadi Kolom):</div>
+            <div>$$A^T = \begin{pmatrix} ${m.a11} & ${m.a21} \\ ${m.a12} & ${m.a22} \end{pmatrix}$$</div>
+          </div>
+        `;
+      } else if (op === 'add') {
+        const c11 = m.a11 + m.b11;
+        const c12 = m.a12 + m.b12;
+        const c21 = m.a21 + m.b21;
+        const c22 = m.a22 + m.b22;
+        out.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="text-emerald-300 font-bold">Penjumlahan Matriks A + B:</div>
+            <div>$$A + B = \begin{pmatrix} ${m.a11} + (${m.b11}) & ${m.a12} + (${m.b12}) \\ ${m.a21} + (${m.b21}) & ${m.a22} + (${m.b22}) \end{pmatrix} = \begin{pmatrix} ${c11} & ${c12} \\ ${c21} & ${c22} \end{pmatrix}$$</div>
+          </div>
+        `;
+      } else if (op === 'mult') {
+        const c11 = m.a11 * m.b11 + m.a12 * m.b21;
+        const c12 = m.a11 * m.b12 + m.a12 * m.b22;
+        const c21 = m.a21 * m.b11 + m.a22 * m.b21;
+        const c22 = m.a21 * m.b12 + m.a22 * m.b22;
+        out.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="text-amber-300 font-bold">Perkalian Matriks A &times; B (Baris &times; Kolom):</div>
+            <div>$$A \times B = \begin{pmatrix} (${m.a11})(${m.b11}) + (${m.a12})(${m.b21}) & (${m.a11})(${m.b12}) + (${m.a12})(${m.b22}) \\ (${m.a21})(${m.b11}) + (${m.a22})(${m.b21}) & (${m.a21})(${m.b12}) + (${m.a22})(${m.b22}) \end{pmatrix}$$</div>
+            <div>$$A \times B = \begin{pmatrix} ${c11} & ${c12} \\ ${c21} & ${c22} \end{pmatrix}$$</div>
+          </div>
+        `;
+      }
+
+      if (window.renderMathInElement) {
+        renderMathInElement(out, { delimiters: [{ left: '$$', right: '$$', display: true }] });
+      }
+      addStudentXP(15, 'Eksplorasi Lab Matriks');
+    }
+
+    // 4. PYTHAGORAS VISUALIZER
+    function updatePythagoras() {
+      const a = parseInt(document.getElementById('pyt-slider-a').value, 10);
+      const b = parseInt(document.getElementById('pyt-slider-b').value, 10);
+      const c = Math.sqrt(a * a + b * b);
+
+      document.getElementById('pyt-val-a').textContent = a;
+      document.getElementById('pyt-val-b').textContent = b;
+
+      document.getElementById('pyt-label-a').textContent = `a = ${a}`;
+      document.getElementById('pyt-label-b').textContent = `b = ${b}`;
+      document.getElementById('pyt-label-c').textContent = `c = ${c.toFixed(2)}`;
+
+      const cText = Number.isInteger(c) ? c.toString() : c.toFixed(2);
+      document.getElementById('pyt-calc-text').textContent = `c = √(${a}² + ${b}²) = √(${a * a} + ${b * b}) = √${a * a + b * b} = ${cText}`;
+
+      const badge = document.getElementById('pyt-triple-badge');
+      if (Number.isInteger(c)) {
+        badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Tripel Pythagoras Murni (${a}, ${b}, ${c})!</span>`;
+        badge.className = 'px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/30 flex items-center gap-2';
+      } else {
+        badge.innerHTML = `<i data-lucide="info" class="w-4 h-4 text-slate-400"></i><span>Sisi miring bernilai bentuk akar: &radic;${a*a + b*b}</span>`;
+        badge.className = 'px-3 py-1.5 rounded-xl bg-dark-900 text-slate-400 font-medium text-xs border border-slate-800 flex items-center gap-2';
+      }
+      lucide.createIcons();
+
+      // Dynamic Triangle SVG
+      const scale = 10;
+      const x1 = 50, y1 = 210;
+      const x2 = x1 + Math.min(180, b * scale);
+      const y2 = y1;
+      const x3 = x1;
+      const y3 = y1 - Math.min(150, a * scale);
+
+      const tri = document.getElementById('pyt-triangle');
+      if (tri) tri.setAttribute('points', `${x1},${y1} ${x2},${y2} ${x3},${y3}`);
+    }
+
+    // ----------------------------------------------------
+    // LEMBAR RUMUS SAKTI (CHEAT SHEET HUB)
+    // ----------------------------------------------------
+    const CHEAT_SHEETS_DATA = [
+      {
+        title: 'Aljabar & Persamaan Kuadrat',
+        category: 'Aljabar',
+        badge: 'Fase D & E',
+        formulas: [
+          { name: 'Rumus ABC (Kuadratik)', formula: '$$x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$' },
+          { name: 'Teorema Vieta Akar', formula: '$$x_1 + x_2 = -\frac{b}{a}, \quad x_1 \cdot x_2 = \frac{c}{a}$$' },
+          { name: 'Jumlah Kuadrat Akar', formula: '$$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$$' },
+          { name: 'Selisih Dua Kuadrat', formula: '$$a^2 - b^2 = (a + b)(a - b)$$' }
+        ]
+      },
+      {
+        title: 'Eksponen & Logaritma',
+        category: 'Aljabar',
+        badge: 'Fase E (Kelas 10)',
+        formulas: [
+          { name: 'Penjumlahan Pangkat', formula: '$$a^m \times a^n = a^{m+n}, \quad \frac{a^m}{a^n} = a^{m-n}$$' },
+          { name: 'Pangkat Berantai', formula: '$$(a^m)^n = a^{mn}, \quad a^{-n} = \frac{1}{a^n}$$' },
+          { name: 'Penjumlahan Logaritma', formula: '$$^a\log(b \cdot c) = ^a\log b + ^a\log c$$' },
+          { name: 'Pergantian Basis Log', formula: '$$^a\log b = \frac{^c\log b}{^c\log a} = \frac{1}{^b\log a}$$' }
+        ]
+      },
+      {
+        title: 'Trigonometri Dasar & Relasi Kuadran',
+        category: 'Trigonometri',
+        badge: 'Fase E & F',
+        formulas: [
+          { name: 'Definisi Siku-Siku', formula: '$$\sin = \frac{\text{De}}{\text{Mi}}, \quad \cos = \frac{\text{Sa}}{\text{Mi}}, \quad \tan = \frac{\text{De}}{\text{Sa}}$$' },
+          { name: 'Identitas Pythagoras Tri', formula: '$$\sin^2\theta + \cos^2\theta = 1, \quad 1 + \tan^2\theta = \sec^2\theta$$' },
+          { name: 'Aturan Sinus', formula: '$$\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R$$' },
+          { name: 'Aturan Cosinus', formula: '$$a^2 = b^2 + c^2 - 2bc\cos A$$' }
+        ]
+      },
+      {
+        title: 'Kalkulus: Turunan & Dalil L\'Hopital',
+        category: 'Kalkulus',
+        badge: 'Fase F (Kelas 11-12)',
+        formulas: [
+          { name: 'Turunan Perkalian (u.v)', formula: '$$(u \cdot v)\' = u\'v + uv\'$$' },
+          { name: 'Turunan Pembagian (u/v)', formula: '$$\left(\frac{u}{v}\right)\' = \frac{u\'v - uv\'}{v^2}$$' },
+          { name: 'Aturan Rantai', formula: '$$\frac{d}{dx}[f(g(x))] = f\'(g(x)) \cdot g\'(x)$$' },
+          { name: 'Dalil L\'Hopital (0/0)', formula: '$$\lim_{x \to c} \frac{f(x)}{g(x)} = \lim_{x \to c} \frac{f\'(x)}{g\'(x)}$$' }
+        ]
+      },
+      {
+        title: 'Kalkulus: Integral & Luas Parabola',
+        category: 'Kalkulus',
+        badge: 'Fase F (Kelas 12)',
+        formulas: [
+          { name: 'Integral Aljabar', formula: '$$\int ax^n dx = \frac{a}{n+1} x^{n+1} + C$$' },
+          { name: 'Teorema Dasar Kalkulus', formula: '$$\int_a^b f(x) dx = F(b) - F(a)$$' },
+          { name: 'Integral Parsial Tanzalin', formula: '$$\int u dv = uv - \int v du$$' },
+          { name: 'Luas Parabola-Garis Cepat', formula: '$$L = \frac{D\sqrt{D}}{6a^2}$$' }
+        ]
+      },
+      {
+        title: 'Matematika Keuangan: Majemuk & Anuitas',
+        category: 'Keuangan',
+        badge: 'Fase F (Kelas 11-12)',
+        formulas: [
+          { name: 'Bunga Majemuk Diskret', formula: '$$M_n = M_0 (1 + i)^n$$' },
+          { name: 'Bunga Majemuk Kontinu', formula: '$$M(t) = M_0 \cdot e^{r \cdot t}$$' },
+          { name: 'Anuitas Cicilan Bulanan', formula: '$$A = \frac{M \cdot i}{1 - (1 + i)^{-n}}$$' },
+          { name: 'Porsi Cicilan', formula: '$$A = a_n + b_n \quad (\text{Pokok} + \text{Bunga})$$' }
+        ]
+      }
+    ];
+
+    function renderCheatSheets() {
+      const container = document.getElementById('cheatsheet-grid');
+      if (!container) return;
+
+      container.innerHTML = CHEAT_SHEETS_DATA.map(card => `
+        <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3.5 hover:border-slate-700 transition">
+          <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-800">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">${card.category}</span>
+              <h3 class="text-sm font-bold text-white">${card.title}</h3>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-dark-900 border border-slate-700 text-slate-300 font-semibold">${card.badge}</span>
+          </div>
+
+          <div class="space-y-2">
+            ${card.formulas.map(f => `
+              <div class="p-2.5 rounded-xl bg-dark-900 border border-slate-800/80 hover:border-slate-700 space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400">
+                  <span>${f.name}</span>
+                  <button onclick="copyCheatFormula('${encodeURIComponent(f.formula)}')" class="text-slate-500 hover:text-amber-400 transition" title="Salin Formula">
+                    <i data-lucide="copy" class="w-3 h-3"></i>
+                  </button>
+                </div>
+                <div class="formula-math overflow-x-auto text-slate-100 text-xs py-1">
+                  ${f.formula}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+      if (window.renderMathInElement) {
+        renderMathInElement(container, { delimiters: [{ left: '$$', right: '$$', display: true }] });
+      }
+    }
+
+    function copyCheatFormula(encoded) {
+      const raw = decodeURIComponent(encoded).replace(/\$\$/g, '');
+      navigator.clipboard.writeText(raw).then(() => {
+        showXPToast(5, 'Formula Tersalin ke Clipboard');
+      });
+    }
+
   </script>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: GLOBAL SEARCH (CTRL + K)                          -->
+  <!-- ======================================================== -->
+  <div id="modal-global-search" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden flex items-start justify-center p-4 pt-16 sm:pt-24">
+    <div class="clean-card rounded-2xl max-w-xl w-full p-4 sm:p-5 shadow-2xl border-indigo-500/40 space-y-3.5">
+      
+      <!-- Search Input Bar -->
+      <div class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-dark-900 border border-slate-700 focus-within:border-indigo-500 transition">
+        <i data-lucide="search" class="w-4 h-4 text-indigo-400 shrink-0"></i>
+        <input type="text" id="input-global-search" oninput="performGlobalSearch(this.value)" placeholder="Cari materi, konsep aljabar, trigonometri, rumus cepat..." class="w-full bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none">
+        <kbd class="px-2 py-0.5 rounded bg-dark-800 border border-slate-700 text-[10px] text-slate-400 font-mono shrink-0">ESC</kbd>
+      </div>
+
+      <!-- Quick Category Chips -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px]">
+        <span class="text-slate-500 font-bold mr-1">Filter:</span>
+        <button onclick="filterSearchCategory('all')" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold shrink-0 search-cat-btn" data-cat="all">Semua</button>
+        <button onclick="filterSearchCategory('7')" class="px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn" data-cat="7">Kelas 7</button>
+        <button onclick="filterSearchCategory('8')" class="px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn" data-cat="8">Kelas 8</button>
+        <button onclick="filterSearchCategory('9')" class="px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn" data-cat="9">Kelas 9</button>
+        <button onclick="filterSearchCategory('10')" class="px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn" data-cat="10">Kelas 10</button>
+        <button onclick="filterSearchCategory('11')" class="px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn" data-cat="11">Kelas 11</button>
+        <button onclick="filterSearchCategory('12')" class="px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn" data-cat="12">Kelas 12</button>
+      </div>
+
+      <!-- Results Container -->
+      <div id="search-results-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+        <div class="text-center py-8 text-slate-500 text-xs">
+          Ketik kata kunci untuk mencari bab, subtopik, trik kilat, atau formula rumus...
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+        <span>Tekan <strong>Enter</strong> untuk membuka • <strong>ESC</strong> untuk menutup</span>
+        <button onclick="closeGlobalSearchModal()" class="text-slate-400 hover:text-rose-400 font-semibold">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: LEVEL & GAMIFIKASI XP                             -->
+  <!-- ======================================================== -->
+  <div id="modal-level-details" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="clean-card rounded-2xl max-w-sm w-full p-6 shadow-2xl border-amber-500/40 space-y-4">
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-2 border border-amber-500/30">
+          <i data-lucide="award" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-base font-extrabold text-white" id="modal-lvl-title">Level Siswa</h3>
+        <p class="text-xs text-slate-400" id="modal-lvl-desc">Tingkatkan terus XP belajarmu!</p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+        <div class="flex justify-between text-xs font-bold">
+          <span class="text-slate-400">Progress Level:</span>
+          <span class="text-amber-400 font-mono" id="modal-lvl-xp-text">0 / 100 XP</span>
+        </div>
+        <div class="w-full h-2 rounded-full bg-dark-800 overflow-hidden">
+          <div id="modal-lvl-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="space-y-1.5 text-xs text-slate-300">
+        <div class="font-bold text-white text-[11px] uppercase tracking-wider mb-1">Cara Mendapatkan XP:</div>
+        <div class="flex items-center justify-between p-2 rounded-lg bg-dark-900/60 border border-slate-800/80">
+          <span class="flex items-center gap-1.5"><i data-lucide="book-open" class="w-3.5 h-3.5 text-indigo-400"></i> Membaca 1 Modul Bab</span>
+          <span class="font-mono text-emerald-400 font-bold">+25 XP</span>
+        </div>
+        <div class="flex items-center justify-between p-2 rounded-lg bg-dark-900/60 border border-slate-800/80">
+          <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> Menyelesaikan Latihan Soal</span>
+          <span class="font-mono text-emerald-400 font-bold">+50-100 XP</span>
+        </div>
+      </div>
+
+      <button onclick="closeLevelDetailsModal()" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">
+        Tutup
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>

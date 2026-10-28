@@ -686,9 +686,25 @@ window.ALL_GRADES_DATA = {
   }
 };
 
-if (typeof window.KURMER_KELAS11_DATA !== 'undefined') {
+// Hook modul kurikulum mandiri untuk Kelas 7 - 12
+if (typeof window.KURMER_KELAS7_DATA !== 'undefined' && window.ALL_GRADES_DATA['7']) {
+  window.ALL_GRADES_DATA['7'].chapters = window.KURMER_KELAS7_DATA;
+}
+if (typeof window.KURMER_KELAS8_DATA !== 'undefined' && window.ALL_GRADES_DATA['8']) {
+  window.ALL_GRADES_DATA['8'].chapters = window.KURMER_KELAS8_DATA;
+}
+if (typeof window.KURMER_KELAS9_DATA !== 'undefined' && window.ALL_GRADES_DATA['9']) {
+  window.ALL_GRADES_DATA['9'].chapters = window.KURMER_KELAS9_DATA;
+}
+if (typeof window.KURMER_KELAS10_DATA !== 'undefined' && window.ALL_GRADES_DATA['10']) {
+  window.ALL_GRADES_DATA['10'].chapters = window.KURMER_KELAS10_DATA;
+}
+if (typeof window.KURMER_KELAS11_DATA !== 'undefined' && window.ALL_GRADES_DATA['11']) {
   window.ALL_GRADES_DATA['11'].chapters = window.KURMER_KELAS11_DATA;
 }
-if (typeof window.UTBK_SOAL_BANK !== 'undefined') {
+if (typeof window.KURMER_KELAS12_DATA !== 'undefined' && window.ALL_GRADES_DATA['12']) {
+  window.ALL_GRADES_DATA['12'].chapters = window.KURMER_KELAS12_DATA;
+}
+if (typeof window.UTBK_SOAL_BANK !== 'undefined' && window.ALL_GRADES_DATA['11']) {
   window.ALL_GRADES_DATA['11'].questions = window.UTBK_SOAL_BANK;
 }
