@@ -2,31 +2,66 @@
  * ==============================================================================
  * THE ARICH STUDY - CLOUD DATABASE BACKEND ENGINE (GOOGLE APPS SCRIPT)
  * ==============================================================================
- * KODE INI BERFUNGSI SEBAGAI JEMBATAN OTOMATIS:
- * - Menampung pendaftaran nama murid dari semua HP siswa.
- * - Mencatat nilai kuis/latihan murid secara live ke Google Spreadsheet.
- * - Menyajikan data ke Dashboard Mode Guru (PIN: 010822).
- *
- * CARA PAKAI (HANYA BUTUH 2 MENIT):
- * 1. Buka https://sheets.new di browser laptop.
- * 2. Klik menu 'Ekstensi' (Extensions) > 'Apps Script'.
- * 3. Hapus tulisan bawaan di editor, lalu PASTE SELURUH ISI KODE INI.
+ * BISA DIPAKAI DI LAPTOP MAUPUN DI IPAD / HP!
+ * 
+ * JIKA DI IPAD (Tanpa Menu Extensions):
+ * 1. Buka browser Safari / Chrome di iPad.
+ * 2. Ketik alamat: https://script.new  (langsung terbuka Apps Script)
+ * 3. Hapus teks bawaan, lalu paste seluruh isi kode ini.
  * 4. Klik ikon Disket (Simpan).
- * 5. Klik tombol biru 'Terapkan' (Deploy) > 'Deployment baru' (New deployment).
- * 6. Pilih Jenis: 'Aplikasi Web' (Web app).
- *    - Jalankan sebagai: 'Saya' (Me)
- *    - Siapa yang memiliki akses: 'Siapa saja' (Anyone)  <--- (WAJIB PILIH INI!)
- * 7. Klik 'Terapkan' (Deploy), lalu salin URL Aplikasi Web (/exec).
- * 8. Tempel link tersebut ke chat ini, atau ke Mode Guru > 'Koneksi Cloud'.
+ * 5. Klik 'Deploy' (Terapkan) > 'New deployment' (Deployment baru).
+ *    - Pilih Jenis: 'Web app' (Aplikasi Web)
+ *    - Execute as: 'Me' (Saya)
+ *    - Who has access: 'Anyone' (Siapa saja)  <-- WAJIB!
+ * 6. Klik 'Deploy', izinkan akses jika diminta, lalu salin URL /exec.
+ * 7. Kirim link /exec tersebut ke chat AI!
+ * 
+ * *Catatan: Script ini otomatis membuat file "Database The Arich Study" 
+ * di Google Drive Anda tanpa perlu Anda buat manual!
  * ==============================================================================
  */
 
-// Menangani tarikan data oleh Guru saat membuka Dashboard Mode Guru (GET request)
+// Helper cerdas: mendeteksi apakah script menempel di Sheet atau dibuat mandiri via script.new
+function getSpreadsheet() {
+  // 1. Jika dibuka lewat menu Extensions di Google Sheets (di Laptop)
+  var active = SpreadsheetApp.getActiveSpreadsheet();
+  if (active) return active;
+  
+  // 2. Jika dibuat mandiri via https://script.new (di iPad / HP)
+  var props = PropertiesService.getScriptProperties();
+  var savedId = props.getProperty("ARICH_SHEET_ID");
+  if (savedId) {
+    try {
+      return SpreadsheetApp.openById(savedId);
+    } catch (e) {}
+  }
+  
+  // Otomatis buatkan Google Spreadsheet baru di Google Drive Anda!
+  var newSS = SpreadsheetApp.create("Database The Arich Study");
+  props.setProperty("ARICH_SHEET_ID", newSS.getId());
+  
+  // Siapkan sheet Daftar_Siswa
+  var sSiswa = newSS.getActiveSheet();
+  sSiswa.setName("Daftar_Siswa");
+  sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir"]);
+  sSiswa.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#059669").setFontColor("#ffffff");
+  sSiswa.setFrozenRows(1);
+  
+  // Siapkan sheet Rekap_Nilai
+  var sNilai = newSS.insertSheet("Rekap_Nilai");
+  sNilai.appendRow(["Waktu Ujian", "Nama Siswa", "Kelas", "Materi Bab", "Benar", "Total Soal", "Skor", "Status"]);
+  sNilai.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#4f46e5").setFontColor("#ffffff");
+  sNilai.setFrozenRows(1);
+  
+  return newSS;
+}
+
+// Menangani tarikan data oleh Guru (GET request)
 function doGet(e) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet();
   
   // 1. Ambil Data Murid dari sheet Daftar_Siswa
-  var sheetSiswa = ss.getSheetByName("Daftar_Siswa");
+  var sheetSiswa = ss.getSheetByName("Daftar_Siswa") || ss.getSheets()[0];
   var students = [];
   if (sheetSiswa && sheetSiswa.getLastRow() > 1) {
     var sData = sheetSiswa.getRange(2, 1, sheetSiswa.getLastRow() - 1, 5).getValues();
@@ -60,9 +95,9 @@ function doGet(e) {
     });
   }
 
-  // Kembalikan JSON dengan header CORS otomatis
   return ContentService.createTextOutput(JSON.stringify({ 
     status: "success", 
+    sheetUrl: ss.getUrl(),
     students: students, 
     submissions: submissions 
   })).setMimeType(ContentService.MimeType.JSON);
@@ -71,31 +106,26 @@ function doGet(e) {
 // Menangani pendaftaran murid & kiriman nilai dari HP siswa (POST request)
 function doPost(e) {
   var lock = LockService.getScriptLock();
-  // Cegah bentrokan data saat puluhan murid submit bersamaan
   try {
-    lock.waitLock(10000);
+    lock.waitLock(10000); // Mencegah bentrokan data saat banyak siswa submit bersamaan
   } catch (errLock) {
     return ContentService.createTextOutput(JSON.stringify({ 
       status: "error", 
-      message: "Server sibuk, silakan kirim ulang" 
+      message: "Server sibuk, silakan coba sesaat lagi" 
     })).setMimeType(ContentService.MimeType.JSON);
   }
 
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSpreadsheet();
     var data = JSON.parse(e.postData.contents);
     
-    // AKSI 1: PENDAFTARAN / LOGIN SISWA DARI HP
+    // AKSI 1: PENDAFTARAN / UPDATE SISWA DARI HP
     if (data.action === "register_student") {
       var sSiswa = ss.getSheetByName("Daftar_Siswa") || ss.insertSheet("Daftar_Siswa");
       
-      // Buat header jika sheet masih baru
       if (sSiswa.getLastRow() === 0) {
         sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir"]);
-        sSiswa.getRange(1, 1, 1, 5)
-          .setFontWeight("bold")
-          .setBackground("#059669")
-          .setFontColor("#ffffff");
+        sSiswa.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#059669").setFontColor("#ffffff");
         sSiswa.setFrozenRows(1);
       }
       
@@ -113,32 +143,27 @@ function doPost(e) {
       var now = data.timestamp || Utilities.formatDate(new Date(), "Asia/Jakarta", "dd/MM/yyyy HH:mm:ss");
       
       if (foundIndex > 0) { 
-        // Update data jika murid sudah ada (tidak menimpa histori nama)
         sSiswa.getRange(foundIndex, 3).setValue(data.gradeName || data.grade || "-"); 
         sSiswa.getRange(foundIndex, 4).setValue(data.school || "Sekolah"); 
         sSiswa.getRange(foundIndex, 5).setValue(now); 
       } else { 
-        // Tambahkan baris baru untuk murid baru
         sSiswa.appendRow([now, data.name, data.gradeName || data.grade || "-", data.school || "Sekolah", now]); 
       }
       
       return ContentService.createTextOutput(JSON.stringify({ 
         status: "success", 
+        sheetUrl: ss.getUrl(),
         message: "Akun murid berhasil dicatat di Cloud" 
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
-    // AKSI 2: PENGIRIMAN NILAI LATIHAN/UJIAN SISWA
+    // AKSI 2: PENGIRIMAN NILAI LATIHAN/UJIAN
     if (data.action === "submit_exam" || data.score !== undefined) {
       var sNilai = ss.getSheetByName("Rekap_Nilai") || ss.insertSheet("Rekap_Nilai");
       
-      // Buat header jika sheet masih baru
       if (sNilai.getLastRow() === 0) {
         sNilai.appendRow(["Waktu Ujian", "Nama Siswa", "Kelas", "Materi Bab", "Benar", "Total Soal", "Skor", "Status"]);
-        sNilai.getRange(1, 1, 1, 8)
-          .setFontWeight("bold")
-          .setBackground("#4f46e5")
-          .setFontColor("#ffffff");
+        sNilai.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#4f46e5").setFontColor("#ffffff");
         sNilai.setFrozenRows(1);
       }
       
@@ -158,6 +183,7 @@ function doPost(e) {
       
       return ContentService.createTextOutput(JSON.stringify({ 
         status: "success", 
+        sheetUrl: ss.getUrl(),
         message: "Nilai ujian berhasil direkap di Cloud" 
       })).setMimeType(ContentService.MimeType.JSON);
     }
