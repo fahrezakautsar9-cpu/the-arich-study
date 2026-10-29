@@ -2010,22 +2010,6 @@ function doPost(e) {
     // ----------------------------------------------------
     // NAVIGATION CONTROLLER
     // ----------------------------------------------------
-    function triggerLatex(el) {
-      if (window.renderMathInElement) {
-        const target = el || document.getElementById('view-materi-detail') || document.getElementById('view-cheatsheet') || document.getElementById('matrix-result-content');
-        if (!target) return;
-        renderMathInElement(target, {
-          delimiters: [
-            { left: '', right: '', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'],
-          throwOnError: false,
-          strict: false
-        });
-      }
-    }
-
     function switchView(viewName) {
       // Close mobile drawer if open
       const drawer = document.getElementById('sidebar-drawer');
@@ -2272,14 +2256,14 @@ function doPost(e) {
       window.speechSynthesis.speak(utt);
     }
 
-    let activeReadingGrade = null; // Decoupled from currentStudent.grade for cross-grade reading
+    let activeReadingGrade = null; // Decoupled for cross-grade reading
 
     function openChapterDetail(chapterId, optionalGradeId) {
       const studentGrade = currentStudent ? String(currentStudent.grade) : '11';
       const targetGrade = optionalGradeId ? String(optionalGradeId) : (activeReadingGrade || studentGrade);
       activeReadingGrade = targetGrade;
 
-      const sourceGradeData = window.ALL_GRADES_DATA ? window.ALL_GRADES_DATA[targetGrade] : currentGradeData;
+      const sourceGradeData = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[targetGrade]) ? window.ALL_GRADES_DATA[targetGrade] : currentGradeData;
       if (!sourceGradeData || !sourceGradeData.chapters) return;
 
       const ch = sourceGradeData.chapters.find(c => c.id === chapterId);
@@ -2311,7 +2295,7 @@ function doPost(e) {
       subContainer.innerHTML = ch.subtopics.map((sub, idx) => {
         const exampleText = sub.exampleProblem || sub.example;
         const quickTipText = sub.quickTip;
-        const cleanConcept = (sub.concept || '').replace(/[$`\"]/g, ' ');
+        const cleanConcept = (sub.concept || '').replace(/[$`"]/g, ' ');
 
         return `
         <div class="clean-card rounded-2xl p-5 sm:p-7 border border-slate-800 hover:border-slate-700/80 space-y-4 shadow-xl">
@@ -2373,17 +2357,9 @@ function doPost(e) {
       }
 
       switchView('materi-detail');
+      updateReaderFontSizeButtons(curSize);
       lucide.createIcons();
-      if (window.renderMathInElement) {
-        renderMathInElement(subContainer, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false,
-          strict: false
-        });
-      }
+      triggerLatex(subContainer);
 
       // Add Reading XP
       addStudentXP(25, `Membaca Bab: ${ch.title}`);
@@ -2397,120 +2373,1162 @@ function doPost(e) {
       switchView('dashboard');
     }
 
-    // ----------------------------------------------------
-    // GLOBAL SEARCH (NATURAL & CLEAN UI)
-    // ----------------------------------------------------
-    function openGlobalSearchModal() {
-      const modal = document.getElementById('modal-global-search');
-      if (modal) {
-        modal.classList.remove('hidden');
-        const input = document.getElementById('input-global-search');
-        if (input) {
-          input.value = '';
-          input.focus();
-          performGlobalSearch('');
+    function renderExamCatalog() {
+      const container = document.getElementById('exam-catalog-grid');
+      const badgeEl = document.getElementById('exam-catalog-grade-badge');
+      const statsEl = document.getElementById('exam-catalog-total-stats');
+      if (!container || !currentGradeData || !currentGradeData.chapters) return;
+
+      if (badgeEl) badgeEl.textContent = currentGradeData.gradeName;
+      const totalChapters = currentGradeData.chapters.length;
+      const totalQuestions = currentGradeData.chapters.reduce((sum, ch) => sum + (ch.questions ? ch.questions.length : 15), 0);
+      if (statsEl) statsEl.textContent = `${totalChapters} Bab • ${totalQuestions} Soal`;
+
+      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
+
+      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+        const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        const qCount = ch.questions ? ch.questions.length : 15;
+        
+        // Check highest score for this chapter & student
+        const historyList = db.filter(r => 
+          (!myName || r.studentName.toLowerCase() === myName) && 
+          (r.chapterId === ch.id || r.chapterTitle === ch.title)
+        );
+        let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-dark-900 border border-slate-800 text-slate-400">Belum Dikerjakan</span>`;
+        if (historyList.length > 0) {
+          const maxScore = Math.max(...historyList.map(h => h.score));
+          const isPassed = maxScore >= 70;
+          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">Skor Tertinggi: ${maxScore}/100</span>`;
         }
+
+        return `
+          <div class="clean-card rounded-2xl p-5 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">${badge}</span>
+                ${statusBadge}
+              </div>
+              <h4 class="text-sm sm:text-base font-bold text-white group-hover:text-indigo-300 transition mb-1.5">${ch.title}</h4>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${ch.summary}</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-3 text-slate-400 text-xs mb-3 font-mono">
+                <span class="flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-400"></i> ${qCount} Soal</span>
+                <span>•</span>
+                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i> 30 Menit</span>
+                <span>•</span>
+                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Kunci Ber-sandi</span>
+              </div>
+              <div class="flex items-center gap-2 pt-3 border-t border-slate-800">
+                <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Baca Materi
+                </button>
+                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-1 shadow-lg shadow-indigo-600/30 transition">
+                  <i data-lucide="play" class="w-3.5 h-3.5"></i> Mulai Latihan
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function startChapterExam(chapterId) {
+      if (!currentGradeData || !currentGradeData.chapters) return;
+      let ch = currentGradeData.chapters.find(c => c.id === chapterId);
+      if (!ch) ch = currentGradeData.chapters[0];
+      if (!ch) return;
+
+      if (!ch.questions || ch.questions.length === 0) {
+        if (window.SOAL_BANK_PER_BAB && window.SOAL_BANK_PER_BAB[ch.id]) {
+          ch.questions = window.SOAL_BANK_PER_BAB[ch.id];
+        } else {
+          alert('Soal untuk bab ini sedang disiapkan.');
+          return;
+        }
+      }
+
+      currentExamChapter = ch;
+      activeQuestions = ch.questions;
+      userAnswers = new Array(activeQuestions.length).fill(null);
+      userDoubts = new Array(activeQuestions.length).fill(false);
+      currentQIdx = 0;
+      isSolutionVisible = false;
+
+      const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || 'Bab');
+      const badgeGradeEl = document.getElementById('exam-badge-grade');
+      if (badgeGradeEl) badgeGradeEl.textContent = `${badge}: ${ch.title}`;
+
+      // Reset timer to 30 mins
+      examSecondsLeft = 30 * 60;
+      if (examTimerInterval) clearInterval(examTimerInterval);
+      examTimerInterval = setInterval(updateExamTimer, 1000);
+
+      switchView('exam');
+      renderExamMatrix();
+      renderCurrentExamQuestion(0, 'none');
+    }
+
+    function confirmExitExam() {
+      const answered = userAnswers.filter(a => a !== null).length;
+      if (answered > 0) {
+        if (!confirm(`Kamu telah menjawab ${answered} dari ${activeQuestions.length} soal. Yakin ingin keluar ke daftar bab? Progres sesi ini tidak akan disimpan.`)) {
+          return;
+        }
+      }
+      clearInterval(examTimerInterval);
+      switchView('exam-catalog');
+    }
+
+    function repeatCurrentExam() {
+      if (currentExamChapter) {
+        startChapterExam(currentExamChapter.id);
+      } else {
+        switchView('exam-catalog');
+      }
+    }
+
+    function initGradeExam() {
+      if (!currentGradeData || !currentGradeData.questions || currentGradeData.questions.length === 0) return;
+      activeQuestions = currentGradeData.questions;
+      userAnswers = new Array(activeQuestions.length).fill(null);
+      userDoubts = new Array(activeQuestions.length).fill(false);
+      currentQIdx = 0;
+
+      document.getElementById('exam-badge-grade').textContent = `Latihan: ${currentGradeData.gradeShort}`;
+
+      // Reset timer
+      examSecondsLeft = 30 * 60;
+      if (examTimerInterval) clearInterval(examTimerInterval);
+      examTimerInterval = setInterval(updateExamTimer, 1000);
+
+      renderExamMatrix();
+      renderCurrentExamQuestion(0, 'none');
+    }
+
+    function updateExamTimer() {
+      if (examSecondsLeft > 0) {
+        examSecondsLeft--;
+        const mins = String(Math.floor(examSecondsLeft / 60)).padStart(2, '0');
+        const secs = String(examSecondsLeft % 60).padStart(2, '0');
+        document.getElementById('exam-timer').textContent = `${mins}:${secs}`;
+      } else {
+        clearInterval(examTimerInterval);
+        alert('Waktu ujian telah berakhir!');
+        executeFinalExamSubmit();
+      }
+    }
+
+    function renderExamMatrix() {
+      const container = document.getElementById('exam-matrix-grid');
+      container.innerHTML = activeQuestions.map((q, idx) => {
+        let style = "bg-dark-900 border-slate-800 text-slate-400";
+        if (userDoubts[idx]) {
+          style = "bg-amber-500 text-slate-950 font-bold border-amber-400";
+        } else if (userAnswers[idx] !== null) {
+          style = "bg-emerald-600 text-white font-bold border-emerald-500";
+        }
+
+        const ring = (idx === currentQIdx) ? "ring-2 ring-indigo-400 font-bold" : "";
+        return `
+          <button onclick="jumpExamQuestion(${idx})" class="h-8 rounded-lg border text-xs transition flex items-center justify-center ${style} ${ring}">
+            ${idx + 1}
+          </button>
+        `;
+      }).join('');
+
+      const answered = userAnswers.filter(a => a !== null).length;
+      document.getElementById('exam-answered-stat').textContent = `${answered} / ${activeQuestions.length} Terjawab`;
+    }
+
+    function renderCurrentExamQuestion(idx, direction = 'right') {
+      currentQIdx = idx;
+      const q = activeQuestions[idx];
+
+      const card = document.getElementById('exam-slide-card');
+      card.classList.remove('slide-enter-left', 'slide-enter-right');
+      if (direction === 'right') card.classList.add('slide-enter-right');
+      else if (direction === 'left') card.classList.add('slide-enter-left');
+
+      document.getElementById('exam-q-num-pill').textContent = `Soal No. ${idx + 1}`;
+      document.getElementById('exam-prompt-body').innerHTML = q.prompt;
+
+      // Doubt button
+      const doubtBtn = document.getElementById('exam-doubt-btn');
+      const doubtLabel = document.getElementById('exam-doubt-label');
+      if (userDoubts[idx]) {
+        doubtBtn.className = "px-2.5 py-1 rounded border border-amber-400 bg-amber-500/20 text-amber-300 text-xs flex items-center gap-1";
+        doubtLabel.textContent = "Ragu-ragu";
+      } else {
+        doubtBtn.className = "px-2.5 py-1 rounded border border-slate-700 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-400 hover:text-amber-300";
+        doubtLabel.textContent = "Tandai Ragu";
+      }
+
+      // Options with Answer Key Highlighting (when unlocked by PIN 090305)
+      const optContainer = document.getElementById('exam-options-body');
+      optContainer.innerHTML = q.options.map((opt, oIdx) => {
+        const isSelected = userAnswers[idx] === oIdx;
+        const isKeyUnlocked = isAnswerKeyUnlocked && isSolutionVisible;
+        const isCorrectKey = isKeyUnlocked && (oIdx === q.correct);
+
+        let cls = isSelected 
+          ? 'p-3 rounded-xl bg-indigo-950/40 border-2 border-indigo-500 text-white cursor-pointer flex items-center justify-between transition'
+          : 'p-3 rounded-xl bg-dark-900 border border-slate-800 text-slate-300 hover:border-slate-700 cursor-pointer flex items-center justify-between transition';
+        
+        let letterCls = isSelected ? 'bg-indigo-600 text-white font-bold' : 'bg-dark-800 text-slate-400';
+
+        if (isCorrectKey) {
+          cls += ' ring-2 ring-emerald-500 bg-emerald-950/30';
+          letterCls = 'bg-emerald-600 text-white font-bold ring-1 ring-emerald-400';
+        }
+
+        return `
+          <div onclick="selectExamOption(${idx}, ${oIdx})" class="${cls}">
+            <div class="flex items-center space-x-2.5">
+              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${letterCls}">
+                ${String.fromCharCode(65 + oIdx)}
+              </span>
+              <span class="text-xs sm:text-sm font-medium">${opt}</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              ${isCorrectKey ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Kunci Benar</span>' : ''}
+              <span class="${isSelected ? 'text-indigo-400 text-xs font-bold' : 'text-transparent'}">✓</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Prev button status
+      const btnPrev = document.getElementById('btn-exam-prev');
+      btnPrev.disabled = (idx === 0);
+      btnPrev.style.opacity = (idx === 0) ? '0.3' : '1';
+
+      renderSolutionBox();
+      renderExamMatrix();
+      lucide.createIcons();
+      triggerLatex();
+    }
+
+    function selectExamOption(qIdx, oIdx) {
+      userAnswers[qIdx] = oIdx;
+      renderCurrentExamQuestion(qIdx, 'none');
+    }
+
+    function toggleCurrentDoubt() {
+      userDoubts[currentQIdx] = !userDoubts[currentQIdx];
+      renderCurrentExamQuestion(currentQIdx, 'none');
+    }
+
+    // ----------------------------------------------------
+    // PROTECTED ANSWER KEY & EXPLANATION (SANDI: 090305)
+    // ----------------------------------------------------
+    function handleAnswerKeyClick() {
+      if (!isAnswerKeyUnlocked) {
+        document.getElementById('input-answer-key-pin').value = '';
+        document.getElementById('answer-key-pin-error').classList.add('hidden');
+        document.getElementById('modal-answer-key-pin').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('input-answer-key-pin').focus();
+        }, 100);
+      } else {
+        isSolutionVisible = !isSolutionVisible;
+        renderSolutionBox();
+      }
+    }
+
+    function handleAnswerKeyPinVerify(e) {
+      e.preventDefault();
+      const entered = document.getElementById('input-answer-key-pin').value.trim();
+      if (entered === ANSWER_KEY_PIN) {
+        isAnswerKeyUnlocked = true;
+        isSolutionVisible = true;
+        closeAnswerKeyPinModal();
+        renderCurrentExamQuestion(currentQIdx, 'none');
+        playBeep(660, 0.15);
+      } else {
+        document.getElementById('answer-key-pin-error').classList.remove('hidden');
+        playBeep(220, 0.3);
+      }
+    }
+
+    function closeAnswerKeyPinModal() {
+      document.getElementById('modal-answer-key-pin').classList.add('hidden');
+    }
+
+    function toggleSolutionBox() {
+      isSolutionVisible = !isSolutionVisible;
+      renderCurrentExamQuestion(currentQIdx, 'none');
+    }
+
+    function lockAnswerKey() {
+      isAnswerKeyUnlocked = false;
+      isSolutionVisible = false;
+      renderCurrentExamQuestion(currentQIdx, 'none');
+    }
+
+    function renderSolutionBox() {
+      const box = document.getElementById('exam-solution-box');
+      const keyBtn = document.getElementById('exam-key-btn');
+      const keyLabel = document.getElementById('exam-key-label');
+
+      if (!box || !keyBtn) return;
+
+      if (isAnswerKeyUnlocked) {
+        keyBtn.className = isSolutionVisible
+          ? "px-2.5 py-1 rounded border border-amber-500 bg-amber-500/20 text-amber-300 text-xs flex items-center gap-1 transition shrink-0"
+          : "px-2.5 py-1 rounded border border-indigo-500/50 bg-indigo-500/10 text-indigo-300 text-xs flex items-center gap-1 transition shrink-0";
+        keyLabel.textContent = isSolutionVisible ? "Tutup Pembahasan" : "Buka Pembahasan";
+      } else {
+        keyBtn.className = "px-2.5 py-1 rounded border border-slate-700 bg-dark-900 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-500 hover:text-amber-300 transition shrink-0";
+        keyLabel.textContent = "Kunci & Pembahasan";
+      }
+
+      if (isAnswerKeyUnlocked && isSolutionVisible && activeQuestions[currentQIdx]) {
+        const q = activeQuestions[currentQIdx];
+        const letter = String.fromCharCode(65 + q.correct);
+        document.getElementById('sol-correct-badge').textContent = `Pilihan ${letter}`;
+
+        const hintCard = document.getElementById('sol-hint-card');
+        const hintText = document.getElementById('sol-hint-text');
+        if (q.hint) {
+          hintCard.classList.remove('hidden');
+          hintText.innerHTML = q.hint;
+        } else {
+          hintCard.classList.add('hidden');
+        }
+
+        const explText = document.getElementById('sol-explanation-text');
+        explText.innerHTML = q.explanation || "Pembahasan lengkap dibahas langsung bersama guru.";
+
+        box.classList.remove('hidden');
+        triggerLatex();
+        lucide.createIcons();
+      } else {
+        box.classList.add('hidden');
+      }
+    }
+
+    function slideExamPrev() {
+      if (currentQIdx > 0) renderCurrentExamQuestion(currentQIdx - 1, 'left');
+    }
+    function slideExamNext() {
+      if (currentQIdx < activeQuestions.length - 1) renderCurrentExamQuestion(currentQIdx + 1, 'right');
+    }
+    function jumpExamQuestion(idx) {
+      const dir = idx > currentQIdx ? 'right' : 'left';
+      renderCurrentExamQuestion(idx, dir);
+    }
+
+    function toggleMatrixPaletteMobile() {
+      const p = document.getElementById('exam-matrix-panel');
+      p.classList.toggle('hidden');
+    }
+
+    // ----------------------------------------------------
+    // EXAM SUBMIT CONFIRMATION & RESULTS
+    // ----------------------------------------------------
+    function openExamSubmitConfirmation() {
+      const answered = userAnswers.filter(a => a !== null).length;
+      const doubt = userDoubts.filter((d, i) => d && userAnswers[i] !== null).length;
+      const unanswered = activeQuestions.length - answered;
+
+      document.getElementById('conf-answered-txt').textContent = `${answered} / ${activeQuestions.length} Soal`;
+      document.getElementById('conf-doubt-txt').textContent = `${doubt} Soal`;
+      document.getElementById('conf-unanswered-txt').textContent = `${unanswered} Soal`;
+
+      document.getElementById('modal-submit-confirm').classList.remove('hidden');
+    }
+
+    function closeSubmitConfirmModal() {
+      document.getElementById('modal-submit-confirm').classList.add('hidden');
+    }
+
+    function executeFinalExamSubmit() {
+      closeSubmitConfirmModal();
+      clearInterval(examTimerInterval);
+
+      let correct = 0;
+      activeQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) correct++;
+      });
+      const score = Math.round((correct / activeQuestions.length) * 100);
+
+      const chTitle = currentExamChapter ? currentExamChapter.title : 'Latihan Mandiri';
+      const chId = currentExamChapter ? currentExamChapter.id : 'general';
+      const chBadge = currentExamChapter ? (currentExamChapter.number ? `Bab ${currentExamChapter.number}` : currentExamChapter.badge) : '';
+      const displaySubj = currentGradeData ? `${currentGradeData.gradeShort} - ${chBadge ? chBadge + ': ' : ''}${chTitle}` : chTitle;
+
+      const record = {
+        id: Date.now(),
+        timestamp: new Date().toLocaleString('id-ID'),
+        studentName: currentStudent ? currentStudent.name : 'Murid',
+        studentClass: currentGradeData ? currentGradeData.gradeName : 'Kelas',
+        gradeCode: currentStudent ? currentStudent.grade : '11',
+        chapterId: chId,
+        chapterTitle: chTitle,
+        displaySubject: displaySubj,
+        correctCount: correct,
+        totalQuestions: activeQuestions.length,
+        score: score,
+        passed: score >= 70
+      };
+
+      // Save to local storage database
+      try {
+        const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+        db.unshift(record);
+        localStorage.setItem(DB_KEY, JSON.stringify(db));
+      } catch (e) {}
+
+      // Post to Cloud Database (Google Sheets)
+      syncSubmissionToCloud(record);
+
+      // Show Results View
+      document.getElementById('res-student-name').textContent = record.studentName;
+      const resChEl = document.getElementById('res-chapter-title');
+      if (resChEl) resChEl.textContent = displaySubj;
+      document.getElementById('res-score-number').textContent = score;
+      document.getElementById('res-score-detail').textContent = `${correct} Benar dari ${activeQuestions.length} Soal (${score}/100)`;
+
+      if (score >= 70) {
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+      }
+
+      addStudentXP(50 + Math.round(score / 2), `Selesai Kuis ${score}/100`);
+      switchView('exam-result');
+    }
+
+    function shareScoreWhatsApp() {
+      const name = currentStudent ? currentStudent.name : 'Murid';
+      const grade = currentGradeData ? currentGradeData.gradeName : 'Kelas';
+      const chTitle = currentExamChapter ? currentExamChapter.title : 'Latihan Soal';
+      let correct = 0;
+      activeQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) correct++;
+      });
+      const score = Math.round((correct / activeQuestions.length) * 100);
+
+      const msg = `Halo Pak Guru, saya *${name}* (${grade}) telah menyelesaikan Latihan Soal Bab *${chTitle}* di *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari ${activeQuestions.length} Soal).`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // ----------------------------------------------------
+    // HISTORY TABLE (STUDENT VIEW)
+    // ----------------------------------------------------
+    function renderHistoryTable() {
+      const tbody = document.getElementById('history-tbody');
+      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
+      const list = db.filter(r => !myName || r.studentName.toLowerCase() === myName);
+
+      if (list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-slate-500 space-y-2">
+              <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
+              <p class="text-xs">Belum ada riwayat latihan untuk akun <strong>${currentStudent ? currentStudent.name : 'ini'}</strong>.</p>
+              <button onclick="switchView('exam-catalog')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition">
+                Mulai Latihan Sekarang <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      tbody.innerHTML = list.map(item => `
+        <tr class="hover:bg-dark-900 transition">
+          <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
+          <td class="py-2.5 px-3">
+            <div class="font-semibold text-white text-xs">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
+            <div class="text-[10px] text-slate-500">${item.studentClass}</div>
+          </td>
+          <td class="py-2.5 px-3 text-center text-slate-300 font-bold">${item.correctCount} / ${item.totalQuestions}</td>
+          <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono">${item.score}</td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.passed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
+              ${item.passed ? 'Tuntas' : 'Remedial'}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // ----------------------------------------------------
+    // TEACHER PIN & DASHBOARD (SANDI: 010822)
+    // ----------------------------------------------------
+    function promptTeacherPin() {
+      if (isTeacherUnlocked) {
+        switchView('teacher-dashboard');
+      } else {
+        document.getElementById('input-teacher-pin').value = '';
+        document.getElementById('pin-error-alert').classList.add('hidden');
+        document.getElementById('modal-teacher-pin').classList.remove('hidden');
+      }
+    }
+
+    function closeTeacherPinModal() {
+      document.getElementById('modal-teacher-pin').classList.add('hidden');
+    }
+
+    function handlePinVerify(e) {
+      e.preventDefault();
+      const pin = document.getElementById('input-teacher-pin').value.trim();
+      if (pin === TEACHER_PIN) {
+        isTeacherUnlocked = true;
+        closeTeacherPinModal();
+        document.getElementById('sb-teacher-label').textContent = 'Mode Guru (Aktif)';
+        document.getElementById('sb-teacher-icon').setAttribute('data-lucide', 'unlock');
+        lucide.createIcons();
+        switchView('teacher-dashboard');
+      } else {
+        document.getElementById('pin-error-alert').classList.remove('hidden');
+      }
+    }
+
+    // ----------------------------------------------------
+    // TEACHER DASHBOARD (DUAL-TAB & REALTIME CLOUD SYNC)
+    // ----------------------------------------------------
+    function switchTeacherTab(tabName) {
+      activeTeacherTab = tabName;
+      const btnStudents = document.getElementById('tab-btn-students');
+      const btnSubmissions = document.getElementById('tab-btn-submissions');
+      const secStudents = document.getElementById('teacher-tab-content-students');
+      const secSubmissions = document.getElementById('teacher-tab-content-submissions');
+
+      if (!btnStudents || !btnSubmissions) return;
+
+      if (tabName === 'students') {
+        btnStudents.className = "px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition";
+        btnSubmissions.className = "px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition";
+        secStudents.classList.remove('hidden');
+        secSubmissions.classList.add('hidden');
+      } else {
+        btnStudents.className = "px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition";
+        btnSubmissions.className = "px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition";
+        secStudents.classList.add('hidden');
+        secSubmissions.classList.remove('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    async function refreshTeacherData() {
+      const webhook = getActiveCloudWebhook();
+      const refreshIcon = document.getElementById('teacher-refresh-icon');
+      if (refreshIcon) refreshIcon.classList.add('animate-spin');
+
+      if (webhook) {
+        try {
+          const sep = webhook.includes('?') ? '&' : '?';
+          const res = await fetch(webhook + sep + 't=' + Date.now());
+          const json = await res.json();
+          if (json.status === 'success') {
+            cloudStudents = json.students || [];
+            cloudSubmissions = json.submissions || [];
+            if (json.sheetUrl) {
+              const sheetBtn = document.getElementById('btn-open-live-sheet');
+              if (sheetBtn) sheetBtn.href = json.sheetUrl;
+            }
+          }
+        } catch (e) {
+          console.warn('Could not fetch from cloud webhook:', e);
+        }
+      }
+
+      if (refreshIcon) {
+        setTimeout(() => refreshIcon.classList.remove('animate-spin'), 600);
+      }
+      renderTeacherDashboard();
+    }
+
+    function renderTeacherDashboard() {
+      const webhook = getActiveCloudWebhook();
+      const statusBadge = document.getElementById('teacher-cloud-status-badge');
+      const syncNotice = document.getElementById('teacher-sync-notice');
+
+      if (webhook) {
+        if (statusBadge) {
+          statusBadge.innerHTML = `<span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Cloud Aktif (Sinkron Real-time)</span>`;
+        }
+        if (syncNotice) {
+          syncNotice.innerHTML = `Terhubung ke Google Spreadsheet. Data murid dari semua perangkat otomatis masuk secara real-time.`;
+        }
+      } else {
+        if (statusBadge) {
+          statusBadge.innerHTML = `<span class="flex items-center gap-1.5 text-[10px] font-bold text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2.5 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Mode Offline (Perangkat Lokal)</span>`;
+        }
+        if (syncNotice) {
+          syncNotice.innerHTML = `Mode offline: Data di bawah adalah data dari HP/perangkat ini. <button onclick="openGoogleSheetModal()" class="text-emerald-400 underline font-bold hover:text-emerald-300">Hubungkan Google Sheets</button> agar akun &amp; nilai dari HP murid langsung masuk ke sini.`;
+        }
+      }
+
+      // Gather merged students and submissions
+      const localAccounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+      const localDb = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+
+      // Merge students
+      const mergedStudentsMap = new Map();
+      localAccounts.forEach(acc => {
+        mergedStudentsMap.set(acc.name.toLowerCase(), {
+          name: acc.name,
+          gradeName: (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[acc.grade]) ? window.ALL_GRADES_DATA[acc.grade].gradeName : `Kelas ${acc.grade}`,
+          grade: acc.grade,
+          school: acc.school || 'Sekolah',
+          lastActive: acc.lastActive || acc.registeredAt || 'Lokal'
+        });
+      });
+      cloudStudents.forEach(cs => {
+        mergedStudentsMap.set(cs.name.toLowerCase(), {
+          name: cs.name,
+          gradeName: cs.gradeName || `Kelas ${cs.grade}`,
+          grade: cs.grade || '',
+          school: cs.school || 'Sekolah',
+          lastActive: cs.lastLogin || cs.timestamp || '-'
+        });
+      });
+      const allStudentsList = Array.from(mergedStudentsMap.values());
+
+      // Merge submissions
+      const allSubmissionsList = [...cloudSubmissions];
+      localDb.forEach(localItem => {
+        const exists = allSubmissionsList.some(cs => 
+          cs.studentName.toLowerCase() === localItem.studentName.toLowerCase() && 
+          cs.timestamp === localItem.timestamp &&
+          cs.score === localItem.score
+        );
+        if (!exists) {
+          allSubmissionsList.push(localItem);
+        }
+      });
+      allSubmissionsList.sort((a, b) => (b.id || 0) - (a.id || 0));
+
+      // Calculate stats
+      const totalStudents = allStudentsList.length;
+      const totalSubmissions = allSubmissionsList.length;
+      const avgScore = totalSubmissions > 0 
+        ? Math.round(allSubmissionsList.reduce((acc, cur) => acc + (Number(cur.score) || 0), 0) / totalSubmissions) 
+        : 0;
+      const passedCount = allSubmissionsList.filter(s => s.passed || Number(s.score) >= 70).length;
+      const passRate = totalSubmissions > 0 ? Math.round((passedCount / totalSubmissions) * 100) : 0;
+
+      // Update stat cards
+      const statStu = document.getElementById('teacher-stat-students');
+      if (statStu) statStu.textContent = totalStudents;
+      const statSub = document.getElementById('teacher-stat-submissions');
+      if (statSub) statSub.textContent = totalSubmissions;
+      const statAvg = document.getElementById('teacher-stat-avg');
+      if (statAvg) statAvg.textContent = avgScore;
+      const statPass = document.getElementById('teacher-stat-pass');
+      if (statPass) statPass.textContent = `${passRate}%`;
+
+      const cntStu = document.getElementById('tab-count-students');
+      if (cntStu) cntStu.textContent = totalStudents;
+      const cntSub = document.getElementById('tab-count-submissions');
+      if (cntSub) cntSub.textContent = totalSubmissions;
+
+      // Render Tables
+      renderTeacherStudentsTable(allStudentsList, allSubmissionsList);
+      renderTeacherSubmissionsTable(allSubmissionsList);
+
+      lucide.createIcons();
+    }
+
+    function renderTeacherStudentsTable(studentsList, submissionsList) {
+      const tbody = document.getElementById('teacher-students-tbody');
+      if (!tbody) return;
+
+      if (!studentsList || studentsList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">
+          <i data-lucide="users" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
+          <p class="text-xs">Belum ada akun murid yang terdata.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Setelah murid login di HP mereka dan Google Sheets terhubung, nama mereka akan langsung muncul di sini.</p>
+        </td></tr>`;
+        lucide.createIcons();
+        return;
+      }
+
+      tbody.innerHTML = studentsList.map((st, i) => {
+        const mySubs = submissionsList.filter(s => s.studentName.toLowerCase() === st.name.toLowerCase());
+        const testCount = mySubs.length;
+        const avg = testCount > 0 ? Math.round(mySubs.reduce((a, b) => a + Number(b.score), 0) / testCount) : '-';
+
+        return `
+          <tr class="hover:bg-dark-900 transition">
+            <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
+            <td class="py-2.5 px-3 font-bold text-white flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-indigo-600/30 text-indigo-400 font-bold flex items-center justify-center text-[10px]">
+                ${st.name.charAt(0).toUpperCase()}
+              </span>
+              <span>${st.name}</span>
+            </td>
+            <td class="py-2.5 px-3 text-indigo-300 font-semibold">${st.gradeName}</td>
+            <td class="py-2.5 px-3 text-slate-400">${st.school}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${testCount > 0 ? 'bg-indigo-600/20 text-indigo-300' : 'bg-dark-800 text-slate-500'}">
+                ${testCount} Latihan
+              </span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-bold text-amber-400 font-mono">${avg}</td>
+            <td class="py-2.5 px-3 text-slate-400 text-[11px] font-mono">${st.lastActive}</td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function renderTeacherSubmissionsTable(submissionsList) {
+      const tbody = document.getElementById('teacher-tbody');
+      if (!tbody) return;
+
+      if (!submissionsList || submissionsList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">
+          <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
+          <p class="text-xs">Belum ada murid yang mengumpulkan latihan soal.</p>
+        </td></tr>`;
+        lucide.createIcons();
+        return;
+      }
+
+      tbody.innerHTML = submissionsList.map((item, i) => {
+        const isPassed = item.passed || Number(item.score) >= 70;
+        return `
+          <tr class="hover:bg-dark-900 transition">
+            <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
+            <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
+            <td class="py-2.5 px-3 font-bold text-white">${item.studentName}</td>
+            <td class="py-2.5 px-3">
+              <div class="text-xs font-semibold text-slate-200">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
+              <div class="text-[10px] text-slate-500">${item.studentClass}</div>
+            </td>
+            <td class="py-2.5 px-3 text-center text-slate-300 font-semibold">${item.correctCount} / ${item.totalQuestions}</td>
+            <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono text-sm">${item.score}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
+                ${isPassed ? 'Tuntas' : 'Remedial'}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function filterTeacherStudents() {
+      const q = (document.getElementById('teacher-student-search').value || '').toLowerCase();
+      const grade = document.getElementById('teacher-student-grade-filter').value;
+      const rows = document.querySelectorAll('#teacher-students-tbody tr');
+
+      rows.forEach(r => {
+        const text = r.innerText.toLowerCase();
+        const matchText = !q || text.includes(q);
+        const matchGrade = (grade === 'ALL') || text.includes(`kelas ${grade}`);
+        r.style.display = (matchText && matchGrade) ? '' : 'none';
+      });
+    }
+
+    function copyAppsScriptCode() {
+      const code = document.getElementById('apps-script-code-block').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('btn-copy-script');
+        btn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> Tersalin!`;
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = `<i data-lucide="copy" class="w-3 h-3"></i> Salin Kode`;
+          lucide.createIcons();
+        }, 2000);
+      });
+    }
+
+    function openGoogleSheetModal() {
+      document.getElementById('input-gsheet-url').value = getActiveCloudWebhook();
+      document.getElementById('gsheet-test-status').classList.add('hidden');
+      document.getElementById('modal-gsheets').classList.remove('hidden');
+    }
+
+    function closeGSheetsModal() {
+      document.getElementById('modal-gsheets').classList.add('hidden');
+    }
+
+    async function testAndSaveGSheetsUrl() {
+      const val = document.getElementById('input-gsheet-url').value.trim();
+      const statusEl = document.getElementById('gsheet-test-status');
+      const btn = document.getElementById('btn-save-webhook');
+
+      if (!val) {
+        localStorage.removeItem(GSHEET_KEY);
+        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = '';
+        closeGSheetsModal();
+        renderTeacherDashboard();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i> Menghubungkan...`;
+      lucide.createIcons();
+
+      try {
+        const sep = val.includes('?') ? '&' : '?';
+        const res = await fetch(val + sep + 't=' + Date.now());
+        const json = await res.json();
+        if (json.status === 'success') {
+          localStorage.setItem(GSHEET_KEY, val);
+          if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = val;
+          cloudStudents = json.students || [];
+          cloudSubmissions = json.submissions || [];
+          statusEl.className = "text-[11px] mt-1.5 font-semibold text-emerald-400 block";
+          statusEl.textContent = "✓ Terhubung! Berhasil memuat data dari Google Spreadsheet.";
+          setTimeout(() => {
+            closeGSheetsModal();
+            renderTeacherDashboard();
+          }, 800);
+        } else {
+          statusEl.className = "text-[11px] mt-1.5 font-semibold text-rose-400 block";
+          statusEl.textContent = "Gagal: Respons server tidak valid. Pastikan deployment berizin 'Anyone'.";
+        }
+      } catch (err) {
+        localStorage.setItem(GSHEET_KEY, val);
+        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = val;
+        statusEl.className = "text-[11px] mt-1.5 font-semibold text-emerald-400 block";
+        statusEl.textContent = "✓ Webhook disimpan! (Akan dicoba saat pengiriman data)";
+        setTimeout(() => {
+          closeGSheetsModal();
+          renderTeacherDashboard();
+        }, 1000);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> Simpan & Hubungkan`;
+        lucide.createIcons();
+      }
+    }
+
+    function clearGSheetsUrl() {
+      if (confirm('Kosongkan koneksi webhook Google Sheets?')) {
+        document.getElementById('input-gsheet-url').value = '';
+        localStorage.removeItem(GSHEET_KEY);
+        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = '';
+        cloudStudents = [];
+        cloudSubmissions = [];
+        closeGSheetsModal();
+        renderTeacherDashboard();
+      }
+    }
+
+    function exportTeacherCSV() {
+      const localDb = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+      const allSubmissions = [...cloudSubmissions];
+      localDb.forEach(localItem => {
+        if (!allSubmissions.some(s => s.studentName === localItem.studentName && s.timestamp === localItem.timestamp)) {
+          allSubmissions.push(localItem);
+        }
+      });
+
+      if (allSubmissions.length === 0) return alert('Belum ada data nilai latihan yang dapat diekspor.');
+      let csv = "No,Waktu,Nama Murid,Kelas,Materi Bab,Benar,Total Soal,Nilai,Status\n";
+      allSubmissions.forEach((item, i) => {
+        csv += `"${i+1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.displaySubject || item.chapterTitle || ''}","${item.correctCount}","${item.totalQuestions}","${item.score}","${item.passed ? 'TUNTAS':'REMEDIAL'}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Rekap_Nilai_TheArich_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    }
+
+    function clearDatabaseConfirm() {
+      if (confirm('Yakin ingin mereset data riwayat lokal pada perangkat ini? Data di Google Sheets cloud tidak akan terhapus.')) {
+        localStorage.removeItem(DB_KEY);
+        renderTeacherDashboard();
+      }
+    }
+
+    // ----------------------------------------------------
+    // KATEX & AUDIO
+    // ----------------------------------------------------
+    function triggerLatex(el) {
+      if (window.renderMathInElement) {
+        const target = el || document.getElementById('view-materi-detail') || document.getElementById('view-cheatsheet') || document.getElementById('matrix-result-content');
+        if (!target) return;
+        renderMathInElement(target, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'],
+          throwOnError: false,
+          strict: false
+        });
+      }
+    }
+
+    function playBeep(freq = 440, duration = 0.1) {
+      if (!isAudio) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function toggleAudioSFX() {
+      isAudio = !isAudio;
+      document.getElementById('sfx-label').textContent = isAudio ? 'SFX' : 'Mute';
+      document.getElementById('sfx-icon').setAttribute('data-lucide', isAudio ? 'volume-2' : 'volume-x');
+      lucide.createIcons();
+    }
+
+    // Touch swipe support for exam cards on mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const examCard = document.getElementById('exam-slide-card');
+    if (examCard) {
+      examCard.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+      examCard.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) slideExamNext();
+        if (touchEndX > touchStartX + 50) slideExamPrev();
+      }, {passive: true});
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initApp();
+    });
+  
+    // ========================================================
+    // 6. SUITE FITUR UNIK & LABORATORIUM MATEMATIKA INTERAKTIF
+    // ========================================================
+
+    // ----------------------------------------------------
+    // GAMIFIKASI XP & LEVEL BELAJAR
+    // ----------------------------------------------------
+    const XP_KEY = 'the_arich_user_xp';
+
+    function getStudentXP() {
+      try {
+        return parseInt(localStorage.getItem(XP_KEY) || '0', 10);
+      } catch (e) {
+        return 0;
+      }
+    }
+
+    function getStudentLevel(xp) {
+      if (xp >= 2000) return { level: 6, title: 'Dewa Matematika', icon: 'crown', nextXP: 5000, prevXP: 2000 };
+      if (xp >= 1000) return { level: 5, title: 'Master Kalkulus', icon: 'zap', nextXP: 2000, prevXP: 1000 };
+      if (xp >= 500)  return { level: 4, title: 'Penakluk Geometri', icon: 'compass', nextXP: 1000, prevXP: 500 };
+      if (xp >= 250)  return { level: 3, title: 'Ahli Aljabar', icon: 'sparkles', nextXP: 500, prevXP: 250 };
+      if (xp >= 100)  return { level: 2, title: 'Pembelajar Tekun', icon: 'book-open', nextXP: 250, prevXP: 100 };
+      return { level: 1, title: 'Penjelajah Pemula', icon: 'feather', nextXP: 100, prevXP: 0 };
+    }
+
+    function addStudentXP(amount, reason) {
+      try {
+        const cur = getStudentXP();
+        const next = cur + amount;
+        localStorage.setItem(XP_KEY, next.toString());
+        updateXPDisplay();
+
+        // Show toast
+        showXPToast(amount, reason);
+
+        // Check if level up
+        const oldLvl = getStudentLevel(cur);
+        const newLvl = getStudentLevel(next);
+        if (newLvl.level > oldLvl.level) {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 } });
+        }
+      } catch (e) {}
+    }
+
+    function showXPToast(amount, reason) {
+      let toast = document.getElementById('xp-toast-notify');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'xp-toast-notify';
+        toast.className = 'fixed bottom-20 right-4 z-50 bg-gradient-to-r from-amber-500 to-indigo-600 text-white font-bold text-xs px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-2 transform translate-y-2 opacity-0 transition-all duration-300 pointer-events-none border border-white/20';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-amber-200"></i><span>+${amount} XP (${reason})</span>`;
+      lucide.createIcons();
+      toast.classList.remove('translate-y-2', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+      }, 2500);
+    }
+
+    function updateXPDisplay() {
+      const xp = getStudentXP();
+      const lvl = getStudentLevel(xp);
+      const badge = document.getElementById('top-xp-text');
+      if (badge) {
+        badge.textContent = `${xp} XP • Lv ${lvl.level}`;
+      }
+    }
+
+    function showLevelDetailsModal() {
+      const xp = getStudentXP();
+      const lvl = getStudentLevel(xp);
+      document.getElementById('modal-lvl-title').textContent = `Level ${lvl.level}: ${lvl.title}`;
+      document.getElementById('modal-lvl-desc').textContent = `Total capaian belajarmu: ${xp} XP`;
+      document.getElementById('modal-lvl-xp-text').textContent = `${xp} / ${lvl.nextXP} XP`;
+      const pct = Math.min(100, Math.max(0, Math.round(((xp - lvl.prevXP) / (lvl.nextXP - lvl.prevXP)) * 100)));
+      document.getElementById('modal-lvl-progress-bar').style.width = `${pct}%`;
+      document.getElementById('modal-level-details').classList.remove('hidden');
+    }
+
+    function closeLevelDetailsModal() {
+      document.getElementById('modal-level-details').classList.add('hidden');
+    }
+
+    // ----------------------------------------------------
+    // GLOBAL SEARCH (CTRL + K)
+    // ----------------------------------------------------
+    let activeSearchCategory = 'all';
+
+    function openGlobalSearchModal() {
+      document.getElementById('modal-global-search').classList.remove('hidden');
+      const input = document.getElementById('input-global-search');
+      if (input) {
+        input.value = '';
+        input.focus();
+        performGlobalSearch('');
       }
     }
 
     function closeGlobalSearchModal() {
-      const modal = document.getElementById('modal-global-search');
-      if (modal) modal.classList.add('hidden');
+      document.getElementById('modal-global-search').classList.add('hidden');
     }
 
-    function quickFilterSearch(tag) {
-      const input = document.getElementById('input-global-search');
-      if (input) {
-        input.value = tag;
-        performGlobalSearch(tag);
-      }
+    function filterSearchCategory(cat) {
+      activeSearchCategory = cat;
+      document.querySelectorAll('.search-cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold shrink-0 search-cat-btn';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn';
+        }
+      });
+      const query = document.getElementById('input-global-search').value;
+      performGlobalSearch(query);
     }
 
     function performGlobalSearch(query) {
-      const resultsContainer = document.getElementById('search-results-list');
-      if (!resultsContainer) return;
+      const q = (query || '').toLowerCase().trim();
+      const list = document.getElementById('search-results-list');
+      if (!list || !window.ALL_GRADES_DATA) return;
 
-      const q = (query || '').trim().toLowerCase();
-      if (!q) {
-        resultsContainer.innerHTML = `
-          <div class="text-center py-8 text-slate-500 text-xs">
-            Ketik kata kunci untuk mencari bab, subtopik, rumus cepat, atau konsep lintas kelas 7-12...
-          </div>
-        `;
-        return;
-      }
+      const results = [];
+      const gradesToSearch = (activeSearchCategory === 'all') 
+        ? Object.keys(window.ALL_GRADES_DATA) 
+        : [activeSearchCategory];
 
-      let matches = [];
-      const studentGrade = currentStudent ? String(currentStudent.grade) : '11';
+      gradesToSearch.forEach(gId => {
+        const gradeObj = window.ALL_GRADES_DATA[gId];
+        if (!gradeObj || !gradeObj.chapters) return;
 
-      if (window.ALL_GRADES_DATA) {
-        Object.keys(window.ALL_GRADES_DATA).forEach(gradeKey => {
-          const gData = window.ALL_GRADES_DATA[gradeKey];
-          if (!gData || !gData.chapters) return;
+        gradeObj.chapters.forEach(ch => {
+          let score = 0;
+          let matchedSnippet = '';
 
-          gData.chapters.forEach(ch => {
-            let matchedInChapter = false;
-            let snippet = ch.summary || '';
+          // Match chapter title & summary
+          if (ch.title.toLowerCase().includes(q)) score += 10;
+          if (ch.summary && ch.summary.toLowerCase().includes(q)) {
+            score += 5;
+            matchedSnippet = ch.summary.substring(0, 110) + '...';
+          }
 
-            if (ch.title.toLowerCase().includes(q) || (ch.summary && ch.summary.toLowerCase().includes(q))) {
-              matchedInChapter = true;
-            }
+          // Match subtopics
+          if (ch.subtopics) {
+            ch.subtopics.forEach(sub => {
+              if (sub.title.toLowerCase().includes(q)) score += 8;
+              if (sub.quickTip && sub.quickTip.toLowerCase().includes(q)) {
+                score += 4;
+                if (!matchedSnippet) matchedSnippet = '💡 ' + sub.quickTip.substring(0, 100) + '...';
+              }
+              if (sub.concept && sub.concept.toLowerCase().includes(q)) {
+                score += 3;
+                if (!matchedSnippet) matchedSnippet = sub.concept.substring(0, 100) + '...';
+              }
+            });
+          }
 
-            if (ch.subtopics) {
-              ch.subtopics.forEach(sub => {
-                if (sub.title.toLowerCase().includes(q) || (sub.concept && sub.concept.toLowerCase().includes(q)) || (sub.quickTip && sub.quickTip.toLowerCase().includes(q))) {
-                  matchedInChapter = true;
-                  snippet = sub.title;
-                }
-              });
-            }
-
-            if (matchedInChapter) {
-              matches.push({
-                gradeId: gradeKey,
-                gradeName: gData.gradeName,
-                isMyGrade: (gradeKey === studentGrade),
-                chapterId: ch.id,
-                title: ch.title,
-                number: ch.number,
-                snippet: snippet
-              });
-            }
-          });
+          if (q === '' || score > 0) {
+            results.push({
+              gradeId: gId,
+              gradeName: gradeObj.gradeName,
+              chapterId: ch.id,
+              chapterNumber: ch.number || '01',
+              title: ch.title,
+              badge: ch.badge || gradeObj.gradeShort,
+              snippet: matchedSnippet || ch.summary || 'Klik untuk membuka modul bab ini.',
+              score
+            });
+          }
         });
-      }
+      });
 
-      if (matches.length === 0) {
-        resultsContainer.innerHTML = `
+      // Sort by score
+      results.sort((a, b) => b.score - a.score);
+
+      if (results.length === 0) {
+        list.innerHTML = `
           <div class="text-center py-8 text-slate-500 text-xs">
-            Tidak ditemukan materi dengan kata kunci "<strong class="text-slate-400">${q}</strong>". Coba kata kunci aljabar, matriks, turunan, pythagoras, dll.
+            Tidak ditemukan materi untuk kata kunci "${query}". Coba kata kunci lain (contoh: Pythagoras, Eksponen, Invers).
           </div>
         `;
         return;
       }
 
-      resultsContainer.innerHTML = matches.map(r => `
-        <div onclick="jumpToSearchTarget('${r.gradeId}', '${r.chapterId}')" class="p-3 rounded-xl bg-dark-900 hover:bg-dark-850 border border-slate-800 hover:border-indigo-500/50 cursor-pointer transition flex items-center justify-between gap-3 group">
-          <div class="space-y-0.5">
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${r.isMyGrade ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'}">${r.gradeName}${r.isMyGrade ? ' • Kelas Anda' : ''}</span>
-              <span class="text-xs font-bold text-white group-hover:text-indigo-300 transition">Bab ${r.number}: ${r.title}</span>
-            </div>
-            <p class="text-[11px] text-slate-400 line-clamp-1">${r.snippet}</p>
+      list.innerHTML = results.slice(0, 12).map(r => `
+        <div onclick="jumpToSearchTarget('${r.gradeId}', '${r.chapterId}')" class="p-3 rounded-xl bg-dark-900 border border-slate-800 hover:border-indigo-500 hover:bg-dark-850 cursor-pointer transition group">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="text-[10px] px-2 py-0.5 rounded font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/25">${r.gradeName}</span>
+            <span class="text-[10px] text-slate-500 font-mono">Bab ${r.chapterNumber}</span>
           </div>
-          <span class="text-xs text-slate-500 group-hover:text-white shrink-0 font-medium">Buka &rarr;</span>
+          <div class="text-xs font-bold text-white group-hover:text-indigo-300 transition">${r.title}</div>
+          <div class="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">${r.snippet}</div>
         </div>
       `).join('');
     }
 
     function jumpToSearchTarget(gradeId, chapterId) {
       closeGlobalSearchModal();
-      // Decoupled: opens chapter directly without mutating student registered grade!
       openChapterDetail(chapterId, gradeId);
+      addStudentXP(10, 'Pencarian Cepat');
     }
 
+    // Keyboard Shortcut Listener (Ctrl + K / Cmd + K)
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openGlobalSearchModal();
+      }
+      if (e.key === 'Escape') {
+        closeGlobalSearchModal();
+        closeLevelDetailsModal();
+      }
+    });
+
     // ----------------------------------------------------
-    // INTERACTIVE MATH LAB CONTROLLERS
+    // LABORATORIUM MATEMATIKA INTERAKTIF (MATH LAB)
     // ----------------------------------------------------
     function initMathLab() {
       switchMathLabTool('trig');
@@ -2796,7 +3814,7 @@ function doPost(e) {
             out.innerHTML = `
               <div class="space-y-2">
                 <div class="text-indigo-300 font-bold">Langkah Perhitungan Invers Matriks A (Ordo 2 &times; 2):</div>
-                <div class="text-xs text-slate-300">1. Hitung Determinan: $$\\det(A) = (${m.a11})(${m.a22}) - (${m.a12})(${m.a21}) = ${det}$$</div>
+                <div class="text-xs text-slate-300">1. Hitung Determinan: $$\det(A) = (${m.a11})(${m.a22}) - (${m.a12})(${m.a21}) = ${det}$$</div>
                 <div class="text-xs text-slate-300">2. Gunakan Rumus Adjoin Ordo 2x2: $$A^{-1} = \\frac{1}{\\det(A)} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$</div>
                 <div>$$A^{-1} = \\frac{1}{${det}} \\begin{pmatrix} ${m.a22} & ${-m.a12} \\\\ ${-m.a21} & ${m.a11} \\end{pmatrix} = \\begin{pmatrix} ${i11} & ${i12} \\\\ ${i21} & ${i22} \\end{pmatrix}$$</div>
               </div>
@@ -2895,7 +3913,7 @@ function doPost(e) {
             out.innerHTML = `
               <div class="space-y-2.5">
                 <div class="text-indigo-300 font-bold text-sm">Langkah Lengkap Invers Matriks A (Ordo 3 &times; 3):</div>
-                <div class="text-xs text-slate-300">1. Determinan Matriks A: $$\\det(A) = ${det3}$$</div>
+                <div class="text-xs text-slate-300">1. Determinan Matriks A: $$\det(A) = ${det3}$$</div>
                 <div class="text-xs text-slate-300">2. Matriks Adjoin $\\text{Adj}(A) = \\text{Cof}(A)^T$:
                   $$\\text{Adj}(A) = \\begin{pmatrix} ${c11} & ${c21} & ${c31} \\\\ ${c12} & ${c22} & ${c32} \\\\ ${c13} & ${c23} & ${c33} \\end{pmatrix}$$
                 </div>
@@ -3022,9 +4040,6 @@ function doPost(e) {
       lucide.createIcons();
     }
 
-    // ----------------------------------------------------
-    // FORMULA CHEAT SHEETS (CLEAN KATEX DOUBLE-ESCAPED)
-    // ----------------------------------------------------
     const CHEAT_SHEETS_DATA = [
       {
         title: 'Aljabar & Persamaan Kuadrat',
@@ -3128,14 +4143,7 @@ function doPost(e) {
 
       lucide.createIcons();
       if (window.renderMathInElement) {
-        renderMathInElement(container, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false,
-          strict: false
-        });
+        renderMathInElement(container, { delimiters: [{ left: '$$', right: '$$', display: true }] });
       }
     }
 
@@ -3169,7 +4177,7 @@ function doPost(e) {
       <div class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-dark-900 border border-slate-700 focus-within:border-indigo-500 transition">
         <i data-lucide="search" class="w-4 h-4 text-indigo-400 shrink-0"></i>
         <input type="text" id="input-global-search" oninput="performGlobalSearch(this.value)" placeholder="Ketik materi, konsep, atau nama bab yang ingin dicari..." class="w-full bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none">
-        <button onclick="document.getElementById('input-global-search').value=''; performGlobalSearch('');" class="text-slate-500 hover:text-slate-300 text-xs">Bersihkan</button>
+        <button onclick="document.getElementById('input-global-search').value=''; performGlobalSearch('');" class="text-slate-500 hover:text-slate-300 text-xs font-semibold">Bersihkan</button>
       </div>
 
       <!-- Quick Category Chips -->
