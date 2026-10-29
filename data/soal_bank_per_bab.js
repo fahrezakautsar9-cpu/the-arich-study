@@ -6345,6 +6345,370 @@ window.SOAL_BANK_PER_BAB = {
     "hint": "Komponen gerak tegak lurus independen: waktu menyeberang hanya ditentukan oleh lebar sungai dan kecepatan perahu tegak lurus.",
     "explanation": "Waktu tempuh ditentukan oleh arah tegak lurus arus: $t = \\frac{d}{v_{\\text{perahu}}} = \\frac{80\\text{ m}}{4\\text{ m/s}} = 20\\text{ sekon}$. Pergeseran hilir akibat aliran arus: $x_{\\text{hilir}} = v_{\\text{arus}} \\times t = 3\\text{ m/s} \\times 20\\text{ s} = 60\\text{ meter}$."
   }
+],
+  "k11-fisika-kinematika": [
+  {
+    "id": 1,
+    "prompt": "Sebuah partikel bergerak pada bidang datar dengan persamaan vektor posisi $$\\vec{r}(t) = (3t^2 + 2)\\hat{i} + (4t - 5)\\hat{j}$$ dalam satuan meter ($t$ dalam sekon). Besar kecepatan partikel pada saat $t = 2\\text{ sekon}$ adalah...",
+    "options": [
+      "$12\\text{ m/s}$",
+      "$4\\sqrt{10}\\text{ m/s}$",
+      "$16\\text{ m/s}$",
+      "$10\\text{ m/s}$",
+      "$8\\sqrt{5}\\text{ m/s}$"
+    ],
+    "correct": 1,
+    "hint": "Turunkan persamaan posisi terhadap waktu untuk mendapatkan $v_x$ dan $v_y$, lalu hitung modulus $|\\vec{v}| = \\sqrt{v_x^2 + v_y^2}$.",
+    "explanation": "$$v_x(t) = \\frac{d}{dt}(3t^2 + 2) = 6t \\implies v_x(2) = 12\\text{ m/s}$$\n$$v_y(t) = \\frac{d}{dt}(4t - 5) = 4\\text{ m/s}$$\n$$|\\vec{v}| = \\sqrt{12^2 + 4^2} = \\sqrt{144 + 16} = \\sqrt{160} = 4\\sqrt{10}\\text{ m/s}$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Sebuah peluru ditembakkan dari tanah datar dengan kecepatan awal $v_0 = 50\\text{ m/s}$ dan sudut elevasi $30^\\circ$ terhadap bidang mendatar ($g = 10\\text{ m/s}^2$). Jarak jangkauan mendatar terjauh ($X_{\\max}$) yang dicapai peluru adalah...",
+    "options": [
+      "$125\\text{ m}$",
+      "$125\\sqrt{3}\\text{ m}$",
+      "$250\\text{ m}$",
+      "$250\\sqrt{3}\\text{ m}$",
+      "$62{,}5\\sqrt{3}\\text{ m}$"
+    ],
+    "correct": 1,
+    "hint": "Gunakan rumus jangkauan terjauh gerak parabola: $X_{\\max} = \\frac{v_0^2 \\sin 2\\theta}{g}$.",
+    "explanation": "$$X_{\\max} = \\frac{v_0^2 \\sin(2 \\times 30^\\circ)}{g} = \\frac{50^2 \\sin 60^\\circ}{10} = \\frac{2500 \\times \\frac{1}{2}\\sqrt{3}}{10} = 125\\sqrt{3}\\text{ meter}$$."
+  },
+  {
+    "id": 3,
+    "prompt": "Sebuah benda diikat pada tali sepanjang $R = 0{,}5\\text{ m}$ dan diputar horizontal dengan frekuensi konstan $f = 4\\text{ Hz}$. Percepatan sentripetal yang dialami benda tersebut adalah...",
+    "options": [
+      "$16\\pi^2\\text{ m/s}^2$",
+      "$32\\pi^2\\text{ m/s}^2$",
+      "$64\\pi^2\\text{ m/s}^2$",
+      "$8\\pi^2\\text{ m/s}^2$",
+      "$4\\pi^2\\text{ m/s}^2$"
+    ],
+    "correct": 1,
+    "hint": "Kecepatan sudut $\\omega = 2\\pi f$, lalu percepatan sentripetal $a_s = \\omega^2 R$.",
+    "explanation": "$$\\omega = 2\\pi(4) = 8\\pi\\text{ rad/s}$$\n$$a_s = \\omega^2 R = (8\\pi)^2 (0{,}5) = 64\\pi^2 \\times 0{,}5 = 32\\pi^2\\text{ m/s}^2$$."
+  }
+],
+  "k11-fisika-dinamika-newton": [
+  {
+    "id": 1,
+    "prompt": "Balok bermassa $m = 4\\text{ kg}$ ditarik dengan gaya horizontal $F = 20\\text{ N}$ di atas lantai kasar ($\\mu_s = 0{,}4; \\mu_k = 0{,}2; g = 10\\text{ m/s}^2$). Percepatan yang dialami balok tersebut adalah...",
+    "options": [
+      "$0\\text{ m/s}^2$ (balok diam)",
+      "$1\\text{ m/s}^2$",
+      "$2\\text{ m/s}^2$",
+      "$3\\text{ m/s}^2$",
+      "$5\\text{ m/s}^2$"
+    ],
+    "correct": 3,
+    "hint": "Cek gaya gesek statis maksimum $f_{s,\\max} = \\mu_s mg$. Jika $F > f_{s,\\max}$, benda bergerak dengan gaya gesek kinetik $f_k = \\mu_k mg$.",
+    "explanation": "$$N = mg = 4(10) = 40\\text{ N}$$\n$$f_{s,\\max} = 0{,}4 \\times 40 = 16\\text{ N}$$\nKarena $F = 20\\text{ N} > 16\\text{ N}$, balok bergerak.\n$$f_k = \\mu_k N = 0{,}2 \\times 40 = 8\\text{ N}$$\n$$a = \\frac{F - f_k}{m} = \\frac{20 - 8}{4} = \\frac{12}{4} = 3\\text{ m/s}^2$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Dua buah benda bermassa $m_1 = 3\\text{ kg}$ dan $m_2 = 5\\text{ kg}$ dihubungkan dengan tali melalui katrol licin tanpa gesekan ($g = 10\\text{ m/s}^2$). Percepatan gerak kedua beban adalah...",
+    "options": [
+      "$1{,}5\\text{ m/s}^2$",
+      "$2{,}0\\text{ m/s}^2$",
+      "$2{,}5\\text{ m/s}^2$",
+      "$3{,}0\\text{ m/s}^2$",
+      "$4{,}0\\text{ m/s}^2$"
+    ],
+    "correct": 2,
+    "hint": "Gunakan rumus pesawat Atwood: $a = \\frac{m_2 - m_1}{m_1 + m_2} g$.",
+    "explanation": "$$a = \\frac{5 - 3}{5 + 3} \\times 10 = \\frac{2}{8} \\times 10 = 2{,}5\\text{ m/s}^2$$."
+  }
+],
+  "k11-fisika-usaha-energi-momentum": [
+  {
+    "id": 1,
+    "prompt": "Sebuah mobil bermassa $1000\\text{ kg}$ dipercepat oleh mesinnya dari kelajuan $10\\text{ m/s}$ hingga mencapai kelajuan $30\\text{ m/s}$. Usaha total yang dilakukan mesin mobil tersebut adalah...",
+    "options": [
+      "$200\\text{ kJ}$",
+      "$300\\text{ kJ}$",
+      "$400\\text{ kJ}$",
+      "$500\\text{ kJ}$",
+      "$800\\text{ kJ}$"
+    ],
+    "correct": 2,
+    "hint": "Gunakan Teorema Usaha-Energi Kinetik: $W = \\Delta E_k = \\frac{1}{2}m(v_2^2 - v_1^2)$.",
+    "explanation": "$$W = \\frac{1}{2}(1000)(30^2 - 10^2) = 500(900 - 100) = 500(800) = 400.000\\text{ Joule} = 400\\text{ kJ}$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Peluru bermassa $20\\text{ gram} = 0{,}02\\text{ kg}$ ditembakkan horizontal dengan kecepatan $400\\text{ m/s}$ ke arah balok kayu bermassa $1{,}98\\text{ kg}$ yang mula-mula diam. Jika peluru bersarang di dalam balok (tumbukan tidak lenting sama sekali), kecepatan balok bersama peluru sesaat setelah tumbukan adalah...",
+    "options": [
+      "$2\\text{ m/s}$",
+      "$4\\text{ m/s}$",
+      "$5\\text{ m/s}$",
+      "$8\\text{ m/s}$",
+      "$10\\text{ m/s}$"
+    ],
+    "correct": 1,
+    "hint": "Hukum kekekalan momentum untuk tumbukan tidak lenting sama sekali: $m_1 v_1 + m_2 v_2 = (m_1 + m_2) v'$.",
+    "explanation": "$$v' = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2} = \\frac{(0{,}02)(400) + 0}{0{,}02 + 1{,}98} = \\frac{8}{2} = 4\\text{ m/s}$$."
+  }
+],
+  "k11-fisika-dinamika-rotasi": [
+  {
+    "id": 1,
+    "prompt": "Sebuah silinder pejal ($I = \\frac{1}{2}MR^2$) bermassa $4\\text{ kg}$ dan jari-jari $0{,}2\\text{ m}$ menggelinding murni tanpa selip menuruni bidang miring dengan sudut kemiringan $\\theta = 30^\\circ$ ($g = 10\\text{ m/s}^2$). Percepatan linier silinder pejal tersebut adalah...",
+    "options": [
+      "$2{,}50\\text{ m/s}^2$",
+      "$3{,}33\\text{ m/s}^2$",
+      "$5{,}00\\text{ m/s}^2$",
+      "$6{,}67\\text{ m/s}^2$",
+      "$10{,}0\\text{ m/s}^2$"
+    ],
+    "correct": 1,
+    "hint": "Gunakan rumus percepatan menggelinding murni: $a = \\frac{g\\sin\\theta}{1 + k}$ dengan $k = 1/2$.",
+    "explanation": "$$a = \\frac{10 \\sin 30^\\circ}{1 + 0{,}5} = \\frac{10(0{,}5)}{1{,}5} = \\frac{5}{1{,}5} = \\frac{10}{3} \\approx 3{,}33\\text{ m/s}^2$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Sebuah tangga homogen bersandar pada dinding vertikal licin dan lantai horizontal kasar dengan koefisien gesek statis $\\mu_s = 0{,}25$. Besar $\\tan\\theta$ sudut kemiringan minimum terhadap lantai agar tangga tepat tidak tergelincir adalah...",
+    "options": [
+      "$1$",
+      "$1{,}5$",
+      "$2$",
+      "$2{,}5$",
+      "$4$"
+    ],
+    "correct": 2,
+    "hint": "Rumus cepat kemiringan tangga pada dinding licin: $\\tan\\theta = \\frac{1}{2\\mu_s}$.",
+    "explanation": "$$\\tan\\theta = \\frac{1}{2(0{,}25)} = \\frac{1}{0{,}5} = 2$$."
+  }
+],
+  "k11-fisika-fluida": [
+  {
+    "id": 1,
+    "prompt": "Sebongkah es dengan massa jenis $\\rho_{\\text{es}} = 0{,}9\\text{ g/cm}^3$ terapung di dalam air bersuhu $4^\\circ\\text{C}$ ($\\rho_{\\text{air}} = 1{,}0\\text{ g/cm}^3$). Persentase volume es yang mencuat di atas permukaan air adalah...",
+    "options": [
+      "$5\\%$",
+      "$10\\%$",
+      "$15\\%$",
+      "$90\\%$",
+      "$80\\%$"
+    ],
+    "correct": 1,
+    "hint": "Persentase volume es tercelup $= \\frac{\\rho_{\\text{es}}}{\\rho_{\\text{air}}} \\times 100\\%$. Sisanya mencuat di atas air.",
+    "explanation": "$$\\text{Bagian tercelup} = \\frac{0{,}9}{1{,}0} \\times 100\\% = 90\\%$$\nMaka bagian es yang mencuat di atas permukaan air $= 100\\% - 90\\% = 10\\%$."
+  },
+  {
+    "id": 2,
+    "prompt": "Sebuah bejana air terbuka yang besar memiliki lubang kebocoran kecil pada dindingnya pada kedalaman $h = 5\\text{ meter}$ di bawah permukaan air bebas ($g = 10\\text{ m/s}^2$). Kelajuan semburan air yang memancar dari lubang tersebut adalah...",
+    "options": [
+      "$5\\text{ m/s}$",
+      "$10\\text{ m/s}$",
+      "$15\\text{ m/s}$",
+      "$20\\text{ m/s}$",
+      "$25\\text{ m/s}$"
+    ],
+    "correct": 1,
+    "hint": "Gunakan Teorema Torricelli: $v = \\sqrt{2gh}$.",
+    "explanation": "$$v = \\sqrt{2gh} = \\sqrt{2(10)(5)} = \\sqrt{100} = 10\\text{ m/s}$$."
+  }
+],
+  "k11-fisika-gelombang-bunyi-cahaya": [
+  {
+    "id": 1,
+    "prompt": "Sebuah sumber bunyi menghasilkan taraf intensitas sebesar $70\\text{ dB}$. Jika terdapat 100 buah sumber bunyi yang identik dibunyikan secara bersamaan, taraf intensitas total yang didengar adalah...",
+    "options": [
+      "$72\\text{ dB}$",
+      "$80\\text{ dB}$",
+      "$90\\text{ dB}$",
+      "$170\\text{ dB}$",
+      "$700\\text{ dB}$"
+    ],
+    "correct": 2,
+    "hint": "Gunakan rumus pengali sumber bunyi: $TI_n = TI_1 + 10\\log n$.",
+    "explanation": "$$TI_{100} = 70 + 10\\log(100) = 70 + 10(2) = 70 + 20 = 90\\text{ dB}$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Berkas cahaya monokromatik dengan panjang gelombang $\\lambda = 500\\text{ nm} = 5 \\times 10^{-7}\\text{ m}$ dijatuhkan tegak lurus pada kisi difraksi yang memiliki $500\\text{ garis/mm}$. Sudut deviasi terbentuknya garis terang orde kedua ($n = 2$) adalah...",
+    "options": [
+      "$15^\\circ$",
+      "$30^\\circ$",
+      "$45^\\circ$",
+      "$60^\\circ$",
+      "$90^\\circ$"
+    ],
+    "correct": 1,
+    "hint": "Tetapan kisi $d = \\frac{1}{N}$. Rumus difraksi kisi terang: $d\\sin\\theta = n\\lambda$.",
+    "explanation": "$$d = \\frac{1}{500\\text{ garis/mm}} = 2 \\times 10^{-3}\\text{ mm} = 2 \\times 10^{-6}\\text{ m}$$\n$$d \\sin\\theta = n \\lambda \\implies (2 \\times 10^{-6})\\sin\\theta = 2(5 \\times 10^{-7}) = 10^{-6}$$\n$$\\sin\\theta = \\frac{10^{-6}}{2 \\times 10^{-6}} = 0{,}5 \\implies \\theta = 30^\\circ$$."
+  }
+],
+  "k11-fisika-termodinamika": [
+  {
+    "id": 1,
+    "prompt": "Sebuah mesin kalor Carnot menyerap kalor sebesar $Q_H = 1000\\text{ Joule}$ dari reservoir panas bersuhu $500\\text{ K}$ dan membuang sisa kalor ke reservoir dingin bersuhu $300\\text{ K}$. Efisiensi termal mesin dan usaha yang dihasilkan mesin tersebut berturut-turut adalah...",
+    "options": [
+      "$20\\%$ dan $200\\text{ J}$",
+      "$40\\%$ dan $400\\text{ J}$",
+      "$60\\%$ dan $600\\text{ J}$",
+      "$40\\%$ dan $600\\text{ J}$",
+      "$50\\%$ dan $500\\text{ J}$"
+    ],
+    "correct": 1,
+    "hint": "Efisiensi mesin Carnot: $\\eta = 1 - \\frac{T_C}{T_H}$. Usaha $W = \\eta \\times Q_H$.",
+    "explanation": "$$\\eta = 1 - \\frac{300}{500} = 1 - 0{,}60 = 0{,}40 = 40\\%$$\n$$W = \\eta \\times Q_H = 0{,}40 \\times 1000 = 400\\text{ Joule}$$."
+  }
+],
+  "k12-fisika-listrik-statis": [
+  {
+    "id": 1,
+    "prompt": "Dua muatan titik $+q_1 = 4\\,\\mu\\text{C}$ dan $+q_2 = 16\\,\\mu\\text{C}$ berada terpisah pada jarak $30\\text{ cm}$. Letak titik di antara kedua muatan yang memiliki kuat medan listrik total sama dengan nol adalah...",
+    "options": [
+      "$5\\text{ cm}$ dari $q_1$",
+      "$10\\text{ cm}$ dari $q_1$",
+      "$15\\text{ cm}$ dari $q_1$",
+      "$20\\text{ cm}$ dari $q_1$",
+      "$25\\text{ cm}$ dari $q_1$"
+    ],
+    "correct": 1,
+    "hint": "Syarat medan nol: $E_1 = E_2 \\implies \\frac{r_1}{r_2} = \\sqrt{\\frac{q_1}{q_2}}$.",
+    "explanation": "$$\\frac{r_1}{r_2} = \\sqrt{\\frac{4}{16}} = \\frac{2}{4} = \\frac{1}{2}$$\n$$r_1 = \\frac{1}{1 + 2} \\times 30\\text{ cm} = 10\\text{ cm}$ dari $q_1$."
+  },
+  {
+    "id": 2,
+    "prompt": "Dua buah kapasitor masing-masing memiliki kapasitas $C_1 = 3\\,\\mu\\text{F}$ dan $C_2 = 6\\,\\mu\\text{F}$ dirangkai secara seri lalu dihubungkan dengan sumber tegangan $12\\text{ Volt}$. Muatan listrik total yang tersimpan dalam rangkaian tersebut adalah...",
+    "options": [
+      "$18\\,\\mu\\text{C}$",
+      "$24\\,\\mu\\text{C}$",
+      "$36\\,\\mu\\text{C}$",
+      "$72\\,\\mu\\text{C}$",
+      "$108\\,\\mu\\text{C}$"
+    ],
+    "correct": 1,
+    "hint": "Hitung kapasitas ekuivalen seri $C_s = \\frac{C_1 C_2}{C_1 + C_2}$, lalu hitung $Q = C_s V$.",
+    "explanation": "$$C_s = \\frac{3 \\times 6}{3 + 6} = \\frac{18}{9} = 2\\,\\mu\\text{F}$$\n$$Q = C_s \\times V = 2\\,\\mu\\text{F} \\times 12\\text{ V} = 24\\,\\mu\\text{C}$$."
+  }
+],
+  "k12-fisika-listrik-dinamis": [
+  {
+    "id": 1,
+    "prompt": "Sebuah kawat penghantar silindris memiliki hambatan awal $R = 5\\,\\Omega$. Kawat tersebut kemudian ditarik secara homogen hingga panjangnya menjadi 3 kali panjang semula tanpa mengubah massa jenis dan volumenya. Hambatan kawat setelah ditarik adalah...",
+    "options": [
+      "$15\\,\\Omega$",
+      "$25\\,\\Omega$",
+      "$30\\,\\Omega$",
+      "$45\\,\\Omega$",
+      "$75\\,\\Omega$"
+    ],
+    "correct": 3,
+    "hint": "Jika kawat ditarik $n$ kali panjang semula dengan volume konstan, hambatannya menjadi $R' = n^2 R$.",
+    "explanation": "$$R' = n^2 R = (3)^2 \\times 5 = 9 \\times 5 = 45\\,\\Omega$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Rangkaian listrik tertutup 1 loop terdiri dari dua sumber tegangan $\\mathcal{E}_1 = 18\\text{ V}$ dan $\\mathcal{E}_2 = 6\\text{ V}$ yang dipasang saling berlawanan arah kutub, serta tiga buah resistor seri $R_1 = 2\\,\\Omega, R_2 = 3\\,\\Omega, R_3 = 1\\,\\Omega$. Kuat arus yang mengalir pada rangkaian tersebut adalah...",
+    "options": [
+      "$1\\text{ A}$",
+      "$2\\text{ A}$",
+      "$3\\text{ A}$",
+      "$4\\text{ A}$",
+      "$6\\text{ A}$"
+    ],
+    "correct": 1,
+    "hint": "Gunakan Hukum II Kirchhoff: $I = \\frac{\\Sigma\\mathcal{E}}{\\Sigma R}$.",
+    "explanation": "$$I = \\frac{18 - 6}{2 + 3 + 1} = \\frac{12}{6} = 2\\text{ Ampere}$$."
+  }
+],
+  "k12-fisika-medan-magnet-induksi": [
+  {
+    "id": 1,
+    "prompt": "Sebuah proton bermuatan $q = 1{,}6 \\times 10^{-19}\\text{ C}$ bergerak dengan kecepatan konstan $v = 2 \\times 10^6\\text{ m/s}$ memasuki medan magnetik homogen $B = 0{,}5\\text{ Tesla}$ secara tegak lurus ($90^\\circ$). Besar gaya Lorentz yang dialami proton tersebut adalah...",
+    "options": [
+      "$0{,}8 \\times 10^{-13}\\text{ N}$",
+      "$1{,}6 \\times 10^{-13}\\text{ N}$",
+      "$3{,}2 \\times 10^{-13}\\text{ N}$",
+      "$6{,}4 \\times 10^{-13}\\text{ N}$",
+      "$1{,}6 \\times 10^{-19}\\text{ N}$"
+    ],
+    "correct": 1,
+    "hint": "Gunakan rumus gaya Lorentz pada muatan: $F = q v B \\sin\\theta$.",
+    "explanation": "$$F = (1{,}6 \\times 10^{-19})(2 \\times 10^6)(0{,}5) \\sin 90^\\circ = 1{,}6 \\times 10^{-13}\\text{ Newton}$$."
+  },
+  {
+    "id": 2,
+    "prompt": "Sebuah transformator ideal memiliki 1000 lilitan pada kumparan primer dan 200 lilitan pada kumparan sekunder. Jika kumparan primer dihubungkan dengan tegangan bolak-balik $220\\text{ Volt}$, tegangan yang keluar pada kumparan sekunder adalah...",
+    "options": [
+      "$22\\text{ V}$",
+      "$44\\text{ V}$",
+      "$88\\text{ V}$",
+      "$110\\text{ V}$",
+      "$1100\\text{ V}$"
+    ],
+    "correct": 1,
+    "hint": "Rumus transformator ideal: $\\frac{V_s}{V_p} = \\frac{N_s}{N_p}$.",
+    "explanation": "$$V_s = V_p \\left(\\frac{N_s}{N_p}\\right) = 220 \\left(\\frac{200}{1000}\\right) = 220 \\times 0{,}2 = 44\\text{ Volt}$$."
+  }
+],
+  "k12-fisika-arus-bolak-balik": [
+  {
+    "id": 1,
+    "prompt": "Rangkaian RLC seri terdiri dari resistor $R = 30\\,\\Omega$, induktor ber-reaktansi $X_L = 80\\,\\Omega$, dan kapasitor ber-reaktansi $X_C = 40\\,\\Omega$. Jika rangkaian dihubungkan ke sumber tegangan efektif $100\\text{ Volt}$, besar impedansi total ($Z$) dan arus efektif ($I_{\\text{ef}}$) rangkaian adalah...",
+    "options": [
+      "$50\\,\\Omega$ dan $2\\text{ A}$",
+      "$70\\,\\Omega$ dan $1{,}4\\text{ A}$",
+      "$50\\,\\Omega$ dan $0{,}5\\text{ A}$",
+      "$150\\,\\Omega$ dan $0{,}67\\text{ A}$",
+      "$40\\,\\Omega$ dan $2{,}5\\text{ A}$"
+    ],
+    "correct": 0,
+    "hint": "Impedansi $Z = \\sqrt{R^2 + (X_L - X_C)^2}$ dan arus efektif $I_{\\text{ef}} = \\frac{V_{\\text{ef}}}{Z}$.",
+    "explanation": "$$Z = \\sqrt{30^2 + (80 - 40)^2} = \\sqrt{900 + 1600} = \\sqrt{2500} = 50\\,\\Omega$$\n$$I_{\\text{ef}} = \\frac{100\\text{ V}}{50\\,\\Omega} = 2\\text{ Ampere}$$."
+  }
+],
+  "k12-fisika-relativitas-khusus": [
+  {
+    "id": 1,
+    "prompt": "Sebuah pesawat antariksa memiliki panjang diam $L_0 = 100\\text{ meter}$ ketika diukur di stasiun peluncuran. Saat pesawat melintas dengan laju $v = 0{,}8c$, panjang pesawat yang terukur oleh pengamat diam di bumi adalah...",
+    "options": [
+      "$36\\text{ m}$",
+      "$60\\text{ m}$",
+      "$80\\text{ m}$",
+      "$100\\text{ m}$",
+      "$125\\text{ m}$"
+    ],
+    "correct": 1,
+    "hint": "Gunakan rumus kontraksi panjang Lorentz: $L = L_0 \\sqrt{1 - \\frac{v^2}{c^2}}$.",
+    "explanation": "$$L = 100\\sqrt{1 - (0{,}8)^2} = 100\\sqrt{1 - 0{,}64} = 100\\sqrt{0{,}36} = 100 \\times 0{,}6 = 60\\text{ meter}$$."
+  }
+],
+  "k12-fisika-kuantum": [
+  {
+    "id": 1,
+    "prompt": "Sebuah permukaan logam memiliki fungsi kerja $W_0 = 2{,}0\\text{ eV}$. Logam tersebut disinari oleh seberkas foton monokromatik yang memiliki energi $E = 3{,}5\\text{ eV}$. Besar energi kinetik maksimum fotoelektron yang terlepas dari permukaan logam adalah...",
+    "options": [
+      "$0{,}5\\text{ eV}$",
+      "$1{,}5\\text{ eV}$",
+      "$2{,}0\\text{ eV}$",
+      "$3{,}5\\text{ eV}$",
+      "$5{,}5\\text{ eV}$"
+    ],
+    "correct": 1,
+    "hint": "Persamaan efek fotolistrik Einstein: $E_{\\text{foton}} = W_0 + E_{k,\\max}$.",
+    "explanation": "$$E_{k,\\max} = E_{\\text{foton}} - W_0 = 3{,}5\\text{ eV} - 2{,}0\\text{ eV} = 1{,}5\\text{ eV}$$."
+  }
+],
+  "k12-fisika-inti-radioaktivitas": [
+  {
+    "id": 1,
+    "prompt": "Suatu isotop radioaktif memiliki waktu paruh $T_{1/2} = 4\\text{ hari}$. Jika pada keadaan awal massa sampel isotop tersebut adalah $80\\text{ gram}$, massa isotop yang tersisa setelah meluruh selama 12 hari adalah...",
+    "options": [
+      "$5\\text{ gram}$",
+      "$10\\text{ gram}$",
+      "$20\\text{ gram}$",
+      "$40\\text{ gram}$",
+      "$60\\text{ gram}$"
+    ],
+    "correct": 1,
+    "hint": "Jumlah waktu paruh yang terlewati $n = \\frac{t}{T_{1/2}} = \\frac{12}{4} = 3$. Sisa zat $N = N_0 \\left(\\frac{1}{2}\\right)^n$.",
+    "explanation": "$$N = 80 \\times \\left(\\frac{1}{2}\\right)^3 = 80 \\times \\frac{1}{8} = 10\\text{ gram}$$."
+  }
 ]
 };
 

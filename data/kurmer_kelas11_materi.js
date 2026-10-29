@@ -1,16 +1,7 @@
 /**
- * KURIKULUM MERDEKA MATEMATIKA KELAS 11 (FASE F)
+ * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS 11 (FASE F)
  * Data Modul Lengkap: Rangkuman Teori, Rumus Sakti Kilat, dan Pembahasan Soal Terbimbing
  * Disusun untuk Platform Pembelajaran Digital The Arich Study
- *
- * Cakupan Bab (7 Bab Lengkap):
- * 1. Komposisi Fungsi dan Fungsi Invers
- * 2. Geometri Analitik Lingkaran & Garis Singgung
- * 3. Aljabar Matriks & Sistem Persamaan Linear
- * 4. Transformasi Geometri Berbasis Matriks
- * 5. Barisan dan Deret Aritmetika & Geometri
- * 6. Bunga Majemuk dan Anuitas (Matematika Keuangan)
- * 7. Teori Polinomial & Persamaan Aljabar
  */
 
 const KURMER_KELAS11_DATA = [
@@ -45,7 +36,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "💡 **Trik Invers Ruas (Pindah Sisi):**\\nUntuk memindahkan fungsi dari satu sisi tanda sama dengan ke sisi lainnya, gunakan operasi invers:\\n$$f(g(x)) = h(x) \\implies g(x) = f^{-1}(h(x))$$\\nJika di soal ulangan ditanyakan $f(5)$ sementara persamaannya $f(2x - 1) = x^2 + 7$, jangan repot mencari rumus umum $f(x)$! Cukup samakan bagian dalam kurung: $2x - 1 = 5 \\implies 2x = 6 \\implies x = 3$. Lalu langsung masukkan $x = 3$: $f(5) = 3^2 + 7 = 16$!",
         "exampleProblem": "**Soal:** Diketahui rumus fungsi $g(x) = 2x - 1$ dan fungsi komposisi $(f \\circ g)(x) = 4x^2 - 10x + 9$.\na) Tentukan rumus fungsi tunggal $f(x)$\nb) Tentukan nilai dari $f(5)$\n\n**Langkah Pembahasan:**\n1. **Langkah Pemisalan Variabel Boneka:**\n   Misalkan $u = g(x) = 2x - 1$.\n   Nyatakan $x$ dalam fungsi variabel $u$:\n   $$u + 1 = 2x \\implies x = \\frac{u + 1}{2}$$\n\n2. **Substitusi ke Komposisi $(f \\circ g)(x)$:**\n   $$f(g(x)) = 4x^2 - 10x + 9$$\n   $$f(u) = 4\\left(\\frac{u + 1}{2}\\right)^2 - 10\\left(\\frac{u + 1}{2}\\right) + 9$$\n   Sederhanakan kuadrat pecahan:\n   $$f(u) = 4 \\cdot \\frac{u^2 + 2u + 1}{4} - 5(u + 1) + 9$$\n   $$f(u) = (u^2 + 2u + 1) - 5u - 5 + 9$$\n   $$f(u) = u^2 - 3u + 5$$\n\n3. **Ganti Kembali Variabel $u$ Menjadi $x$:**\n   $$f(x) = x^2 - 3x + 5$$\n\n4. **Menghitung Nilai $f(5)$:**\n   Substitusikan $x = 5$:\n   $$f(5) = 5^2 - 3(5) + 5 = 25 - 15 + 5 = 15$$"
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "lingkaran",
@@ -78,7 +70,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "💡 **Trik 'Dua Garis Kembar Sejajar':** Ingat bahwa jawaban akhir dari soal gradien lingkaran selalu menghasilkan DUA garis singgung yang dipisahkan oleh tanda $\\pm r\\sqrt{1+m^2}$. Jika Anda hanya menuliskan satu garis, jawaban Anda baru bernilai separuh!",
         "exampleProblem": "**Soal:** Tentukan persamaan garis singgung pada lingkaran $x^2 + y^2 = 20$ yang tegak lurus terhadap garis $2x - y + 5 = 0$!\n\n**Langkah Pembahasan:**\n1. **Mencari Gradien Garis Singgung ($m$):**\n   Persamaan garis: $2x - y + 5 = 0 \\implies y = 2x + 5$, sehingga gradiennya $m_{\\text{garis}} = 2$.\n   Karena garis singgung tegak lurus terhadap garis ini:\n   $$m \\cdot m_{\\text{garis}} = -1 \\implies m \\cdot 2 = -1 \\implies m = -\\frac{1}{2}$$\n\n2. **Identifikasi Data Lingkaran:**\n   Pusat di $(0,0)$ dan $r^2 = 20 \\implies r = \\sqrt{20} = 2\\sqrt{5}$.\n\n3. **Substitusi ke Rumus Garis Singgung Gradien $m$:**\n   $$y = mx \\pm r\\sqrt{1 + m^2}$$\n   $$y = -\\frac{1}{2}x \\pm 2\\sqrt{5}\\sqrt{1 + \\left(-\\frac{1}{2}\\right)^2}$$\n   $$y = -\\frac{1}{2}x \\pm 2\\sqrt{5}\\sqrt{1 + \\frac{1}{4}} = -\\frac{1}{2}x \\pm 2\\sqrt{5}\\sqrt{\\frac{5}{4}}$$\n   $$y = -\\frac{1}{2}x \\pm 2\\sqrt{5} \\cdot \\frac{\\sqrt{5}}{2} = -\\frac{1}{2}x \\pm 5$$\n\n4. **Kalikan Seluruh Ruas dengan 2:**\n   $$2y = -x \\pm 10 \\implies x + 2y \\pm 10 = 0$$\n   Diperoleh dua persamaan garis singgung:\n   $$g_1 \\equiv x + 2y + 10 = 0 \\quad \\text{dan} \\quad g_2 \\equiv x + 2y - 10 = 0$$"
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "matriks",
@@ -111,7 +104,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "💡 **Trik 'Cari yang Ditanya Saja':** Keunggulan utama Aturan Cramer dibanding eliminasi bertingkat adalah: jika soal ujian hanya menanyakan nilai SATU variabel (misalnya hanya $z$), Anda tidak perlu mencari $x$ dan $y$ sama sekali! Cukup hitung $D$ dan $D_z$, lalu langsung bagi $z = \\frac{D_z}{D}$. Menghemat 60% waktu ujian!",
         "exampleProblem": "**Soal:** Tentukan nilai $z$ dari sistem persamaan linear berikut menggunakan Aturan Cramer:\n$$\\begin{cases} x + 2y - z = 2 \\\\ 2x - y + z = 7 \\\\ 3x + y + 2z = 13 \\end{cases}$$\n\n**Langkah Pembahasan:**\n1. **Menghitung Determinan Utama $D$:**\n   $$D = \\begin{vmatrix} 1 & 2 & -1 \\\\ 2 & -1 & 1 \\\\ 3 & 1 & 2 \\end{vmatrix}$$\n   Gunakan aturan Sarrus:\n   $$\\text{Jumlah Silang Kanan} = (1)(-1)(2) + (2)(1)(3) + (-1)(2)(1) = -2 + 6 - 2 = 2$$\n   $$\\text{Jumlah Silang Kiri} = (3)(-1)(-1) + (1)(1)(1) + (2)(2)(2) = 3 + 1 + 8 = 12$$\n   $$D = 2 - 12 = -10$$\n\n2. **Menghitung Determinan $D_z$ (Ganti Kolom $z$ dengan Konstanta $\\begin{pmatrix} 2 \\\\ 7 \\\\ 13 \\end{pmatrix}$):**\n   $$D_z = \\begin{vmatrix} 1 & 2 & 2 \\\\ 2 & -1 & 7 \\\\ 3 & 1 & 13 \\end{vmatrix}$$\n   Gunakan aturan Sarrus:\n   $$\\text{Jumlah Silang Kanan} = (1)(-1)(13) + (2)(7)(3) + (2)(2)(1) = -13 + 42 + 4 = 33$$\n   $$\\text{Jumlah Silang Kiri} = (3)(-1)(2) + (1)(7)(1) + (13)(2)(2) = -6 + 7 + 52 = 53$$\n   $$D_z = 33 - 53 = -20$$\n\n3. **Hitung Nilai $z$:**\n   $$z = \\frac{D_z}{D} = \\frac{-20}{-10} = 2$$"
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "transformasi",
@@ -144,7 +138,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "💡 **Trik 'Luas Cukup Kalikan Determinan':** Jika soal menanyakan luas segitiga bayangan setelah transformasi matriks, JANGAN MENCARI titik sudut bayangannya satu per satu! Cukup hitung luas segitiga mula-mula, lalu kalikan langsung dengan $|\\det(M)|$. Sangat cepat dan presisi!",
         "exampleProblem": "**Soal:** Sebuah segitiga memiliki luas awal $24\\text{ cm}^2$. Segitiga tersebut ditransformasikan oleh matriks $M_1 = \\begin{pmatrix} 2 & 1 \\\\ 4 & 5 \\end{pmatrix}$, lalu dilanjutkan dengan transformasi oleh matriks $M_2 = \\begin{pmatrix} 3 & -1 \\\\ 1 & 2 \\end{pmatrix}$. Tentukan luas segitiga bayangan akhir!\n\n**Langkah Pembahasan:**\n1. **Menghitung Determinan Matriks Pertama ($M_1$):**\n   $$\\det(M_1) = (2)(5) - (1)(4) = 10 - 4 = 6$$\n\n2. **Menghitung Determinan Matriks Kedua ($M_2$):**\n   $$\\det(M_2) = (3)(2) - (-1)(1) = 6 - (-1) = 7$$\n\n3. **Menghitung Determinan Matriks Komposisi $M = M_2 \\cdot M_1$:**\n   Berdasarkan sifat determinan:\n   $$\\det(M) = \\det(M_2) \\cdot \\det(M_1) = 7 \\cdot 6 = 42$$\n\n4. **Menghitung Luas Bayangan Akhir:**\n   $$L' = |\\det(M)| \\times L_{\\text{awal}} = |42| \\times 24 = 1.008\\text{ cm}^2$$"
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "barisan",
@@ -177,7 +172,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "⚡ **Trik Pola Kuadrat Instan:**\nJika suku-suku barisan adalah $2, 5, 10, 17, 26, \\dots$, perhatikan bahwa nilainya adalah $1^2+1, 2^2+1, 3^2+1, 4^2+1$. Maka rumusnya langsung $U_n = n^2 + 1$!",
         "exampleProblem": "**Soal:** Tentukan rumus suku ke-$n$ dari barisan bilangan bertingkat: $3, 8, 15, 24, 35, \\dots$ dan hitunglah nilai dari suku ke-$12$ ($U_{12}$)!\n\n**Langkah Pembahasan:**\n1. **Analisis Selisih:**\n   - Barisan asli: $3, \\quad 8, \\quad 15, \\quad 24, \\quad 35$\n   - Selisih tingkat 1: $+5, \\quad +7, \\quad +9, \\quad +11$\n   - Selisih tingkat 2: $+2, \\quad +2, \\quad +2$ (Konstan tetap 2!)\n\n2. **Menentukan Koefisien $a, b, c$:**\n   - $2a = 2 \\implies a = 1$\n   - $3a + b = 5 \\implies 3(1) + b = 5 \\implies b = 2$\n   - $a + b + c = 3 \\implies 1 + 2 + c = 3 \\implies c = 0$\n\n3. **Rumus Suku ke-$n$ dan $U_{12}$:**\n   $$U_n = 1n^2 + 2n + 0 = n^2 + 2n = n(n + 2)$$\n   Untuk $n = 12$:\n   $$U_{12} = 12^2 + 2(12) = 144 + 24 = 168$$"
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "bunga-anuitas",
@@ -210,7 +206,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "⚡ **Trik Kilat Mencari Sisa Utang:**\nJika pada soal ujian ditanyakan sisa pinjaman pada akhir tahun ke-3 ($S_3$) dan diketahui beban bunga tahun ke-4 adalah $b_4$, JANGAN MENGHITUNG tabel dari awal! Cukup bagi beban bunga ke-4 dengan suku bunga $i$:\n$$S_3 = \\frac{b_4}{i}$$",
         "exampleProblem": "**Soal:**\nSuatu pinjaman sebesar Rp10.000.000,00 dengan suku bunga majemuk $4\\%$ per periode dilunasi menggunakan anuitas sebesar Rp2.754.900,00 selama 4 periode. Buatlah analisis tabel amortisasi untuk periode ke-1 dan ke-2!\n\n**Langkah Pembahasan:**\n1. **Analisis Periode ke-1:**\n   - Sisa Utang Awal $S_0 = \\text{Rp}10.000.000$\n   - Bunga ke-1: $b_1 = 10.000.000 \\times 4\\% = \\text{Rp}400.000$\n   - Angsuran ke-1: $a_1 = 2.754.900 - 400.000 = \\text{Rp}2.354.900$\n   - Sisa Utang Akhir $S_1 = 10.000.000 - 2.354.900 = \\text{Rp}7.645.100$\n\n2. **Analisis Periode ke-2:**\n   - Sisa Utang Awal $S_1 = \\text{Rp}7.645.100$\n   - Bunga ke-2: $b_2 = 7.645.100 \\times 4\\% = \\text{Rp}305.804$\n   - Angsuran ke-2: $a_2 = 2.754.900 - 305.804 = \\text{Rp}2.449.096$\n     *(Atau cek: $a_2 = a_1 \\times 1{,}04 = 2.354.900 \\times 1{,}04 = 2.449.096$)*\n   - Sisa Utang Akhir $S_2 = 7.645.100 - 2.449.096 = \\text{Rp}5.196.004$"
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "polinomial",
@@ -243,7 +240,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "💡 **Trik 'Irama Tanda Selang-Seling Vieta':**\\nTanda rumus Vieta selalu bergantian secara berirama dimulai dari MINUS, PLUS, MINUS, PLUS:\\n$$-\\frac{b}{a}, \\quad +\\frac{c}{a}, \\quad -\\frac{d}{a}, \\quad +\\frac{e}{a}, \\dots$$\\nSemua rumus di atas selalu membagi koefisien dengan koefisien utama $a$!",
         "exampleProblem": "**Soal:** Diketahui persamaan polinomial kubik $x^3 - 6x^2 + 11x - 6 = 0$ memiliki akar-akar $x_1, x_2$, dan $x_3$.\na) Tentukan jumlah seluruh akar ($x_1 + x_2 + x_3$) dan hasil kali seluruh akar ($x_1 x_2 x_3$)!\nb) Hitung nilai dari $x_1^2 + x_2^2 + x_3^2$!\nc) Tentukan ketiga nilai akar tersebut melalui faktorisasi!\n\n**Langkah Pembahasan:**\n1. **Identifikasi Koefisien:**\n   $a = 1, b = -6, c = 11, d = -6$.\n\n2. **Menghitung Nilai dengan Teorema Vieta:**\n   - Jumlah seluruh akar:\n     $$x_1 + x_2 + x_3 = -\\frac{b}{a} = -\\frac{-6}{1} = 6$$\n   - Jumlah hasil kali dua akar:\n     $$x_1 x_2 + x_1 x_3 + x_2 x_3 = \\frac{c}{a} = \\frac{11}{1} = 11$$\n   - Hasil kali seluruh akar:\n     $$x_1 x_2 x_3 = -\\frac{d}{a} = -\\frac{-6}{1} = 6$$\n\n3. **Menghitung Jumlah Kuadrat Akar-Akar:**\n   $$x_1^2 + x_2^2 + x_3^2 = (x_1 + x_2 + x_3)^2 - 2(x_1 x_2 + x_1 x_3 + x_2 x_3)$$\n   $$= (6)^2 - 2(11) = 36 - 22 = 14$$\n\n4. **Faktorisasi Persamaan:**\n   Uji calon akar dari faktor konstanta $-6$ (yakni $\\pm 1, \\pm 2, \\pm 3, \\pm 6$):\n   - Uji $x = 1$: $1^3 - 6(1)^2 + 11(1) - 6 = 1 - 6 + 11 - 6 = 0$ (Cocok, $x = 1$ adalah akar).\n   - Bagi $x^3 - 6x^2 + 11x - 6$ dengan $(x - 1)$ via Horner menghasilkan faktor kuadrat $x^2 - 5x + 6$.\n   - Faktorkan kuadrat: $x^2 - 5x + 6 = (x - 2)(x - 3)$.\n   Faktorisasi lengkap:\n   $$(x - 1)(x - 2)(x - 3) = 0$$\n   Sehingga ketiga akar-akarnya berturut-turut adalah $x_1 = 1$, $x_2 = 2$, dan $x_3 = 3$."
       }
-    ]
+    ],
+    "subject": "Matematika"
   },
   {
     "id": "persamaan-trigonometri",
@@ -276,16 +274,175 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "💡 **Trik 'Cek Kuadran dari Titik $(a, b)$':** Ingatlah selalu bahwa koefisien kosinus adalah koordinat absis $x$ ($a$), dan koefisien sinus adalah ordinat $y$ ($b$). Jadi letak kuadran sudut $\\alpha$ ditentukan oleh titik $(a, b)$!",
         "exampleProblem": "**Soal:** Tentukan himpunan penyelesaian dari $\\cos x + \\sqrt{3}\\sin x = 1$ untuk interval $0^\\circ \\le x \\le 360^\\circ$!\n\n**Langkah Pembahasan:**\n1. **Identifikasi Koefisien:**\n   $a = 1, b = \\sqrt{3}, c = 1$.\n\n2. **Hitung Nilai $k$ dan $\\alpha$:**\n   - $k = \\sqrt{1^2 + (\\sqrt{3})^2} = \\sqrt{1 + 3} = \\sqrt{4} = 2$.\n   - $\\tan \\alpha = \\frac{b}{a} = \\frac{\\sqrt{3}}{1} = \\sqrt{3}$. Karena $a > 0$ dan $b > 0$, maka $\\alpha$ berada di Kuadran I $\\implies \\alpha = 60^\\circ$.\n\n3. **Ubah Persamaan:**\n   $$2 \\cos(x - 60^\\circ) = 1 \\implies \\cos(x - 60^\\circ) = \\frac{1}{2} = \\cos 60^\\circ$$\n\n4. **Selesaikan Nilai $x$:**\n   - Cabang 1: $x - 60^\\circ = 60^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ$\n   - Cabang 2: $x - 60^\\circ = -60^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ \\text{ atau } 360^\\circ$\n\n5. **Kesimpulan:**\n   $$HP = \\{0^\\circ, 120^\\circ, 360^\\circ\\}$$"
       }
+    ],
+    "subject": "Matematika"
+  },
+  {
+    "id": "k11-fisika-kinematika",
+    "number": "01",
+    "badge": "Fisika • Bab 01",
+    "subject": "Fisika",
+    "title": "Fisika Bab 1: Kinematika Vektor Gerak Lurus, Parabola & Melingkar",
+    "summary": "Analisis gerak partikel secara matematis menggunakan kalkulus diferensial-integral: GLB, GLBB, lintasan parabola 2 dimensi, serta kinematika gerak melingkar beraturan.",
+    "subtopics": [
+      {
+        "title": "1. Posisi, Kecepatan & Percepatan Vektor (Analisis Kalkulus)",
+        "concept": "Posisi partikel dinyatakan dalam vektor posisi $$\\vec{r}(t) = x(t)\\hat{i} + y(t)\\hat{j}$$. Kecepatan sesaat adalah turunan pertama posisi terhadap waktu: $$\\vec{v}(t) = \\frac{d\\vec{r}}{dt}$$. Percepatan sesaat adalah turunan kedua posisi atau turunan pertama kecepatan: $$\\vec{a}(t) = \\frac{d\\vec{v}}{dt} = \\frac{d^2\\vec{r}}{dt^2}$$. Sebaliknya, kecepatan dan posisi diperoleh melalui integrasi: $$\\vec{v}(t) = \\vec{v}_0 + \\int \\vec{a}(t)\\,dt$$ dan $$\\vec{r}(t) = \\vec{r}_0 + \\int \\vec{v}(t)\\,dt$$.",
+        "quickTip": "TKB Turunan & Integral: Pangkat dikali ke depan lalu kurangi 1 untuk mencari Kecepatan dari Posisi ($v = \\frac{dr}{dt}$). Integralkan dan bagi pangkat baru ($r = \\int v\\,dt$) jika ingin mencari Posisi dari Kecepatan!",
+        "example": "Sebuah partikel bergerak pada bidang XY dengan posisi $$\\vec{r}(t) = (3t^2 + 2)\\hat{i} + (4t - 5)\\hat{j}$$ (satuan meter, $t$ dalam sekon). Tentukan besar kecepatan partikel saat $t = 2\\text{ s}$!<br><strong>Solusi:</strong><br>Turunkan posisi terhadap waktu:<br>$$v_x(t) = \\frac{d}{dt}(3t^2 + 2) = 6t \\implies v_x(2) = 6(2) = 12\\text{ m/s}$$<br>$$v_y(t) = \\frac{d}{dt}(4t - 5) = 4 \\implies v_y(2) = 4\\text{ m/s}$$<br>Besar kecepatan total:<br>$$|\\vec{v}| = \\sqrt{v_x^2 + v_y^2} = \\sqrt{12^2 + 4^2} = \\sqrt{144 + 16} = \\sqrt{160} = 4\\sqrt{10}\\text{ m/s}$$."
+      },
+      {
+        "title": "2. Gerak Parabola (Gerak Peluru 2 Dimensi)",
+        "concept": "Gerak parabola merupakan perpaduan dua gerak independen yang saling tegak lurus: Gerak Lurus Beraturan (GLB) pada sumbu-X dan Gerak Lurus Berubah Beraturan (GLBB) diperlambat gravitasi pada sumbu-Y.<br>Persamaan kecepatan:<br>$$v_x = v_0\\cos\\theta, \\quad v_y = v_0\\sin\\theta - gt$$<br>Titik puncak ($v_y = 0$):<br>Waktu puncak: $$t_p = \\frac{v_0\\sin\\theta}{g}$$<br>Tinggi maksimum: $$H_{\\max} = \\frac{v_0^2\\sin^2\\theta}{2g}$$<br>Jarak jangkauan terjauh di tanah ($y = 0$): $$X_{\\max} = \\frac{v_0^2\\sin 2\\theta}{g}$$.",
+        "quickTip": "TKB Sudut Jangkauan Terjauh: Jarak tembak $X_{\\max}$ akan maksimum jika sudut elevasi $\\theta = 45^\\circ$ karena $\\sin(2 \\times 45^\\circ) = \\sin 90^\\circ = 1$. Dua sudut elevasi yang saling berkomplemen ($\\theta_1 + \\theta_2 = 90^\\circ$) menghasilkan jangkauan mendatar $X_{\\max}$ yang sama persis!",
+        "example": "Sebuah peluru ditembakkan dengan kecepatan awal $v_0 = 50\\text{ m/s}$ pada sudut elevasi $30^\\circ$ ($g = 10\\text{ m/s}^2$). Tentukan tinggi maksimum dan jarak mendatar terjauh peluru!<br><strong>Solusi:</strong><br>$$H_{\\max} = \\frac{v_0^2\\sin^2 30^\\circ}{2g} = \\frac{2500 \\times (0{,}5)^2}{2(10)} = \\frac{2500 \\times 0{,}25}{20} = \\frac{625}{20} = 31{,}25\\text{ meter}$$<br>$$X_{\\max} = \\frac{v_0^2\\sin 60^\\circ}{g} = \\frac{2500 \\times \\frac{1}{2}\\sqrt{3}}{10} = 125\\sqrt{3}\\text{ meter}$$."
+      },
+      {
+        "title": "3. Kinematika Gerak Melingkar Beraturan (GMB) & Percepatan Sentripetal",
+        "concept": "Pada Gerak Melingkar Beraturan (GMB), laju linier $v$ konstan, namun arah kecepatan selalu berubah secara kontinu menyinggung lintasan. Kecepatan sudut: $$\\omega = \\frac{2\\pi}{T} = 2\\pi f$$. Hubungan linier dan angular: $$v = \\omega R$$.<br>Perubahan arah kecepatan menghasilkan <strong>Percepatan Sentripetal</strong> yang selalu mengarah ke pusat lingkaran:<br>$$a_s = \\frac{v^2}{R} = \\omega^2 R$$.",
+        "quickTip": "TKB Roda Terhubung: Roda seporos memiliki $\\omega_A = \\omega_B$. Roda bersinggungan atau dihubungkan sabuk rantai memiliki kelajuan linier sama: $v_A = v_B \\implies \\omega_A R_A = \\omega_B R_B$!",
+        "example": "Sebuah benda bermassa $2\\text{ kg}$ diikat tali sepanjang $R = 0{,}5\\text{ m}$ dan diputar horizontal dengan frekuensi $4\\text{ Hz}$. Hitung kecepatan sudut dan percepatan sentripetal benda!<br><strong>Solusi:</strong><br>$$\\omega = 2\\pi f = 2\\pi(4) = 8\\pi\\text{ rad/s}$$<br>$$a_s = \\omega^2 R = (8\\pi)^2(0{,}5) = 64\\pi^2(0{,}5) = 32\\pi^2\\text{ m/s}^2$$."
+      }
+    ]
+  },
+  {
+    "id": "k11-fisika-dinamika-newton",
+    "number": "02",
+    "badge": "Fisika • Bab 02",
+    "subject": "Fisika",
+    "title": "Fisika Bab 2: Dinamika Gerak Partikel & Aplikasi Hukum Newton",
+    "summary": "Penerapan Hukum I, II, dan III Newton pada berbagai sistem mekanika: gaya gesekan statis-kinetis, dinamika bidang miring, sistem katrol ganda, dan gaya sentripetal.",
+    "subtopics": [
+      {
+        "title": "1. Hukum-Hukum Newton tentang Gerak & Diagram Bebas Gaya (FBD)",
+        "concept": "Hukum I Newton (Inersia): $$\\Sigma \\vec{F} = 0 \\iff \\vec{v} = \\text{konstan}$$.<br>Hukum II Newton (Percepatan): $$\\Sigma \\vec{F} = m\\vec{a}$$.<br>Hukum III Newton (Aksi-Reaksi): $$\\vec{F}_{AB} = -\\vec{F}_{BA}$$. Pasangan aksi-reaksi bekerja pada dua benda berbeda, segaris, berlawanan arah, dan bernilai sama.<br>Kunci menyelesaikan soal dinamika adalah menggambar <em>Free Body Diagram (FBD)</em>: gaya berat $w = mg$ ke bawah, gaya normal $N$ tegak lurus permukaan sentuh, tegangan tali $T$, dan gaya gesekan $f$.",
+        "quickTip": "TKB Gaya Gesekan: Hitung gaya gesek statis maksimum $f_{s,\\max} = \\mu_s N$. Jika gaya tarik $F \\le f_{s,\\max}$, benda diam ($a = 0$) dan gaya gesek $f = F$. Jika $F > f_{s,\\max}$, benda bergerak dengan gaya gesek kinetis $f_k = \\mu_k N$!",
+        "example": "Balok bermassa $m = 4\\text{ kg}$ berada di atas lantai kasar ($\\mu_s = 0{,}4; \\mu_k = 0{,}2; g = 10\\text{ m/s}^2$). Diberi gaya tarik horizontal $F = 20\\text{ N}$. Tentukan percepatan balok!<br><strong>Solusi:</strong><br>Gaya normal $N = mg = 4(10) = 40\\text{ N}$.<br>Gaya gesek statis maksimum: $f_{s,\\max} = \\mu_s N = 0{,}4(40) = 16\\text{ N}$.<br>Karena $F = 20\\text{ N} > f_{s,\\max} = 16\\text{ N}$, balok bergerak!<br>Gaya gesek kinetis yang bekerja: $f_k = \\mu_k N = 0{,}2(40) = 8\\text{ N}$.<br>Berdasarkan Hukum II Newton:<br>$$a = \\frac{F - f_k}{m} = \\frac{20 - 8}{4} = \\frac{12}{4} = 3\\text{ m/s}^2$$."
+      },
+      {
+        "title": "2. Aplikasi Dinamika Bidang Miring & Sistem Katrol",
+        "concept": "Pada bidang miring bersudut kemiringan $\\theta$:<br>Komponen berat sejajar bidang: $w_x = mg\\sin\\theta$.<br>Komponen berat tegak lurus bidang: $w_y = mg\\cos\\theta \\implies N = mg\\cos\\theta$.<br>Percepatan luncur balok tanpa gesekan: $$a = g\\sin\\theta$$. Jika ada gesekan: $$a = g(\\sin\\theta - \\mu_k\\cos\\theta)$$.<br>Pada pesawat Atwood (dua massa $m_1 < m_2$ digantung pada katrol licin tak bermassa):<br>$$a = \\frac{m_2 - m_1}{m_1 + m_2} g, \\quad T = \\frac{2 m_1 m_2}{m_1 + m_2} g$$.",
+        "quickTip": "TKB Rumus Cepat Katrol: Percepatan sistem katrol selalu sama dengan Selisih Massa dibagi Jumlah Total Massa dikali Gravitasi: $a = \\frac{\\Sigma F_{\\text{penggerak}}}{m_{\\text{total}}} = \\frac{\\Delta m}{\\Sigma m} g$!",
+        "example": "Dua balok $m_1 = 3\\text{ kg}$ dan $m_2 = 5\\text{ kg}$ dihubungkan tali melalui katrol licin ($g = 10\\text{ m/s}^2$). Tentukan percepatan sistem dan tegangan tali!<br><strong>Solusi:</strong><br>$$a = \\frac{m_2 - m_1}{m_1 + m_2} g = \\frac{5 - 3}{5 + 3}(10) = \\frac{2}{8}(10) = 2{,}5\\text{ m/s}^2$$<br>Tegangan tali:<br>$$T = \\frac{2(3)(5)}{3 + 5}(10) = \\frac{300}{8} = 37{,}5\\text{ N}$$."
+      }
+    ]
+  },
+  {
+    "id": "k11-fisika-usaha-energi-momentum",
+    "number": "03",
+    "badge": "Fisika • Bab 03",
+    "subject": "Fisika",
+    "title": "Fisika Bab 3: Usaha, Energi Mekanik, Impuls & Kekekalan Momentum",
+    "summary": "Teorema usaha-energi kinetik, hukum kekekalan energi mekanik, impuls tumbukan, dan hukum kekekalan momentum linear untuk berbagai jenis tumbukan.",
+    "subtopics": [
+      {
+        "title": "1. Usaha & Teorema Usaha-Energi",
+        "concept": "Usaha oleh gaya konstan yang membentuk sudut $\\theta$ terhadap perpindahan $s$:<br>$$W = \\vec{F} \\cdot \\vec{s} = F s \\cos\\theta$$<br>Jika gaya berubah-ubah, usaha adalah luas daerah di bawah kurva grafik $F - s$: $$W = \\int_{s_1}^{s_2} F(s)\\,ds$$.<br><strong>Teorema Usaha-Energi Kinetik:</strong> Usaha total oleh seluruh gaya luar sama dengan perubahan energi kinetik benda:<br>$$W_{\\text{net}} = \\Delta E_k = \\frac{1}{2}m v_2^2 - \\frac{1}{2}m v_1^2$$.",
+        "quickTip": "TKB Tanda Usaha: Gaya searah perpindahan menghasilkan usaha positif ($W > 0$). Gaya berlawanan arah perpindahan (seperti gaya gesek) menghasilkan usaha negatif ($W < 0$). Gaya tegak lurus perpindahan (seperti gaya normal dan sentripetal) tidak melakukan usaha ($W = 0$)!",
+        "example": "Mobil bermassa $1000\\text{ kg}$ melaju dari kecepatan $10\\text{ m/s}$ hingga $30\\text{ m/s}$. Tentukan usaha total yang dilakukan oleh mesin mobil!<br><strong>Solusi:</strong><br>$$W = \\frac{1}{2} m (v_2^2 - v_1^2) = \\frac{1}{2}(1000)(30^2 - 10^2) = 500(900 - 100) = 500(800) = 400.000\\text{ Joule} = 400\\text{ kJ}$$."
+      },
+      {
+        "title": "2. Kekekalan Energi Mekanik & Hukum Kekekalan Momentum",
+        "concept": "Pada sistem medan gaya konservatif (seperti gravitasi dan gaya pegas elastis):<br>$$E_{m1} = E_{m2} \\implies E_{k1} + E_{p1} = E_{k2} + E_{p2}$$<br>dengan $E_p = mgh$ atau $E_{p,\\text{pegas}} = \\frac{1}{2}kx^2$.<br><strong>Hukum Kekekalan Momentum Linear:</strong> Jika resultan gaya luar yang bekerja pada sistem sama dengan nol ($\\Sigma \\vec{F}_{\\text{ext}} = 0$):<br>$$m_1 v_1 + m_2 v_2 = m_1 v_1' + m_2 v_2'$$<br>Koefisien restitusi tumbukan ($e$):<br>$$e = -\\frac{v_2' - v_1'}{v_2 - v_1}$$<br>Klasifikasi tumbukan: lenting sempurna ($e = 1$), lenting sebagian ($0 < e < 1$), tidak lenting sama sekali ($e = 0$, benda menyatu).",
+        "quickTip": "TKB Benda Menyatu: Jika dua benda bertumbukan dan bergabung menjadi satu ($e = 0$), kecepatan bersama setelah tumbukan adalah rata-rata berbobot massa: $v' = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}$!",
+        "example": "Peluru bermassa $m_1 = 20\\text{ gram} = 0{,}02\\text{ kg}$ melesat dengan laju $v_1 = 400\\text{ m/s}$ dan bersarang dalam balok diam bermassa $m_2 = 1{,}98\\text{ kg}$. Tentukan kecepatan balok bersama peluru setelah tumbukan!<br><strong>Solusi:</strong><br>$$v' = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2} = \\frac{(0{,}02)(400) + (1{,}98)(0)}{0{,}02 + 1{,}98} = \\frac{8}{2} = 4\\text{ m/s}$$."
+      }
+    ]
+  },
+  {
+    "id": "k11-fisika-dinamika-rotasi",
+    "number": "04",
+    "badge": "Fisika • Bab 04",
+    "subject": "Fisika",
+    "title": "Fisika Bab 4: Dinamika Rotasi & Kesetimbangan Benda Tegar",
+    "summary": "Momen gaya (torsi), momen inersia berbagai benda tegar, hukum II Newton untuk gerak rotasi, gerak menggelinding murni, serta syarat kesetimbangan statis benda tegar.",
+    "subtopics": [
+      {
+        "title": "1. Momen Gaya (Torsi) & Momen Inersia",
+        "concept": "Momen gaya (torsi) merupakan ukuran kecenderungan suatu gaya memutar benda terhadap sumbu rotasi:<br>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F} \\implies \\tau = r F \\sin\\theta$$<br>Momen inersia ($I$) menyatakan kelembaman benda berotasi:<br>Partikel titik: $$I = \\sum m_i r_i^2$$.<br>Silinder pejal terhadap sumbu simetri: $$I = \\frac{1}{2}MR^2$$.<br>Bola pejal terhadap sumbu diameter: $$I = \\frac{2}{5}MR^2$$.<br>Batang tipis diputar di pusat: $$I = \\frac{1}{12}ML^2$$; diputar di ujung: $$I = \\frac{1}{3}ML^2$$.<br>Hukum II Newton Rotasi: $$\\Sigma \\tau = I \\alpha$$.",
+        "quickTip": "TKB Gerak Menggelinding di Bidang Miring: Percepatan menggelinding murni silinder/bola menuruni bidang miring adalah $a = \\frac{g\\sin\\theta}{1 + k}$, di mana $k$ adalah koefisien momen inersia ($I = k M R^2$). Bola pejal ($k = 2/5 = 0{,}4$) selalu sampai lebih dulu daripada silinder pejal ($k = 1/2 = 0{,}5$)!",
+        "example": "Sebuah silinder pejal ($m = 4\\text{ kg}, R = 0{,}2\\text{ m}, I = \\frac{1}{2}mR^2$) menggelinding murni tanpa selip menuruni bidang miring dengan sudut $\\theta = 30^\\circ$ ($g = 10\\text{ m/s}^2$). Hitung percepatan linier silinder!<br><strong>Solusi:</strong><br>Koefisien inersia silinder pejal $k = 1/2$.<br>$$a = \\frac{g\\sin\\theta}{1 + k} = \\frac{10\\sin 30^\\circ}{1 + 0{,}5} = \\frac{5}{1{,}5} = \\frac{10}{3} \\approx 3{,}33\\text{ m/s}^2$$."
+      },
+      {
+        "title": "2. Syarat Kesetimbangan Statis Benda Tegar",
+        "concept": "Suatu benda tegar berada dalam kesetimbangan mekanik lengkap jika memenuhi dua syarat mutlak:<br>1. Kesetimbangan Translasi: $$\\Sigma F_x = 0, \\quad \\Sigma F_y = 0$$<br>2. Kesetimbangan Rotasi: $$\\Sigma \\tau_O = 0$$ (terhadap sebarang titik poros acuan $O$).<br>Aplikasi umum meliputi tangga bersandar pada dinding licin dan papan jembatan yang ditopang tali penopang.",
+        "quickTip": "TKB Tangga Tergelincir: Tangga homogen bersandar pada dinding vertikal licin dan lantai kasar dengan koefisien gesek $\\mu$. Sudut kemiringan minimum $\\theta$ terhadap lantai agar tidak tergelincir memenuhi rumus kilat: $\\tan\\theta = \\frac{1}{2\\mu}$!",
+        "example": "Sebuah tangga homogen bersandar pada dinding licin. Jika lantai memiliki koefisien gesek statis $\\mu_s = 0{,}25$, tentukan besar $\\tan\\theta$ kemiringan minimum terhadap lantai agar tangga tidak tergelincir!<br><strong>Solusi:</strong><br>$$\\tan\\theta = \\frac{1}{2\\mu_s} = \\frac{1}{2(0{,}25)} = \\frac{1}{0{,}5} = 2$$."
+      }
+    ]
+  },
+  {
+    "id": "k11-fisika-fluida",
+    "number": "05",
+    "badge": "Fisika • Bab 05",
+    "subject": "Fisika",
+    "title": "Fisika Bab 5: Mekanika Fluida Statis & Dinamis",
+    "summary": "Tekanan hidrostatis, hukum Pascal, hukum Archimedes, tegangan permukaan, persamaan kontinuitas, dan asas Bernoulli pada aliran fluida ideal.",
+    "subtopics": [
+      {
+        "title": "1. Fluida Statis: Hukum Pascal & Hukum Archimedes",
+        "concept": "Tekanan hidrostatis pada kedalaman $h$: $$P_h = \\rho g h$$. Tekanan mutlak: $$P = P_0 + \\rho g h$$.<br><strong>Hukum Pascal:</strong> Tekanan yang diberikan pada fluida tertutup diteruskan ke segala arah dengan sama besar: $$\\frac{F_1}{A_1} = \\frac{F_2}{A_2}$$.<br><strong>Hukum Archimedes:</strong> Benda yang tercelup sebagian atau seluruhnya ke dalam fluida mengalami gaya apung ke atas sebesar berat fluida yang dipindahkan:<br>$$F_A = \\rho_f V_{\\text{celup}} g$$.<br>Kondisi terapung: $$\\rho_b = \\frac{V_{\\text{celup}}}{V_b} \\rho_f$$.",
+        "quickTip": "TKB Bagian Terapung vs Tenggelam: Rasio volume yang tenggelam (tercelup) persis sama dengan rasio massa jenis benda terhadap massa jenis fluida: $\\frac{V_{\\text{celup}}}{V_{\\text{total}}} = \\frac{\\rho_{\\text{benda}}}{\\rho_{\\text{fluida}}}$!",
+        "example": "Sebuah bongkahan es dengan massa jenis $\\rho_{\\text{es}} = 0{,}9\\text{ g/cm}^3$ mengapung di air laut dengan $\\rho_{\\text{air}} = 1{,}0\\text{ g/cm}^3$. Berapa persentase volume es yang muncul di atas permukaan air?<br><strong>Solusi:</strong><br>Bagian tercelup: $\\frac{V_{\\text{celup}}}{V_{\\text{total}}} = \\frac{0{,}9}{1{,}0} = 0{,}9 = 90\\%$.<br>Maka bagian es yang muncul di atas permukaan adalah $100\\% - 90\\% = 10\\%$."
+      },
+      {
+        "title": "2. Fluida Dinamis: Kontinuitas & Persamaan Bernoulli",
+        "concept": "Fluida ideal: tak termampatkan (inkompresibel), non-viskos, dan alirannya stasioner.<br><strong>Persamaan Kontinuitas:</strong> Debit aliran fluida $Q = A v = \\text{konstan}$:<br>$$A_1 v_1 = A_2 v_2$$<br><strong>Persamaan Bernoulli (Hukum Kekekalan Energi Aliran Fluida):</strong><br>$$P_1 + \\frac{1}{2}\\rho v_1^2 + \\rho g h_1 = P_2 + \\frac{1}{2}\\rho v_2^2 + \\rho g h_2 = \\text{konstan}$$<br>Teorema Torricelli (kebocoran tangki pada kedalaman $h$ dari permukaan bebas): $$v = \\sqrt{2gh}$$.",
+        "quickTip": "TKB Cepat Bocor Torricelli: Kecepatan semburan air dari lubang kecil di dinding tangki sama persis dengan kecepatan benda jatuh bebas dari ketinggian $h$ permukaan air: $v = \\sqrt{2gh}$!",
+        "example": "Sebuah tangki air memiliki lubang kebocoran kecil pada kedalaman $h = 5\\text{ meter}$ di bawah permukaan air ($g = 10\\text{ m/s}^2$). Berapa kecepatan semburan air yang keluar dari lubang tersebut?<br><strong>Solusi:</strong><br>$$v = \\sqrt{2gh} = \\sqrt{2(10)(5)} = \\sqrt{100} = 10\\text{ m/s}$$."
+      }
+    ]
+  },
+  {
+    "id": "k11-fisika-gelombang-bunyi-cahaya",
+    "number": "06",
+    "badge": "Fisika • Bab 06",
+    "subject": "Fisika",
+    "title": "Fisika Bab 6: Gelombang Mekanik, Gelombang Bunyi & Cahaya",
+    "summary": "Persamaan gelombang berjalan, fenomena resonansi dawai dan pipa organa, efek Doppler, intensitas bunyi, serta interferensi dan difraksi cahaya.",
+    "subtopics": [
+      {
+        "title": "1. Gelombang Berjalan & Gelombang Bunyi",
+        "concept": "Persamaan gelombang sinusoidal berjalan harmonik:<br>$$y(x,t) = A \\sin(\\omega t \\mp kx)$$<br>di mana $\\omega = 2\\pi f$, bilangan gelombang $k = \\frac{2\\pi}{\\lambda}$, dan cepat rambat gelombang $v = \\frac{\\omega}{k} = \\lambda f$. Tanda ($-$) jika merambat ke kanan ($+X$), tanda ($+$) jika merambat ke kiri ($-X$).<br><strong>Efek Doppler pada Gelombang Bunyi:</strong><br>$$f_p = \\left(\\frac{v \\pm v_p}{v \\mp v_s}\\right) f_s$$<br>Aturan tanda: Pendengar mendekati sumber ($v_p > 0$), menjauhi ($v_p < 0$). Sumber mendekati pendengar ($v_s < 0$), menjauhi ($v_s > 0$).<br><strong>Taraf Intensitas Bunyi (TI):</strong><br>$$TI = 10\\log\\left(\\frac{I}{I_0}\\right)\\text{ dB}$$, dengan $I_0 = 10^{-12}\\text{ W/m}^2$.<br>Untuk $n$ sumber identik: $$TI_n = TI_1 + 10\\log n$$. Jarak berbeda: $$TI_2 = TI_1 - 20\\log\\left(\\frac{r_2}{r_1}\\right)$$.",
+        "quickTip": "TKB Taraf Intensitas 10 Kali Lipat: Setiap penambahan jumlah sumber bunyi sebanyak 10 kali lipat, Taraf Intensitas naik tepat $10\\text{ dB}$ (misal 1 mesin $60\\text{ dB}$, maka 10 mesin $70\\text{ dB}$, 100 mesin $80\\text{ dB}$)! Setiap jarak menjauh 10 kali lipat, TI berkurang $20\\text{ dB}$!",
+        "example": "Sebuah sirene menghasilkan taraf intensitas $70\\text{ dB}$. Jika 100 sirene identik dibunyikan secara serentak bersama-sama, berapakah taraf intensitas total yang terdengar?<br><strong>Solusi:</strong><br>$$TI_{100} = TI_1 + 10\\log(100) = 70 + 10(2) = 70 + 20 = 90\\text{ dB}$$."
+      },
+      {
+        "title": "2. Interferensi & Difraksi Gelombang Cahaya",
+        "concept": "<strong>Interferensi Celah Ganda Young:</strong><br>Pita Terang (Interferensi Konstruktif): $$d \\frac{y}{L} = n \\lambda, \\quad n = 0, 1, 2, \\dots$$<br>Pita Gelap (Interferensi Destruktif): $$d \\frac{y}{L} = \\left(n - \\frac{1}{2}\\right) \\lambda, \\quad n = 1, 2, \\dots$$<br><strong>Difraksi Kisi:</strong><br>Garis terang difraksi: $$d \\sin\\theta = n \\lambda$$, dengan tetapan kisi $d = \\frac{1}{N}$ ($N$ garis per meter).",
+        "quickTip": "TKB Konversi Kisi: Jika kisi memiliki $N = 500\\text{ garis/mm}$, ubah dulu ke meter: jarak antar celah $d = \\frac{1}{500}\\text{ mm} = 2 \\times 10^{-3}\\text{ mm} = 2 \\times 10^{-6}\\text{ meter}$!",
+        "example": "Berkas cahaya dengan panjang gelombang $\\lambda = 500\\text{ nm} = 5 \\times 10^{-7}\\text{ m}$ dijatuhkan tegak lurus pada kisi dengan $500\\text{ garis/mm}$. Tentukan sudut deviasi terang orde ke-2 ($n = 2$)!<br><strong>Solusi:</strong><br>$$d = \\frac{1}{500\\text{ garis/mm}} = 2 \\times 10^{-6}\\text{ m}$$<br>$$d \\sin\\theta = n \\lambda \\implies 2 \\times 10^{-6} \\sin\\theta = 2(5 \\times 10^{-7}) = 10^{-6}$$<br>$$\\sin\\theta = \\frac{10^{-6}}{2 \\times 10^{-6}} = 0{,}5 \\implies \\theta = 30^\\circ$$."
+      }
+    ]
+  },
+  {
+    "id": "k11-fisika-termodinamika",
+    "number": "07",
+    "badge": "Fisika • Bab 07",
+    "subject": "Fisika",
+    "title": "Fisika Bab 7: Suhu, Kalor, Teori Kinetik Gas & Termodinamika",
+    "summary": "Kalor jenis, asas Black, perpindahan panas, persamaan gas ideal, energi kinetik gas, hukum I termodinamika, dan efisiensi mesin kalor Carnot.",
+    "subtopics": [
+      {
+        "title": "1. Kalor, Perubahan Wujud & Asas Black",
+        "concept": "Kalor untuk perubahan suhu: $$Q = m c \\Delta T$$. Kalor perubahan wujud: $$Q = m L$$.<br><strong>Asas Black:</strong> Dalam sistem terisolasi tanpa kalor yang hilang ke lingkungan:<br>$$Q_{\\text{lepas}} = Q_{\\text{terima}}$$.<br>Perpindahan Kalor: Konduksi $H = \\frac{k A \\Delta T}{L}$, Konveksi $H = h A \\Delta T$, Radiasi Stefan-Boltzmann $P = e \\sigma A T^4$ (dengan $\\sigma = 5{,}67 \\times 10^{-8}\\text{ W/m}^2\\text{K}^4$).",
+        "quickTip": "TKB Suhu Campuran Air: Jika massa air sama ($m_1 = m_2$), suhu akhir campuran adalah rata-rata langsung: $T_c = \\frac{T_1 + T_2}{2}$! Jika massa berbeda, gunakan rata-rata tertimbang: $T_c = \\frac{m_1 T_1 + m_2 T_2}{m_1 + m_2}$.",
+        "example": "Sebanyak $200\\text{ g}$ air bersuhu $80^\\circ\\text{C}$ dicampur dengan $300\\text{ g}$ air bersuhu $20^\\circ\\text{C}$ dalam bejana terisolasi. Tentukan suhu akhir campuran!<br><strong>Solusi:</strong><br>$$m_1 c (T_1 - T_c) = m_2 c (T_c - T_2)$$<br>$$200(80 - T_c) = 300(T_c - 20) \\implies 2(80 - T_c) = 3(T_c - 20)$$<br>$$160 - 2T_c = 3T_c - 60 \\implies 5T_c = 220 \\implies T_c = 44^\\circ\\text{C}$$."
+      },
+      {
+        "title": "2. Hukum I Termodinamika & Siklus Mesin Carnot",
+        "concept": "<strong>Hukum I Termodinamika:</strong> Kekekalan energi dalam gas ideal:<br>$$Q = \\Delta U + W$$<br>di mana energi dalam gas monoatomik $\\Delta U = \\frac{3}{2} n R \\Delta T$. Usaha gas: $W = \\int P\\,dV$.<br>- Proses Isobarik ($P$ konstan): $W = P(V_2 - V_1)$.<br>- Proses Isokhorik ($V$ konstan): $W = 0 \\implies Q = \\Delta U$.<br>- Proses Isotermal ($T$ konstan): $\\Delta U = 0 \\implies Q = W = nRT\\ln\\frac{V_2}{V_1}$.<br>- Proses Adiabatik ($Q = 0$): $W = -\\Delta U$.<br><strong>Efisiensi Mesin Kalor Carnot:</strong><br>$$\\eta = \\left(1 - \\frac{T_C}{T_H}\\right) \\times 100\\% = \\frac{W}{Q_H} \\times 100\\%$$ (suhu $T_C$ dan $T_H$ wajib dalam Kelvin!).",
+        "quickTip": "TKB Suhu Mutlak Kelvin: Wajib ubah suhu Celsius ke Kelvin terlebih dahulu ($T\\text{ (K)} = T\\text{ }^\\circ\\text{C} + 273$) sebelum menghitung efisiensi siklus Carnot!",
+        "example": "Sebuah mesin kalor Carnot menyerap kalor dari reservoir bersuhu $500\\text{ K}$ dan membuang kalor ke reservoir dingin bersuhu $300\\text{ K}$. Tentukan efisiensi mesin Carnot tersebut!<br><strong>Solusi:</strong><br>$$\\eta = 1 - \\frac{T_C}{T_H} = 1 - \\frac{300}{500} = 1 - 0{,}60 = 0{,}40 = 40\\%$$."
+      }
     ]
   }
 ];
 
-// Pasang ke window object untuk akses global di browser
 if (typeof window !== 'undefined') {
   window.KURMER_KELAS11_DATA = KURMER_KELAS11_DATA;
 }
 
-// Support CommonJS export jika dijalankan di Node.js test environment
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = KURMER_KELAS11_DATA;
 }

@@ -58,32 +58,44 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <!-- Data Modules for All 6 Grades (Kurikulum Merdeka Lengkap) -->
-  <script src="data/cloud_config.js?v=1793281058"></script>
-  <script src="data/kurmer_kelas7_materi.js?v=1793281058"></script>
-  <script src="data/kurmer_kelas8_materi.js?v=1793281058"></script>
-  <script src="data/kurmer_kelas9_materi.js?v=1793281058"></script>
-  <script src="data/kurmer_kelas10_materi.js?v=1793281058"></script>
-  <script src="data/kurmer_kelas11_materi.js?v=1793281058"></script>
-  <script src="data/kurmer_kelas12_materi.js?v=1793281058"></script>
-  <script src="data/utbk_soal_bank.js?v=1793281058"></script>
-  <script src="data/curriculum_all_grades.js?v=1793281058"></script>
-  <script src="data/soal_bank_per_bab.js?v=1793281058"></script>
+  <script src="data/cloud_config.js?v=1793288294"></script>
+  <script src="data/kurmer_kelas7_materi.js?v=1793288294"></script>
+  <script src="data/kurmer_kelas8_materi.js?v=1793288294"></script>
+  <script src="data/kurmer_kelas9_materi.js?v=1793288294"></script>
+  <script src="data/kurmer_kelas10_materi.js?v=1793288294"></script>
+  <script src="data/kurmer_kelas11_materi.js?v=1793288294"></script>
+  <script src="data/kurmer_kelas12_materi.js?v=1793288294"></script>
+  <script src="data/utbk_soal_bank.js?v=1793288294"></script>
+  <script src="data/curriculum_all_grades.js?v=1793288294"></script>
+  <script src="data/soal_bank_per_bab.js?v=1793288294"></script>
 
   <style>
     body {
-      background-color: #090d16;
+      background-color: #070a12;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 48%),
+        radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 48%),
+        radial-gradient(at 50% 40%, rgba(139, 92, 246, 0.08) 0px, transparent 55%),
+        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.10) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
       color: #e2e8f0;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
     }
 
-    /* Clean Elevated Card */
+    /* Modern Glassmorphic Card */
     .clean-card {
-      background: #0f1422;
-      border: 1px solid #1e293b;
+      background: linear-gradient(135deg, rgba(22, 30, 50, 0.72) 0%, rgba(13, 20, 36, 0.65) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .clean-card:hover {
-      border-color: #334155;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(99, 102, 241, 0.3);
     }
 
     /* KaTeX Typography Polish */
@@ -218,12 +230,9 @@
         <span>Latihan Soal</span>
       </button>
 
-      <button onclick="switchView('mathlab')" id="sb-nav-mathlab" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center justify-between transition">
-        <div class="flex items-center gap-2.5">
-          <i data-lucide="flask-conical" class="w-4 h-4 text-emerald-400"></i>
-          <span>Lab Interaktif</span>
-        </div>
-        <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">Baru</span>
+      <button onclick="switchView('mathlab')" id="sb-nav-mathlab" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
+        <i data-lucide="flask-conical" class="w-4 h-4 text-emerald-400"></i>
+        <span>Lab Interaktif</span>
       </button>
 
       <button onclick="switchView('cheatsheet')" id="sb-nav-cheatsheet" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
@@ -410,36 +419,6 @@
         </div>
 
         <!-- Quick Chapters Overview -->
-        
-        <!-- ==================================================== -->
-        <!-- BANNER MATERI BARU: FISIKA FASE E (KELAS 10)         -->
-        <!-- ==================================================== -->
-        <div id="dash-physics-announcement" class="clean-card rounded-2xl p-4 sm:p-5 border border-cyan-500/40 bg-gradient-to-r from-cyan-950/40 via-dark-900 to-indigo-950/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-cyan-950/20">
-          <div class="flex items-start gap-3.5">
-            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0">
-              <i data-lucide="zap" class="w-5 h-5 animate-pulse"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 uppercase tracking-wider">Materi Baru Rilis</span>
-                <span class="text-xs text-slate-400">Kurikulum Merdeka Fase E</span>
-              </div>
-              <h3 class="text-sm font-bold text-white">⚡ Fisika Kelas 10: Pengukuran Presisi & Vektor</h3>
-              <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">Pelajari konsep jangka sorong, mikrometer, angka penting, dan operasi resultan vektor lengkap dengan simulasi interaktif.</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto">
-            <button onclick="setSubjectFilter('Fisika')" class="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-lg shadow-cyan-600/30">
-              <i data-lucide="compass" class="w-4 h-4"></i>
-              <span>Buka Materi Fisika</span>
-            </button>
-            <button onclick="switchMathLabTool('vector'); switchView('math-lab');" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 text-cyan-300 border border-cyan-800/60 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
-              <i data-lucide="activity" class="w-4 h-4"></i>
-              <span>Lab Vektor</span>
-            </button>
-          </div>
-        </div>
-
         <div>
           <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Daftar Bab Pembelajaran</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="dash-chapters-overview">
@@ -2144,7 +2123,7 @@ function doPost(e) {
     function initApp() {
 
     // Check app version and reload if out of date
-    const APP_CACHE_VERSION = '1793281058';
+    const APP_CACHE_VERSION = '1793288294';
     if (localStorage.getItem('THE_ARICH_CACHE_VER') !== APP_CACHE_VERSION) {
       localStorage.setItem('THE_ARICH_CACHE_VER', APP_CACHE_VERSION);
     }
@@ -2370,31 +2349,38 @@ function doPost(e) {
       const totalMath = chapters.filter(c => (c.subject || 'Matematika') === 'Matematika').length;
       const totalPhys = chapters.filter(c => c.subject === 'Fisika').length;
 
-      const btnAll = currentSubjectFilter === 'all'
-        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-bold'
-        : 'bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700/80';
-      const btnMath = currentSubjectFilter === 'Matematika'
-        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-bold'
-        : 'bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700/80';
-      const btnPhys = currentSubjectFilter === 'Fisika'
-        ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30 font-bold'
-        : 'bg-dark-850 hover:bg-dark-800 text-cyan-300 border border-cyan-800/50';
+      const activeAll = currentSubjectFilter === 'all';
+      const activeMath = currentSubjectFilter === 'Matematika';
+      const activePhys = currentSubjectFilter === 'Fisika';
+
+      const btnAll = activeAll
+        ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/30 font-semibold'
+        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 font-medium';
+      const btnMath = activeMath
+        ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/30 font-semibold'
+        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 font-medium';
+      const btnPhys = activePhys
+        ? 'bg-gradient-to-r from-sky-600 to-cyan-500 text-white shadow-md shadow-cyan-600/30 font-semibold'
+        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 font-medium';
 
       return `
-        <div class="col-span-full mb-3 flex items-center gap-2 overflow-x-auto pb-1">
-          <button onclick="setSubjectFilter('all')" class="px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 ${btnAll}">
-            <span>Semua Mapel</span>
-            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-dark-900/60 font-mono">${totalAll}</span>
-          </button>
-          <button onclick="setSubjectFilter('Matematika')" class="px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 ${btnMath}">
-            <span>📐 Matematika</span>
-            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-dark-900/60 font-mono">${totalMath}</span>
-          </button>
-          <button onclick="setSubjectFilter('Fisika')" class="px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 ${btnPhys}">
-            <i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i>
-            <span>Fisika (Baru!)</span>
-            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-dark-900/60 font-mono">${totalPhys}</span>
-          </button>
+        <div class="col-span-full mb-4">
+          <div class="inline-flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-700/60 backdrop-blur-md gap-1 shadow-inner">
+            <button onclick="setSubjectFilter('all')" class="px-3.5 py-1.5 rounded-lg text-xs flex items-center gap-2 transition ${btnAll}">
+              <span>Semua Mata Pelajaran</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-black/25 font-mono">${totalAll}</span>
+            </button>
+            <button onclick="setSubjectFilter('Matematika')" class="px-3.5 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition ${btnMath}">
+              <span class="w-1.5 h-1.5 rounded-full ${activeMath ? 'bg-white' : 'bg-indigo-400'}"></span>
+              <span>Matematika</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-black/25 font-mono">${totalMath}</span>
+            </button>
+            <button onclick="setSubjectFilter('Fisika')" class="px-3.5 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition ${btnPhys}">
+              <span class="w-1.5 h-1.5 rounded-full ${activePhys ? 'bg-white' : 'bg-sky-400'}"></span>
+              <span>Fisika</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-black/25 font-mono">${totalPhys}</span>
+            </button>
+          </div>
         </div>
       `;
     }
@@ -2412,16 +2398,24 @@ function doPost(e) {
       const cardsHtml = filtered.map((ch, idx) => {
         const isPhysics = ch.subject === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
-        const badgeText = isPhysics ? `⚡ ${badge} • Fisika` : `📐 ${badge}`;
-        const badgeStyle = isPhysics ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
-        const borderHover = isPhysics ? 'hover:border-cyan-500/50' : 'hover:border-indigo-500/50';
-        const textHover = isPhysics ? 'group-hover:text-cyan-300' : 'group-hover:text-indigo-300';
+        const badgeText = isPhysics ? `Fisika • ${badge}` : `Matematika • ${badge}`;
+        const badgeStyle = isPhysics ? 'text-sky-300 bg-sky-500/10 border-sky-500/25' : 'text-indigo-300 bg-indigo-500/10 border-indigo-500/25';
+        const borderHover = isPhysics ? 'hover:border-sky-500/50 hover:shadow-sky-500/10' : 'hover:border-indigo-500/50 hover:shadow-indigo-500/10';
+        const textHover = isPhysics ? 'group-hover:text-sky-300' : 'group-hover:text-indigo-300';
+        const topGlow = isPhysics ? 'from-sky-500/40 to-cyan-400/10' : 'from-indigo-500/40 to-purple-400/10';
 
         return `
-        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer ${borderHover} transition group">
-          <div class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded border ${badgeStyle} mb-2">${badgeText}</div>
-          <h4 class="text-xs font-bold text-white ${textHover} transition mb-1">${ch.title}</h4>
-          <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">${ch.summary}</p>
+        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-2xl p-5 cursor-pointer ${borderHover} hover:shadow-xl transition group relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r ${topGlow} opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg border ${badgeStyle} mb-2.5">${badgeText}</div>
+            <h4 class="text-xs sm:text-sm font-bold text-white ${textHover} transition mb-1.5 leading-snug">${ch.title}</h4>
+            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">${ch.summary}</p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-medium text-slate-400">
+            <span>${ch.subtopics ? ch.subtopics.length : 0} Subtopik</span>
+            <span class="flex items-center gap-1 ${isPhysics ? 'text-sky-400' : 'text-indigo-400'} group-hover:translate-x-1 transition-transform">Buka Materi <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
+          </div>
         </div>
       `}).join('');
 
@@ -2442,20 +2436,22 @@ function doPost(e) {
       const cardsHtml = filtered.map((ch, idx) => {
         const isPhysics = ch.subject === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
-        const badgeText = isPhysics ? `⚡ ${badge} • Fisika Fase E` : `📐 ${badge}`;
-        const badgeStyle = isPhysics ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
-        const borderHover = isPhysics ? 'hover:border-cyan-500/50' : 'hover:border-indigo-500/50';
-        const textHover = isPhysics ? 'group-hover:text-cyan-300' : 'group-hover:text-indigo-300';
-        const btnColor = isPhysics ? 'text-cyan-400' : 'text-indigo-400';
+        const badgeText = isPhysics ? `Fisika • ${badge}` : `Matematika • ${badge}`;
+        const badgeStyle = isPhysics ? 'text-sky-300 bg-sky-500/10 border-sky-500/25' : 'text-indigo-300 bg-indigo-500/10 border-indigo-500/25';
+        const borderHover = isPhysics ? 'hover:border-sky-500/50 hover:shadow-sky-500/10' : 'hover:border-indigo-500/50 hover:shadow-indigo-500/10';
+        const textHover = isPhysics ? 'group-hover:text-sky-300' : 'group-hover:text-indigo-300';
+        const btnColor = isPhysics ? 'text-sky-400' : 'text-indigo-400';
+        const topGlow = isPhysics ? 'from-sky-500/40 to-cyan-400/10' : 'from-indigo-500/40 to-purple-400/10';
 
         return `
-        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer ${borderHover} transition group flex flex-col justify-between">
+        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-2xl p-5 cursor-pointer ${borderHover} hover:shadow-xl transition group relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r ${topGlow} opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div>
-            <div class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded border ${badgeStyle} mb-2">${badgeText}</div>
-            <h4 class="text-xs sm:text-sm font-bold text-white ${textHover} transition mb-1.5">${ch.title}</h4>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4">${ch.summary}</p>
+            <div class="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg border ${badgeStyle} mb-2.5">${badgeText}</div>
+            <h4 class="text-xs sm:text-sm font-bold text-white ${textHover} transition mb-1.5 leading-snug">${ch.title}</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-3">${ch.summary}</p>
           </div>
-          <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-semibold ${btnColor}">
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold ${btnColor}">
             <span>${ch.subtopics ? ch.subtopics.length : 0} Subtopik</span>
             <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">Buka Bab <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
           </div>
@@ -2464,127 +2460,6 @@ function doPost(e) {
 
       container.innerHTML = filterBar + cardsHtml;
       lucide.createIcons();
-    }
-
-
-    // 5. VECTOR LAB SIMULATION ENGINE
-    function syncVectorLab(vec, field, val) {
-      const v = parseFloat(val) || 0;
-      if (vec === 'a') {
-        if (field === 'deg_slide') {
-          document.getElementById('vec-in-deg-a').value = v;
-        } else if (field === 'deg') {
-          document.getElementById('vec-slide-deg-a').value = v;
-        }
-      } else if (vec === 'b') {
-        if (field === 'deg_slide') {
-          document.getElementById('vec-in-deg-b').value = v;
-        } else if (field === 'deg') {
-          document.getElementById('vec-slide-deg-b').value = v;
-        }
-      }
-      updateVectorLab();
-    }
-
-    function updateVectorLab() {
-      const magA = parseFloat(document.getElementById('vec-in-mag-a')?.value) || 10;
-      const degA = parseFloat(document.getElementById('vec-in-deg-a')?.value) || 30;
-      const magB = parseFloat(document.getElementById('vec-in-mag-b')?.value) || 8;
-      const degB = parseFloat(document.getElementById('vec-in-deg-b')?.value) || 120;
-
-      // Header text
-      const valAEl = document.getElementById('vec-val-a');
-      const valBEl = document.getElementById('vec-val-b');
-      if (valAEl) valAEl.textContent = `${magA} N @ ${degA}°`;
-      if (valBEl) valBEl.textContent = `${magB} N @ ${degB}°`;
-
-      // Trigonometric conversion (angles in rad)
-      const radA = (degA * Math.PI) / 180;
-      const radB = (degB * Math.PI) / 180;
-
-      const ax = magA * Math.cos(radA);
-      const ay = magA * Math.sin(radA);
-
-      const bx = magB * Math.cos(radB);
-      const by = magB * Math.sin(radB);
-
-      const rx = ax + bx;
-      const ry = ay + by;
-      const rMag = Math.sqrt(rx * rx + ry * ry);
-      let rDeg = (Math.atan2(ry, rx) * 180) / Math.PI;
-      if (rDeg < 0) rDeg += 360;
-
-      // Scale factor to fit 140px radius (max expected vector ~60)
-      const scale = 7; // 1 N = 7 px
-      const pxAx = ax * scale;
-      const pxAy = -ay * scale; // SVG inverted Y
-      const pxBx = bx * scale;
-      const pxBy = -by * scale;
-      const pxRx = rx * scale;
-      const pxRy = -ry * scale;
-
-      // SVG lines
-      const lineA = document.getElementById('vec-line-a');
-      const lineB = document.getElementById('vec-line-b');
-      const lineR = document.getElementById('vec-line-r');
-      const paraA = document.getElementById('vec-para-a');
-      const paraB = document.getElementById('vec-para-b');
-
-      if (lineA) { lineA.setAttribute('x2', pxAx); lineA.setAttribute('y2', pxAy); }
-      if (lineB) { lineB.setAttribute('x2', pxBx); lineB.setAttribute('y2', pxBy); }
-      if (lineR) { lineR.setAttribute('x2', pxRx); lineR.setAttribute('y2', pxRy); }
-
-      // Parallelogram lines: from tip of A to tip of R, and from tip of B to tip of R
-      if (paraA) {
-        paraA.setAttribute('x1', pxAx); paraA.setAttribute('y1', pxAy);
-        paraA.setAttribute('x2', pxRx); paraA.setAttribute('y2', pxRy);
-      }
-      if (paraB) {
-        paraB.setAttribute('x1', pxBx); paraB.setAttribute('y1', pxBy);
-        paraB.setAttribute('x2', pxRx); paraB.setAttribute('y2', pxRy);
-      }
-
-      // Labels positions
-      const textA = document.getElementById('vec-text-a');
-      const textB = document.getElementById('vec-text-b');
-      const textR = document.getElementById('vec-text-r');
-
-      if (textA) {
-        textA.setAttribute('x', pxAx + 5);
-        textA.setAttribute('y', pxAy - 5);
-        textA.textContent = `F₁ = ${magA} N`;
-      }
-      if (textB) {
-        textB.setAttribute('x', pxBx + 5);
-        textB.setAttribute('y', pxBy - 5);
-        textB.textContent = `F₂ = ${magB} N`;
-      }
-      if (textR) {
-        textR.setAttribute('x', pxRx + 5);
-        textR.setAttribute('y', pxRy - 5);
-        textR.textContent = `R = ${rMag.toFixed(2)} N`;
-      }
-
-      // Dot product and angle between
-      const dotProd = ax * bx + ay * by;
-      let angleBetween = Math.abs(degA - degB) % 360;
-      if (angleBetween > 180) angleBetween = 360 - angleBetween;
-
-      const telem = document.getElementById('vec-telemetry');
-      if (telem) {
-        telem.innerHTML = `
-          <div><strong class="text-cyan-400">Komponen F₁:</strong> F₁x = ${ax.toFixed(2)} N, F₁y = ${ay.toFixed(2)} N</div>
-          <div><strong class="text-amber-400">Komponen F₂:</strong> F₂x = ${bx.toFixed(2)} N, F₂y = ${by.toFixed(2)} N</div>
-          <div class="pt-1 border-t border-slate-800"><strong class="text-emerald-400">Resultan Rx:</strong> ΣFx = ${rx.toFixed(2)} N</div>
-          <div><strong class="text-emerald-400">Resultan Ry:</strong> ΣFy = ${ry.toFixed(2)} N</div>
-          <div class="text-white font-bold bg-emerald-950/40 p-1.5 rounded border border-emerald-500/30 mt-1">
-            Besar Resultan |R| = √(${rx.toFixed(2)}² + ${ry.toFixed(2)}²) = <span class="text-emerald-300 font-extrabold">${rMag.toFixed(2)} N</span> (@ ${rDeg.toFixed(1)}°)
-          </div>
-          <div class="text-[10px] text-slate-400 pt-1">
-            Dot Product: F₁ · F₂ = ${dotProd.toFixed(2)} J | Sudut Apit θ = ${angleBetween.toFixed(1)}°
-          </div>
-        `;
-      }
     }
 
     // ----------------------------------------------------
@@ -2824,37 +2699,38 @@ function doPost(e) {
       const cardsHtml = filtered.map((ch, idx) => {
         const isPhysics = ch.subject === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
-        const badgeText = isPhysics ? `⚡ ${badge} • Fisika` : `📐 ${badge}`;
-        const badgeStyle = isPhysics ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
-        const borderHover = isPhysics ? 'hover:border-cyan-500/50' : 'hover:border-indigo-500/50';
-        const textHover = isPhysics ? 'group-hover:text-cyan-300' : 'group-hover:text-indigo-300';
+        const badgeText = isPhysics ? `Fisika • ${badge}` : `Matematika • ${badge}`;
+        const badgeStyle = isPhysics ? 'text-sky-300 bg-sky-500/10 border-sky-500/25' : 'text-indigo-300 bg-indigo-500/10 border-indigo-500/25';
+        const borderHover = isPhysics ? 'hover:border-sky-500/50 hover:shadow-sky-500/10' : 'hover:border-indigo-500/50 hover:shadow-indigo-500/10';
+        const textHover = isPhysics ? 'group-hover:text-sky-300' : 'group-hover:text-indigo-300';
         const qCount = ch.questions ? ch.questions.length : 15;
+        const topGlow = isPhysics ? 'from-sky-500/40 to-cyan-400/10' : 'from-indigo-500/40 to-purple-400/10';
         
-        // Check highest score for this chapter & student
         const historyList = db.filter(r => 
           (!myName || r.studentName.toLowerCase() === myName) && 
           (r.chapterId === ch.id || r.chapterTitle === ch.title)
         );
-        let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-dark-900 border border-slate-800 text-slate-400">Belum Dikerjakan</span>`;
+        let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-900 border border-slate-800 text-slate-400">Belum Dikerjakan</span>`;
         if (historyList.length > 0) {
           const maxScore = Math.max(...historyList.map(h => h.score));
           const isPassed = maxScore >= 70;
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">Skor Tertinggi: ${maxScore}/100</span>`;
+          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'}">Skor Tertinggi: ${maxScore}/100</span>`;
         }
 
         const startBtnClass = isPhysics 
-          ? 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-600/30' 
-          : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30';
-        const iconColor = isPhysics ? 'text-cyan-400' : 'text-indigo-400';
+          ? 'bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-sky-500 hover:to-cyan-400 text-white shadow-lg shadow-sky-600/25' 
+          : 'bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white shadow-lg shadow-indigo-600/25';
+        const iconColor = isPhysics ? 'text-sky-400' : 'text-indigo-400';
 
         return `
-          <div class="clean-card rounded-2xl p-5 border border-slate-800 ${borderHover} transition flex flex-col justify-between group">
+          <div class="clean-card rounded-2xl p-5 border border-slate-800/80 ${borderHover} hover:shadow-xl transition flex flex-col justify-between group relative overflow-hidden">
+            <div class="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r ${topGlow} opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${badgeStyle}">${badgeText}</span>
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-lg border ${badgeStyle}">${badgeText}</span>
                 ${statusBadge}
               </div>
-              <h4 class="text-sm sm:text-base font-bold text-white ${textHover} transition mb-1.5">${ch.title}</h4>
+              <h4 class="text-sm sm:text-base font-bold text-white ${textHover} transition mb-1.5 leading-snug">${ch.title}</h4>
               <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${ch.summary}</p>
             </div>
             <div>
@@ -2862,15 +2738,13 @@ function doPost(e) {
                 <span class="flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5 ${iconColor}"></i> ${qCount} Soal</span>
                 <span>•</span>
                 <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 ${iconColor}"></i> 30 Menit</span>
-                <span>•</span>
-                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Kunci Ber-sandi</span>
               </div>
-              <div class="flex items-center gap-2 pt-3 border-t border-slate-800">
-                <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
+              <div class="flex items-center gap-2 pt-3 border-t border-slate-800/80">
+                <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/70 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
                   <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Baca Materi
                 </button>
-                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl ${startBtnClass} text-xs font-bold flex items-center justify-center gap-1 transition">
-                  <i data-lucide="play" class="w-3.5 h-3.5"></i> Mulai Latihan
+                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl ${startBtnClass} text-xs font-semibold flex items-center justify-center gap-1 transition">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i> Mulai Latihan
                 </button>
               </div>
             </div>
@@ -3696,19 +3570,41 @@ function doPost(e) {
     // KATEX & AUDIO
     // ----------------------------------------------------
     function triggerLatex(el) {
-      if (window.renderMathInElement) {
-        const target = el || document.getElementById('view-materi-detail') || document.getElementById('view-cheatsheet') || document.getElementById('matrix-result-content');
-        if (!target) return;
-        renderMathInElement(target, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'],
-          throwOnError: false,
-          strict: false
-        });
+      if (!window.renderMathInElement) return;
+      let targets = [];
+      if (el) {
+        targets = [el];
+      } else {
+        const candidates = [
+          document.getElementById('exam-slide-card'),
+          document.getElementById('exam-solution-box'),
+          document.getElementById('view-exam'),
+          document.getElementById('view-materi-detail'),
+          document.getElementById('view-cheatsheet'),
+          document.getElementById('matrix-result-content')
+        ];
+        targets = candidates.filter(c => c && !c.classList.contains('hidden'));
+        if (targets.length === 0) {
+          const detail = document.getElementById('view-materi-detail');
+          if (detail) targets.push(detail);
+        }
       }
+
+      targets.forEach(t => {
+        try {
+          renderMathInElement(t, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false }
+            ],
+            ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'],
+            throwOnError: false,
+            strict: false
+          });
+        } catch (e) {
+          console.warn('KaTeX render warning:', e);
+        }
+      });
     }
 
     function playBeep(freq = 440, duration = 0.1) {
@@ -4812,6 +4708,50 @@ function doPost(e) {
     }
 
     const CHEAT_SHEETS_DATA = [
+      {
+        title: "Fisika: Kinematika & Dinamika Gerak",
+        category: "Fisika",
+        badge: "Fase F (Kelas 11)",
+        formulas: [
+          { name: "Kecepatan & Percepatan Turunan", formula: "$$v(t) = \\frac{dr}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2r}{dt^2}$$" },
+          { name: "Jangkauan Terjauh Peluru", formula: "$$X_{\\max} = \\frac{v_0^2\\sin 2\\theta}{g}, \\quad H_{\\max} = \\frac{v_0^2\\sin^2\\theta}{2g}$$" },
+          { name: "Hukum II Newton & Gaya Gesek", formula: "$$\\Sigma F = ma, \\quad f_s \\le \\mu_s N, \\quad f_k = \\mu_k N$$" },
+          { name: "Percepatan Menggelinding Pejal", formula: "$$a = \\frac{g\\sin\\theta}{1 + k}, \\quad \\tau = I\\alpha$$" }
+        ]
+      },
+      {
+        title: "Fisika: Usaha, Fluida & Termodinamika",
+        category: "Fisika",
+        badge: "Fase F (Kelas 11)",
+        formulas: [
+          { name: "Teorema Usaha-Energi & Impuls", formula: "$$W = \\Delta E_k, \\quad I = F\\Delta t = \\Delta p$$" },
+          { name: "Hukum Archimedes & Pascal", formula: "$$F_A = \\rho_f V_{\\text{celup}} g, \\quad \\frac{F_1}{A_1} = \\frac{F_2}{A_2}$$" },
+          { name: "Persamaan Bernoulli", formula: "$$P + \\frac{1}{2}\\rho v^2 + \\rho g h = \\text{konstan}$$" },
+          { name: "Efisiensi Mesin Kalor Carnot", formula: "$$\\eta = \\left(1 - \\frac{T_C}{T_H}\\right) \\times 100\\%$$" }
+        ]
+      },
+      {
+        title: "Fisika: Listrik Statis & Dinamis DC",
+        category: "Fisika",
+        badge: "Fase F Lanjut (Kelas 12)",
+        formulas: [
+          { name: "Hukum Coulomb & Medan Listrik", formula: "$$F = k\\frac{q_1 q_2}{r^2}, \\quad E = k\\frac{q}{r^2}, \\quad V = k\\frac{q}{r}$$" },
+          { name: "Kapasitor Keping Sejajar", formula: "$$C = \\varepsilon_0 \\frac{A}{d}, \\quad W = \\frac{1}{2}CV^2$$" },
+          { name: "Hambatan Kawat Tarikan", formula: "$$R = \\rho\\frac{L}{A}, \\quad R' = n^2 R$$" },
+          { name: "Hukum II Kirchhoff", formula: "$$\\Sigma \\mathcal{E} + \\Sigma (IR) = 0$$" }
+        ]
+      },
+      {
+        title: "Fisika: Medan Magnet, Arus AC & Kuantum",
+        category: "Fisika",
+        badge: "Fase F Lanjut (Kelas 12)",
+        formulas: [
+          { name: "Gaya Lorentz Muatan & Kawat", formula: "$$F = qvB\\sin\\theta, \\quad F = BIL\\sin\\theta$$" },
+          { name: "Induksi Faraday & Trafo", formula: "$$\\mathcal{E} = -N\\frac{d\\Phi}{dt}, \\quad \\frac{V_p}{V_s} = \\frac{N_p}{N_s} = \\frac{I_s}{I_p}$$" },
+          { name: "Impedansi RLC Seri & Resonansi", formula: "$$Z = \\sqrt{R^2 + (X_L - X_C)^2}, \\quad f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$$" },
+          { name: "Efek Fotolistrik & Defek Massa", formula: "$$E_k = hf - W_0, \\quad E_b = \\Delta m \\times 931{,}5\\text{ MeV}$$" }
+        ]
+      },
       {
         title: 'Fisika: Pengukuran, Dimensi & Ketidakpastian',
         category: 'Fisika',
