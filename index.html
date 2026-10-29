@@ -271,11 +271,10 @@
       </div>
 
       <div class="flex items-center space-x-2">
-        <!-- Global Search Button (Ctrl + K) -->
-        <button onclick="openGlobalSearchModal()" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-800 hover:border-slate-700 text-xs text-slate-400 hover:text-white flex items-center gap-2 transition group" title="Cari Materi & Rumus (Ctrl + K)">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-indigo-400 group-hover:scale-110 transition-transform"></i>
-          <span class="hidden md:inline text-[11px] text-slate-300">Cari Materi & Rumus...</span>
-          <kbd class="hidden md:inline-block px-1.5 py-0.2 rounded bg-dark-900 border border-slate-700 text-[9px] text-slate-400 font-mono">Ctrl K</kbd>
+        <!-- Global Search Button (Clean & Natural) -->
+        <button onclick="openGlobalSearchModal()" class="px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-800 hover:border-slate-700 text-xs text-slate-300 hover:text-white flex items-center gap-2 transition" title="Cari Materi & Rumus">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span class="text-[11px] text-slate-300">Cari Materi & Rumus...</span>
         </button>
 
         <!-- Student XP & Level Badge -->
@@ -434,6 +433,26 @@
       <!-- VIEW 4: DETAIL BACA MATERI (SETELAH BAB DIKLIK)     -->
       <!-- ==================================================== -->
       <div id="view-materi-detail" class="hidden space-y-5">
+
+        <!-- Cross-Grade Reading Notice Banner -->
+        <div id="cross-grade-notice-banner" class="hidden p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/40 text-indigo-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+          <div class="flex items-start sm:items-center gap-3">
+            <span class="p-2 rounded-xl bg-indigo-600/30 text-indigo-300 shrink-0"><i data-lucide="compass" class="w-5 h-5"></i></span>
+            <div>
+              <div class="font-bold text-xs sm:text-sm text-white flex items-center gap-2 flex-wrap">
+                <span id="cg-banner-title">Mode Baca Lintas Jenjang &bull; Materi Kelas 9 SMP</span>
+                <span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-mono border border-indigo-500/30">Pratinjau Materi</span>
+              </div>
+              <p id="cg-banner-desc" class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                Akun belajar Anda tetap terdaftar di <strong class="text-white" id="cg-banner-registered">Kelas 11 SMA</strong>. Bank soal dan riwayat kuis ber-XP tetap milik kelas Anda.
+              </p>
+            </div>
+          </div>
+          <button onclick="returnToMyGradeView()" class="px-3.5 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-xs text-white shrink-0 font-semibold transition flex items-center gap-1.5">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span>Kembali ke Kelas Saya</span>
+          </button>
+        </div>
         
         <!-- Back Button & Reader Toolbar Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800">
@@ -806,7 +825,7 @@
             <div class="lg:col-span-7 clean-card rounded-2xl p-5 border border-slate-800 flex flex-col items-center justify-center relative">
               <div class="text-xs font-bold text-slate-400 mb-2 self-start flex items-center gap-2">
                 <i data-lucide="eye" class="w-4 h-4 text-emerald-400"></i>
-                <span>Simulasi Lingkaran Satuan (Radius R = 1)</span>
+                <span>Simulasi Lingkaran Satuan Dinamis (Radius R = 1)</span>
               </div>
               <svg id="unit-circle-svg" width="300" height="300" viewBox="-150 -150 300 300" class="select-none max-w-full">
                 <!-- Axes -->
@@ -848,33 +867,45 @@
             <!-- Controls & Live Readout -->
             <div class="lg:col-span-5 space-y-4">
               
-              <!-- Slider Controller -->
-              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3">
+              <!-- Slider & Manual Number Input Controller -->
+              <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3.5">
                 <div class="flex items-center justify-between">
                   <label class="text-xs font-bold text-white flex items-center gap-2">
                     <i data-lucide="sliders" class="w-4 h-4 text-indigo-400"></i>
                     <span>Besar Sudut &theta;:</span>
                   </label>
-                  <span id="uc-angle-readout" class="font-mono text-base font-extrabold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-lg border border-amber-400/20">45&deg;</span>
+                  <div class="flex items-center gap-1">
+                    <input type="number" id="uc-angle-input" min="-720" max="720" step="1" value="45" oninput="handleUCAngleInput(this.value)" class="w-20 px-2 py-1 text-center rounded-lg bg-dark-900 border border-slate-700 text-amber-400 font-mono text-xs font-extrabold focus:border-emerald-500">
+                    <span class="text-xs text-slate-400 font-bold">&deg;</span>
+                  </div>
                 </div>
-                <input type="range" id="uc-angle-slider" min="0" max="360" step="1" value="45" oninput="handleUnitCircleAngle(this.value)" class="w-full accent-emerald-500 cursor-pointer">
+                <input type="range" id="uc-angle-slider" min="-360" max="720" step="1" value="45" oninput="handleUCSlider(this.value)" class="w-full accent-emerald-500 cursor-pointer">
                 
+                <!-- Quick Stepper Buttons -->
+                <div class="flex items-center justify-between gap-1 pt-1">
+                  <button onclick="stepUCAngle(-45)" class="px-2 py-1 rounded bg-dark-900 border border-slate-800 text-[10px] text-slate-300 hover:text-white transition">-45&deg;</button>
+                  <button onclick="stepUCAngle(-15)" class="px-2 py-1 rounded bg-dark-900 border border-slate-800 text-[10px] text-slate-300 hover:text-white transition">-15&deg;</button>
+                  <button onclick="setUCAngle(0)" class="px-2 py-1 rounded bg-dark-900 border border-slate-800 text-[10px] text-slate-300 hover:text-white transition">0&deg;</button>
+                  <button onclick="stepUCAngle(15)" class="px-2 py-1 rounded bg-dark-900 border border-slate-800 text-[10px] text-slate-300 hover:text-white transition">+15&deg;</button>
+                  <button onclick="stepUCAngle(45)" class="px-2 py-1 rounded bg-dark-900 border border-slate-800 text-[10px] text-slate-300 hover:text-white transition">+45&deg;</button>
+                </div>
+
                 <!-- Quick Preset Buttons -->
-                <div class="pt-2">
+                <div class="pt-2 border-t border-slate-800/80">
                   <span class="text-[10px] uppercase font-bold text-slate-500 block mb-1.5">Sudut Istimewa Populer:</span>
                   <div class="grid grid-cols-6 gap-1.5">
-                    <button onclick="setUCAngle(0)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">0&deg;</button>
-                    <button onclick="setUCAngle(30)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">30&deg;</button>
-                    <button onclick="setUCAngle(45)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono text-emerald-400 border-emerald-500/40">45&deg;</button>
-                    <button onclick="setUCAngle(60)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">60&deg;</button>
-                    <button onclick="setUCAngle(90)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">90&deg;</button>
-                    <button onclick="setUCAngle(120)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">120&deg;</button>
-                    <button onclick="setUCAngle(135)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">135&deg;</button>
-                    <button onclick="setUCAngle(150)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">150&deg;</button>
-                    <button onclick="setUCAngle(180)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">180&deg;</button>
-                    <button onclick="setUCAngle(270)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">270&deg;</button>
-                    <button onclick="setUCAngle(315)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">315&deg;</button>
-                    <button onclick="setUCAngle(360)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40">360&deg;</button>
+                    <button onclick="setUCAngle(0)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">0&deg;</button>
+                    <button onclick="setUCAngle(30)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">30&deg;</button>
+                    <button onclick="setUCAngle(45)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono text-emerald-400 border-emerald-500/40 transition">45&deg;</button>
+                    <button onclick="setUCAngle(60)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">60&deg;</button>
+                    <button onclick="setUCAngle(90)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">90&deg;</button>
+                    <button onclick="setUCAngle(120)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">120&deg;</button>
+                    <button onclick="setUCAngle(135)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">135&deg;</button>
+                    <button onclick="setUCAngle(150)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">150&deg;</button>
+                    <button onclick="setUCAngle(180)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">180&deg;</button>
+                    <button onclick="setUCAngle(270)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">270&deg;</button>
+                    <button onclick="setUCAngle(315)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">315&deg;</button>
+                    <button onclick="setUCAngle(360)" class="py-1 rounded bg-dark-900 border border-slate-800 text-[10px] font-mono hover:text-emerald-400 hover:border-emerald-500/40 transition">360&deg;</button>
                   </div>
                 </div>
               </div>
@@ -907,7 +938,7 @@
           </div>
         </div>
 
-        <!-- TOOL 2: EKSPLORER PARABOLA -->
+        <!-- TOOL 2: EKSPLORER PARABOLA KUADRAT -->
         <div id="ml-panel-parabola" class="hidden space-y-6">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
@@ -934,33 +965,36 @@
 
             <div class="lg:col-span-5 space-y-4">
               <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3.5">
-                <h4 class="text-xs font-bold text-white flex items-center gap-2">
-                  <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
-                  <span>Atur Koefisien Parabola:</span>
+                <h4 class="text-xs font-bold text-white flex items-center justify-between">
+                  <span class="flex items-center gap-2">
+                    <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Atur Koefisien (Ketik / Geser):</span>
+                  </span>
+                  <button onclick="resetParabolaCoeffs()" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded bg-dark-900 border border-slate-700 transition">Reset</button>
                 </h4>
                 
                 <div>
-                  <div class="flex justify-between text-xs font-semibold mb-1">
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
                     <span class="text-slate-300">Nilai a (Keterbukaan):</span>
-                    <span id="para-val-a" class="font-mono text-indigo-400 font-bold">1</span>
+                    <input type="number" id="para-input-a" min="-10" max="10" step="0.1" value="1" oninput="syncParaSlider('a', this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-indigo-300 font-bold text-xs focus:border-indigo-500">
                   </div>
-                  <input type="range" id="para-slider-a" min="-3" max="3" step="0.5" value="1" oninput="updateParabola()" class="w-full accent-indigo-500 cursor-pointer">
+                  <input type="range" id="para-slider-a" min="-10" max="10" step="0.1" value="1" oninput="syncParaInput('a', this.value)" class="w-full accent-indigo-500 cursor-pointer">
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-xs font-semibold mb-1">
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
                     <span class="text-slate-300">Nilai b (Kemiringan):</span>
-                    <span id="para-val-b" class="font-mono text-indigo-400 font-bold">0</span>
+                    <input type="number" id="para-input-b" min="-50" max="50" step="1" value="0" oninput="syncParaSlider('b', this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-indigo-300 font-bold text-xs focus:border-indigo-500">
                   </div>
-                  <input type="range" id="para-slider-b" min="-6" max="6" step="1" value="0" oninput="updateParabola()" class="w-full accent-indigo-500 cursor-pointer">
+                  <input type="range" id="para-slider-b" min="-50" max="50" step="1" value="0" oninput="syncParaInput('b', this.value)" class="w-full accent-indigo-500 cursor-pointer">
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-xs font-semibold mb-1">
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
                     <span class="text-slate-300">Nilai c (Titik Potong Sumbu Y):</span>
-                    <span id="para-val-c" class="font-mono text-indigo-400 font-bold">0</span>
+                    <input type="number" id="para-input-c" min="-50" max="50" step="1" value="0" oninput="syncParaSlider('c', this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-indigo-300 font-bold text-xs focus:border-indigo-500">
                   </div>
-                  <input type="range" id="para-slider-c" min="-6" max="6" step="1" value="0" oninput="updateParabola()" class="w-full accent-indigo-500 cursor-pointer">
+                  <input type="range" id="para-slider-c" min="-50" max="50" step="1" value="0" oninput="syncParaInput('c', this.value)" class="w-full accent-indigo-500 cursor-pointer">
                 </div>
               </div>
 
@@ -985,18 +1019,30 @@
           </div>
         </div>
 
-        <!-- TOOL 3: KALKULATOR MATRIKS CERDAS -->
+        <!-- TOOL 3: KALKULATOR MATRIKS CERDAS (ORDO 2X2 & 3X3 + INVERS LENGKAP) -->
         <div id="ml-panel-matrix" class="hidden space-y-6">
           <div class="clean-card rounded-2xl p-5 sm:p-7 border border-slate-800 space-y-5">
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i data-lucide="grid" class="w-5 h-5 text-indigo-400"></i>
-              <span>Kalkulator Matriks Ordo 2x2 Cepat</span>
-            </h3>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+              <div>
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <i data-lucide="grid" class="w-5 h-5 text-indigo-400"></i>
+                  <span>Kalkulator Matriks Pintar (Lengkap dengan Langkah Invers)</span>
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Pilih ordo matriks yang ingin dihitung, ketik nilainya secara fleksibel.</p>
+              </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Matriks A -->
+              <!-- Ordo Switcher Buttons -->
+              <div class="flex items-center gap-1.5 p-1 rounded-xl bg-dark-900 border border-slate-800 self-start sm:self-auto">
+                <button onclick="setMatrixOrdo(2)" id="btn-mat-ordo-2" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition shadow-sm">Ordo 2 &times; 2</button>
+                <button onclick="setMatrixOrdo(3)" id="btn-mat-ordo-3" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 text-slate-400 hover:text-white transition">Ordo 3 &times; 3</button>
+              </div>
+            </div>
+
+            <!-- Matrix Grids (2x2 View) -->
+            <div id="matrix-grid-2x2" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Matriks A 2x2 -->
               <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
-                <span class="text-xs font-bold text-indigo-300 block">Matriks A:</span>
+                <span class="text-xs font-bold text-indigo-300 block">Matriks A (2 &times; 2):</span>
                 <div class="grid grid-cols-2 gap-2 max-w-xs">
                   <input type="number" id="mat-a11" value="4" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
                   <input type="number" id="mat-a12" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
@@ -1005,9 +1051,9 @@
                 </div>
               </div>
 
-              <!-- Matriks B -->
+              <!-- Matriks B 2x2 -->
               <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
-                <span class="text-xs font-bold text-emerald-300 block">Matriks B:</span>
+                <span class="text-xs font-bold text-emerald-300 block">Matriks B (2 &times; 2):</span>
                 <div class="grid grid-cols-2 gap-2 max-w-xs">
                   <input type="number" id="mat-b11" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
                   <input type="number" id="mat-b12" value="-1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
@@ -1017,35 +1063,73 @@
               </div>
             </div>
 
-            <!-- Operations Buttons -->
-            <div class="flex flex-wrap gap-2 pt-2">
-              <button onclick="calcMatrixAction('detA')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20">
-                <i data-lucide="hash" class="w-3.5 h-3.5"></i>
-                <span>det(A)</span>
+            <!-- Matrix Grids (3x3 View) -->
+            <div id="matrix-grid-3x3" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Matriks A 3x3 -->
+              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-indigo-300 block">Matriks A (3 &times; 3):</span>
+                <div class="grid grid-cols-3 gap-2 max-w-sm">
+                  <input type="number" id="m3-a11" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a12" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a13" value="3" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a21" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a22" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a23" value="4" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a31" value="5" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a32" value="6" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                  <input type="number" id="m3-a33" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+                </div>
+              </div>
+
+              <!-- Matriks B 3x3 -->
+              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-emerald-300 block">Matriks B (3 &times; 3):</span>
+                <div class="grid grid-cols-3 gap-2 max-w-sm">
+                  <input type="number" id="m3-b11" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b12" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b13" value="-1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b21" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b22" value="3" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b23" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b31" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b32" value="-2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                  <input type="number" id="m3-b33" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Operations Action Buttons -->
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button onclick="calcMatrixAction('invA')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-300"></i>
+                <span>Hitung Invers Matriks A&sup1;</span>
               </button>
-              <button onclick="calcMatrixAction('invA')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20">
-                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                <span>Invers A&sup1;</span>
+              <button onclick="calcMatrixAction('detA')" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+                <i data-lucide="hash" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>Determinan det(A)</span>
               </button>
-              <button onclick="calcMatrixAction('transA')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20">
-                <i data-lucide="flip-horizontal" class="w-3.5 h-3.5"></i>
+              <button onclick="calcMatrixAction('transA')" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+                <i data-lucide="flip-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i>
                 <span>Transpose A^T</span>
               </button>
-              <button onclick="calcMatrixAction('add')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/20">
+              <button onclick="calcMatrixAction('add')" class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold transition flex items-center gap-1.5">
                 <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                <span>A + B</span>
+                <span>Penjumlahan A + B</span>
               </button>
-              <button onclick="calcMatrixAction('mult')" class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-amber-600/20">
+              <button onclick="calcMatrixAction('mult')" class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition flex items-center gap-1.5">
                 <i data-lucide="x" class="w-3.5 h-3.5"></i>
-                <span>A &times; B</span>
+                <span>Perkalian A &times; B</span>
               </button>
             </div>
 
             <!-- Matrix Result Output -->
-            <div id="matrix-result-box" class="p-4 rounded-xl bg-dark-900 border border-slate-700/80 space-y-2">
-              <span class="text-xs font-bold text-slate-400 block">Langkah Pembahasan & Hasil:</span>
-              <div id="matrix-result-content" class="text-slate-200 text-sm leading-relaxed font-mono">
-                Pilih salah satu tombol operasi di atas untuk melihat langkah penyelesaian matematis.
+            <div id="matrix-result-box" class="p-4 sm:p-5 rounded-2xl bg-dark-900 border border-slate-800 space-y-2">
+              <span class="text-xs font-bold text-slate-400 block flex items-center gap-2">
+                <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i>
+                <span>Langkah Pembahasan & Hasil Matematis:</span>
+              </span>
+              <div id="matrix-result-content" class="text-slate-200 text-xs sm:text-sm leading-relaxed overflow-x-auto py-1">
+                Pilih salah satu tombol operasi di atas (misal: <strong>Hitung Invers Matriks A&sup1;</strong>) untuk melihat langkah perhitungan.
               </div>
             </div>
           </div>
@@ -1059,7 +1143,7 @@
                 <i data-lucide="triangle" class="w-4 h-4 text-emerald-400"></i>
                 <span>Visual Segitiga Siku-Siku: a&sup2; + b&sup2; = c&sup2;</span>
               </div>
-              <svg id="pythagoras-svg" width="300" height="260" viewBox="0 0 300 260" class="select-none max-w-full bg-dark-950/60 rounded-xl border border-slate-800/80">
+              <svg id="pythagoras-svg" width="320" height="260" viewBox="0 0 320 260" class="select-none max-w-full bg-dark-950/60 rounded-xl border border-slate-800/80">
                 <!-- Triangle -->
                 <polygon id="pyt-triangle" points="50,210 230,210 50,50" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2.5" />
                 <!-- Siku-siku mark -->
@@ -1075,21 +1159,21 @@
               <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-3.5">
                 <h4 class="text-xs font-bold text-white flex items-center gap-2">
                   <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
-                  <span>Atur Panjang Sisi Siku-Siku:</span>
+                  <span>Atur Panjang Sisi (Ketik / Geser):</span>
                 </h4>
                 <div>
-                  <div class="flex justify-between text-xs font-semibold mb-1">
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
                     <span class="text-rose-400">Sisi Tegak a:</span>
-                    <span id="pyt-val-a" class="font-mono text-rose-300 font-bold">6</span>
+                    <input type="number" id="pyt-input-a" min="1" max="1000" value="6" oninput="syncPytSlider('a', this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-rose-300 font-bold text-xs focus:border-rose-500">
                   </div>
-                  <input type="range" id="pyt-slider-a" min="3" max="15" step="1" value="6" oninput="updatePythagoras()" class="w-full accent-rose-500 cursor-pointer">
+                  <input type="range" id="pyt-slider-a" min="1" max="100" step="1" value="6" oninput="syncPytInput('a', this.value)" class="w-full accent-rose-500 cursor-pointer">
                 </div>
                 <div>
-                  <div class="flex justify-between text-xs font-semibold mb-1">
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
                     <span class="text-sky-400">Sisi Alas b:</span>
-                    <span id="pyt-val-b" class="font-mono text-sky-300 font-bold">8</span>
+                    <input type="number" id="pyt-input-b" min="1" max="1000" value="8" oninput="syncPytSlider('b', this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-sky-300 font-bold text-xs focus:border-sky-500">
                   </div>
-                  <input type="range" id="pyt-slider-b" min="3" max="15" step="1" value="8" oninput="updatePythagoras()" class="w-full accent-sky-500 cursor-pointer">
+                  <input type="range" id="pyt-slider-b" min="1" max="100" step="1" value="8" oninput="syncPytInput('b', this.value)" class="w-full accent-sky-500 cursor-pointer">
                 </div>
               </div>
 
@@ -1926,6 +2010,22 @@ function doPost(e) {
     // ----------------------------------------------------
     // NAVIGATION CONTROLLER
     // ----------------------------------------------------
+    function triggerLatex(el) {
+      if (window.renderMathInElement) {
+        const target = el || document.getElementById('view-materi-detail') || document.getElementById('view-cheatsheet') || document.getElementById('matrix-result-content');
+        if (!target) return;
+        renderMathInElement(target, {
+          delimiters: [
+            { left: '', right: '', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'],
+          throwOnError: false,
+          strict: false
+        });
+      }
+    }
+
     function switchView(viewName) {
       // Close mobile drawer if open
       const drawer = document.getElementById('sidebar-drawer');
@@ -2172,10 +2272,31 @@ function doPost(e) {
       window.speechSynthesis.speak(utt);
     }
 
-    function openChapterDetail(chapterId) {
-      if (!currentGradeData || !currentGradeData.chapters) return;
-      const ch = currentGradeData.chapters.find(c => c.id === chapterId);
+    let activeReadingGrade = null; // Decoupled from currentStudent.grade for cross-grade reading
+
+    function openChapterDetail(chapterId, optionalGradeId) {
+      const studentGrade = currentStudent ? String(currentStudent.grade) : '11';
+      const targetGrade = optionalGradeId ? String(optionalGradeId) : (activeReadingGrade || studentGrade);
+      activeReadingGrade = targetGrade;
+
+      const sourceGradeData = window.ALL_GRADES_DATA ? window.ALL_GRADES_DATA[targetGrade] : currentGradeData;
+      if (!sourceGradeData || !sourceGradeData.chapters) return;
+
+      const ch = sourceGradeData.chapters.find(c => c.id === chapterId);
       if (!ch) return;
+
+      // Handle Cross-Grade Banner
+      const cgBanner = document.getElementById('cross-grade-notice-banner');
+      if (cgBanner) {
+        if (targetGrade !== studentGrade) {
+          cgBanner.classList.remove('hidden');
+          const myGradeName = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[studentGrade]) ? window.ALL_GRADES_DATA[studentGrade].gradeName : `Kelas ${studentGrade}`;
+          document.getElementById('cg-banner-title').textContent = `Mode Baca Lintas Jenjang • ${sourceGradeData.gradeName}`;
+          document.getElementById('cg-banner-registered').textContent = myGradeName;
+        } else {
+          cgBanner.classList.add('hidden');
+        }
+      }
 
       document.getElementById('detail-chapter-num').textContent = ch.number ? `Bab ${ch.number}` : (ch.badge || 'Modul Bab');
       document.getElementById('detail-chapter-title').textContent = ch.title;
@@ -2238,1350 +2359,386 @@ function doPost(e) {
 
       const startExamBtn = document.getElementById('btn-materi-start-exam');
       if (startExamBtn) {
-        startExamBtn.onclick = () => startChapterExam(ch.id);
-      }
-
-      addStudentXP(25, 'Membaca Bab');
-      switchView('materi-detail');
-      updateReaderFontSizeButtons(curSize);
-      lucide.createIcons();
-      triggerLatex();
-    }
-
-    // ----------------------------------------------------
-    // EXAM CBT ENGINE & CHAPTER CATALOG
-    // ----------------------------------------------------
-    function renderExamCatalog() {
-      const container = document.getElementById('exam-catalog-grid');
-      const badgeEl = document.getElementById('exam-catalog-grade-badge');
-      const statsEl = document.getElementById('exam-catalog-total-stats');
-      if (!container || !currentGradeData || !currentGradeData.chapters) return;
-
-      if (badgeEl) badgeEl.textContent = currentGradeData.gradeName;
-      const totalChapters = currentGradeData.chapters.length;
-      const totalQuestions = currentGradeData.chapters.reduce((sum, ch) => sum + (ch.questions ? ch.questions.length : 15), 0);
-      if (statsEl) statsEl.textContent = `${totalChapters} Bab • ${totalQuestions} Soal`;
-
-      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
-
-      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
-        const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
-        const qCount = ch.questions ? ch.questions.length : 15;
-        
-        // Check highest score for this chapter & student
-        const historyList = db.filter(r => 
-          (!myName || r.studentName.toLowerCase() === myName) && 
-          (r.chapterId === ch.id || r.chapterTitle === ch.title)
-        );
-        let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-dark-900 border border-slate-800 text-slate-400">Belum Dikerjakan</span>`;
-        if (historyList.length > 0) {
-          const maxScore = Math.max(...historyList.map(h => h.score));
-          const isPassed = maxScore >= 70;
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">Skor Tertinggi: ${maxScore}/100</span>`;
-        }
-
-        return `
-          <div class="clean-card rounded-2xl p-5 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">${badge}</span>
-                ${statusBadge}
-              </div>
-              <h4 class="text-sm sm:text-base font-bold text-white group-hover:text-indigo-300 transition mb-1.5">${ch.title}</h4>
-              <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${ch.summary}</p>
-            </div>
-            <div>
-              <div class="flex items-center gap-3 text-slate-400 text-xs mb-3 font-mono">
-                <span class="flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-400"></i> ${qCount} Soal</span>
-                <span>•</span>
-                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i> 30 Menit</span>
-                <span>•</span>
-                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Kunci Ber-sandi</span>
-              </div>
-              <div class="flex items-center gap-2 pt-3 border-t border-slate-800">
-                <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
-                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Baca Materi
-                </button>
-                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-1 shadow-lg shadow-indigo-600/30 transition">
-                  <i data-lucide="play" class="w-3.5 h-3.5"></i> Mulai Latihan
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function startChapterExam(chapterId) {
-      if (!currentGradeData || !currentGradeData.chapters) return;
-      let ch = currentGradeData.chapters.find(c => c.id === chapterId);
-      if (!ch) ch = currentGradeData.chapters[0];
-      if (!ch) return;
-
-      if (!ch.questions || ch.questions.length === 0) {
-        if (window.SOAL_BANK_PER_BAB && window.SOAL_BANK_PER_BAB[ch.id]) {
-          ch.questions = window.SOAL_BANK_PER_BAB[ch.id];
-        } else {
-          alert('Soal untuk bab ini sedang disiapkan.');
-          return;
-        }
-      }
-
-      currentExamChapter = ch;
-      activeQuestions = ch.questions;
-      userAnswers = new Array(activeQuestions.length).fill(null);
-      userDoubts = new Array(activeQuestions.length).fill(false);
-      currentQIdx = 0;
-      isSolutionVisible = false;
-
-      const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || 'Bab');
-      const badgeGradeEl = document.getElementById('exam-badge-grade');
-      if (badgeGradeEl) badgeGradeEl.textContent = `${badge}: ${ch.title}`;
-
-      // Reset timer to 30 mins
-      examSecondsLeft = 30 * 60;
-      if (examTimerInterval) clearInterval(examTimerInterval);
-      examTimerInterval = setInterval(updateExamTimer, 1000);
-
-      switchView('exam');
-      renderExamMatrix();
-      renderCurrentExamQuestion(0, 'none');
-    }
-
-    function confirmExitExam() {
-      const answered = userAnswers.filter(a => a !== null).length;
-      if (answered > 0) {
-        if (!confirm(`Kamu telah menjawab ${answered} dari ${activeQuestions.length} soal. Yakin ingin keluar ke daftar bab? Progres sesi ini tidak akan disimpan.`)) {
-          return;
-        }
-      }
-      clearInterval(examTimerInterval);
-      switchView('exam-catalog');
-    }
-
-    function repeatCurrentExam() {
-      if (currentExamChapter) {
-        startChapterExam(currentExamChapter.id);
-      } else {
-        switchView('exam-catalog');
-      }
-    }
-
-    function initGradeExam() {
-      if (!currentGradeData || !currentGradeData.questions || currentGradeData.questions.length === 0) return;
-      activeQuestions = currentGradeData.questions;
-      userAnswers = new Array(activeQuestions.length).fill(null);
-      userDoubts = new Array(activeQuestions.length).fill(false);
-      currentQIdx = 0;
-
-      document.getElementById('exam-badge-grade').textContent = `Latihan: ${currentGradeData.gradeShort}`;
-
-      // Reset timer
-      examSecondsLeft = 30 * 60;
-      if (examTimerInterval) clearInterval(examTimerInterval);
-      examTimerInterval = setInterval(updateExamTimer, 1000);
-
-      renderExamMatrix();
-      renderCurrentExamQuestion(0, 'none');
-    }
-
-    function updateExamTimer() {
-      if (examSecondsLeft > 0) {
-        examSecondsLeft--;
-        const mins = String(Math.floor(examSecondsLeft / 60)).padStart(2, '0');
-        const secs = String(examSecondsLeft % 60).padStart(2, '0');
-        document.getElementById('exam-timer').textContent = `${mins}:${secs}`;
-      } else {
-        clearInterval(examTimerInterval);
-        alert('Waktu ujian telah berakhir!');
-        executeFinalExamSubmit();
-      }
-    }
-
-    function renderExamMatrix() {
-      const container = document.getElementById('exam-matrix-grid');
-      container.innerHTML = activeQuestions.map((q, idx) => {
-        let style = "bg-dark-900 border-slate-800 text-slate-400";
-        if (userDoubts[idx]) {
-          style = "bg-amber-500 text-slate-950 font-bold border-amber-400";
-        } else if (userAnswers[idx] !== null) {
-          style = "bg-emerald-600 text-white font-bold border-emerald-500";
-        }
-
-        const ring = (idx === currentQIdx) ? "ring-2 ring-indigo-400 font-bold" : "";
-        return `
-          <button onclick="jumpExamQuestion(${idx})" class="h-8 rounded-lg border text-xs transition flex items-center justify-center ${style} ${ring}">
-            ${idx + 1}
-          </button>
-        `;
-      }).join('');
-
-      const answered = userAnswers.filter(a => a !== null).length;
-      document.getElementById('exam-answered-stat').textContent = `${answered} / ${activeQuestions.length} Terjawab`;
-    }
-
-    function renderCurrentExamQuestion(idx, direction = 'right') {
-      currentQIdx = idx;
-      const q = activeQuestions[idx];
-
-      const card = document.getElementById('exam-slide-card');
-      card.classList.remove('slide-enter-left', 'slide-enter-right');
-      if (direction === 'right') card.classList.add('slide-enter-right');
-      else if (direction === 'left') card.classList.add('slide-enter-left');
-
-      document.getElementById('exam-q-num-pill').textContent = `Soal No. ${idx + 1}`;
-      document.getElementById('exam-prompt-body').innerHTML = q.prompt;
-
-      // Doubt button
-      const doubtBtn = document.getElementById('exam-doubt-btn');
-      const doubtLabel = document.getElementById('exam-doubt-label');
-      if (userDoubts[idx]) {
-        doubtBtn.className = "px-2.5 py-1 rounded border border-amber-400 bg-amber-500/20 text-amber-300 text-xs flex items-center gap-1";
-        doubtLabel.textContent = "Ragu-ragu";
-      } else {
-        doubtBtn.className = "px-2.5 py-1 rounded border border-slate-700 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-400 hover:text-amber-300";
-        doubtLabel.textContent = "Tandai Ragu";
-      }
-
-      // Options with Answer Key Highlighting (when unlocked by PIN 090305)
-      const optContainer = document.getElementById('exam-options-body');
-      optContainer.innerHTML = q.options.map((opt, oIdx) => {
-        const isSelected = userAnswers[idx] === oIdx;
-        const isKeyUnlocked = isAnswerKeyUnlocked && isSolutionVisible;
-        const isCorrectKey = isKeyUnlocked && (oIdx === q.correct);
-
-        let cls = isSelected 
-          ? 'p-3 rounded-xl bg-indigo-950/40 border-2 border-indigo-500 text-white cursor-pointer flex items-center justify-between transition'
-          : 'p-3 rounded-xl bg-dark-900 border border-slate-800 text-slate-300 hover:border-slate-700 cursor-pointer flex items-center justify-between transition';
-        
-        let letterCls = isSelected ? 'bg-indigo-600 text-white font-bold' : 'bg-dark-800 text-slate-400';
-
-        if (isCorrectKey) {
-          cls += ' ring-2 ring-emerald-500 bg-emerald-950/30';
-          letterCls = 'bg-emerald-600 text-white font-bold ring-1 ring-emerald-400';
-        }
-
-        return `
-          <div onclick="selectExamOption(${idx}, ${oIdx})" class="${cls}">
-            <div class="flex items-center space-x-2.5">
-              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${letterCls}">
-                ${String.fromCharCode(65 + oIdx)}
-              </span>
-              <span class="text-xs sm:text-sm font-medium">${opt}</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              ${isCorrectKey ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Kunci Benar</span>' : ''}
-              <span class="${isSelected ? 'text-indigo-400 text-xs font-bold' : 'text-transparent'}">✓</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Prev button status
-      const btnPrev = document.getElementById('btn-exam-prev');
-      btnPrev.disabled = (idx === 0);
-      btnPrev.style.opacity = (idx === 0) ? '0.3' : '1';
-
-      renderSolutionBox();
-      renderExamMatrix();
-      lucide.createIcons();
-      triggerLatex();
-    }
-
-    function selectExamOption(qIdx, oIdx) {
-      userAnswers[qIdx] = oIdx;
-      renderCurrentExamQuestion(qIdx, 'none');
-    }
-
-    function toggleCurrentDoubt() {
-      userDoubts[currentQIdx] = !userDoubts[currentQIdx];
-      renderCurrentExamQuestion(currentQIdx, 'none');
-    }
-
-    // ----------------------------------------------------
-    // PROTECTED ANSWER KEY & EXPLANATION (SANDI: 090305)
-    // ----------------------------------------------------
-    function handleAnswerKeyClick() {
-      if (!isAnswerKeyUnlocked) {
-        document.getElementById('input-answer-key-pin').value = '';
-        document.getElementById('answer-key-pin-error').classList.add('hidden');
-        document.getElementById('modal-answer-key-pin').classList.remove('hidden');
-        setTimeout(() => {
-          document.getElementById('input-answer-key-pin').focus();
-        }, 100);
-      } else {
-        isSolutionVisible = !isSolutionVisible;
-        renderSolutionBox();
-      }
-    }
-
-    function handleAnswerKeyPinVerify(e) {
-      e.preventDefault();
-      const entered = document.getElementById('input-answer-key-pin').value.trim();
-      if (entered === ANSWER_KEY_PIN) {
-        isAnswerKeyUnlocked = true;
-        isSolutionVisible = true;
-        closeAnswerKeyPinModal();
-        renderCurrentExamQuestion(currentQIdx, 'none');
-        playBeep(660, 0.15);
-      } else {
-        document.getElementById('answer-key-pin-error').classList.remove('hidden');
-        playBeep(220, 0.3);
-      }
-    }
-
-    function closeAnswerKeyPinModal() {
-      document.getElementById('modal-answer-key-pin').classList.add('hidden');
-    }
-
-    function toggleSolutionBox() {
-      isSolutionVisible = !isSolutionVisible;
-      renderCurrentExamQuestion(currentQIdx, 'none');
-    }
-
-    function lockAnswerKey() {
-      isAnswerKeyUnlocked = false;
-      isSolutionVisible = false;
-      renderCurrentExamQuestion(currentQIdx, 'none');
-    }
-
-    function renderSolutionBox() {
-      const box = document.getElementById('exam-solution-box');
-      const keyBtn = document.getElementById('exam-key-btn');
-      const keyLabel = document.getElementById('exam-key-label');
-
-      if (!box || !keyBtn) return;
-
-      if (isAnswerKeyUnlocked) {
-        keyBtn.className = isSolutionVisible
-          ? "px-2.5 py-1 rounded border border-amber-500 bg-amber-500/20 text-amber-300 text-xs flex items-center gap-1 transition shrink-0"
-          : "px-2.5 py-1 rounded border border-indigo-500/50 bg-indigo-500/10 text-indigo-300 text-xs flex items-center gap-1 transition shrink-0";
-        keyLabel.textContent = isSolutionVisible ? "Tutup Pembahasan" : "Buka Pembahasan";
-      } else {
-        keyBtn.className = "px-2.5 py-1 rounded border border-slate-700 bg-dark-900 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-500 hover:text-amber-300 transition shrink-0";
-        keyLabel.textContent = "Kunci & Pembahasan";
-      }
-
-      if (isAnswerKeyUnlocked && isSolutionVisible && activeQuestions[currentQIdx]) {
-        const q = activeQuestions[currentQIdx];
-        const letter = String.fromCharCode(65 + q.correct);
-        document.getElementById('sol-correct-badge').textContent = `Pilihan ${letter}`;
-
-        const hintCard = document.getElementById('sol-hint-card');
-        const hintText = document.getElementById('sol-hint-text');
-        if (q.hint) {
-          hintCard.classList.remove('hidden');
-          hintText.innerHTML = q.hint;
-        } else {
-          hintCard.classList.add('hidden');
-        }
-
-        const explText = document.getElementById('sol-explanation-text');
-        explText.innerHTML = q.explanation || "Pembahasan lengkap dibahas langsung bersama guru.";
-
-        box.classList.remove('hidden');
-        triggerLatex();
-        lucide.createIcons();
-      } else {
-        box.classList.add('hidden');
-      }
-    }
-
-    function slideExamPrev() {
-      if (currentQIdx > 0) renderCurrentExamQuestion(currentQIdx - 1, 'left');
-    }
-    function slideExamNext() {
-      if (currentQIdx < activeQuestions.length - 1) renderCurrentExamQuestion(currentQIdx + 1, 'right');
-    }
-    function jumpExamQuestion(idx) {
-      const dir = idx > currentQIdx ? 'right' : 'left';
-      renderCurrentExamQuestion(idx, dir);
-    }
-
-    function toggleMatrixPaletteMobile() {
-      const p = document.getElementById('exam-matrix-panel');
-      p.classList.toggle('hidden');
-    }
-
-    // ----------------------------------------------------
-    // EXAM SUBMIT CONFIRMATION & RESULTS
-    // ----------------------------------------------------
-    function openExamSubmitConfirmation() {
-      const answered = userAnswers.filter(a => a !== null).length;
-      const doubt = userDoubts.filter((d, i) => d && userAnswers[i] !== null).length;
-      const unanswered = activeQuestions.length - answered;
-
-      document.getElementById('conf-answered-txt').textContent = `${answered} / ${activeQuestions.length} Soal`;
-      document.getElementById('conf-doubt-txt').textContent = `${doubt} Soal`;
-      document.getElementById('conf-unanswered-txt').textContent = `${unanswered} Soal`;
-
-      document.getElementById('modal-submit-confirm').classList.remove('hidden');
-    }
-
-    function closeSubmitConfirmModal() {
-      document.getElementById('modal-submit-confirm').classList.add('hidden');
-    }
-
-    function executeFinalExamSubmit() {
-      closeSubmitConfirmModal();
-      clearInterval(examTimerInterval);
-
-      let correct = 0;
-      activeQuestions.forEach((q, idx) => {
-        if (userAnswers[idx] === q.correct) correct++;
-      });
-      const score = Math.round((correct / activeQuestions.length) * 100);
-
-      const chTitle = currentExamChapter ? currentExamChapter.title : 'Latihan Mandiri';
-      const chId = currentExamChapter ? currentExamChapter.id : 'general';
-      const chBadge = currentExamChapter ? (currentExamChapter.number ? `Bab ${currentExamChapter.number}` : currentExamChapter.badge) : '';
-      const displaySubj = currentGradeData ? `${currentGradeData.gradeShort} - ${chBadge ? chBadge + ': ' : ''}${chTitle}` : chTitle;
-
-      const record = {
-        id: Date.now(),
-        timestamp: new Date().toLocaleString('id-ID'),
-        studentName: currentStudent ? currentStudent.name : 'Murid',
-        studentClass: currentGradeData ? currentGradeData.gradeName : 'Kelas',
-        gradeCode: currentStudent ? currentStudent.grade : '11',
-        chapterId: chId,
-        chapterTitle: chTitle,
-        displaySubject: displaySubj,
-        correctCount: correct,
-        totalQuestions: activeQuestions.length,
-        score: score,
-        passed: score >= 70
-      };
-
-      // Save to local storage database
-      try {
-        const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-        db.unshift(record);
-        localStorage.setItem(DB_KEY, JSON.stringify(db));
-      } catch (e) {}
-
-      // Post to Cloud Database (Google Sheets)
-      syncSubmissionToCloud(record);
-
-      // Show Results View
-      document.getElementById('res-student-name').textContent = record.studentName;
-      const resChEl = document.getElementById('res-chapter-title');
-      if (resChEl) resChEl.textContent = displaySubj;
-      document.getElementById('res-score-number').textContent = score;
-      document.getElementById('res-score-detail').textContent = `${correct} Benar dari ${activeQuestions.length} Soal (${score}/100)`;
-
-      if (score >= 70) {
-        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
-      }
-
-      addStudentXP(50 + Math.round(score / 2), `Selesai Kuis ${score}/100`);
-      switchView('exam-result');
-    }
-
-    function shareScoreWhatsApp() {
-      const name = currentStudent ? currentStudent.name : 'Murid';
-      const grade = currentGradeData ? currentGradeData.gradeName : 'Kelas';
-      const chTitle = currentExamChapter ? currentExamChapter.title : 'Latihan Soal';
-      let correct = 0;
-      activeQuestions.forEach((q, idx) => {
-        if (userAnswers[idx] === q.correct) correct++;
-      });
-      const score = Math.round((correct / activeQuestions.length) * 100);
-
-      const msg = `Halo Pak Guru, saya *${name}* (${grade}) telah menyelesaikan Latihan Soal Bab *${chTitle}* di *The Arich Study* dengan skor: *${score}/100* (${correct} Benar dari ${activeQuestions.length} Soal).`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    // ----------------------------------------------------
-    // HISTORY TABLE (STUDENT VIEW)
-    // ----------------------------------------------------
-    function renderHistoryTable() {
-      const tbody = document.getElementById('history-tbody');
-      const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-      const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
-      const list = db.filter(r => !myName || r.studentName.toLowerCase() === myName);
-
-      if (list.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="5" class="py-8 text-center text-slate-500 space-y-2">
-              <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
-              <p class="text-xs">Belum ada riwayat latihan untuk akun <strong>${currentStudent ? currentStudent.name : 'ini'}</strong>.</p>
-              <button onclick="switchView('exam-catalog')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition">
-                Mulai Latihan Sekarang <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </button>
-            </td>
-          </tr>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      tbody.innerHTML = list.map(item => `
-        <tr class="hover:bg-dark-900 transition">
-          <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
-          <td class="py-2.5 px-3">
-            <div class="font-semibold text-white text-xs">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
-            <div class="text-[10px] text-slate-500">${item.studentClass}</div>
-          </td>
-          <td class="py-2.5 px-3 text-center text-slate-300 font-bold">${item.correctCount} / ${item.totalQuestions}</td>
-          <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono">${item.score}</td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.passed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
-              ${item.passed ? 'Tuntas' : 'Remedial'}
-            </span>
-          </td>
-        </tr>
-      `).join('');
-      lucide.createIcons();
-    }
-
-    // ----------------------------------------------------
-    // TEACHER PIN & DASHBOARD (SANDI: 010822)
-    // ----------------------------------------------------
-    function promptTeacherPin() {
-      if (isTeacherUnlocked) {
-        switchView('teacher-dashboard');
-      } else {
-        document.getElementById('input-teacher-pin').value = '';
-        document.getElementById('pin-error-alert').classList.add('hidden');
-        document.getElementById('modal-teacher-pin').classList.remove('hidden');
-      }
-    }
-
-    function closeTeacherPinModal() {
-      document.getElementById('modal-teacher-pin').classList.add('hidden');
-    }
-
-    function handlePinVerify(e) {
-      e.preventDefault();
-      const pin = document.getElementById('input-teacher-pin').value.trim();
-      if (pin === TEACHER_PIN) {
-        isTeacherUnlocked = true;
-        closeTeacherPinModal();
-        document.getElementById('sb-teacher-label').textContent = 'Mode Guru (Aktif)';
-        document.getElementById('sb-teacher-icon').setAttribute('data-lucide', 'unlock');
-        lucide.createIcons();
-        switchView('teacher-dashboard');
-      } else {
-        document.getElementById('pin-error-alert').classList.remove('hidden');
-      }
-    }
-
-    // ----------------------------------------------------
-    // TEACHER DASHBOARD (DUAL-TAB & REALTIME CLOUD SYNC)
-    // ----------------------------------------------------
-    function switchTeacherTab(tabName) {
-      activeTeacherTab = tabName;
-      const btnStudents = document.getElementById('tab-btn-students');
-      const btnSubmissions = document.getElementById('tab-btn-submissions');
-      const secStudents = document.getElementById('teacher-tab-content-students');
-      const secSubmissions = document.getElementById('teacher-tab-content-submissions');
-
-      if (!btnStudents || !btnSubmissions) return;
-
-      if (tabName === 'students') {
-        btnStudents.className = "px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition";
-        btnSubmissions.className = "px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition";
-        secStudents.classList.remove('hidden');
-        secSubmissions.classList.add('hidden');
-      } else {
-        btnStudents.className = "px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2 transition";
-        btnSubmissions.className = "px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white flex items-center gap-2 transition";
-        secStudents.classList.add('hidden');
-        secSubmissions.classList.remove('hidden');
-      }
-      lucide.createIcons();
-    }
-
-    async function refreshTeacherData() {
-      const webhook = getActiveCloudWebhook();
-      const refreshIcon = document.getElementById('teacher-refresh-icon');
-      if (refreshIcon) refreshIcon.classList.add('animate-spin');
-
-      if (webhook) {
-        try {
-          const sep = webhook.includes('?') ? '&' : '?';
-          const res = await fetch(webhook + sep + 't=' + Date.now());
-          const json = await res.json();
-          if (json.status === 'success') {
-            cloudStudents = json.students || [];
-            cloudSubmissions = json.submissions || [];
-            if (json.sheetUrl) {
-              const sheetBtn = document.getElementById('btn-open-live-sheet');
-              if (sheetBtn) sheetBtn.href = json.sheetUrl;
+        startExamBtn.onclick = () => {
+          if (targetGrade !== studentGrade) {
+            const myGradeName = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[studentGrade]) ? window.ALL_GRADES_DATA[studentGrade].gradeName : `Kelas ${studentGrade}`;
+            const targetGradeName = sourceGradeData.gradeName;
+            if (confirm(`Bab ini adalah materi latihan ${targetGradeName}, sedangkan akun Anda terdaftar di ${myGradeName}.\n\nTetap mulai latihan ini sebagai uji kemampuan (tanpa mengubah jenjang kelas akun Anda)?`)) {
+              startChapterExam(ch.id);
             }
+          } else {
+            startChapterExam(ch.id);
           }
-        } catch (e) {
-          console.warn('Could not fetch from cloud webhook:', e);
-        }
+        };
       }
 
-      if (refreshIcon) {
-        setTimeout(() => refreshIcon.classList.remove('animate-spin'), 600);
-      }
-      renderTeacherDashboard();
-    }
-
-    function renderTeacherDashboard() {
-      const webhook = getActiveCloudWebhook();
-      const statusBadge = document.getElementById('teacher-cloud-status-badge');
-      const syncNotice = document.getElementById('teacher-sync-notice');
-
-      if (webhook) {
-        if (statusBadge) {
-          statusBadge.innerHTML = `<span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Cloud Aktif (Sinkron Real-time)</span>`;
-        }
-        if (syncNotice) {
-          syncNotice.innerHTML = `Terhubung ke Google Spreadsheet. Data murid dari semua perangkat otomatis masuk secara real-time.`;
-        }
-      } else {
-        if (statusBadge) {
-          statusBadge.innerHTML = `<span class="flex items-center gap-1.5 text-[10px] font-bold text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2.5 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Mode Offline (Perangkat Lokal)</span>`;
-        }
-        if (syncNotice) {
-          syncNotice.innerHTML = `Mode offline: Data di bawah adalah data dari HP/perangkat ini. <button onclick="openGoogleSheetModal()" class="text-emerald-400 underline font-bold hover:text-emerald-300">Hubungkan Google Sheets</button> agar akun &amp; nilai dari HP murid langsung masuk ke sini.`;
-        }
-      }
-
-      // Gather merged students and submissions
-      const localAccounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
-      const localDb = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-
-      // Merge students
-      const mergedStudentsMap = new Map();
-      localAccounts.forEach(acc => {
-        mergedStudentsMap.set(acc.name.toLowerCase(), {
-          name: acc.name,
-          gradeName: (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[acc.grade]) ? window.ALL_GRADES_DATA[acc.grade].gradeName : `Kelas ${acc.grade}`,
-          grade: acc.grade,
-          school: acc.school || 'Sekolah',
-          lastActive: acc.lastActive || acc.registeredAt || 'Lokal'
-        });
-      });
-      cloudStudents.forEach(cs => {
-        mergedStudentsMap.set(cs.name.toLowerCase(), {
-          name: cs.name,
-          gradeName: cs.gradeName || `Kelas ${cs.grade}`,
-          grade: cs.grade || '',
-          school: cs.school || 'Sekolah',
-          lastActive: cs.lastLogin || cs.timestamp || '-'
-        });
-      });
-      const allStudentsList = Array.from(mergedStudentsMap.values());
-
-      // Merge submissions
-      const allSubmissionsList = [...cloudSubmissions];
-      localDb.forEach(localItem => {
-        const exists = allSubmissionsList.some(cs => 
-          cs.studentName.toLowerCase() === localItem.studentName.toLowerCase() && 
-          cs.timestamp === localItem.timestamp &&
-          cs.score === localItem.score
-        );
-        if (!exists) {
-          allSubmissionsList.push(localItem);
-        }
-      });
-      allSubmissionsList.sort((a, b) => (b.id || 0) - (a.id || 0));
-
-      // Calculate stats
-      const totalStudents = allStudentsList.length;
-      const totalSubmissions = allSubmissionsList.length;
-      const avgScore = totalSubmissions > 0 
-        ? Math.round(allSubmissionsList.reduce((acc, cur) => acc + (Number(cur.score) || 0), 0) / totalSubmissions) 
-        : 0;
-      const passedCount = allSubmissionsList.filter(s => s.passed || Number(s.score) >= 70).length;
-      const passRate = totalSubmissions > 0 ? Math.round((passedCount / totalSubmissions) * 100) : 0;
-
-      // Update stat cards
-      const statStu = document.getElementById('teacher-stat-students');
-      if (statStu) statStu.textContent = totalStudents;
-      const statSub = document.getElementById('teacher-stat-submissions');
-      if (statSub) statSub.textContent = totalSubmissions;
-      const statAvg = document.getElementById('teacher-stat-avg');
-      if (statAvg) statAvg.textContent = avgScore;
-      const statPass = document.getElementById('teacher-stat-pass');
-      if (statPass) statPass.textContent = `${passRate}%`;
-
-      const cntStu = document.getElementById('tab-count-students');
-      if (cntStu) cntStu.textContent = totalStudents;
-      const cntSub = document.getElementById('tab-count-submissions');
-      if (cntSub) cntSub.textContent = totalSubmissions;
-
-      // Render Tables
-      renderTeacherStudentsTable(allStudentsList, allSubmissionsList);
-      renderTeacherSubmissionsTable(allSubmissionsList);
-
+      switchView('materi-detail');
       lucide.createIcons();
-    }
-
-    function renderTeacherStudentsTable(studentsList, submissionsList) {
-      const tbody = document.getElementById('teacher-students-tbody');
-      if (!tbody) return;
-
-      if (!studentsList || studentsList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">
-          <i data-lucide="users" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
-          <p class="text-xs">Belum ada akun murid yang terdata.</p>
-          <p class="text-[11px] text-slate-500 mt-0.5">Setelah murid login di HP mereka dan Google Sheets terhubung, nama mereka akan langsung muncul di sini.</p>
-        </td></tr>`;
-        lucide.createIcons();
-        return;
-      }
-
-      tbody.innerHTML = studentsList.map((st, i) => {
-        const mySubs = submissionsList.filter(s => s.studentName.toLowerCase() === st.name.toLowerCase());
-        const testCount = mySubs.length;
-        const avg = testCount > 0 ? Math.round(mySubs.reduce((a, b) => a + Number(b.score), 0) / testCount) : '-';
-
-        return `
-          <tr class="hover:bg-dark-900 transition">
-            <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
-            <td class="py-2.5 px-3 font-bold text-white flex items-center gap-2">
-              <span class="w-6 h-6 rounded-lg bg-indigo-600/30 text-indigo-400 font-bold flex items-center justify-center text-[10px]">
-                ${st.name.charAt(0).toUpperCase()}
-              </span>
-              <span>${st.name}</span>
-            </td>
-            <td class="py-2.5 px-3 text-indigo-300 font-semibold">${st.gradeName}</td>
-            <td class="py-2.5 px-3 text-slate-400">${st.school}</td>
-            <td class="py-2.5 px-3 text-center">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${testCount > 0 ? 'bg-indigo-600/20 text-indigo-300' : 'bg-dark-800 text-slate-500'}">
-                ${testCount} Latihan
-              </span>
-            </td>
-            <td class="py-2.5 px-3 text-center font-bold text-amber-400 font-mono">${avg}</td>
-            <td class="py-2.5 px-3 text-slate-400 text-[11px] font-mono">${st.lastActive}</td>
-          </tr>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function renderTeacherSubmissionsTable(submissionsList) {
-      const tbody = document.getElementById('teacher-tbody');
-      if (!tbody) return;
-
-      if (!submissionsList || submissionsList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">
-          <i data-lucide="clipboard-list" class="w-8 h-8 text-slate-600 mx-auto mb-1"></i>
-          <p class="text-xs">Belum ada murid yang mengumpulkan latihan soal.</p>
-        </td></tr>`;
-        lucide.createIcons();
-        return;
-      }
-
-      tbody.innerHTML = submissionsList.map((item, i) => {
-        const isPassed = item.passed || Number(item.score) >= 70;
-        return `
-          <tr class="hover:bg-dark-900 transition">
-            <td class="py-2.5 px-3 font-bold text-slate-500">${i + 1}</td>
-            <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">${item.timestamp}</td>
-            <td class="py-2.5 px-3 font-bold text-white">${item.studentName}</td>
-            <td class="py-2.5 px-3">
-              <div class="text-xs font-semibold text-slate-200">${item.displaySubject || item.chapterTitle || item.studentClass}</div>
-              <div class="text-[10px] text-slate-500">${item.studentClass}</div>
-            </td>
-            <td class="py-2.5 px-3 text-center text-slate-300 font-semibold">${item.correctCount} / ${item.totalQuestions}</td>
-            <td class="py-2.5 px-3 text-center font-bold text-emerald-400 font-mono text-sm">${item.score}</td>
-            <td class="py-2.5 px-3 text-center">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
-                ${isPassed ? 'Tuntas' : 'Remedial'}
-              </span>
-            </td>
-          </tr>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function filterTeacherStudents() {
-      const q = (document.getElementById('teacher-student-search').value || '').toLowerCase();
-      const grade = document.getElementById('teacher-student-grade-filter').value;
-      const rows = document.querySelectorAll('#teacher-students-tbody tr');
-
-      rows.forEach(r => {
-        const text = r.innerText.toLowerCase();
-        const matchText = !q || text.includes(q);
-        const matchGrade = (grade === 'ALL') || text.includes(`kelas ${grade}`);
-        r.style.display = (matchText && matchGrade) ? '' : 'none';
-      });
-    }
-
-    function copyAppsScriptCode() {
-      const code = document.getElementById('apps-script-code-block').innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        const btn = document.getElementById('btn-copy-script');
-        btn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> Tersalin!`;
-        lucide.createIcons();
-        setTimeout(() => {
-          btn.innerHTML = `<i data-lucide="copy" class="w-3 h-3"></i> Salin Kode`;
-          lucide.createIcons();
-        }, 2000);
-      });
-    }
-
-    function openGoogleSheetModal() {
-      document.getElementById('input-gsheet-url').value = getActiveCloudWebhook();
-      document.getElementById('gsheet-test-status').classList.add('hidden');
-      document.getElementById('modal-gsheets').classList.remove('hidden');
-    }
-
-    function closeGSheetsModal() {
-      document.getElementById('modal-gsheets').classList.add('hidden');
-    }
-
-    async function testAndSaveGSheetsUrl() {
-      const val = document.getElementById('input-gsheet-url').value.trim();
-      const statusEl = document.getElementById('gsheet-test-status');
-      const btn = document.getElementById('btn-save-webhook');
-
-      if (!val) {
-        localStorage.removeItem(GSHEET_KEY);
-        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = '';
-        closeGSheetsModal();
-        renderTeacherDashboard();
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i> Menghubungkan...`;
-      lucide.createIcons();
-
-      try {
-        const sep = val.includes('?') ? '&' : '?';
-        const res = await fetch(val + sep + 't=' + Date.now());
-        const json = await res.json();
-        if (json.status === 'success') {
-          localStorage.setItem(GSHEET_KEY, val);
-          if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = val;
-          cloudStudents = json.students || [];
-          cloudSubmissions = json.submissions || [];
-          statusEl.className = "text-[11px] mt-1.5 font-semibold text-emerald-400 block";
-          statusEl.textContent = "✓ Terhubung! Berhasil memuat data dari Google Spreadsheet.";
-          setTimeout(() => {
-            closeGSheetsModal();
-            renderTeacherDashboard();
-          }, 800);
-        } else {
-          statusEl.className = "text-[11px] mt-1.5 font-semibold text-rose-400 block";
-          statusEl.textContent = "Gagal: Respons server tidak valid. Pastikan deployment berizin 'Anyone'.";
-        }
-      } catch (err) {
-        localStorage.setItem(GSHEET_KEY, val);
-        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = val;
-        statusEl.className = "text-[11px] mt-1.5 font-semibold text-emerald-400 block";
-        statusEl.textContent = "✓ Webhook disimpan! (Akan dicoba saat pengiriman data)";
-        setTimeout(() => {
-          closeGSheetsModal();
-          renderTeacherDashboard();
-        }, 1000);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> Simpan & Hubungkan`;
-        lucide.createIcons();
-      }
-    }
-
-    function clearGSheetsUrl() {
-      if (confirm('Kosongkan koneksi webhook Google Sheets?')) {
-        document.getElementById('input-gsheet-url').value = '';
-        localStorage.removeItem(GSHEET_KEY);
-        if (window.THE_ARICH_CONFIG) window.THE_ARICH_CONFIG.cloudWebhookUrl = '';
-        cloudStudents = [];
-        cloudSubmissions = [];
-        closeGSheetsModal();
-        renderTeacherDashboard();
-      }
-    }
-
-    function exportTeacherCSV() {
-      const localDb = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-      const allSubmissions = [...cloudSubmissions];
-      localDb.forEach(localItem => {
-        if (!allSubmissions.some(s => s.studentName === localItem.studentName && s.timestamp === localItem.timestamp)) {
-          allSubmissions.push(localItem);
-        }
-      });
-
-      if (allSubmissions.length === 0) return alert('Belum ada data nilai latihan yang dapat diekspor.');
-      let csv = "No,Waktu,Nama Murid,Kelas,Materi Bab,Benar,Total Soal,Nilai,Status\n";
-      allSubmissions.forEach((item, i) => {
-        csv += `"${i+1}","${item.timestamp}","${item.studentName}","${item.studentClass}","${item.displaySubject || item.chapterTitle || ''}","${item.correctCount}","${item.totalQuestions}","${item.score}","${item.passed ? 'TUNTAS':'REMEDIAL'}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `Rekap_Nilai_TheArich_${new Date().toISOString().slice(0,10)}.csv`;
-      a.click();
-    }
-
-    function clearDatabaseConfirm() {
-      if (confirm('Yakin ingin mereset data riwayat lokal pada perangkat ini? Data di Google Sheets cloud tidak akan terhapus.')) {
-        localStorage.removeItem(DB_KEY);
-        renderTeacherDashboard();
-      }
-    }
-
-    // ----------------------------------------------------
-    // KATEX & AUDIO
-    // ----------------------------------------------------
-    function triggerLatex() {
       if (window.renderMathInElement) {
-        renderMathInElement(document.body, {
+        renderMathInElement(subContainer, {
           delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
           ],
-          throwOnError: false
+          throwOnError: false,
+          strict: false
         });
       }
+
+      // Add Reading XP
+      addStudentXP(25, `Membaca Bab: ${ch.title}`);
     }
 
-    function playBeep(freq = 440, duration = 0.1) {
-      if (!isAudio) return;
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
-
-    function toggleAudioSFX() {
-      isAudio = !isAudio;
-      document.getElementById('sfx-label').textContent = isAudio ? 'SFX' : 'Mute';
-      document.getElementById('sfx-icon').setAttribute('data-lucide', isAudio ? 'volume-2' : 'volume-x');
-      lucide.createIcons();
-    }
-
-    // Touch swipe support for exam cards on mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const examCard = document.getElementById('exam-slide-card');
-    if (examCard) {
-      examCard.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-      examCard.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        if (touchEndX < touchStartX - 50) slideExamNext();
-        if (touchEndX > touchStartX + 50) slideExamPrev();
-      }, {passive: true});
-    }
-
-    // Initialize on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      initApp();
-    });
-  
-    // ========================================================
-    // 6. SUITE FITUR UNIK & LABORATORIUM MATEMATIKA INTERAKTIF
-    // ========================================================
-
-    // ----------------------------------------------------
-    // GAMIFIKASI XP & LEVEL BELAJAR
-    // ----------------------------------------------------
-    const XP_KEY = 'the_arich_user_xp';
-
-    function getStudentXP() {
-      try {
-        return parseInt(localStorage.getItem(XP_KEY) || '0', 10);
-      } catch (e) {
-        return 0;
+    function returnToMyGradeView() {
+      activeReadingGrade = null;
+      if (currentStudent) {
+        loadGradeCurriculum(currentStudent.grade);
       }
-    }
-
-    function getStudentLevel(xp) {
-      if (xp >= 2000) return { level: 6, title: 'Dewa Matematika', icon: 'crown', nextXP: 5000, prevXP: 2000 };
-      if (xp >= 1000) return { level: 5, title: 'Master Kalkulus', icon: 'zap', nextXP: 2000, prevXP: 1000 };
-      if (xp >= 500)  return { level: 4, title: 'Penakluk Geometri', icon: 'compass', nextXP: 1000, prevXP: 500 };
-      if (xp >= 250)  return { level: 3, title: 'Ahli Aljabar', icon: 'sparkles', nextXP: 500, prevXP: 250 };
-      if (xp >= 100)  return { level: 2, title: 'Pembelajar Tekun', icon: 'book-open', nextXP: 250, prevXP: 100 };
-      return { level: 1, title: 'Penjelajah Pemula', icon: 'feather', nextXP: 100, prevXP: 0 };
-    }
-
-    function addStudentXP(amount, reason) {
-      try {
-        const cur = getStudentXP();
-        const next = cur + amount;
-        localStorage.setItem(XP_KEY, next.toString());
-        updateXPDisplay();
-
-        // Show toast
-        showXPToast(amount, reason);
-
-        // Check if level up
-        const oldLvl = getStudentLevel(cur);
-        const newLvl = getStudentLevel(next);
-        if (newLvl.level > oldLvl.level) {
-          confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 } });
-        }
-      } catch (e) {}
-    }
-
-    function showXPToast(amount, reason) {
-      let toast = document.getElementById('xp-toast-notify');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'xp-toast-notify';
-        toast.className = 'fixed bottom-20 right-4 z-50 bg-gradient-to-r from-amber-500 to-indigo-600 text-white font-bold text-xs px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-2 transform translate-y-2 opacity-0 transition-all duration-300 pointer-events-none border border-white/20';
-        document.body.appendChild(toast);
-      }
-      toast.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-amber-200"></i><span>+${amount} XP (${reason})</span>`;
-      lucide.createIcons();
-      toast.classList.remove('translate-y-2', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-2', 'opacity-0');
-      }, 2500);
-    }
-
-    function updateXPDisplay() {
-      const xp = getStudentXP();
-      const lvl = getStudentLevel(xp);
-      const badge = document.getElementById('top-xp-text');
-      if (badge) {
-        badge.textContent = `${xp} XP • Lv ${lvl.level}`;
-      }
-    }
-
-    function showLevelDetailsModal() {
-      const xp = getStudentXP();
-      const lvl = getStudentLevel(xp);
-      document.getElementById('modal-lvl-title').textContent = `Level ${lvl.level}: ${lvl.title}`;
-      document.getElementById('modal-lvl-desc').textContent = `Total capaian belajarmu: ${xp} XP`;
-      document.getElementById('modal-lvl-xp-text').textContent = `${xp} / ${lvl.nextXP} XP`;
-      const pct = Math.min(100, Math.max(0, Math.round(((xp - lvl.prevXP) / (lvl.nextXP - lvl.prevXP)) * 100)));
-      document.getElementById('modal-lvl-progress-bar').style.width = `${pct}%`;
-      document.getElementById('modal-level-details').classList.remove('hidden');
-    }
-
-    function closeLevelDetailsModal() {
-      document.getElementById('modal-level-details').classList.add('hidden');
+      switchView('dashboard');
     }
 
     // ----------------------------------------------------
-    // GLOBAL SEARCH (CTRL + K)
+    // GLOBAL SEARCH (NATURAL & CLEAN UI)
     // ----------------------------------------------------
-    let activeSearchCategory = 'all';
-
     function openGlobalSearchModal() {
-      document.getElementById('modal-global-search').classList.remove('hidden');
-      const input = document.getElementById('input-global-search');
-      if (input) {
-        input.value = '';
-        input.focus();
-        performGlobalSearch('');
+      const modal = document.getElementById('modal-global-search');
+      if (modal) {
+        modal.classList.remove('hidden');
+        const input = document.getElementById('input-global-search');
+        if (input) {
+          input.value = '';
+          input.focus();
+          performGlobalSearch('');
+        }
       }
     }
 
     function closeGlobalSearchModal() {
-      document.getElementById('modal-global-search').classList.add('hidden');
+      const modal = document.getElementById('modal-global-search');
+      if (modal) modal.classList.add('hidden');
     }
 
-    function filterSearchCategory(cat) {
-      activeSearchCategory = cat;
-      document.querySelectorAll('.search-cat-btn').forEach(btn => {
-        if (btn.getAttribute('data-cat') === cat) {
-          btn.className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold shrink-0 search-cat-btn';
-        } else {
-          btn.className = 'px-2.5 py-1 rounded-lg bg-dark-900 text-slate-300 hover:text-white shrink-0 search-cat-btn';
-        }
-      });
-      const query = document.getElementById('input-global-search').value;
-      performGlobalSearch(query);
+    function quickFilterSearch(tag) {
+      const input = document.getElementById('input-global-search');
+      if (input) {
+        input.value = tag;
+        performGlobalSearch(tag);
+      }
     }
 
     function performGlobalSearch(query) {
-      const q = (query || '').toLowerCase().trim();
-      const list = document.getElementById('search-results-list');
-      if (!list || !window.ALL_GRADES_DATA) return;
+      const resultsContainer = document.getElementById('search-results-list');
+      if (!resultsContainer) return;
 
-      const results = [];
-      const gradesToSearch = (activeSearchCategory === 'all') 
-        ? Object.keys(window.ALL_GRADES_DATA) 
-        : [activeSearchCategory];
-
-      gradesToSearch.forEach(gId => {
-        const gradeObj = window.ALL_GRADES_DATA[gId];
-        if (!gradeObj || !gradeObj.chapters) return;
-
-        gradeObj.chapters.forEach(ch => {
-          let score = 0;
-          let matchedSnippet = '';
-
-          // Match chapter title & summary
-          if (ch.title.toLowerCase().includes(q)) score += 10;
-          if (ch.summary && ch.summary.toLowerCase().includes(q)) {
-            score += 5;
-            matchedSnippet = ch.summary.substring(0, 110) + '...';
-          }
-
-          // Match subtopics
-          if (ch.subtopics) {
-            ch.subtopics.forEach(sub => {
-              if (sub.title.toLowerCase().includes(q)) score += 8;
-              if (sub.quickTip && sub.quickTip.toLowerCase().includes(q)) {
-                score += 4;
-                if (!matchedSnippet) matchedSnippet = '💡 ' + sub.quickTip.substring(0, 100) + '...';
-              }
-              if (sub.concept && sub.concept.toLowerCase().includes(q)) {
-                score += 3;
-                if (!matchedSnippet) matchedSnippet = sub.concept.substring(0, 100) + '...';
-              }
-            });
-          }
-
-          if (q === '' || score > 0) {
-            results.push({
-              gradeId: gId,
-              gradeName: gradeObj.gradeName,
-              chapterId: ch.id,
-              chapterNumber: ch.number || '01',
-              title: ch.title,
-              badge: ch.badge || gradeObj.gradeShort,
-              snippet: matchedSnippet || ch.summary || 'Klik untuk membuka modul bab ini.',
-              score
-            });
-          }
-        });
-      });
-
-      // Sort by score
-      results.sort((a, b) => b.score - a.score);
-
-      if (results.length === 0) {
-        list.innerHTML = `
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        resultsContainer.innerHTML = `
           <div class="text-center py-8 text-slate-500 text-xs">
-            Tidak ditemukan materi untuk kata kunci "${query}". Coba kata kunci lain (contoh: Pythagoras, Eksponen, Invers).
+            Ketik kata kunci untuk mencari bab, subtopik, rumus cepat, atau konsep lintas kelas 7-12...
           </div>
         `;
         return;
       }
 
-      list.innerHTML = results.slice(0, 12).map(r => `
-        <div onclick="jumpToSearchTarget('${r.gradeId}', '${r.chapterId}')" class="p-3 rounded-xl bg-dark-900 border border-slate-800 hover:border-indigo-500 hover:bg-dark-850 cursor-pointer transition group">
-          <div class="flex items-center justify-between gap-2 mb-1">
-            <span class="text-[10px] px-2 py-0.5 rounded font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/25">${r.gradeName}</span>
-            <span class="text-[10px] text-slate-500 font-mono">Bab ${r.chapterNumber}</span>
+      let matches = [];
+      const studentGrade = currentStudent ? String(currentStudent.grade) : '11';
+
+      if (window.ALL_GRADES_DATA) {
+        Object.keys(window.ALL_GRADES_DATA).forEach(gradeKey => {
+          const gData = window.ALL_GRADES_DATA[gradeKey];
+          if (!gData || !gData.chapters) return;
+
+          gData.chapters.forEach(ch => {
+            let matchedInChapter = false;
+            let snippet = ch.summary || '';
+
+            if (ch.title.toLowerCase().includes(q) || (ch.summary && ch.summary.toLowerCase().includes(q))) {
+              matchedInChapter = true;
+            }
+
+            if (ch.subtopics) {
+              ch.subtopics.forEach(sub => {
+                if (sub.title.toLowerCase().includes(q) || (sub.concept && sub.concept.toLowerCase().includes(q)) || (sub.quickTip && sub.quickTip.toLowerCase().includes(q))) {
+                  matchedInChapter = true;
+                  snippet = sub.title;
+                }
+              });
+            }
+
+            if (matchedInChapter) {
+              matches.push({
+                gradeId: gradeKey,
+                gradeName: gData.gradeName,
+                isMyGrade: (gradeKey === studentGrade),
+                chapterId: ch.id,
+                title: ch.title,
+                number: ch.number,
+                snippet: snippet
+              });
+            }
+          });
+        });
+      }
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="text-center py-8 text-slate-500 text-xs">
+            Tidak ditemukan materi dengan kata kunci "<strong class="text-slate-400">${q}</strong>". Coba kata kunci aljabar, matriks, turunan, pythagoras, dll.
           </div>
-          <div class="text-xs font-bold text-white group-hover:text-indigo-300 transition">${r.title}</div>
-          <div class="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">${r.snippet}</div>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = matches.map(r => `
+        <div onclick="jumpToSearchTarget('${r.gradeId}', '${r.chapterId}')" class="p-3 rounded-xl bg-dark-900 hover:bg-dark-850 border border-slate-800 hover:border-indigo-500/50 cursor-pointer transition flex items-center justify-between gap-3 group">
+          <div class="space-y-0.5">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${r.isMyGrade ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'}">${r.gradeName}${r.isMyGrade ? ' • Kelas Anda' : ''}</span>
+              <span class="text-xs font-bold text-white group-hover:text-indigo-300 transition">Bab ${r.number}: ${r.title}</span>
+            </div>
+            <p class="text-[11px] text-slate-400 line-clamp-1">${r.snippet}</p>
+          </div>
+          <span class="text-xs text-slate-500 group-hover:text-white shrink-0 font-medium">Buka &rarr;</span>
         </div>
       `).join('');
     }
 
     function jumpToSearchTarget(gradeId, chapterId) {
       closeGlobalSearchModal();
-      loadGradeCurriculum(gradeId);
-      updateHeaderProfile();
-      openChapterDetail(chapterId);
-      addStudentXP(10, 'Pencarian Cepat');
+      // Decoupled: opens chapter directly without mutating student registered grade!
+      openChapterDetail(chapterId, gradeId);
     }
 
-    // Keyboard Shortcut Listener (Ctrl + K / Cmd + K)
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        openGlobalSearchModal();
-      }
-      if (e.key === 'Escape') {
-        closeGlobalSearchModal();
-        closeLevelDetailsModal();
-      }
-    });
-
     // ----------------------------------------------------
-    // LABORATORIUM MATEMATIKA INTERAKTIF (MATH LAB)
+    // INTERACTIVE MATH LAB CONTROLLERS
     // ----------------------------------------------------
     function initMathLab() {
       switchMathLabTool('trig');
-      updateUnitCircle(45);
-      updateParabola();
-      updatePythagoras();
     }
 
     function switchMathLabTool(tool) {
-      ['trig', 'parabola', 'matrix', 'pythagoras'].forEach(t => {
+      const tools = ['trig', 'parabola', 'matrix', 'pythagoras'];
+      tools.forEach(t => {
         const panel = document.getElementById(`ml-panel-${t}`);
         const tab = document.getElementById(`ml-tab-${t}`);
-        if (panel) panel.classList.add('hidden');
+        if (panel) panel.classList.toggle('hidden', t !== tool);
         if (tab) {
-          tab.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-2 transition shrink-0';
+          if (t === tool) {
+            tab.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white flex items-center gap-2 transition shrink-0 shadow-lg shadow-emerald-600/20';
+          } else {
+            tab.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-2 transition shrink-0';
+          }
         }
       });
-
-      const activePanel = document.getElementById(`ml-panel-${tool}`);
-      const activeTab = document.getElementById(`ml-tab-${tool}`);
-      if (activePanel) activePanel.classList.remove('hidden');
-      if (activeTab) {
-        activeTab.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white flex items-center gap-2 transition shrink-0 shadow-lg shadow-emerald-600/20';
-      }
       lucide.createIcons();
+      if (tool === 'trig') updateUnitCircle(parseFloat(document.getElementById('uc-angle-input').value) || 45);
+      if (tool === 'parabola') updateParabola();
+      if (tool === 'pythagoras') updatePythagoras();
     }
 
-    // 1. UNIT CIRCLE
-    function handleUnitCircleAngle(val) {
-      updateUnitCircle(parseFloat(val));
+    // 1. TRIGONOMETRY UNIT CIRCLE
+    function handleUCAngleInput(val) {
+      const deg = parseFloat(val) || 0;
+      const slider = document.getElementById('uc-angle-slider');
+      if (slider) slider.value = Math.max(-360, Math.min(720, deg));
+      updateUnitCircle(deg);
+    }
+
+    function handleUCSlider(val) {
+      const deg = parseFloat(val) || 0;
+      const input = document.getElementById('uc-angle-input');
+      if (input) input.value = deg;
+      updateUnitCircle(deg);
+    }
+
+    function stepUCAngle(delta) {
+      const input = document.getElementById('uc-angle-input');
+      const cur = parseFloat(input.value) || 0;
+      const next = cur + delta;
+      input.value = next;
+      handleUCAngleInput(next);
     }
 
     function setUCAngle(deg) {
-      const slider = document.getElementById('uc-angle-slider');
-      if (slider) slider.value = deg;
-      updateUnitCircle(deg);
+      const input = document.getElementById('uc-angle-input');
+      if (input) {
+        input.value = deg;
+        handleUCAngleInput(deg);
+      }
     }
 
     function updateUnitCircle(deg) {
       const rad = (deg * Math.PI) / 180;
       const cosVal = Math.cos(rad);
       const sinVal = Math.sin(rad);
-      const tanVal = Math.abs(cosVal) < 0.0001 ? '&infin;' : Math.tan(rad).toFixed(4);
+      const tanVal = Math.abs(cosVal) < 0.00001 ? '&infin;' : Math.tan(rad).toFixed(4);
 
-      // Readouts
-      document.getElementById('uc-angle-readout').textContent = `${deg}°`;
-      document.getElementById('uc-sin-val').textContent = sinVal.toFixed(4);
-      document.getElementById('uc-cos-val').textContent = cosVal.toFixed(4);
-      document.getElementById('uc-tan-val').textContent = tanVal;
-
-      // Kuadran Badge
-      const badge = document.getElementById('uc-kuadran-badge');
-      if (deg >= 0 && deg < 90) {
-        badge.textContent = 'Kuadran I (All Positif)';
-        badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold border border-emerald-500/30';
-      } else if (deg >= 90 && deg < 180) {
-        badge.textContent = 'Kuadran II (Sinus +)';
-        badge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-extrabold border border-rose-500/30';
-      } else if (deg >= 180 && deg < 270) {
-        badge.textContent = 'Kuadran III (Tangen +)';
-        badge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-extrabold border border-amber-500/30';
-      } else {
-        badge.textContent = 'Kuadran IV (Cosinus +)';
-        badge.className = 'px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 text-xs font-extrabold border border-sky-500/30';
-      }
-
-      // SVG Updates (R = 100)
-      const cx = cosVal * 100;
-      const cy = -sinVal * 100; // SVG Y axis is inverted
+      const R = 100;
+      const px = cosVal * R;
+      const py = -sinVal * R; // SVG Y is inverted
 
       const pt = document.getElementById('uc-point');
-      if (pt) {
-        pt.setAttribute('cx', cx);
-        pt.setAttribute('cy', cy);
-      }
+      if (pt) { pt.setAttribute('cx', px); pt.setAttribute('cy', py); }
 
       const hyp = document.getElementById('uc-hyp-line');
-      if (hyp) {
-        hyp.setAttribute('x2', cx);
-        hyp.setAttribute('y2', cy);
-      }
+      if (hyp) { hyp.setAttribute('x2', px); hyp.setAttribute('y2', py); }
 
       const cosLine = document.getElementById('uc-cos-line');
-      if (cosLine) {
-        cosLine.setAttribute('x2', cx);
-      }
+      if (cosLine) { cosLine.setAttribute('x2', px); }
 
       const sinLine = document.getElementById('uc-sin-line');
       if (sinLine) {
-        sinLine.setAttribute('x1', cx);
+        sinLine.setAttribute('x1', px);
         sinLine.setAttribute('y1', 0);
-        sinLine.setAttribute('x2', cx);
-        sinLine.setAttribute('y2', cy);
+        sinLine.setAttribute('x2', px);
+        sinLine.setAttribute('y2', py);
       }
 
       const tri = document.getElementById('uc-triangle');
-      if (tri) {
-        tri.setAttribute('points', `0,0 ${cx},0 ${cx},${cy}`);
-      }
+      if (tri) { tri.setAttribute('points', `0,0 ${px},0 ${px},${py}`); }
 
-      // Angle Arc (R = 25)
+      // Update Arc
       const arc = document.getElementById('uc-angle-arc');
       if (arc) {
-        const arcR = 25;
-        const arcX = Math.cos(rad) * arcR;
-        const arcY = -Math.sin(rad) * arcR;
-        const largeArc = deg > 180 ? 1 : 0;
-        arc.setAttribute('d', `M ${arcR} 0 A ${arcR} ${arcR} 0 ${largeArc} 0 ${arcX} ${arcY}`);
+        const normDeg = ((deg % 360) + 360) % 360;
+        const arcR = 30;
+        const endX = Math.cos((normDeg * Math.PI) / 180) * arcR;
+        const endY = -Math.sin((normDeg * Math.PI) / 180) * arcR;
+        const largeArc = normDeg > 180 ? 1 : 0;
+        arc.setAttribute('d', `M ${arcR} 0 A ${arcR} ${arcR} 0 ${largeArc} 0 ${endX} ${endY}`);
+      }
+
+      // Readouts
+      const sinEl = document.getElementById('uc-sin-val');
+      const cosEl = document.getElementById('uc-cos-val');
+      const tanEl = document.getElementById('uc-tan-val');
+      if (sinEl) sinEl.textContent = sinVal.toFixed(4);
+      if (cosEl) cosEl.textContent = cosVal.toFixed(4);
+      if (tanEl) tanEl.innerHTML = tanVal;
+
+      // Quadrant Badge
+      const normAngle = ((deg % 360) + 360) % 360;
+      const badge = document.getElementById('uc-kuadran-badge');
+      if (badge) {
+        if (normAngle >= 0 && normAngle < 90) {
+          badge.textContent = 'Kuadran I (Semua +)';
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold border border-emerald-500/30';
+        } else if (normAngle >= 90 && normAngle < 180) {
+          badge.textContent = 'Kuadran II (Sin +, Lain -)';
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-extrabold border border-rose-500/30';
+        } else if (normAngle >= 180 && normAngle < 270) {
+          badge.textContent = 'Kuadran III (Tan +, Lain -)';
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-extrabold border border-amber-500/30';
+        } else {
+          badge.textContent = 'Kuadran IV (Cos +, Lain -)';
+          badge.className = 'px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 text-xs font-extrabold border border-sky-500/30';
+        }
       }
     }
 
     // 2. PARABOLA EXPLORER
-    function updateParabola() {
-      const a = parseFloat(document.getElementById('para-slider-a').value);
-      const b = parseFloat(document.getElementById('para-slider-b').value);
-      const c = parseFloat(document.getElementById('para-slider-c').value);
-
-      document.getElementById('para-val-a').textContent = a;
-      document.getElementById('para-val-b').textContent = b;
-      document.getElementById('para-val-c').textContent = c;
-
-      // Formula string
-      const bStr = b >= 0 ? `+ ${b}x` : `- ${Math.abs(b)}x`;
-      const cStr = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
-      document.getElementById('parabola-eq-display').textContent = `y = ${a}x² ${bStr} ${cStr}`;
-
-      // Vertex
-      const xp = a !== 0 ? -b / (2 * a) : 0;
-      const yp = a * xp * xp + b * xp + c;
-      document.getElementById('para-res-vertex').textContent = `(${xp.toFixed(2)}, ${yp.toFixed(2)})`;
-
-      // Discriminant
-      const D = b * b - 4 * a * c;
-      document.getElementById('para-res-d').textContent = D.toFixed(1);
-
-      const rootsBadge = document.getElementById('para-res-roots');
-      if (D > 0) {
-        rootsBadge.textContent = '2 Akar Real Berbeda (Memotong Sumbu X di 2 Titik)';
-        rootsBadge.className = 'font-bold text-emerald-400';
-      } else if (D === 0) {
-        rootsBadge.textContent = '1 Akar Kembar (Menyinggung Sumbu X Tepat di Puncak)';
-        rootsBadge.className = 'font-bold text-amber-400';
-      } else {
-        rootsBadge.textContent = 'Tidak Ada Akar Real (Kurva Melayang/Definit)';
-        rootsBadge.className = 'font-bold text-rose-400';
-      }
-
-      // Draw SVG curve (scale: 1 unit = 10 px)
-      let dPath = '';
-      for (let x = -15; x <= 15; x += 0.5) {
-        const y = a * x * x + b * x + c;
-        const svgX = x * 10;
-        const svgY = -y * 10; // SVG invert
-        if (dPath === '') dPath += `M ${svgX} ${svgY}`;
-        else dPath += ` L ${svgX} ${svgY}`;
-      }
-      const curve = document.getElementById('para-curve');
-      if (curve) curve.setAttribute('d', dPath);
-
-      // Axis of Symmetry line
-      const axis = document.getElementById('para-axis-line');
-      if (axis) {
-        const axisX = xp * 10;
-        axis.setAttribute('x1', axisX);
-        axis.setAttribute('x2', axisX);
-      }
-
-      // Vertex Dot
-      const vDot = document.getElementById('para-vertex-dot');
-      if (vDot) {
-        vDot.setAttribute('cx', xp * 10);
-        vDot.setAttribute('cy', -yp * 10);
-      }
+    function syncParaSlider(param, val) {
+      const slider = document.getElementById(`para-slider-${param}`);
+      if (slider) slider.value = val;
+      updateParabola();
     }
 
-    // 3. MATRIX CALCULATOR
-    function getMatrixValues() {
+    function syncParaInput(param, val) {
+      const input = document.getElementById(`para-input-${param}`);
+      if (input) input.value = val;
+      updateParabola();
+    }
+
+    function resetParabolaCoeffs() {
+      document.getElementById('para-input-a').value = 1;
+      document.getElementById('para-slider-a').value = 1;
+      document.getElementById('para-input-b').value = 0;
+      document.getElementById('para-slider-b').value = 0;
+      document.getElementById('para-input-c').value = 0;
+      document.getElementById('para-slider-c').value = 0;
+      updateParabola();
+    }
+
+    function updateParabola() {
+      const a = parseFloat(document.getElementById('para-input-a').value) || 0.001;
+      const b = parseFloat(document.getElementById('para-input-b').value) || 0;
+      const c = parseFloat(document.getElementById('para-input-c').value) || 0;
+
+      // Update Formula Text
+      const eqDisplay = document.getElementById('parabola-eq-display');
+      if (eqDisplay) {
+        const signB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
+        const signC = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+        eqDisplay.innerHTML = `y = ${a}x&sup2; ${signB}x ${signC}`;
+      }
+
+      // Vertex
+      const xp = -b / (2 * a);
+      const yp = a * xp * xp + b * xp + c;
+      const D = b * b - 4 * a * c;
+
+      const vEl = document.getElementById('para-res-vertex');
+      const dEl = document.getElementById('para-res-d');
+      const rEl = document.getElementById('para-res-roots');
+      if (vEl) vEl.textContent = `(${xp.toFixed(2)}, ${yp.toFixed(2)})`;
+      if (dEl) dEl.textContent = D.toFixed(2);
+      if (rEl) {
+        if (D > 0) rEl.textContent = '2 Akar Real Berbeda (Memotong 2 Titik)';
+        else if (Math.abs(D) < 0.001) rEl.textContent = '1 Akar Kembar (Menyinggung Sumbu X)';
+        else rEl.textContent = 'Akar Imajiner / Definit (Tidak Memotong X)';
+      }
+
+      // Draw SVG Path
+      const scale = 12; // 1 unit = 12 pixels
+      const points = [];
+      for (let x = -14; x <= 14; x += 0.5) {
+        const y = a * x * x + b * x + c;
+        const svgX = x * scale;
+        const svgY = -y * scale; // inverted SVG Y
+        if (svgY >= -140 && svgY <= 140) {
+          points.push(`${svgX.toFixed(1)},${svgY.toFixed(1)}`);
+        }
+      }
+
+      const curve = document.getElementById('para-curve');
+      if (curve && points.length > 1) {
+        curve.setAttribute('d', `M ${points.join(' L ')}`);
+      }
+
+      // Vertex Dot & Axis Line
+      const vDot = document.getElementById('para-vertex-dot');
+      const axisLine = document.getElementById('para-axis-line');
+      const svgVpX = xp * scale;
+      const svgVpY = -yp * scale;
+      if (vDot) { vDot.setAttribute('cx', svgVpX); vDot.setAttribute('cy', svgVpY); }
+      if (axisLine) { axisLine.setAttribute('x1', svgVpX); axisLine.setAttribute('x2', svgVpX); }
+    }
+
+    // 3. MATRIX CALCULATOR (ORDO 2X2 & 3X3 + STEP-BY-STEP INVERS)
+    let currentMatrixOrdo = 2;
+
+    function setMatrixOrdo(n) {
+      currentMatrixOrdo = n;
+      const grid2 = document.getElementById('matrix-grid-2x2');
+      const grid3 = document.getElementById('matrix-grid-3x3');
+      const btn2 = document.getElementById('btn-mat-ordo-2');
+      const btn3 = document.getElementById('btn-mat-ordo-3');
+
+      if (n === 2) {
+        if (grid2) grid2.classList.remove('hidden');
+        if (grid3) grid3.classList.add('hidden');
+        if (btn2) btn2.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition shadow-sm';
+        if (btn3) btn3.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 text-slate-400 hover:text-white transition';
+      } else {
+        if (grid2) grid2.classList.add('hidden');
+        if (grid3) grid3.classList.remove('hidden');
+        if (btn3) btn3.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition shadow-sm';
+        if (btn2) btn2.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 text-slate-400 hover:text-white transition';
+      }
+      lucide.createIcons();
+    }
+
+    function getMatrixValues2x2() {
       return {
         a11: parseFloat(document.getElementById('mat-a11').value) || 0,
         a12: parseFloat(document.getElementById('mat-a12').value) || 0,
@@ -3590,115 +2747,283 @@ function doPost(e) {
         b11: parseFloat(document.getElementById('mat-b11').value) || 0,
         b12: parseFloat(document.getElementById('mat-b12').value) || 0,
         b21: parseFloat(document.getElementById('mat-b21').value) || 0,
-        b22: parseFloat(document.getElementById('mat-b22').value) || 0,
+        b22: parseFloat(document.getElementById('mat-b22').value) || 0
       };
     }
 
+    function getMatrixValues3x3() {
+      const a = [
+        [parseFloat(document.getElementById('m3-a11').value) || 0, parseFloat(document.getElementById('m3-a12').value) || 0, parseFloat(document.getElementById('m3-a13').value) || 0],
+        [parseFloat(document.getElementById('m3-a21').value) || 0, parseFloat(document.getElementById('m3-a22').value) || 0, parseFloat(document.getElementById('m3-a23').value) || 0],
+        [parseFloat(document.getElementById('m3-a31').value) || 0, parseFloat(document.getElementById('m3-a32').value) || 0, parseFloat(document.getElementById('m3-a33').value) || 0]
+      ];
+      const b = [
+        [parseFloat(document.getElementById('m3-b11').value) || 0, parseFloat(document.getElementById('m3-b12').value) || 0, parseFloat(document.getElementById('m3-b13').value) || 0],
+        [parseFloat(document.getElementById('m3-b21').value) || 0, parseFloat(document.getElementById('m3-b22').value) || 0, parseFloat(document.getElementById('m3-b23').value) || 0],
+        [parseFloat(document.getElementById('m3-b31').value) || 0, parseFloat(document.getElementById('m3-b32').value) || 0, parseFloat(document.getElementById('m3-b33').value) || 0]
+      ];
+      return { a, b };
+    }
+
     function calcMatrixAction(op) {
-      const m = getMatrixValues();
       const out = document.getElementById('matrix-result-content');
       if (!out) return;
 
-      if (op === 'detA') {
-        const det = m.a11 * m.a22 - m.a12 * m.a21;
-        out.innerHTML = `
-          <div class="space-y-1.5">
-            <div class="text-indigo-300 font-bold">Langkah Perhitungan Determinan Matriks A:</div>
-            <div>$$\det(A) = (a_{11} \cdot a_{22}) - (a_{12} \cdot a_{21})$$</div>
-            <div>$$\det(A) = (${m.a11} \cdot ${m.a22}) - (${m.a12} \cdot ${m.a21}) = ${m.a11 * m.a22} - ${m.a12 * m.a21} = \mathbf{${det}}$$</div>
-          </div>
-        `;
-      } else if (op === 'invA') {
-        const det = m.a11 * m.a22 - m.a12 * m.a21;
-        if (det === 0) {
-          out.innerHTML = `<span class="text-rose-400 font-bold">&det;(A) = 0 (Matriks Singular), sehingga matriks A TIDAK MEMILIKI INVERS!</span>`;
-        } else {
+      if (currentMatrixOrdo === 2) {
+        const m = getMatrixValues2x2();
+        if (op === 'detA') {
+          const det = m.a11 * m.a22 - m.a12 * m.a21;
           out.innerHTML = `
-            <div class="space-y-1.5">
-              <div class="text-indigo-300 font-bold">Langkah Perhitungan Invers Matriks A:</div>
-              <div>$$A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$</div>
-              <div>$$A^{-1} = \frac{1}{${det}} \begin{pmatrix} ${m.a22} & ${-m.a12} \\ ${-m.a21} & ${m.a11} \end{pmatrix}$$</div>
+            <div class="space-y-2">
+              <div class="text-indigo-300 font-bold">Langkah Perhitungan Determinan Matriks A (Ordo 2 &times; 2):</div>
+              <div>$$\\det(A) = (a_{11} \\cdot a_{22}) - (a_{12} \\cdot a_{21})$$</div>
+              <div>$$\\det(A) = (${m.a11} \\cdot ${m.a22}) - (${m.a12} \\cdot ${m.a21}) = ${m.a11 * m.a22} - ${m.a12 * m.a21} = \\mathbf{${det}}$$</div>
+            </div>
+          `;
+        } else if (op === 'invA') {
+          const det = m.a11 * m.a22 - m.a12 * m.a21;
+          if (det === 0) {
+            out.innerHTML = `
+              <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-bold">
+                Determinan &det;(A) = 0 (Matriks Singular). Matriks A TIDAK MEMILIKI INVERS karena pembagian dengan nol tidak terdefinisi!
+              </div>
+            `;
+          } else {
+            const i11 = (m.a22 / det).toFixed(3);
+            const i12 = (-m.a12 / det).toFixed(3);
+            const i21 = (-m.a21 / det).toFixed(3);
+            const i22 = (m.a11 / det).toFixed(3);
+            out.innerHTML = `
+              <div class="space-y-2">
+                <div class="text-indigo-300 font-bold">Langkah Perhitungan Invers Matriks A (Ordo 2 &times; 2):</div>
+                <div class="text-xs text-slate-300">1. Hitung Determinan: $$\\det(A) = (${m.a11})(${m.a22}) - (${m.a12})(${m.a21}) = ${det}$$</div>
+                <div class="text-xs text-slate-300">2. Gunakan Rumus Adjoin Ordo 2x2: $$A^{-1} = \\frac{1}{\\det(A)} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$</div>
+                <div>$$A^{-1} = \\frac{1}{${det}} \\begin{pmatrix} ${m.a22} & ${-m.a12} \\\\ ${-m.a21} & ${m.a11} \\end{pmatrix} = \\begin{pmatrix} ${i11} & ${i12} \\\\ ${i21} & ${i22} \\end{pmatrix}$$</div>
+              </div>
+            `;
+          }
+        } else if (op === 'transA') {
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-indigo-300 font-bold">Transpose Matriks A (Tukar Baris Menjadi Kolom):</div>
+              <div>$$A^T = \\begin{pmatrix} ${m.a11} & ${m.a21} \\\\ ${m.a12} & ${m.a22} \\end{pmatrix}$$</div>
+            </div>
+          `;
+        } else if (op === 'add') {
+          const c11 = m.a11 + m.b11;
+          const c12 = m.a12 + m.b12;
+          const c21 = m.a21 + m.b21;
+          const c22 = m.a22 + m.b22;
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-emerald-300 font-bold">Penjumlahan Matriks A + B:</div>
+              <div>$$A + B = \\begin{pmatrix} ${m.a11} + (${m.b11}) & ${m.a12} + (${m.b12}) \\\\ ${m.a21} + (${m.b21}) & ${m.a22} + (${m.b22}) \\end{pmatrix} = \\begin{pmatrix} ${c11} & ${c12} \\\\ ${c21} & ${c22} \\end{pmatrix}$$</div>
+            </div>
+          `;
+        } else if (op === 'mult') {
+          const c11 = m.a11 * m.b11 + m.a12 * m.b21;
+          const c12 = m.a11 * m.b12 + m.a12 * m.b22;
+          const c21 = m.a21 * m.b11 + m.a22 * m.b21;
+          const c22 = m.a21 * m.b12 + m.a22 * m.b22;
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-amber-300 font-bold">Perkalian Matriks A &times; B (Baris &times; Kolom):</div>
+              <div>$$A \\times B = \\begin{pmatrix} (${m.a11})(${m.b11}) + (${m.a12})(${m.b21}) & (${m.a11})(${m.b12}) + (${m.a12})(${m.b22}) \\\\ (${m.a21})(${m.b11}) + (${m.a22})(${m.b21}) & (${m.a21})(${m.b12}) + (${m.a22})(${m.b22}) \\end{pmatrix}$$</div>
+              <div>$$A \\times B = \\begin{pmatrix} ${c11} & ${c12} \\\\ ${c21} & ${c22} \\end{pmatrix}$$</div>
             </div>
           `;
         }
-      } else if (op === 'transA') {
-        out.innerHTML = `
-          <div class="space-y-1.5">
-            <div class="text-indigo-300 font-bold">Transpose Matriks A (Tukar Baris Menjadi Kolom):</div>
-            <div>$$A^T = \begin{pmatrix} ${m.a11} & ${m.a21} \\ ${m.a12} & ${m.a22} \end{pmatrix}$$</div>
-          </div>
-        `;
-      } else if (op === 'add') {
-        const c11 = m.a11 + m.b11;
-        const c12 = m.a12 + m.b12;
-        const c21 = m.a21 + m.b21;
-        const c22 = m.a22 + m.b22;
-        out.innerHTML = `
-          <div class="space-y-1.5">
-            <div class="text-emerald-300 font-bold">Penjumlahan Matriks A + B:</div>
-            <div>$$A + B = \begin{pmatrix} ${m.a11} + (${m.b11}) & ${m.a12} + (${m.b12}) \\ ${m.a21} + (${m.b21}) & ${m.a22} + (${m.b22}) \end{pmatrix} = \begin{pmatrix} ${c11} & ${c12} \\ ${c21} & ${c22} \end{pmatrix}$$</div>
-          </div>
-        `;
-      } else if (op === 'mult') {
-        const c11 = m.a11 * m.b11 + m.a12 * m.b21;
-        const c12 = m.a11 * m.b12 + m.a12 * m.b22;
-        const c21 = m.a21 * m.b11 + m.a22 * m.b21;
-        const c22 = m.a21 * m.b12 + m.a22 * m.b22;
-        out.innerHTML = `
-          <div class="space-y-1.5">
-            <div class="text-amber-300 font-bold">Perkalian Matriks A &times; B (Baris &times; Kolom):</div>
-            <div>$$A \times B = \begin{pmatrix} (${m.a11})(${m.b11}) + (${m.a12})(${m.b21}) & (${m.a11})(${m.b12}) + (${m.a12})(${m.b22}) \\ (${m.a21})(${m.b11}) + (${m.a22})(${m.b21}) & (${m.a21})(${m.b12}) + (${m.a22})(${m.b22}) \end{pmatrix}$$</div>
-            <div>$$A \times B = \begin{pmatrix} ${c11} & ${c12} \\ ${c21} & ${c22} \end{pmatrix}$$</div>
-          </div>
-        `;
+      } else {
+        // ORDO 3X3 CALCULATION
+        const { a, b } = getMatrixValues3x3();
+        // Det 3x3 via Sarrus
+        const det3 = (
+          a[0][0]*a[1][1]*a[2][2] +
+          a[0][1]*a[1][2]*a[2][0] +
+          a[0][2]*a[1][0]*a[2][1]
+        ) - (
+          a[0][2]*a[1][1]*a[2][0] +
+          a[0][0]*a[1][2]*a[2][1] +
+          a[0][1]*a[1][0]*a[2][2]
+        );
+
+        if (op === 'detA') {
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-indigo-300 font-bold">Langkah Perhitungan Determinan Matriks A 3&times;3 (Metode Sarrus):</div>
+              <div class="text-xs text-slate-300 leading-relaxed">
+                $$\\det(A) = (a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32}) - (a_{13}a_{22}a_{31} + a_{11}a_{23}a_{32} + a_{12}a_{21}a_{33})$$
+              </div>
+              <div>
+                $$\\det(A) = [(${a[0][0]}\\cdot${a[1][1]}\\cdot${a[2][2]}) + (${a[0][1]}\\cdot${a[1][2]}\\cdot${a[2][0]}) + (${a[0][2]}\\cdot${a[1][0]}\\cdot${a[2][1]})] - [(${a[0][2]}\\cdot${a[1][1]}\\cdot${a[2][0]}) + (${a[0][0]}\\cdot${a[1][2]}\\cdot${a[2][1]}) + (${a[0][1]}\\cdot${a[1][0]}\\cdot${a[2][2]})]$$
+              </div>
+              <div class="text-sm font-bold text-emerald-400">
+                $$\\det(A) = \\mathbf{${det3}}$$
+              </div>
+            </div>
+          `;
+        } else if (op === 'invA') {
+          if (det3 === 0) {
+            out.innerHTML = `
+              <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-bold">
+                Determinan &det;(A) = 0 (Matriks Singular). Matriks A 3&times;3 TIDAK MEMILIKI INVERS!
+              </div>
+            `;
+          } else {
+            // Calculate 3x3 Cofactor Matrix
+            const c11 = (a[1][1]*a[2][2] - a[1][2]*a[2][1]);
+            const c12 = -(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
+            const c13 = (a[1][0]*a[2][1] - a[1][1]*a[2][0]);
+
+            const c21 = -(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
+            const c22 = (a[0][0]*a[2][2] - a[0][2]*a[2][0]);
+            const c23 = -(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
+
+            const c31 = (a[0][1]*a[1][2] - a[0][2]*a[1][1]);
+            const c32 = -(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
+            const c33 = (a[0][0]*a[1][1] - a[0][1]*a[1][0]);
+
+            // Adjoint is transpose of Cofactor
+            const adj = [
+              [c11, c21, c31],
+              [c12, c22, c32],
+              [c13, c23, c33]
+            ];
+
+            const invRes = adj.map(row => row.map(v => (v / det3).toFixed(3)));
+
+            out.innerHTML = `
+              <div class="space-y-2.5">
+                <div class="text-indigo-300 font-bold text-sm">Langkah Lengkap Invers Matriks A (Ordo 3 &times; 3):</div>
+                <div class="text-xs text-slate-300">1. Determinan Matriks A: $$\\det(A) = ${det3}$$</div>
+                <div class="text-xs text-slate-300">2. Matriks Adjoin $\\text{Adj}(A) = \\text{Cof}(A)^T$:
+                  $$\\text{Adj}(A) = \\begin{pmatrix} ${c11} & ${c21} & ${c31} \\\\ ${c12} & ${c22} & ${c32} \\\\ ${c13} & ${c23} & ${c33} \\end{pmatrix}$$
+                </div>
+                <div class="text-xs text-slate-300">3. Kalikan dengan $\\frac{1}{\\det(A)}$:
+                  $$A^{-1} = \\frac{1}{${det3}} \\begin{pmatrix} ${c11} & ${c21} & ${c31} \\\\ ${c12} & ${c22} & ${c32} \\\\ ${c13} & ${c23} & ${c33} \\end{pmatrix}$$
+                </div>
+                <div class="text-xs sm:text-sm font-bold text-emerald-300">Hasil Akhir Matriks Invers $A^{-1}$:
+                  $$A^{-1} = \\begin{pmatrix} ${invRes[0][0]} & ${invRes[0][1]} & ${invRes[0][2]} \\\\ ${invRes[1][0]} & ${invRes[1][1]} & ${invRes[1][2]} \\\\ ${invRes[2][0]} & ${invRes[2][1]} & ${invRes[2][2]} \\end{pmatrix}$$
+                </div>
+              </div>
+            `;
+          }
+        } else if (op === 'transA') {
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-indigo-300 font-bold">Transpose Matriks A 3&times;3:</div>
+              <div>$$A^T = \\begin{pmatrix} ${a[0][0]} & ${a[1][0]} & ${a[2][0]} \\\\ ${a[0][1]} & ${a[1][1]} & ${a[2][1]} \\\\ ${a[0][2]} & ${a[1][2]} & ${a[2][2]} \\end{pmatrix}$$</div>
+            </div>
+          `;
+        } else if (op === 'add') {
+          const sum = [
+            [a[0][0]+b[0][0], a[0][1]+b[0][1], a[0][2]+b[0][2]],
+            [a[1][0]+b[1][0], a[1][1]+b[1][1], a[1][2]+b[1][2]],
+            [a[2][0]+b[2][0], a[2][1]+b[2][1], a[2][2]+b[2][2]]
+          ];
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-emerald-300 font-bold">Penjumlahan Matriks A + B (3 &times; 3):</div>
+              <div>$$A + B = \\begin{pmatrix} ${sum[0][0]} & ${sum[0][1]} & ${sum[0][2]} \\\\ ${sum[1][0]} & ${sum[1][1]} & ${sum[1][2]} \\\\ ${sum[2][0]} & ${sum[2][1]} & ${sum[2][2]} \\end{pmatrix}$$</div>
+            </div>
+          `;
+        } else if (op === 'mult') {
+          const prod = [
+            [0,0,0],
+            [0,0,0],
+            [0,0,0]
+          ];
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              prod[r][c] = a[r][0]*b[0][c] + a[r][1]*b[1][c] + a[r][2]*b[2][c];
+            }
+          }
+          out.innerHTML = `
+            <div class="space-y-2">
+              <div class="text-amber-300 font-bold">Perkalian Matriks A &times; B (3 &times; 3):</div>
+              <div>$$A \\times B = \\begin{pmatrix} ${prod[0][0]} & ${prod[0][1]} & ${prod[0][2]} \\\\ ${prod[1][0]} & ${prod[1][1]} & ${prod[1][2]} \\\\ ${prod[2][0]} & ${prod[2][1]} & ${prod[2][2]} \\end{pmatrix}$$</div>
+            </div>
+          `;
+        }
       }
 
       if (window.renderMathInElement) {
-        renderMathInElement(out, { delimiters: [{ left: '$$', right: '$$', display: true }] });
+        renderMathInElement(out, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false,
+          strict: false
+        });
       }
       addStudentXP(15, 'Eksplorasi Lab Matriks');
     }
 
     // 4. PYTHAGORAS VISUALIZER
+    function syncPytSlider(param, val) {
+      const slider = document.getElementById(`pyt-slider-${param}`);
+      if (slider) slider.value = Math.min(100, Math.max(1, parseFloat(val) || 1));
+      updatePythagoras();
+    }
+
+    function syncPytInput(param, val) {
+      const input = document.getElementById(`pyt-input-${param}`);
+      if (input) input.value = val;
+      updatePythagoras();
+    }
+
     function updatePythagoras() {
-      const a = parseInt(document.getElementById('pyt-slider-a').value, 10);
-      const b = parseInt(document.getElementById('pyt-slider-b').value, 10);
+      const a = parseFloat(document.getElementById('pyt-input-a').value) || 6;
+      const b = parseFloat(document.getElementById('pyt-input-b').value) || 8;
       const c = Math.sqrt(a * a + b * b);
 
-      document.getElementById('pyt-val-a').textContent = a;
-      document.getElementById('pyt-val-b').textContent = b;
+      const labelA = document.getElementById('pyt-label-a');
+      const labelB = document.getElementById('pyt-label-b');
+      const labelC = document.getElementById('pyt-label-c');
+      if (labelA) labelA.textContent = `a = ${a}`;
+      if (labelB) labelB.textContent = `b = ${b}`;
+      if (labelC) labelC.textContent = `c = ${Number.isInteger(c) ? c : c.toFixed(2)}`;
 
-      document.getElementById('pyt-label-a').textContent = `a = ${a}`;
-      document.getElementById('pyt-label-b').textContent = `b = ${b}`;
-      document.getElementById('pyt-label-c').textContent = `c = ${c.toFixed(2)}`;
-
-      const cText = Number.isInteger(c) ? c.toString() : c.toFixed(2);
-      document.getElementById('pyt-calc-text').textContent = `c = √(${a}² + ${b}²) = √(${a * a} + ${b * b}) = √${a * a + b * b} = ${cText}`;
+      const calcEl = document.getElementById('pyt-calc-text');
+      if (calcEl) {
+        const a2 = a * a;
+        const b2 = b * b;
+        const sum = a2 + b2;
+        const isInt = Number.isInteger(c);
+        calcEl.innerHTML = `c = &radic;(${a}&sup2; + ${b}&sup2;) = &radic;(${a2} + ${b2}) = &radic;${sum} = <strong>${isInt ? c : c.toFixed(3)}</strong>`;
+      }
 
       const badge = document.getElementById('pyt-triple-badge');
-      if (Number.isInteger(c)) {
-        badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Tripel Pythagoras Murni (${a}, ${b}, ${c})!</span>`;
-        badge.className = 'px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/30 flex items-center gap-2';
-      } else {
-        badge.innerHTML = `<i data-lucide="info" class="w-4 h-4 text-slate-400"></i><span>Sisi miring bernilai bentuk akar: &radic;${a*a + b*b}</span>`;
-        badge.className = 'px-3 py-1.5 rounded-xl bg-dark-900 text-slate-400 font-medium text-xs border border-slate-800 flex items-center gap-2';
+      if (badge) {
+        if (Number.isInteger(c)) {
+          badge.classList.remove('hidden');
+          badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Tripel Pythagoras Sempurna (${a}, ${b}, ${c})!</span>`;
+        } else {
+          badge.classList.add('hidden');
+        }
       }
+
+      // Draw SVG Triangle dynamically
+      const maxSide = Math.max(a, b);
+      const scale = Math.min(180 / maxSide, 15);
+      const drawA = a * scale;
+      const drawB = b * scale;
+
+      const baseX = 50;
+      const baseY = 210;
+      const topX = baseX;
+      const topY = Math.max(20, baseY - drawA);
+      const rightX = Math.min(290, baseX + drawB);
+      const rightY = baseY;
+
+      const poly = document.getElementById('pyt-triangle');
+      if (poly) poly.setAttribute('points', `${baseX},${baseY} ${rightX},${rightY} ${topX},${topY}`);
       lucide.createIcons();
-
-      // Dynamic Triangle SVG
-      const scale = 10;
-      const x1 = 50, y1 = 210;
-      const x2 = x1 + Math.min(180, b * scale);
-      const y2 = y1;
-      const x3 = x1;
-      const y3 = y1 - Math.min(150, a * scale);
-
-      const tri = document.getElementById('pyt-triangle');
-      if (tri) tri.setAttribute('points', `${x1},${y1} ${x2},${y2} ${x3},${y3}`);
     }
 
     // ----------------------------------------------------
-    // LEMBAR RUMUS SAKTI (CHEAT SHEET HUB)
+    // FORMULA CHEAT SHEETS (CLEAN KATEX DOUBLE-ESCAPED)
     // ----------------------------------------------------
     const CHEAT_SHEETS_DATA = [
       {
@@ -3706,8 +3031,8 @@ function doPost(e) {
         category: 'Aljabar',
         badge: 'Fase D & E',
         formulas: [
-          { name: 'Rumus ABC (Kuadratik)', formula: '$$x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$' },
-          { name: 'Teorema Vieta Akar', formula: '$$x_1 + x_2 = -\frac{b}{a}, \quad x_1 \cdot x_2 = \frac{c}{a}$$' },
+          { name: 'Rumus ABC (Kuadratik)', formula: '$$x_{1,2} = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$' },
+          { name: 'Teorema Vieta Akar', formula: '$$x_1 + x_2 = -\\frac{b}{a}, \\quad x_1 \\cdot x_2 = \\frac{c}{a}$$' },
           { name: 'Jumlah Kuadrat Akar', formula: '$$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$$' },
           { name: 'Selisih Dua Kuadrat', formula: '$$a^2 - b^2 = (a + b)(a - b)$$' }
         ]
@@ -3717,10 +3042,10 @@ function doPost(e) {
         category: 'Aljabar',
         badge: 'Fase E (Kelas 10)',
         formulas: [
-          { name: 'Penjumlahan Pangkat', formula: '$$a^m \times a^n = a^{m+n}, \quad \frac{a^m}{a^n} = a^{m-n}$$' },
-          { name: 'Pangkat Berantai', formula: '$$(a^m)^n = a^{mn}, \quad a^{-n} = \frac{1}{a^n}$$' },
-          { name: 'Penjumlahan Logaritma', formula: '$$^a\log(b \cdot c) = ^a\log b + ^a\log c$$' },
-          { name: 'Pergantian Basis Log', formula: '$$^a\log b = \frac{^c\log b}{^c\log a} = \frac{1}{^b\log a}$$' }
+          { name: 'Penjumlahan Pangkat', formula: '$$a^m \\times a^n = a^{m+n}, \\quad \\frac{a^m}{a^n} = a^{m-n}$$' },
+          { name: 'Pangkat Berantai', formula: '$$(a^m)^n = a^{mn}, \\quad a^{-n} = \\frac{1}{a^n}$$' },
+          { name: 'Penjumlahan Logaritma', formula: '$${}^a\\log(b \\cdot c) = {}^a\\log b + {}^a\\log c$$' },
+          { name: 'Pergantian Basis Log', formula: '$${}^a\\log b = \\frac{{}^c\\log b}{{}^c\\log a} = \\frac{1}{{}^b\\log a}$$' }
         ]
       },
       {
@@ -3728,21 +3053,21 @@ function doPost(e) {
         category: 'Trigonometri',
         badge: 'Fase E & F',
         formulas: [
-          { name: 'Definisi Siku-Siku', formula: '$$\sin = \frac{\text{De}}{\text{Mi}}, \quad \cos = \frac{\text{Sa}}{\text{Mi}}, \quad \tan = \frac{\text{De}}{\text{Sa}}$$' },
-          { name: 'Identitas Pythagoras Tri', formula: '$$\sin^2\theta + \cos^2\theta = 1, \quad 1 + \tan^2\theta = \sec^2\theta$$' },
-          { name: 'Aturan Sinus', formula: '$$\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R$$' },
-          { name: 'Aturan Cosinus', formula: '$$a^2 = b^2 + c^2 - 2bc\cos A$$' }
+          { name: 'Definisi Siku-Siku', formula: '$$\\sin = \\frac{\\text{De}}{\\text{Mi}}, \\quad \\cos = \\frac{\\text{Sa}}{\\text{Mi}}, \\quad \\tan = \\frac{\\text{De}}{\\text{Sa}}$$' },
+          { name: 'Identitas Pythagoras Tri', formula: '$$\\sin^2\\theta + \\cos^2\\theta = 1, \\quad 1 + \\tan^2\\theta = \\sec^2\\theta$$' },
+          { name: 'Aturan Sinus', formula: '$$\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R$$' },
+          { name: 'Aturan Cosinus', formula: '$$a^2 = b^2 + c^2 - 2bc\\cos A$$' }
         ]
       },
       {
-        title: 'Kalkulus: Turunan & Dalil L\'Hopital',
+        title: "Kalkulus: Turunan & Dalil L'Hopital",
         category: 'Kalkulus',
         badge: 'Fase F (Kelas 11-12)',
         formulas: [
-          { name: 'Turunan Perkalian (u.v)', formula: '$$(u \cdot v)\' = u\'v + uv\'$$' },
-          { name: 'Turunan Pembagian (u/v)', formula: '$$\left(\frac{u}{v}\right)\' = \frac{u\'v - uv\'}{v^2}$$' },
-          { name: 'Aturan Rantai', formula: '$$\frac{d}{dx}[f(g(x))] = f\'(g(x)) \cdot g\'(x)$$' },
-          { name: 'Dalil L\'Hopital (0/0)', formula: '$$\lim_{x \to c} \frac{f(x)}{g(x)} = \lim_{x \to c} \frac{f\'(x)}{g\'(x)}$$' }
+          { name: 'Turunan Perkalian (u.v)', formula: "$$(u \\cdot v)' = u'v + uv'$$" },
+          { name: 'Turunan Pembagian (u/v)', formula: "$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$" },
+          { name: 'Aturan Rantai', formula: "$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$" },
+          { name: "Dalil L'Hopital (0/0)", formula: "$$\\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\lim_{x \\to c} \\frac{f'(x)}{g'(x)}$$" }
         ]
       },
       {
@@ -3750,10 +3075,10 @@ function doPost(e) {
         category: 'Kalkulus',
         badge: 'Fase F (Kelas 12)',
         formulas: [
-          { name: 'Integral Aljabar', formula: '$$\int ax^n dx = \frac{a}{n+1} x^{n+1} + C$$' },
-          { name: 'Teorema Dasar Kalkulus', formula: '$$\int_a^b f(x) dx = F(b) - F(a)$$' },
-          { name: 'Integral Parsial Tanzalin', formula: '$$\int u dv = uv - \int v du$$' },
-          { name: 'Luas Parabola-Garis Cepat', formula: '$$L = \frac{D\sqrt{D}}{6a^2}$$' }
+          { name: 'Integral Aljabar', formula: '$$\\int ax^n dx = \\frac{a}{n+1} x^{n+1} + C$$' },
+          { name: 'Teorema Dasar Kalkulus', formula: '$$\\int_a^b f(x) dx = F(b) - F(a)$$' },
+          { name: 'Integral Parsial Tanzalin', formula: '$$\\int u dv = uv - \\int v du$$' },
+          { name: 'Luas Parabola-Garis Cepat', formula: '$$L = \\frac{D\\sqrt{D}}{6a^2}$$' }
         ]
       },
       {
@@ -3762,9 +3087,9 @@ function doPost(e) {
         badge: 'Fase F (Kelas 11-12)',
         formulas: [
           { name: 'Bunga Majemuk Diskret', formula: '$$M_n = M_0 (1 + i)^n$$' },
-          { name: 'Bunga Majemuk Kontinu', formula: '$$M(t) = M_0 \cdot e^{r \cdot t}$$' },
-          { name: 'Anuitas Cicilan Bulanan', formula: '$$A = \frac{M \cdot i}{1 - (1 + i)^{-n}}$$' },
-          { name: 'Porsi Cicilan', formula: '$$A = a_n + b_n \quad (\text{Pokok} + \text{Bunga})$$' }
+          { name: 'Bunga Majemuk Kontinu', formula: '$$M(t) = M_0 \\cdot e^{r \\cdot t}$$' },
+          { name: 'Anuitas Cicilan Bulanan', formula: '$$A = \\frac{M \\cdot i}{1 - (1 + i)^{-n}}$$' },
+          { name: 'Porsi Cicilan', formula: '$$A = a_n + b_n \\quad (\\text{Pokok} + \\text{Bunga})$$' }
         ]
       }
     ];
@@ -3803,7 +3128,14 @@ function doPost(e) {
 
       lucide.createIcons();
       if (window.renderMathInElement) {
-        renderMathInElement(container, { delimiters: [{ left: '$$', right: '$$', display: true }] });
+        renderMathInElement(container, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false,
+          strict: false
+        });
       }
     }
 
@@ -3817,16 +3149,27 @@ function doPost(e) {
   </script>
 
   <!-- ======================================================== -->
-  <!-- MODAL: GLOBAL SEARCH (CTRL + K)                          -->
+  <!-- MODAL: GLOBAL SEARCH (NATURAL & CLEAN UI)                -->
   <!-- ======================================================== -->
-  <div id="modal-global-search" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden flex items-start justify-center p-4 pt-16 sm:pt-24">
-    <div class="clean-card rounded-2xl max-w-xl w-full p-4 sm:p-5 shadow-2xl border-indigo-500/40 space-y-3.5">
+  <div id="modal-global-search" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden flex items-start justify-center p-4 pt-12 sm:pt-20">
+    <div class="clean-card rounded-2xl max-w-xl w-full p-4 sm:p-5 shadow-2xl border-indigo-500/40 space-y-3.5 relative">
       
+      <!-- Modal Header with Close Button -->
+      <div class="flex items-center justify-between pb-1">
+        <h3 class="text-xs font-bold text-slate-300 flex items-center gap-2">
+          <i data-lucide="search" class="w-4 h-4 text-indigo-400"></i>
+          <span>Pencarian Cepat Materi & Rumus</span>
+        </h3>
+        <button onclick="closeGlobalSearchModal()" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-dark-800 transition" title="Tutup">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
       <!-- Search Input Bar -->
       <div class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-dark-900 border border-slate-700 focus-within:border-indigo-500 transition">
         <i data-lucide="search" class="w-4 h-4 text-indigo-400 shrink-0"></i>
-        <input type="text" id="input-global-search" oninput="performGlobalSearch(this.value)" placeholder="Cari materi, konsep aljabar, trigonometri, rumus cepat..." class="w-full bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none">
-        <kbd class="px-2 py-0.5 rounded bg-dark-800 border border-slate-700 text-[10px] text-slate-400 font-mono shrink-0">ESC</kbd>
+        <input type="text" id="input-global-search" oninput="performGlobalSearch(this.value)" placeholder="Ketik materi, konsep, atau nama bab yang ingin dicari..." class="w-full bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none">
+        <button onclick="document.getElementById('input-global-search').value=''; performGlobalSearch('');" class="text-slate-500 hover:text-slate-300 text-xs">Bersihkan</button>
       </div>
 
       <!-- Quick Category Chips -->
@@ -3846,11 +3189,6 @@ function doPost(e) {
         <div class="text-center py-8 text-slate-500 text-xs">
           Ketik kata kunci untuk mencari bab, subtopik, trik kilat, atau formula rumus...
         </div>
-      </div>
-
-      <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px] text-slate-400">
-        <span>Tekan <strong>Enter</strong> untuk membuka • <strong>ESC</strong> untuk menutup</span>
-        <button onclick="closeGlobalSearchModal()" class="text-slate-400 hover:text-rose-400 font-semibold">Tutup</button>
       </div>
     </div>
   </div>
