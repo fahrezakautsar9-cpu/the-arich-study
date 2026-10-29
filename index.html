@@ -2,6 +2,10 @@
 <html lang="id" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
+    <!-- Cache Control (Bypass iPad/Safari stale cache) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
   <title>The Arich Study — Platform Belajar Matematika & Fisika</title>
@@ -54,16 +58,16 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <!-- Data Modules for All 6 Grades (Kurikulum Merdeka Lengkap) -->
-  <script src="data/cloud_config.js"></script>
-  <script src="data/kurmer_kelas7_materi.js"></script>
-  <script src="data/kurmer_kelas8_materi.js"></script>
-  <script src="data/kurmer_kelas9_materi.js"></script>
-  <script src="data/kurmer_kelas10_materi.js"></script>
-  <script src="data/kurmer_kelas11_materi.js"></script>
-  <script src="data/kurmer_kelas12_materi.js"></script>
-  <script src="data/utbk_soal_bank.js"></script>
-  <script src="data/curriculum_all_grades.js"></script>
-  <script src="data/soal_bank_per_bab.js"></script>
+  <script src="data/cloud_config.js?v=1793281058"></script>
+  <script src="data/kurmer_kelas7_materi.js?v=1793281058"></script>
+  <script src="data/kurmer_kelas8_materi.js?v=1793281058"></script>
+  <script src="data/kurmer_kelas9_materi.js?v=1793281058"></script>
+  <script src="data/kurmer_kelas10_materi.js?v=1793281058"></script>
+  <script src="data/kurmer_kelas11_materi.js?v=1793281058"></script>
+  <script src="data/kurmer_kelas12_materi.js?v=1793281058"></script>
+  <script src="data/utbk_soal_bank.js?v=1793281058"></script>
+  <script src="data/curriculum_all_grades.js?v=1793281058"></script>
+  <script src="data/soal_bank_per_bab.js?v=1793281058"></script>
 
   <style>
     body {
@@ -406,6 +410,36 @@
         </div>
 
         <!-- Quick Chapters Overview -->
+        
+        <!-- ==================================================== -->
+        <!-- BANNER MATERI BARU: FISIKA FASE E (KELAS 10)         -->
+        <!-- ==================================================== -->
+        <div id="dash-physics-announcement" class="clean-card rounded-2xl p-4 sm:p-5 border border-cyan-500/40 bg-gradient-to-r from-cyan-950/40 via-dark-900 to-indigo-950/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl shadow-cyan-950/20">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0">
+              <i data-lucide="zap" class="w-5 h-5 animate-pulse"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 uppercase tracking-wider">Materi Baru Rilis</span>
+                <span class="text-xs text-slate-400">Kurikulum Merdeka Fase E</span>
+              </div>
+              <h3 class="text-sm font-bold text-white">⚡ Fisika Kelas 10: Pengukuran Presisi & Vektor</h3>
+              <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">Pelajari konsep jangka sorong, mikrometer, angka penting, dan operasi resultan vektor lengkap dengan simulasi interaktif.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+            <button onclick="setSubjectFilter('Fisika')" class="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-lg shadow-cyan-600/30">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              <span>Buka Materi Fisika</span>
+            </button>
+            <button onclick="switchMathLabTool('vector'); switchView('math-lab');" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 text-cyan-300 border border-cyan-800/60 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+              <span>Lab Vektor</span>
+            </button>
+          </div>
+        </div>
+
         <div>
           <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Daftar Bab Pembelajaran</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="dash-chapters-overview">
@@ -2108,6 +2142,12 @@ function doPost(e) {
     }
 
     function initApp() {
+
+    // Check app version and reload if out of date
+    const APP_CACHE_VERSION = '1793281058';
+    if (localStorage.getItem('THE_ARICH_CACHE_VER') !== APP_CACHE_VERSION) {
+      localStorage.setItem('THE_ARICH_CACHE_VER', APP_CACHE_VERSION);
+    }
       updateXPDisplay();
       // Auto-sync any previously filled student data to cloud
       syncExistingLocalDataToCloud();
