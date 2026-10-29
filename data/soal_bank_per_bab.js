@@ -5921,6 +5921,430 @@ window.SOAL_BANK_PER_BAB = {
     "correct": 1,
     "explanation": "Misalkan $u = \\sin 2x$, maka $2u^2 - 5u + 2 = 0 \\implies (2u - 1)(u - 2) = 0$.\n- $u = 2$ tidak memenuhi karena $> 1$.\n- $u = \\frac{1}{2} \\implies \\sin 2x = \\frac{1}{2}$.\nKarena $0 \\le x \\le \\pi$, maka interval sudut ganda adalah $0 \\le 2x \\le 2\\pi$.\nNilai $2x$ yang menghasilkan $\\sin 2x = \\frac{1}{2}$ pada $[0, 2\\pi]$ adalah:\n$$2x_1 = \\frac{\\pi}{6} \\implies x_1 = \\frac{\\pi}{12}$$\n$$2x_2 = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6} \\implies x_2 = \\frac{5\\pi}{12}$$\nJumlah seluruh akarnya adalah:\n$$x_1 + x_2 = \\frac{\\pi}{12} + \\frac{5\\pi}{12} = \\frac{6\\pi}{12} = \\frac{\\pi}{2}$$."
   }
+],
+  "k10-fisika-pengukuran": [
+  {
+    "id": 1,
+    "prompt": "Berdasarkan hukum gravitasi universal Newton, gaya tarik gravitasi antara dua massa dirumuskan sebagai $$F = G \\frac{m_1 m_2}{r^2}$$. Dimensi dari konstanta gravitasi universal $G$ adalah...",
+    "options": [
+      "$[M]^{-1} [L]^3 [T]^{-2}$",
+      "$[M] [L]^3 [T]^{-2}$",
+      "$[M]^{-1} [L]^2 [T]^{-2}$",
+      "$[M]^{-2} [L]^3 [T]^{-1}$",
+      "$[M] [L]^2 [T]^{-1}$"
+    ],
+    "correct": 0,
+    "hint": "Ubah persamaan menjadi $G = \\frac{F \\cdot r^2}{m_1 m_2}$ lalu masukkan dimensi masing-masing besaran.",
+    "explanation": "Dari persamaan $F = G \\frac{m_1 m_2}{r^2} \\implies G = \\frac{F \\cdot r^2}{m_1 m_2}$. Dimensi gaya $F = [M][L][T]^{-2}$, jarak kuadrat $r^2 = [L]^2$, dan massa kuadrat $m_1 m_2 = [M]^2$. Maka $[G] = \\frac{[M][L][T]^{-2} \\cdot [L]^2}{[M]^2} = [M]^{-1} [L]^3 [T]^{-2}$."
+  },
+  {
+    "id": 2,
+    "prompt": "Di antara pasangan besaran fisika berikut, pasangan yang memiliki dimensi yang sama adalah...",
+    "options": [
+      "Gaya dan Daya",
+      "Impuls dan Momentum Linear",
+      "Usaha dan Gaya",
+      "Tekanan dan Energi Potensial",
+      "Massa Jenis dan Berat Jenis"
+    ],
+    "correct": 1,
+    "hint": "Impuls $I = F \\cdot \\Delta t$ dan momentum $p = m \\cdot v$. Periksa kesamaan satuannya.",
+    "explanation": "Dimensi Impuls: $I = F \\cdot \\Delta t = [M][L][T]^{-2} \\cdot [T] = [M][L][T]^{-1}$. Dimensi Momentum: $p = m \\cdot v = [M] \\cdot [L][T]^{-1} = [M][L][T]^{-1}$. Keduanya memiliki dimensi yang sama, yaitu $[M][L][T]^{-1}$ (satuan $\\text{N}\\cdot\\text{s}$ atau $\\text{kg}\\cdot\\text{m/s}$)."
+  },
+  {
+    "id": 3,
+    "prompt": "Seorang siswa mengukur diameter luar tabung reaksi menggunakan jangka sorong dengan ketelitian $0{,}01\\text{ cm}$. Skala utama menunjukkan $4{,}3\\text{ cm}$ dan garis ke-7 pada skala nonius berimpit lurus dengan garis skala utama. Hasil pembacaan diameter tabung tersebut adalah...",
+    "options": [
+      "$4{,}37\\text{ cm}$",
+      "$4{,}307\\text{ cm}$",
+      "$4{,}73\\text{ cm}$",
+      "$4{,}07\\text{ cm}$",
+      "$5{,}00\\text{ cm}$"
+    ],
+    "correct": 0,
+    "hint": "Hasil ukur = Skala Utama + (Skala Nonius $\\times$ Ketelitian).",
+    "explanation": "Hasil ukur $= \\text{Skala Utama} + (\\text{Skala Nonius} \\times 0{,}01\\text{ cm}) = 4{,}3\\text{ cm} + (7 \\times 0{,}01\\text{ cm}) = 4{,}3\\text{ cm} + 0{,}07\\text{ cm} = 4{,}37\\text{ cm}$."
+  },
+  {
+    "id": 4,
+    "prompt": "Tebal sebuah lempeng tembaga diukur dengan mikrometer sekrup. Skala utama menunjukkan $5{,}5\\text{ mm}$ dan garis skala putar (thimble) yang berimpit dengan garis horizontal skala utama menunjuk angka $28$. Ketebalan lempeng tembaga tersebut adalah...",
+    "options": [
+      "$5{,}28\\text{ mm}$",
+      "$5{,}528\\text{ mm}$",
+      "$5{,}78\\text{ mm}$",
+      "$6{,}28\\text{ mm}$",
+      "$5{,}82\\text{ mm}$"
+    ],
+    "correct": 2,
+    "hint": "Ketelitian mikrometer sekrup adalah $0{,}01\\text{ mm}$. Kalikan skala putar dengan ketelitian lalu tambahkan skala utama.",
+    "explanation": "Hasil ukur $= \\text{Skala Utama} + (\\text{Skala Putar} \\times 0{,}01\\text{ mm}) = 5{,}5\\text{ mm} + (28 \\times 0{,}01\\text{ mm}) = 5{,}5\\text{ mm} + 0{,}28\\text{ mm} = 5{,}78\\text{ mm}$."
+  },
+  {
+    "id": 5,
+    "prompt": "Sebuah pelat seng memiliki panjang $12{,}45\\text{ cm}$ dan lebar $3{,}2\\text{ cm}$. Menurut aturan penulisan angka penting, luas pelat seng tersebut adalah...",
+    "options": [
+      "$39{,}84\\text{ cm}^2$",
+      "$39{,}8\\text{ cm}^2$",
+      "$40\\text{ cm}^2$",
+      "$4{,}0 \\times 10^1\\text{ cm}^2$",
+      "$39\\text{ cm}^2$"
+    ],
+    "correct": 3,
+    "hint": "Aturan perkalian: hasil akhir harus mengikuti jumlah Angka Penting (AP) paling sedikit dari faktor pengali.",
+    "explanation": "Panjang $= 12{,}45\\text{ cm}$ (4 AP). Lebar $= 3{,}2\\text{ cm}$ (2 AP). Luas $= 12{,}45 \\times 3{,}2 = 39{,}84\\text{ cm}^2$. Karena faktor paling sedikit memiliki 2 AP, hasil dibulatkan menjadi 2 AP. Angka $39{,}84$ dibulatkan menjadi $40$. Agar tegas 2 angka penting, ditulis dalam notasi ilmiah $4{,}0 \\times 10^1\\text{ cm}^2$ (atau diberi tanda garis pada angka nol)."
+  },
+  {
+    "id": 6,
+    "prompt": "Massa tiga buah batu ditimbang masing-masing menghasilkan $15{,}24\\text{ kg}$, $0{,}375\\text{ kg}$, dan $4{,}1\\text{ kg}$. Berdasarkan aturan angka penting, jumlah massa total ketiga batu tersebut adalah...",
+    "options": [
+      "$19{,}715\\text{ kg}$",
+      "$19{,}72\\text{ kg}$",
+      "$19{,}7\\text{ kg}$",
+      "$20\\text{ kg}$",
+      "$19{,}8\\text{ kg}$"
+    ],
+    "correct": 2,
+    "hint": "Aturan penjumlahan/pengurangan: hasil akhir hanya boleh memiliki 1 angka taksiran (mengikuti desimal paling sedikit).",
+    "explanation": "Penjumlahan: $15{,}24 + 0{,}375 + 4{,}1 = 19{,}715\\text{ kg}$. Angka desimal paling sedikit adalah $4{,}1$ (1 angka di belakang koma). Maka hasil dibulatkan hingga 1 tempat desimal menjadi $19{,}7\\text{ kg}$."
+  },
+  {
+    "id": 7,
+    "prompt": "Muatan listrik sebuah partikel elementer diukur sebesar $0{,}0000000000000000001602\\text{ C}$. Bentuk penulisan notasi ilmiah dengan 3 angka penting yang benar adalah...",
+    "options": [
+      "$1{,}602 \\times 10^{-19}\\text{ C}$",
+      "$1{,}60 \\times 10^{-19}\\text{ C}$",
+      "$1{,}6 \\times 10^{-19}\\text{ C}$",
+      "$16{,}0 \\times 10^{-20}\\text{ C}$",
+      "$0{,}160 \\times 10^{-18}\\text{ C}$"
+    ],
+    "correct": 1,
+    "hint": "Format baku notasi ilmiah adalah $a \\times 10^n$ dengan $1 \\le a < 10$. Ambil 3 angka signifikan pertama.",
+    "explanation": "Nilai $0{,}0000000000000000001602 = 1{,}602 \\times 10^{-19}\\text{ C}$. Karena diminta 3 angka penting, maka dibulatkan menjadi $1{,}60 \\times 10^{-19}\\text{ C}$."
+  },
+  {
+    "id": 8,
+    "prompt": "Hasil pengukuran panjang sebuah balok dengan mistar ber-NST $1\\text{ mm}$ dilaporkan sebagai $L = (8{,}40 \\pm 0{,}05)\\text{ cm}$. Persentase ketidakpastian relatif dari hasil pengukuran tersebut adalah...",
+    "options": [
+      "$0{,}06\\%$",
+      "$0{,}60\\%$",
+      "$1{,}20\\%$",
+      "$5{,}95\\%$",
+      "$0{,}05\\%$"
+    ],
+    "correct": 1,
+    "hint": "Ketidakpastian relatif $= \\frac{\\Delta x}{\\bar{x}} \\times 100\\%$.",
+    "explanation": "Ketidakpastian relatif $= \\frac{\\Delta L}{L} \\times 100\\% = \\frac{0{,}05\\text{ cm}}{8{,}40\\text{ cm}} \\times 100\\% \\approx 0{,}5952\\% \\approx 0{,}60\\%$."
+  },
+  {
+    "id": 9,
+    "prompt": "Sebuah kubus memiliki panjang rusuk $s = (2{,}00 \\pm 0{,}02)\\text{ cm}$. Menurut aturan perambatan ketidakpastian relatif, volume kubus beserta ketidakpastian mutlaknya adalah...",
+    "options": [
+      "$(8{,}00 \\pm 0{,}02)\\text{ cm}^3$",
+      "$(8{,}00 \\pm 0{,}06)\\text{ cm}^3$",
+      "$(8{,}00 \\pm 0{,}24)\\text{ cm}^3$",
+      "$(8{,}00 \\pm 0{,}08)\\text{ cm}^3$",
+      "$(8{,}00 \\pm 0{,}16)\\text{ cm}^3$"
+    ],
+    "correct": 2,
+    "hint": "Volume $V = s^3$. Ketidakpastian relatif volume $\\frac{\\Delta V}{V} = 3 \\times \\frac{\\Delta s}{s}$.",
+    "explanation": "Volume $V = (2{,}00)^3 = 8{,}00\\text{ cm}^3$. Ketidakpastian relatif rusuk $\\frac{\\Delta s}{s} = \\frac{0{,}02}{2{,}00} = 0{,}01 = 1\\%$. Ketidakpastian relatif volume $\\frac{\\Delta V}{V} = 3 \\times 1\\% = 3\\% = 0{,}03$. Maka $\\Delta V = 0{,}03 \\times 8{,}00 = 0{,}24\\text{ cm}^3$. Jadi, $V = (8{,}00 \\pm 0{,}24)\\text{ cm}^3$."
+  },
+  {
+    "id": 10,
+    "prompt": "Suatu partikel bergerak sepanjang sumbu-X dengan posisi yang memenuhi persamaan $$x(t) = A t^3 + B t^2 + C$$, dengan $x$ dalam meter dan $t$ dalam sekon. Dimensi dari tetapan $A$ adalah...",
+    "options": [
+      "$[L] [T]^{-1}$",
+      "$[L] [T]^{-2}$",
+      "$[L] [T]^{-3}$",
+      "$[L] [T]^3$",
+      "$[M] [L] [T]^{-3}$"
+    ],
+    "correct": 2,
+    "hint": "Berdasarkan prinsip homogenitas dimensi, setiap suku yang dijumlahkan harus berdimensi sama dengan posisi $[L]$.",
+    "explanation": "Dimensi $[x] = [L]$. Suku $A t^3$ harus berdimensi $[L]$, sehingga $[A] \\cdot [T]^3 = [L] \\implies [A] = [L][T]^{-3}$ (satuan $\\text{m/s}^3$)."
+  },
+  {
+    "id": 11,
+    "prompt": "Dalam Sistem Internasional (SI), dimensi dari besaran Daya listrik ($P = \\frac{W}{t}$) adalah...",
+    "options": [
+      "$[M] [L]^2 [T]^{-2}$",
+      "$[M] [L]^2 [T]^{-3}$",
+      "$[M] [L] [T]^{-2}$",
+      "$[M] [L]^3 [T]^{-2}$",
+      "$[M] [L]^2 [T]^{-1}$"
+    ],
+    "correct": 1,
+    "hint": "Daya adalah usaha per satuan waktu: $P = \\frac{\\text{Gaya} \\times \\text{Perpindahan}}{\\text{Waktu}}$.",
+    "explanation": "Usaha $W = F \\cdot s = [M][L][T]^{-2} \\cdot [L] = [M][L]^2[T]^{-2}$. Maka Daya $P = \\frac{W}{t} = \\frac{[M][L]^2[T]^{-2}}{[T]} = [M][L]^2[T]^{-3}$."
+  },
+  {
+    "id": 12,
+    "prompt": "Sebelum digunakan, rahang sebuah jangka sorong ditutup rapat namun skala nonius nol berada di sebelah kanan angka nol skala utama sebesar $+0{,}03\\text{ cm}$ (kesalahan nol positif). Ketika mengukur diameter koin, alat menunjukkan $2{,}85\\text{ cm}$. Nilai diameter koin yang sebenarnya adalah...",
+    "options": [
+      "$2{,}88\\text{ cm}$",
+      "$2{,}85\\text{ cm}$",
+      "$2{,}82\\text{ cm}$",
+      "$2{,}55\\text{ cm}$",
+      "$3{,}15\\text{ cm}$"
+    ],
+    "correct": 2,
+    "hint": "Hasil pengukuran terkoreksi = Pembacaan Skala - Kesalahan Nol (Zero Error).",
+    "explanation": "Koreksi kesalahan nol positif: Nilai Benar $= \\text{Pembacaan} - (+\\text{Zero Error}) = 2{,}85\\text{ cm} - 0{,}03\\text{ cm} = 2{,}82\\text{ cm}$."
+  },
+  {
+    "id": 13,
+    "prompt": "Sebuah ubin keramik berbentuk persegi memiliki luas $144{,}0\\text{ cm}^2$. Berdasarkan aturan angka penting, panjang sisi ubin keramik tersebut adalah...",
+    "options": [
+      "$12\\text{ cm}$",
+      "$12{,}0\\text{ cm}$",
+      "$12{,}00\\text{ cm}$",
+      "$12{,}000\\text{ cm}$",
+      "$12{,}0000\\text{ cm}$"
+    ],
+    "correct": 2,
+    "hint": "Aturan penarikan akar: jumlah angka penting hasil akar sama dengan jumlah angka penting bilangan yang ditarik akarnya.",
+    "explanation": "Luas $A = 144{,}0\\text{ cm}^2$ memiliki 4 angka penting (angka nol di belakang koma desimal adalah signifikan). Panjang sisi $s = \\sqrt{144{,}0} = 12\\text{ cm}$. Menurut aturan penarikan akar, hasil harus ditulis dengan 4 angka penting, yaitu $12{,}00\\text{ cm}$."
+  },
+  {
+    "id": 14,
+    "prompt": "Diberikan persamaan gas ideal $P V = n R T$. Jika $P$ adalah tekanan ($\\text{N/m}^2$), $V$ adalah volume ($\\text{m}^3$), $n$ adalah jumlah zat ($\\text{mol}$), dan $T$ adalah suhu termodinamika ($\\text{Kelvin}$), maka satuan konstanta gas $R$ dalam satuan dasar SI adalah...",
+    "options": [
+      "$\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+      "$\\text{kg}\\cdot\\text{m}\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+      "$\\text{kg}\\cdot\\text{m}^3\\cdot\\text{s}^{-1}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+      "$\\text{kg}^{-1}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+      "$\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-3}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$"
+    ],
+    "correct": 0,
+    "hint": "$P \\cdot V$ memiliki dimensi energi (Joule). Satuan Joule dalam satuan dasar SI adalah $\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}$.",
+    "explanation": "$R = \\frac{P V}{n T}$. Dimensi $P V$ sama dengan Usaha $[M][L]^2[T]^{-2}$. Maka dimensi $R$ adalah $[M][L]^2[T]^{-2} [\\text{mol}]^{-1} [\\theta]^{-1}$. Dalam satuan dasar SI dinyatakan sebagai $\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$."
+  },
+  {
+    "id": 15,
+    "prompt": "Dalam eksperimen pengukuran berulang percepatan gravitasi bumi $g$, diperoleh hasil pengukuran berturut-turut: $9{,}8\\text{ m/s}^2$, $9{,}7\\text{ m/s}^2$, $9{,}9\\text{ m/s}^2$, $9{,}8\\text{ m/s}^2$, dan $9{,}8\\text{ m/s}^2$. Nilai rata-rata percepatan gravitasi bumi tersebut adalah...",
+    "options": [
+      "$9{,}78\\text{ m/s}^2$",
+      "$9{,}80\\text{ m/s}^2$",
+      "$9{,}82\\text{ m/s}^2$",
+      "$9{,}85\\text{ m/s}^2$",
+      "$9{,}90\\text{ m/s}^2$"
+    ],
+    "correct": 1,
+    "hint": "Jumlahkan semua nilai ukur lalu bagi dengan jumlah percobaan ($N = 5$).",
+    "explanation": "Rata-rata $\\bar{g} = \\frac{9{,}8 + 9{,}7 + 9{,}9 + 9{,}8 + 9{,}8}{5} = \\frac{49{,}0}{5} = 9{,}80\\text{ m/s}^2$."
+  }
+],
+  "k10-fisika-vektor": [
+  {
+    "id": 1,
+    "prompt": "Di antara kelompok besaran fisika berikut, kelompok yang seluruh anggotanya merupakan besaran vektor adalah...",
+    "options": [
+      "Laju, massa, dan jarak tempuh",
+      "Kecepatan, percepatan, dan gaya",
+      "Usaha, daya, dan momentum",
+      "Tekanan, kuat arus, dan induksi magnetik",
+      "Waktu, percepatan, dan energi kinetik"
+    ],
+    "correct": 1,
+    "hint": "Besaran vektor memiliki nilai dan arah, sedangkan besaran skalar hanya memiliki nilai.",
+    "explanation": "Kecepatan (velocity), percepatan (acceleration), dan gaya (force) semuanya memiliki besar (magnitude) dan arah (direction) sehingga merupakan besaran vektor. Laju, massa, jarak, usaha, daya, dan waktu adalah besaran skalar."
+  },
+  {
+    "id": 2,
+    "prompt": "Dua buah vektor gaya saling tegak lurus ($90^\\circ$) bertitik tangkap di titik $O$, dengan besar masing-masing $F_1 = 6\\text{ N}$ dan $F_2 = 8\\text{ N}$. Besar resultan kedua gaya tersebut adalah...",
+    "options": [
+      "$10\\text{ N}$",
+      "$14\\text{ N}$",
+      "$2\\text{ N}$",
+      "$12\\text{ N}$",
+      "$8\\sqrt{2}\\text{ N}$"
+    ],
+    "correct": 0,
+    "hint": "Untuk dua vektor saling tegak lurus, gunakan teorema Pythagoras: $R = \\sqrt{F_1^2 + F_2^2}$.",
+    "explanation": "$R = \\sqrt{F_1^2 + F_2^2 + 2 F_1 F_2 \\cos 90^\\circ} = \\sqrt{6^2 + 8^2 + 0} = \\sqrt{36 + 64} = \\sqrt{100} = 10\\text{ N}$."
+  },
+  {
+    "id": 3,
+    "prompt": "Dua buah vektor gaya masing-masing besarnya bernilai $10\\text{ N}$ dan saling mengapit sudut $60^\\circ$. Besar resultan kedua vektor tersebut adalah...",
+    "options": [
+      "$10\\text{ N}$",
+      "$10\\sqrt{2}\\text{ N}$",
+      "$10\\sqrt{3}\\text{ N}$",
+      "$20\\text{ N}$",
+      "$5\\sqrt{3}\\text{ N}$"
+    ],
+    "correct": 2,
+    "hint": "Gunakan rumus kosinus resultan: $R = \\sqrt{F_1^2 + F_2^2 + 2 F_1 F_2 \\cos \\theta}$, dengan $\\cos 60^\\circ = \\frac{1}{2}$.",
+    "explanation": "$R = \\sqrt{10^2 + 10^2 + 2(10)(10)\\cos 60^\\circ} = \\sqrt{100 + 100 + 200\\left(\\frac{1}{2}\\right)} = \\sqrt{100 + 100 + 100} = \\sqrt{300} = 10\\sqrt{3}\\text{ N}$."
+  },
+  {
+    "id": 4,
+    "prompt": "Dua buah vektor sama besar, yaitu bernilai $F$. Jika resultan dari kedua vektor tersebut juga bernilai $F$, maka sudut apit antara kedua vektor tersebut adalah...",
+    "options": [
+      "$0^\\circ$",
+      "$60^\\circ$",
+      "$90^\\circ$",
+      "$120^\\circ$",
+      "$180^\\circ$"
+    ],
+    "correct": 3,
+    "hint": "Gunakan persamaan $R^2 = F_1^2 + F_2^2 + 2F_1 F_2 \\cos \\theta$, substitusikan $R = F_1 = F_2 = F$.",
+    "explanation": "$F^2 = F^2 + F^2 + 2 F^2 \\cos \\theta \\implies F^2 = 2F^2 + 2F^2 \\cos \\theta \\implies -F^2 = 2F^2 \\cos \\theta \\implies \\cos \\theta = -\\frac{1}{2}$. Maka $\\theta = 120^\\circ$."
+  },
+  {
+    "id": 5,
+    "prompt": "Dua buah vektor kecepatan masing-masing $v_1 = 10\\text{ m/s}$ dan $v_2 = 10\\text{ m/s}$ membentuk sudut $60^\\circ$. Besar selisih kedua vektor $|\\vec{v}_1 - \\vec{v}_2|$ adalah...",
+    "options": [
+      "$0\\text{ m/s}$",
+      "$10\\text{ m/s}$",
+      "$10\\sqrt{3}\\text{ m/s}$",
+      "$20\\text{ m/s}$",
+      "$5\\sqrt{2}\\text{ m/s}$"
+    ],
+    "correct": 1,
+    "hint": "Rumus selisih vektor: $|\\vec{v}_1 - \\vec{v}_2| = \\sqrt{v_1^2 + v_2^2 - 2 v_1 v_2 \\cos \\theta}$.",
+    "explanation": "$|\\vec{v}_1 - \\vec{v}_2| = \\sqrt{10^2 + 10^2 - 2(10)(10)\\cos 60^\\circ} = \\sqrt{200 - 200(0{,}5)} = \\sqrt{100} = 10\\text{ m/s}$."
+  },
+  {
+    "id": 6,
+    "prompt": "Sebuah gaya $F = 20\\text{ N}$ bekerja membentuk sudut $37^\\circ$ terhadap sumbu-X positif. Diketahui $\\sin 37^\\circ = 0{,}6$ dan $\\cos 37^\\circ = 0{,}8$. Komponen vektor gaya tersebut pada sumbu-X ($F_x$) dan sumbu-Y ($F_y$) berturut-turut adalah...",
+    "options": [
+      "$12\\text{ N}$ dan $16\\text{ N}$",
+      "$16\\text{ N}$ dan $12\\text{ N}$",
+      "$10\\text{ N}$ dan $10\\sqrt{3}\\text{ N}$",
+      "$16\\text{ N}$ dan $20\\text{ N}$",
+      "$14\\text{ N}$ dan $14\\text{ N}$"
+    ],
+    "correct": 1,
+    "hint": "$F_x = F \\cos \\theta$ dan $F_y = F \\sin \\theta$.",
+    "explanation": "$F_x = F \\cos 37^\\circ = 20 \\times 0{,}8 = 16\\text{ N}$. $F_y = F \\sin 37^\\circ = 20 \\times 0{,}6 = 12\\text{ N}$."
+  },
+  {
+    "id": 7,
+    "prompt": "Tiga buah vektor gaya bekerja pada satu titik: $F_1 = 20\\text{ N}$ ke arah timur ($+X$), $F_2 = 20\\text{ N}$ ke arah utara ($+Y$), dan $F_3 = 10\\text{ N}$ ke arah barat ($-X$). Besar resultan ketiga vektor gaya tersebut adalah...",
+    "options": [
+      "$10\\sqrt{3}\\text{ N}$",
+      "$10\\sqrt{5}\\text{ N}$",
+      "$30\\text{ N}$",
+      "$25\\text{ N}$",
+      "$15\\sqrt{2}\\text{ N}$"
+    ],
+    "correct": 1,
+    "hint": "Hitung jumlah komponen horizontal $\\Sigma F_x$ dan vertikal $\\Sigma F_y$, lalu hitung $R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2}$.",
+    "explanation": "Komponen X: $\\Sigma F_x = F_1 - F_3 = 20 - 10 = 10\\text{ N}$. Komponen Y: $\\Sigma F_y = F_2 = 20\\text{ N}$. Resultan $R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2} = \\sqrt{10^2 + 20^2} = \\sqrt{100 + 400} = \\sqrt{500} = 10\\sqrt{5}\\text{ N}$."
+  },
+  {
+    "id": 8,
+    "prompt": "Diberikan dua buah vektor satuan $\\vec{A} = 3\\hat{i} - 4\\hat{j} + 2\\hat{k}$ dan $\\vec{B} = -2\\hat{i} + 7\\hat{j} - 5\\hat{k}$. Vektor $\\vec{C} = 2\\vec{A} + \\vec{B}$ dinyatakan dalam vektor satuan adalah...",
+    "options": [
+      "$\\vec{C} = 4\\hat{i} - \\hat{j} - \\hat{k}$",
+      "$\\vec{C} = 4\\hat{i} + 3\\hat{j} - 3\\hat{k}$",
+      "$\\vec{C} = \\hat{i} + 3\\hat{j} - 3\\hat{k}$",
+      "$\\vec{C} = 8\\hat{i} - 15\\hat{j} + 9\\hat{k}$",
+      "$\\vec{C} = 4\\hat{i} - \\hat{j} + \\hat{k}$"
+    ],
+    "correct": 0,
+    "hint": "Kalikan setiap komponen $\\vec{A}$ dengan 2, lalu jumlahkan dengan komponen sejenis pada $\\vec{B}$.",
+    "explanation": "$2\\vec{A} = 6\\hat{i} - 8\\hat{j} + 4\\hat{k}$. Maka $2\\vec{A} + \\vec{B} = (6 - 2)\\hat{i} + (-8 + 7)\\hat{j} + (4 - 5)\\hat{k} = 4\\hat{i} - \\hat{j} - \\hat{k}$."
+  },
+  {
+    "id": 9,
+    "prompt": "Panjang (modulus) dari vektor perpindahan $\\vec{r} = 2\\hat{i} - 3\\hat{j} + 6\\hat{k}$ adalah...",
+    "options": [
+      "$5\\text{ satuan}$",
+      "$7\\text{ satuan}$",
+      "$\\sqrt{41}\\text{ satuan}$",
+      "$11\\text{ satuan}$",
+      "$9\\text{ satuan}$"
+    ],
+    "correct": 1,
+    "hint": "Panjang vektor tiga dimensi: $|\\vec{r}| = \\sqrt{x^2 + y^2 + z^2}$.",
+    "explanation": "$|\\vec{r}| = \\sqrt{2^2 + (-3)^2 + 6^2} = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7\\text{ satuan}$."
+  },
+  {
+    "id": 10,
+    "prompt": "Diberikan vektor $\\vec{a} = 2\\hat{i} + 3\\hat{j} - 4\\hat{k}$ dan $\\vec{b} = 4\\hat{i} - 2\\hat{j} + \\hat{k}$. Nilai perkalian skalar (dot product) $\\vec{a} \\cdot \\vec{b}$ adalah...",
+    "options": [
+      "$-2$",
+      "$2$",
+      "$-6$",
+      "$8$",
+      "$0$"
+    ],
+    "correct": 0,
+    "hint": "Perkalian dot: $\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y + a_z b_z$.",
+    "explanation": "$\\vec{a} \\cdot \\vec{b} = (2)(4) + (3)(-2) + (-4)(1) = 8 - 6 - 4 = -2$."
+  },
+  {
+    "id": 11,
+    "prompt": "Dua buah vektor $\\vec{p} = 4\\hat{i} + 2\\hat{j} - m\\hat{k}$ dan $\\vec{q} = 2\\hat{i} - 5\\hat{j} + 3\\hat{k}$ saling tegak lurus satu sama lain. Nilai skalar $m$ yang memenuhi kondisi tersebut adalah...",
+    "options": [
+      "$-\\frac{2}{3}$",
+      "$\\frac{2}{3}$",
+      "$-2$",
+      "$2$",
+      "$-\\frac{3}{2}$"
+    ],
+    "correct": 0,
+    "hint": "Dua vektor saling tegak lurus memiliki nilai perkalian dot sama dengan nol: $\\vec{p} \\cdot \\vec{q} = 0$.",
+    "explanation": "$\\vec{p} \\cdot \\vec{q} = (4)(2) + (2)(-5) + (-m)(3) = 0 \\implies 8 - 10 - 3m = 0 \\implies -2 - 3m = 0 \\implies 3m = -2 \\implies m = -\\frac{2}{3}$."
+  },
+  {
+    "id": 12,
+    "prompt": "Hasil perkalian silang (cross product) antara vektor $\\vec{u} = \\hat{i} + 2\\hat{j}$ dan $\\vec{v} = 3\\hat{j} - \\hat{k}$ adalah...",
+    "options": [
+      "$-2\\hat{i} + \\hat{j} + 3\\hat{k}$",
+      "$2\\hat{i} - \\hat{j} + 3\\hat{k}$",
+      "$-2\\hat{i} - \\hat{j} - 3\\hat{k}$",
+      "$\\hat{i} + 2\\hat{j} - \\hat{k}$",
+      "$3\\hat{i} - 2\\hat{j} + \\hat{k}$"
+    ],
+    "correct": 0,
+    "hint": "Gunakan determinan matriks $3 \\times 3$ berbaris $\\hat{i}, \\hat{j}, \\hat{k}$.",
+    "explanation": "$$\\vec{u} \\times \\vec{v} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 1 & 2 & 0 \\\\ 0 & 3 & -1 \\end{vmatrix} = \\hat{i}(2(-1) - 0(3)) - \\hat{j}(1(-1) - 0(0)) + \\hat{k}(1(3) - 2(0)) = -2\\hat{i} - (-\\hat{j}) + 3\\hat{k} = -2\\hat{i} + \\hat{j} + 3\\hat{k}$$."
+  },
+  {
+    "id": 13,
+    "prompt": "Sebuah gaya konstan $\\vec{F} = (6\\hat{i} + 8\\hat{j})\\text{ N}$ memindahkan sebuah benda dari posisi awal $\\vec{r}_1 = (2\\hat{i} + 3\\hat{j})\\text{ m}$ ke posisi akhir $\\vec{r}_2 = (7\\hat{i} + 15\\hat{j})\\text{ m}$. Besar usaha yang dilakukan oleh gaya tersebut adalah...",
+    "options": [
+      "$96\\text{ Joule}$",
+      "$126\\text{ Joule}$",
+      "$150\\text{ Joule}$",
+      "$180\\text{ Joule}$",
+      "$60\\text{ Joule}$"
+    ],
+    "correct": 1,
+    "hint": "Usaha $W = \\vec{F} \\cdot \\Delta\\vec{r}$, dengan $\\Delta\\vec{r} = \\vec{r}_2 - \\vec{r}_1$.",
+    "explanation": "Perpindahan $\\Delta\\vec{r} = (7-2)\\hat{i} + (15-3)\\hat{j} = 5\\hat{i} + 12\\hat{j}\\text{ m}$. Usaha $W = \\vec{F} \\cdot \\Delta\\vec{r} = (6)(5) + (8)(12) = 30 + 96 = 126\\text{ Joule}$."
+  },
+  {
+    "id": 14,
+    "prompt": "Gaya $\\vec{F} = (3\\hat{j} + 2\\hat{k})\\text{ N}$ bekerja pada sebuah partikel dengan vektor posisi lengan gaya terhadap titik poros $\\vec{r} = 4\\hat{i}\\text{ m}$. Besar momen gaya (torsi) $|\\vec{\\tau}|$ terhadap poros adalah...",
+    "options": [
+      "$4\\sqrt{13}\\text{ Nm}$",
+      "$12\\text{ Nm}$",
+      "$8\\text{ Nm}$",
+      "$20\\text{ Nm}$",
+      "$2\\sqrt{13}\\text{ Nm}$"
+    ],
+    "correct": 0,
+    "hint": "Momen gaya $\\vec{\\tau} = \\vec{r} \\times \\vec{F}$. Ingat $\\hat{i} \\times \\hat{j} = \\hat{k}$ dan $\\hat{i} \\times \\hat{k} = -\\hat{j}$.",
+    "explanation": "$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = (4\\hat{i}) \\times (3\\hat{j} + 2\\hat{k}) = 12(\\hat{i}\\times\\hat{j}) + 8(\\hat{i}\\times\\hat{k}) = 12\\hat{k} + 8(-\\hat{j}) = -8\\hat{j} + 12\\hat{k}\\text{ Nm}$. Modulusnya: $|\\vec{\\tau}| = \\sqrt{(-8)^2 + 12^2} = \\sqrt{64 + 144} = \\sqrt{208} = \\sqrt{16 \\times 13} = 4\\sqrt{13}\\text{ Nm}$."
+  },
+  {
+    "id": 15,
+    "prompt": "Sebuah perahu bermesin melintasi sungai selebar $80\\text{ meter}$ dengan kecepatan konstan $4\\text{ m/s}$ tegak lurus terhadap arah arus sungai. Kecepatan aliran arus sungai adalah $3\\text{ m/s}$. Waktu tempuh perahu untuk sampai ke seberang sungai dan jarak pergeseran perahu ke arah hilir sungai berturut-turut adalah...",
+    "options": [
+      "$20\\text{ sekon}$ dan $60\\text{ meter}$",
+      "$16\\text{ sekon}$ dan $48\\text{ meter}$",
+      "$20\\text{ sekon}$ dan $80\\text{ meter}$",
+      "$25\\text{ sekon}$ dan $75\\text{ meter}$",
+      "$16\\text{ sekon}$ dan $60\\text{ meter}$"
+    ],
+    "correct": 0,
+    "hint": "Komponen gerak tegak lurus independen: waktu menyeberang hanya ditentukan oleh lebar sungai dan kecepatan perahu tegak lurus.",
+    "explanation": "Waktu tempuh ditentukan oleh arah tegak lurus arus: $t = \\frac{d}{v_{\\text{perahu}}} = \\frac{80\\text{ m}}{4\\text{ m/s}} = 20\\text{ sekon}$. Pergeseran hilir akibat aliran arus: $x_{\\text{hilir}} = v_{\\text{arus}} \\times t = 3\\text{ m/s} \\times 20\\text{ s} = 60\\text{ meter}$."
+  }
 ]
 };
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
-  <title>The Arich Study — Platform Belajar & Latihan Matematika</title>
+  <title>The Arich Study — Platform Belajar Matematika & Fisika</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -172,7 +172,7 @@
         </div>
         <div>
           <span class="font-extrabold text-white text-sm tracking-tight">The Arich <span class="text-indigo-400">Study</span></span>
-          <span class="text-[10px] text-slate-500 block">Matematika SMP & SMA</span>
+          <span class="text-[10px] text-slate-400 block font-medium">Matematika & Fisika (SMP/SMA)</span>
         </div>
       </div>
 
@@ -814,6 +814,10 @@
               <i data-lucide="triangle" class="w-4 h-4"></i>
               <span>Visual Teorema Pythagoras</span>
             </button>
+            <button onclick="switchMathLabTool('vector')" id="ml-tab-vector" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-cyan-400 hover:text-white border border-cyan-800/60 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="compass" class="w-4 h-4 text-cyan-400"></i>
+              <span>⚡ Lab Vektor & Resultan Fisika</span>
+            </button>
           </div>
         </div>
 
@@ -1262,6 +1266,119 @@
         </div>
 
       </div>
+
+      
+        <!-- TOOL 5: SIMULASI VEKTOR & RESULTAN FISIKA (BARU!) -->
+        <div id="ml-panel-vector" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Interactive Visual SVG Cartesian Canvas -->
+            <div class="lg:col-span-7 clean-card rounded-2xl p-5 border border-slate-800 flex flex-col items-center justify-center relative">
+              <div class="text-xs font-bold text-white mb-2 self-start flex items-center gap-2">
+                <i data-lucide="compass" class="w-4 h-4 text-cyan-400"></i>
+                <span>Visual Diagram Kartesius Vektor & Resultan</span>
+              </div>
+              <svg id="vector-sim-svg" width="340" height="340" viewBox="-170 -170 340 340" class="select-none max-w-full bg-dark-950/80 rounded-xl border border-slate-800/80">
+                <defs>
+                  <marker id="arrow-va" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L6,3 z" fill="#06b6d4" />
+                  </marker>
+                  <marker id="arrow-vb" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L6,3 z" fill="#f59e0b" />
+                  </marker>
+                  <marker id="arrow-vr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                    <path d="M0,0 L0,7 L7,3.5 z" fill="#10b981" />
+                  </marker>
+                </defs>
+                <!-- Grid Lines -->
+                <circle cx="0" cy="0" r="50" fill="none" stroke="#1e293b" stroke-dasharray="3,3" />
+                <circle cx="0" cy="0" r="100" fill="none" stroke="#1e293b" stroke-dasharray="3,3" />
+                <circle cx="0" cy="0" r="140" fill="none" stroke="#1e293b" stroke-dasharray="3,3" />
+                <!-- Axes -->
+                <line x1="-155" y1="0" x2="155" y2="0" stroke="#334155" stroke-width="1.5" />
+                <line x1="0" y1="-155" x2="0" y2="155" stroke="#334155" stroke-width="1.5" />
+                <text x="140" y="-6" fill="#64748b" font-size="10" font-family="monospace">+X</text>
+                <text x="6" y="-140" fill="#64748b" font-size="10" font-family="monospace">+Y</text>
+                <!-- Parallelogram Dotted Guidelines -->
+                <line id="vec-para-a" x1="0" y1="0" x2="0" y2="0" stroke="#06b6d4" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6" />
+                <line id="vec-para-b" x1="0" y1="0" x2="0" y2="0" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6" />
+                <!-- Vector Lines -->
+                <line id="vec-line-a" x1="0" y1="0" x2="80" y2="-40" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arrow-va)" />
+                <line id="vec-line-b" x1="0" y1="0" x2="-30" y2="-70" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow-vb)" />
+                <line id="vec-line-r" x1="0" y1="0" x2="50" y2="-110" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-vr)" />
+                <!-- Vector Labels -->
+                <text id="vec-text-a" x="85" y="-35" fill="#06b6d4" font-size="11" font-family="monospace" font-weight="bold">F₁ = 10 N</text>
+                <text id="vec-text-b" x="-45" y="-75" fill="#f59e0b" font-size="11" font-family="monospace" font-weight="bold">F₂ = 8 N</text>
+                <text id="vec-text-r" x="55" y="-115" fill="#10b981" font-size="12" font-family="monospace" font-weight="bold">R = 12.8 N</text>
+              </svg>
+              <div class="flex items-center gap-4 mt-3 text-[11px] font-semibold text-slate-400">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span> Vektor F₁</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Vektor F₂</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Resultan R (F₁ + F₂)</span>
+              </div>
+            </div>
+
+            <!-- Vector Controls & Breakdown -->
+            <div class="lg:col-span-5 space-y-4">
+              <!-- Vektor 1 Control -->
+              <div class="clean-card rounded-2xl p-4 border border-cyan-500/30 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    <span>Vektor Gaya 1 (F₁)</span>
+                  </h4>
+                  <span id="vec-val-a" class="font-mono text-xs font-bold text-cyan-400">10 N @ 30°</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-[10px] text-slate-400 font-semibold block mb-1">Besar |F₁| (N):</label>
+                    <input type="number" id="vec-in-mag-a" min="1" max="50" value="10" oninput="syncVectorLab('a', 'mag', this.value)" class="w-full px-2 py-1 rounded bg-dark-900 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                  </div>
+                  <div>
+                    <label class="text-[10px] text-slate-400 font-semibold block mb-1">Sudut θ₁ (°):</label>
+                    <input type="number" id="vec-in-deg-a" min="0" max="360" value="30" oninput="syncVectorLab('a', 'deg', this.value)" class="w-full px-2 py-1 rounded bg-dark-900 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                  </div>
+                </div>
+                <input type="range" id="vec-slide-deg-a" min="0" max="360" value="30" oninput="syncVectorLab('a', 'deg_slide', this.value)" class="w-full accent-cyan-500 cursor-pointer">
+              </div>
+
+              <!-- Vektor 2 Control -->
+              <div class="clean-card rounded-2xl p-4 border border-amber-500/30 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span>Vektor Gaya 2 (F₂)</span>
+                  </h4>
+                  <span id="vec-val-b" class="font-mono text-xs font-bold text-amber-400">8 N @ 120°</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-[10px] text-slate-400 font-semibold block mb-1">Besar |F₂| (N):</label>
+                    <input type="number" id="vec-in-mag-b" min="1" max="50" value="8" oninput="syncVectorLab('b', 'mag', this.value)" class="w-full px-2 py-1 rounded bg-dark-900 border border-slate-700 font-mono text-amber-300 font-bold text-xs">
+                  </div>
+                  <div>
+                    <label class="text-[10px] text-slate-400 font-semibold block mb-1">Sudut θ₂ (°):</label>
+                    <input type="number" id="vec-in-deg-b" min="0" max="360" value="120" oninput="syncVectorLab('b', 'deg', this.value)" class="w-full px-2 py-1 rounded bg-dark-900 border border-slate-700 font-mono text-amber-300 font-bold text-xs">
+                  </div>
+                </div>
+                <input type="range" id="vec-slide-deg-b" min="0" max="360" value="120" oninput="syncVectorLab('b', 'deg_slide', this.value)" class="w-full accent-amber-500 cursor-pointer">
+              </div>
+
+              <!-- Computed Resultant & Telemetry -->
+              <div class="clean-card rounded-2xl p-4 border border-emerald-500/30 space-y-2.5">
+                <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                  <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                  <span>Analisis Resultan & Komponen Kartesius:</span>
+                </span>
+                <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 font-mono text-[11px] text-slate-200 leading-relaxed space-y-1" id="vec-telemetry">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
 
       <!-- ==================================================== -->
       <!-- VIEW 8: LEMBAR RUMUS SAKTI (CHEAT SHEET HUB) (BARU!)  -->
@@ -2191,40 +2308,243 @@ function doPost(e) {
       lucide.createIcons();
     }
 
+    // ----------------------------------------------------
+    // SUBJECT FILTER & CHAPTER RENDERING
+    // ----------------------------------------------------
+    let currentSubjectFilter = 'all';
+
+    function setSubjectFilter(sub) {
+      currentSubjectFilter = sub;
+      renderDashboardChapters();
+      renderMateriCatalog();
+      renderExamCatalog();
+      lucide.createIcons();
+    }
+
+    function getSubjectFilterBarHTML(chapters) {
+      if (!chapters) return '';
+      const hasPhysics = chapters.some(c => c.subject === 'Fisika');
+      if (!hasPhysics) return '';
+
+      const totalAll = chapters.length;
+      const totalMath = chapters.filter(c => (c.subject || 'Matematika') === 'Matematika').length;
+      const totalPhys = chapters.filter(c => c.subject === 'Fisika').length;
+
+      const btnAll = currentSubjectFilter === 'all'
+        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-bold'
+        : 'bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700/80';
+      const btnMath = currentSubjectFilter === 'Matematika'
+        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-bold'
+        : 'bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700/80';
+      const btnPhys = currentSubjectFilter === 'Fisika'
+        ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30 font-bold'
+        : 'bg-dark-850 hover:bg-dark-800 text-cyan-300 border border-cyan-800/50';
+
+      return `
+        <div class="col-span-full mb-3 flex items-center gap-2 overflow-x-auto pb-1">
+          <button onclick="setSubjectFilter('all')" class="px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 ${btnAll}">
+            <span>Semua Mapel</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-dark-900/60 font-mono">${totalAll}</span>
+          </button>
+          <button onclick="setSubjectFilter('Matematika')" class="px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 ${btnMath}">
+            <span>📐 Matematika</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-dark-900/60 font-mono">${totalMath}</span>
+          </button>
+          <button onclick="setSubjectFilter('Fisika')" class="px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 ${btnPhys}">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Fisika (Baru!)</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-dark-900/60 font-mono">${totalPhys}</span>
+          </button>
+        </div>
+      `;
+    }
+
     function renderDashboardChapters() {
       const container = document.getElementById('dash-chapters-overview');
-      if (!currentGradeData || !currentGradeData.chapters) return;
+      if (!container || !currentGradeData || !currentGradeData.chapters) return;
 
-      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+      const filterBar = getSubjectFilterBarHTML(currentGradeData.chapters);
+      const filtered = currentGradeData.chapters.filter(ch => {
+        if (currentSubjectFilter === 'all') return true;
+        return (ch.subject || 'Matematika') === currentSubjectFilter;
+      });
+
+      const cardsHtml = filtered.map((ch, idx) => {
+        const isPhysics = ch.subject === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        const badgeText = isPhysics ? `⚡ ${badge} • Fisika` : `📐 ${badge}`;
+        const badgeStyle = isPhysics ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
+        const borderHover = isPhysics ? 'hover:border-cyan-500/50' : 'hover:border-indigo-500/50';
+        const textHover = isPhysics ? 'group-hover:text-cyan-300' : 'group-hover:text-indigo-300';
+
         return `
-        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer hover:border-indigo-500/50 transition group">
-          <div class="text-[10px] font-bold text-indigo-400 mb-1">${badge}</div>
-          <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition mb-1">${ch.title}</h4>
+        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer ${borderHover} transition group">
+          <div class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded border ${badgeStyle} mb-2">${badgeText}</div>
+          <h4 class="text-xs font-bold text-white ${textHover} transition mb-1">${ch.title}</h4>
           <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">${ch.summary}</p>
         </div>
       `}).join('');
+
+      container.innerHTML = filterBar + cardsHtml;
+      lucide.createIcons();
     }
 
     function renderMateriCatalog() {
       const container = document.getElementById('materi-catalog-grid');
-      if (!currentGradeData || !currentGradeData.chapters) return;
+      if (!container || !currentGradeData || !currentGradeData.chapters) return;
 
-      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+      const filterBar = getSubjectFilterBarHTML(currentGradeData.chapters);
+      const filtered = currentGradeData.chapters.filter(ch => {
+        if (currentSubjectFilter === 'all') return true;
+        return (ch.subject || 'Matematika') === currentSubjectFilter;
+      });
+
+      const cardsHtml = filtered.map((ch, idx) => {
+        const isPhysics = ch.subject === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        const badgeText = isPhysics ? `⚡ ${badge} • Fisika Fase E` : `📐 ${badge}`;
+        const badgeStyle = isPhysics ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
+        const borderHover = isPhysics ? 'hover:border-cyan-500/50' : 'hover:border-indigo-500/50';
+        const textHover = isPhysics ? 'group-hover:text-cyan-300' : 'group-hover:text-indigo-300';
+        const btnColor = isPhysics ? 'text-cyan-400' : 'text-indigo-400';
+
         return `
-        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer hover:border-indigo-500/50 transition group flex flex-col justify-between">
+        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-xl p-4 cursor-pointer ${borderHover} transition group flex flex-col justify-between">
           <div>
-            <div class="text-[10px] font-bold text-indigo-400 mb-1">${badge}</div>
-            <h4 class="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition mb-1.5">${ch.title}</h4>
+            <div class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded border ${badgeStyle} mb-2">${badgeText}</div>
+            <h4 class="text-xs sm:text-sm font-bold text-white ${textHover} transition mb-1.5">${ch.title}</h4>
             <p class="text-xs text-slate-400 leading-relaxed mb-4">${ch.summary}</p>
           </div>
-          <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-semibold text-indigo-400">
+          <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-semibold ${btnColor}">
             <span>${ch.subtopics ? ch.subtopics.length : 0} Subtopik</span>
             <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">Buka Bab <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
           </div>
         </div>
       `}).join('');
+
+      container.innerHTML = filterBar + cardsHtml;
+      lucide.createIcons();
+    }
+
+
+    // 5. VECTOR LAB SIMULATION ENGINE
+    function syncVectorLab(vec, field, val) {
+      const v = parseFloat(val) || 0;
+      if (vec === 'a') {
+        if (field === 'deg_slide') {
+          document.getElementById('vec-in-deg-a').value = v;
+        } else if (field === 'deg') {
+          document.getElementById('vec-slide-deg-a').value = v;
+        }
+      } else if (vec === 'b') {
+        if (field === 'deg_slide') {
+          document.getElementById('vec-in-deg-b').value = v;
+        } else if (field === 'deg') {
+          document.getElementById('vec-slide-deg-b').value = v;
+        }
+      }
+      updateVectorLab();
+    }
+
+    function updateVectorLab() {
+      const magA = parseFloat(document.getElementById('vec-in-mag-a')?.value) || 10;
+      const degA = parseFloat(document.getElementById('vec-in-deg-a')?.value) || 30;
+      const magB = parseFloat(document.getElementById('vec-in-mag-b')?.value) || 8;
+      const degB = parseFloat(document.getElementById('vec-in-deg-b')?.value) || 120;
+
+      // Header text
+      const valAEl = document.getElementById('vec-val-a');
+      const valBEl = document.getElementById('vec-val-b');
+      if (valAEl) valAEl.textContent = `${magA} N @ ${degA}°`;
+      if (valBEl) valBEl.textContent = `${magB} N @ ${degB}°`;
+
+      // Trigonometric conversion (angles in rad)
+      const radA = (degA * Math.PI) / 180;
+      const radB = (degB * Math.PI) / 180;
+
+      const ax = magA * Math.cos(radA);
+      const ay = magA * Math.sin(radA);
+
+      const bx = magB * Math.cos(radB);
+      const by = magB * Math.sin(radB);
+
+      const rx = ax + bx;
+      const ry = ay + by;
+      const rMag = Math.sqrt(rx * rx + ry * ry);
+      let rDeg = (Math.atan2(ry, rx) * 180) / Math.PI;
+      if (rDeg < 0) rDeg += 360;
+
+      // Scale factor to fit 140px radius (max expected vector ~60)
+      const scale = 7; // 1 N = 7 px
+      const pxAx = ax * scale;
+      const pxAy = -ay * scale; // SVG inverted Y
+      const pxBx = bx * scale;
+      const pxBy = -by * scale;
+      const pxRx = rx * scale;
+      const pxRy = -ry * scale;
+
+      // SVG lines
+      const lineA = document.getElementById('vec-line-a');
+      const lineB = document.getElementById('vec-line-b');
+      const lineR = document.getElementById('vec-line-r');
+      const paraA = document.getElementById('vec-para-a');
+      const paraB = document.getElementById('vec-para-b');
+
+      if (lineA) { lineA.setAttribute('x2', pxAx); lineA.setAttribute('y2', pxAy); }
+      if (lineB) { lineB.setAttribute('x2', pxBx); lineB.setAttribute('y2', pxBy); }
+      if (lineR) { lineR.setAttribute('x2', pxRx); lineR.setAttribute('y2', pxRy); }
+
+      // Parallelogram lines: from tip of A to tip of R, and from tip of B to tip of R
+      if (paraA) {
+        paraA.setAttribute('x1', pxAx); paraA.setAttribute('y1', pxAy);
+        paraA.setAttribute('x2', pxRx); paraA.setAttribute('y2', pxRy);
+      }
+      if (paraB) {
+        paraB.setAttribute('x1', pxBx); paraB.setAttribute('y1', pxBy);
+        paraB.setAttribute('x2', pxRx); paraB.setAttribute('y2', pxRy);
+      }
+
+      // Labels positions
+      const textA = document.getElementById('vec-text-a');
+      const textB = document.getElementById('vec-text-b');
+      const textR = document.getElementById('vec-text-r');
+
+      if (textA) {
+        textA.setAttribute('x', pxAx + 5);
+        textA.setAttribute('y', pxAy - 5);
+        textA.textContent = `F₁ = ${magA} N`;
+      }
+      if (textB) {
+        textB.setAttribute('x', pxBx + 5);
+        textB.setAttribute('y', pxBy - 5);
+        textB.textContent = `F₂ = ${magB} N`;
+      }
+      if (textR) {
+        textR.setAttribute('x', pxRx + 5);
+        textR.setAttribute('y', pxRy - 5);
+        textR.textContent = `R = ${rMag.toFixed(2)} N`;
+      }
+
+      // Dot product and angle between
+      const dotProd = ax * bx + ay * by;
+      let angleBetween = Math.abs(degA - degB) % 360;
+      if (angleBetween > 180) angleBetween = 360 - angleBetween;
+
+      const telem = document.getElementById('vec-telemetry');
+      if (telem) {
+        telem.innerHTML = `
+          <div><strong class="text-cyan-400">Komponen F₁:</strong> F₁x = ${ax.toFixed(2)} N, F₁y = ${ay.toFixed(2)} N</div>
+          <div><strong class="text-amber-400">Komponen F₂:</strong> F₂x = ${bx.toFixed(2)} N, F₂y = ${by.toFixed(2)} N</div>
+          <div class="pt-1 border-t border-slate-800"><strong class="text-emerald-400">Resultan Rx:</strong> ΣFx = ${rx.toFixed(2)} N</div>
+          <div><strong class="text-emerald-400">Resultan Ry:</strong> ΣFy = ${ry.toFixed(2)} N</div>
+          <div class="text-white font-bold bg-emerald-950/40 p-1.5 rounded border border-emerald-500/30 mt-1">
+            Besar Resultan |R| = √(${rx.toFixed(2)}² + ${ry.toFixed(2)}²) = <span class="text-emerald-300 font-extrabold">${rMag.toFixed(2)} N</span> (@ ${rDeg.toFixed(1)}°)
+          </div>
+          <div class="text-[10px] text-slate-400 pt-1">
+            Dot Product: F₁ · F₂ = ${dotProd.toFixed(2)} J | Sudut Apit θ = ${angleBetween.toFixed(1)}°
+          </div>
+        `;
+      }
     }
 
     // ----------------------------------------------------
@@ -2455,8 +2775,19 @@ function doPost(e) {
       const db = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
       const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
 
-      container.innerHTML = currentGradeData.chapters.map((ch, idx) => {
+      const filterBar = getSubjectFilterBarHTML(currentGradeData.chapters);
+      const filtered = currentGradeData.chapters.filter(ch => {
+        if (currentSubjectFilter === 'all') return true;
+        return (ch.subject || 'Matematika') === currentSubjectFilter;
+      });
+
+      const cardsHtml = filtered.map((ch, idx) => {
+        const isPhysics = ch.subject === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
+        const badgeText = isPhysics ? `⚡ ${badge} • Fisika` : `📐 ${badge}`;
+        const badgeStyle = isPhysics ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
+        const borderHover = isPhysics ? 'hover:border-cyan-500/50' : 'hover:border-indigo-500/50';
+        const textHover = isPhysics ? 'group-hover:text-cyan-300' : 'group-hover:text-indigo-300';
         const qCount = ch.questions ? ch.questions.length : 15;
         
         // Check highest score for this chapter & student
@@ -2471,21 +2802,26 @@ function doPost(e) {
           statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPassed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">Skor Tertinggi: ${maxScore}/100</span>`;
         }
 
+        const startBtnClass = isPhysics 
+          ? 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-600/30' 
+          : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30';
+        const iconColor = isPhysics ? 'text-cyan-400' : 'text-indigo-400';
+
         return `
-          <div class="clean-card rounded-2xl p-5 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group">
+          <div class="clean-card rounded-2xl p-5 border border-slate-800 ${borderHover} transition flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">${badge}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${badgeStyle}">${badgeText}</span>
                 ${statusBadge}
               </div>
-              <h4 class="text-sm sm:text-base font-bold text-white group-hover:text-indigo-300 transition mb-1.5">${ch.title}</h4>
+              <h4 class="text-sm sm:text-base font-bold text-white ${textHover} transition mb-1.5">${ch.title}</h4>
               <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${ch.summary}</p>
             </div>
             <div>
               <div class="flex items-center gap-3 text-slate-400 text-xs mb-3 font-mono">
-                <span class="flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-400"></i> ${qCount} Soal</span>
+                <span class="flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5 ${iconColor}"></i> ${qCount} Soal</span>
                 <span>•</span>
-                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i> 30 Menit</span>
+                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 ${iconColor}"></i> 30 Menit</span>
                 <span>•</span>
                 <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Kunci Ber-sandi</span>
               </div>
@@ -2493,7 +2829,7 @@ function doPost(e) {
                 <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
                   <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Baca Materi
                 </button>
-                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-1 shadow-lg shadow-indigo-600/30 transition">
+                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl ${startBtnClass} text-xs font-bold flex items-center justify-center gap-1 transition">
                   <i data-lucide="play" class="w-3.5 h-3.5"></i> Mulai Latihan
                 </button>
               </div>
@@ -2501,6 +2837,8 @@ function doPost(e) {
           </div>
         `;
       }).join('');
+
+      container.innerHTML = filterBar + cardsHtml;
       lucide.createIcons();
     }
 
@@ -3583,17 +3921,7 @@ function doPost(e) {
       addStudentXP(10, 'Pencarian Cepat');
     }
 
-    // Keyboard Shortcut Listener (Ctrl + K / Cmd + K)
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        openGlobalSearchModal();
-      }
-      if (e.key === 'Escape') {
-        closeGlobalSearchModal();
-        closeLevelDetailsModal();
-      }
-    });
+// Keyboard shortcuts disabled for natural browser experience
 
     // ----------------------------------------------------
     // LABORATORIUM MATEMATIKA INTERAKTIF (MATH LAB)
@@ -3603,7 +3931,7 @@ function doPost(e) {
     }
 
     function switchMathLabTool(tool) {
-      const tools = ['trig', 'parabola', 'matrix', 'pythagoras'];
+      const tools = ['trig', 'parabola', 'matrix', 'pythagoras', 'vector'];
       tools.forEach(t => {
         const panel = document.getElementById(`ml-panel-${t}`);
         const tab = document.getElementById(`ml-tab-${t}`);
@@ -3621,6 +3949,7 @@ function doPost(e) {
       if (tool === 'trig') updateUnitCircle(parseFloat(document.getElementById('uc-angle-input').value) || 45);
       if (tool === 'parabola') updateParabola();
       if (tool === 'pythagoras') updatePythagoras();
+      if (tool === 'vector') updateVectorLab();
     }
 
     // 1. TRIGONOMETRY UNIT CIRCLE
@@ -4443,6 +4772,28 @@ function doPost(e) {
     }
 
     const CHEAT_SHEETS_DATA = [
+      {
+        title: 'Fisika: Pengukuran, Dimensi & Ketidakpastian',
+        category: 'Fisika',
+        badge: 'Fase E (Kelas 10)',
+        formulas: [
+          { name: 'Ketidakpastian Tunggal', formula: '$$\\Delta x = \\frac{1}{2} \\times \\text{NST}, \\quad x = (x_0 \\pm \\Delta x)$$' },
+          { name: 'Ketidakpastian Relatif', formula: '$$\\text{KR} = \\frac{\\Delta x}{\\bar{x}} \\times 100\\%$$' },
+          { name: 'Standar Deviasi Rata-rata', formula: '$$S_{\\bar{x}} = \\frac{1}{N}\\sqrt{\\frac{N\\sum x_i^2 - (\\sum x_i)^2}{N - 1}}$$' },
+          { name: 'Perambatan Ketidakpastian Volume', formula: '$$V = s^3 \\implies \\frac{\\Delta V}{V} = 3 \\times \\frac{\\Delta s}{s}$$' }
+        ]
+      },
+      {
+        title: 'Fisika: Vektor, Komponen & Perkalian Vektor',
+        category: 'Fisika',
+        badge: 'Fase E (Kelas 10)',
+        formulas: [
+          { name: 'Resultan Kosinus Dua Vektor', formula: '$$R = \\sqrt{F_1^2 + F_2^2 + 2F_1 F_2 \\cos\\theta}$$' },
+          { name: 'Selisih Dua Vektor', formula: '$$|\\vec{F}_1 - \\vec{F}_2| = \\sqrt{F_1^2 + F_2^2 - 2F_1 F_2 \\cos\\theta}$$' },
+          { name: 'Uraian Komponen Kartesius', formula: '$$F_x = F\\cos\\theta, \\quad F_y = F\\sin\\theta, \\quad R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2}$$' },
+          { name: 'Dot Product & Cross Product', formula: '$$\\vec{A} \\cdot \\vec{B} = AB\\cos\\theta, \\quad |\\vec{A} \\times \\vec{B}| = AB\\sin\\theta$$' }
+        ]
+      },
       {
         title: 'Aljabar & Persamaan Kuadrat',
         category: 'Aljabar',
