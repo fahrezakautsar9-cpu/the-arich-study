@@ -1019,122 +1019,190 @@
           </div>
         </div>
 
-        <!-- TOOL 3: KALKULATOR MATRIKS CERDAS (ORDO 2X2 & 3X3 + INVERS LENGKAP) -->
+        <!-- TOOL 3: KALKULATOR MATRIKS CERDAS (ORDO BEBAS M X N & INVERS KHUSUS M = N) -->
         <div id="ml-panel-matrix" class="hidden space-y-6">
           <div class="clean-card rounded-2xl p-5 sm:p-7 border border-slate-800 space-y-5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
               <div>
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Aljabar Linear Interaktif</span>
+                  <span class="text-xs text-slate-400">• Eksplorasi Dimensi &amp; Invers</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2 mt-1">
                   <i data-lucide="grid" class="w-5 h-5 text-indigo-400"></i>
-                  <span>Kalkulator Matriks Pintar (Lengkap dengan Langkah Invers)</span>
+                  <span>Kalkulator Matriks Pintar (Ordo Bebas m &times; n &amp; Invers m = n)</span>
                 </h3>
-                <p class="text-xs text-slate-400 mt-0.5">Pilih ordo matriks yang ingin dihitung, ketik nilainya secara fleksibel.</p>
+                <p class="text-xs text-slate-400 mt-1 max-w-2xl">
+                  Atur ukuran baris dan kolom sesukamu untuk Matriks A dan Matriks B. Kamu dapat mengetik angka bebas, memahami syarat determinan &amp; invers (<strong class="text-indigo-300">m = n</strong>), serta membuktikan syarat perkalian matriks (<strong class="text-amber-300">kolom A = baris B</strong>).
+                </p>
               </div>
 
-              <!-- Ordo Switcher Buttons -->
-              <div class="flex items-center gap-1.5 p-1 rounded-xl bg-dark-900 border border-slate-800 self-start sm:self-auto">
-                <button onclick="setMatrixOrdo(2)" id="btn-mat-ordo-2" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition shadow-sm">Ordo 2 &times; 2</button>
-                <button onclick="setMatrixOrdo(3)" id="btn-mat-ordo-3" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 text-slate-400 hover:text-white transition">Ordo 3 &times; 3</button>
-              </div>
-            </div>
-
-            <!-- Matrix Grids (2x2 View) -->
-            <div id="matrix-grid-2x2" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Matriks A 2x2 -->
-              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
-                <span class="text-xs font-bold text-indigo-300 block">Matriks A (2 &times; 2):</span>
-                <div class="grid grid-cols-2 gap-2 max-w-xs">
-                  <input type="number" id="mat-a11" value="4" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
-                  <input type="number" id="mat-a12" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
-                  <input type="number" id="mat-a21" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
-                  <input type="number" id="mat-a22" value="3" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-indigo-500">
-                </div>
-              </div>
-
-              <!-- Matriks B 2x2 -->
-              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
-                <span class="text-xs font-bold text-emerald-300 block">Matriks B (2 &times; 2):</span>
-                <div class="grid grid-cols-2 gap-2 max-w-xs">
-                  <input type="number" id="mat-b11" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
-                  <input type="number" id="mat-b12" value="-1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
-                  <input type="number" id="mat-b21" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
-                  <input type="number" id="mat-b22" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-sm focus:border-emerald-500">
-                </div>
+              <!-- Quick Presets -->
+              <div class="flex flex-wrap items-center gap-1.5 bg-dark-900/90 p-1.5 rounded-xl border border-slate-800">
+                <span class="text-[11px] font-bold text-slate-400 px-2">Preset Cepat:</span>
+                <button onclick="setMatrixPreset(2, 2, 2, 2)" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-dark-850 hover:bg-indigo-600/30 text-slate-300 hover:text-white border border-slate-800 transition">2 &times; 2</button>
+                <button onclick="setMatrixPreset(3, 3, 3, 3)" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-dark-850 hover:bg-indigo-600/30 text-slate-300 hover:text-white border border-slate-800 transition">3 &times; 3</button>
+                <button onclick="setMatrixPreset(2, 3, 3, 2)" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-dark-850 hover:bg-indigo-600/30 text-slate-300 hover:text-white border border-slate-800 transition">2&times;3 &amp; 3&times;2</button>
+                <button onclick="setMatrixPreset(3, 1, 1, 3)" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-dark-850 hover:bg-indigo-600/30 text-slate-300 hover:text-white border border-slate-800 transition">3&times;1 &amp; 1&times;3</button>
+                <button onclick="randomizeMatrixValues()" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600 hover:text-white border border-indigo-500/30 transition flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i> Acak Nilai
+                </button>
               </div>
             </div>
 
-            <!-- Matrix Grids (3x3 View) -->
-            <div id="matrix-grid-3x3" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Matriks A 3x3 -->
-              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
-                <span class="text-xs font-bold text-indigo-300 block">Matriks A (3 &times; 3):</span>
-                <div class="grid grid-cols-3 gap-2 max-w-sm">
-                  <input type="number" id="m3-a11" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a12" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a13" value="3" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a21" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a22" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a23" value="4" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a31" value="5" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a32" value="6" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
-                  <input type="number" id="m3-a33" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500">
+            <!-- Dynamic Matrix Input Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Matriks A Card -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-dark-900/90 border border-slate-800 space-y-3.5">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-800/60">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-sm shadow-indigo-500/50"></span>
+                    <span class="text-sm font-bold text-white">Matriks A</span>
+                    <span id="mat-a-dim-label" class="text-xs font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">2 &times; 2</span>
+                  </div>
+                  <div id="mat-a-badge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    <i data-lucide="check-circle-2" class="w-3 h-3"></i> Matriks Persegi (m = n)
+                  </div>
+                </div>
+
+                <!-- Dimension Selectors A -->
+                <div class="flex items-center gap-3 text-xs text-slate-300 bg-dark-950/60 p-2.5 rounded-xl border border-slate-800">
+                  <span class="font-semibold text-slate-400">Atur Ordo A:</span>
+                  <div class="flex items-center gap-1.5">
+                    <label for="sel-mat-a-rows" class="text-[11px] text-slate-400">Baris (m):</label>
+                    <select id="sel-mat-a-rows" onchange="changeMatrixDimension('a')" class="px-2 py-1 rounded bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500 focus:outline-none cursor-pointer">
+                      <option value="1">1</option>
+                      <option value="2" selected>2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                  <span class="text-slate-500 font-bold">&times;</span>
+                  <div class="flex items-center gap-1.5">
+                    <label for="sel-mat-a-cols" class="text-[11px] text-slate-400">Kolom (n):</label>
+                    <select id="sel-mat-a-cols" onchange="changeMatrixDimension('a')" class="px-2 py-1 rounded bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-indigo-500 focus:outline-none cursor-pointer">
+                      <option value="1">1</option>
+                      <option value="2" selected>2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Input Grid Container A -->
+                <div class="p-3 bg-dark-950/40 rounded-xl border border-slate-800/80 flex justify-center items-center overflow-x-auto min-h-[140px]">
+                  <div id="container-grid-a" class="grid gap-2"></div>
                 </div>
               </div>
 
-              <!-- Matriks B 3x3 -->
-              <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
-                <span class="text-xs font-bold text-emerald-300 block">Matriks B (3 &times; 3):</span>
-                <div class="grid grid-cols-3 gap-2 max-w-sm">
-                  <input type="number" id="m3-b11" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b12" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b13" value="-1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b21" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b22" value="3" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b23" value="2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b31" value="0" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b32" value="-2" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
-                  <input type="number" id="m3-b33" value="1" class="p-2 text-center rounded-lg bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500">
+              <!-- Matriks B Card -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-dark-900/90 border border-slate-800 space-y-3.5">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-800/60">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+                    <span class="text-sm font-bold text-white">Matriks B</span>
+                    <span id="mat-b-dim-label" class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">2 &times; 2</span>
+                  </div>
+                  <div id="mat-b-badge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    <i data-lucide="check-circle-2" class="w-3 h-3"></i> Matriks Persegi (p = q)
+                  </div>
+                </div>
+
+                <!-- Dimension Selectors B -->
+                <div class="flex items-center gap-3 text-xs text-slate-300 bg-dark-950/60 p-2.5 rounded-xl border border-slate-800">
+                  <span class="font-semibold text-slate-400">Atur Ordo B:</span>
+                  <div class="flex items-center gap-1.5">
+                    <label for="sel-mat-b-rows" class="text-[11px] text-slate-400">Baris (p):</label>
+                    <select id="sel-mat-b-rows" onchange="changeMatrixDimension('b')" class="px-2 py-1 rounded bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500 focus:outline-none cursor-pointer">
+                      <option value="1">1</option>
+                      <option value="2" selected>2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                  <span class="text-slate-500 font-bold">&times;</span>
+                  <div class="flex items-center gap-1.5">
+                    <label for="sel-mat-b-cols" class="text-[11px] text-slate-400">Kolom (q):</label>
+                    <select id="sel-mat-b-cols" onchange="changeMatrixDimension('b')" class="px-2 py-1 rounded bg-dark-850 border border-slate-700 text-white font-mono text-xs focus:border-emerald-500 focus:outline-none cursor-pointer">
+                      <option value="1">1</option>
+                      <option value="2" selected>2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                  <button onclick="syncMatrixBWithA()" class="ml-auto text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 transition underline underline-offset-2">Samakan ke A</button>
+                </div>
+
+                <!-- Input Grid Container B -->
+                <div class="p-3 bg-dark-950/40 rounded-xl border border-slate-800/80 flex justify-center items-center overflow-x-auto min-h-[140px]">
+                  <div id="container-grid-b" class="grid gap-2"></div>
                 </div>
               </div>
             </div>
 
             <!-- Operations Action Buttons -->
-            <div class="flex flex-wrap gap-2 pt-1">
-              <button onclick="calcMatrixAction('invA')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
-                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-300"></i>
-                <span>Hitung Invers Matriks A&sup1;</span>
-              </button>
-              <button onclick="calcMatrixAction('detA')" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
-                <i data-lucide="hash" class="w-3.5 h-3.5 text-indigo-400"></i>
-                <span>Determinan det(A)</span>
-              </button>
-              <button onclick="calcMatrixAction('transA')" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
-                <i data-lucide="flip-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i>
-                <span>Transpose A^T</span>
-              </button>
-              <button onclick="calcMatrixAction('add')" class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold transition flex items-center gap-1.5">
-                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                <span>Penjumlahan A + B</span>
-              </button>
-              <button onclick="calcMatrixAction('mult')" class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition flex items-center gap-1.5">
-                <i data-lucide="x" class="w-3.5 h-3.5"></i>
-                <span>Perkalian A &times; B</span>
-              </button>
+            <div class="space-y-2 pt-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-400 flex items-center gap-1.5">
+                  <i data-lucide="play-circle" class="w-4 h-4 text-indigo-400"></i> Operasi Matriks:
+                </span>
+                <span class="text-[11px] text-slate-500">Klik tombol operasi untuk melihat penjabaran langkah perhitungan &amp; rumus</span>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <!-- Invers A (Highlight button) -->
+                <button onclick="calcMatrixAction('invA')" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
+                  <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-300"></i>
+                  <span>Hitung Invers Matriks A&sup1; (Syarat m = n)</span>
+                </button>
+                <button onclick="calcMatrixAction('detA')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+                  <i data-lucide="hash" class="w-3.5 h-3.5 text-indigo-400"></i>
+                  <span>Determinan det(A)</span>
+                </button>
+                <button onclick="calcMatrixAction('transA')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+                  <i data-lucide="flip-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i>
+                  <span>Transpose A^T</span>
+                </button>
+                <button onclick="calcMatrixAction('add')" class="px-3.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm shadow-emerald-700/30">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  <span>Penjumlahan A + B (m=p, n=q)</span>
+                </button>
+                <button onclick="calcMatrixAction('sub')" class="px-3.5 py-2.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm shadow-sky-700/30">
+                  <i data-lucide="minus" class="w-3.5 h-3.5"></i>
+                  <span>Pengurangan A - B</span>
+                </button>
+                <button onclick="calcMatrixAction('mult')" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-amber-600/30">
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                  <span>Perkalian A &times; B (Syarat n = p)</span>
+                </button>
+                <button onclick="calcMatrixAction('invB')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-emerald-300 text-xs font-bold transition flex items-center gap-1.5">
+                  <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Invers B&sup1;</span>
+                </button>
+                <button onclick="calcMatrixAction('detB')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+                  <i data-lucide="hash" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>det(B)</span>
+                </button>
+                <button onclick="calcMatrixAction('transB')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+                  <i data-lucide="flip-horizontal" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Transpose B^T</span>
+                </button>
+              </div>
             </div>
 
             <!-- Matrix Result Output -->
             <div id="matrix-result-box" class="p-4 sm:p-5 rounded-2xl bg-dark-900 border border-slate-800 space-y-2">
               <span class="text-xs font-bold text-slate-400 block flex items-center gap-2">
                 <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i>
-                <span>Langkah Pembahasan & Hasil Matematis:</span>
+                <span>Langkah Pembahasan &amp; Analisis Matematis Lengkap:</span>
               </span>
               <div id="matrix-result-content" class="text-slate-200 text-xs sm:text-sm leading-relaxed overflow-x-auto py-1">
-                Pilih salah satu tombol operasi di atas (misal: <strong>Hitung Invers Matriks A&sup1;</strong>) untuk melihat langkah perhitungan.
+                Pilih salah satu tombol operasi di atas (misal: <strong>Hitung Invers Matriks A&sup1;</strong>) untuk melihat analisis langkah perhitungan.
               </div>
             </div>
           </div>
         </div>
-
+        
         <!-- TOOL 4: VISUAL PYTHAGORAS -->
         <div id="ml-panel-pythagoras" class="hidden space-y-6">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -3549,6 +3617,7 @@ function doPost(e) {
         }
       });
       lucide.createIcons();
+      if (tool === 'matrix') initMatrixLab();
       if (tool === 'trig') updateUnitCircle(parseFloat(document.getElementById('uc-angle-input').value) || 45);
       if (tool === 'parabola') updateParabola();
       if (tool === 'pythagoras') updatePythagoras();
@@ -3732,234 +3801,566 @@ function doPost(e) {
       if (axisLine) { axisLine.setAttribute('x1', svgVpX); axisLine.setAttribute('x2', svgVpX); }
     }
 
-    // 3. MATRIX CALCULATOR (ORDO 2X2 & 3X3 + STEP-BY-STEP INVERS)
-    let currentMatrixOrdo = 2;
+    // ==========================================
+    // 3. MATRIX CALCULATOR (ORDO BEBAS M X N & INVERS KHUSUS M = N)
+    // ==========================================
+    let matrixState = {
+      a: { rows: 2, cols: 2, data: [[4, 2], [1, 3]] },
+      b: { rows: 2, cols: 2, data: [[1, -1], [2, 0]] }
+    };
 
-    function setMatrixOrdo(n) {
-      currentMatrixOrdo = n;
-      const grid2 = document.getElementById('matrix-grid-2x2');
-      const grid3 = document.getElementById('matrix-grid-3x3');
-      const btn2 = document.getElementById('btn-mat-ordo-2');
-      const btn3 = document.getElementById('btn-mat-ordo-3');
+    function initMatrixLab() {
+      const selAR = document.getElementById('sel-mat-a-rows');
+      const selAC = document.getElementById('sel-mat-a-cols');
+      const selBR = document.getElementById('sel-mat-b-rows');
+      const selBC = document.getElementById('sel-mat-b-cols');
+      if (selAR) selAR.value = matrixState.a.rows;
+      if (selAC) selAC.value = matrixState.a.cols;
+      if (selBR) selBR.value = matrixState.b.rows;
+      if (selBC) selBC.value = matrixState.b.cols;
 
-      if (n === 2) {
-        if (grid2) grid2.classList.remove('hidden');
-        if (grid3) grid3.classList.add('hidden');
-        if (btn2) btn2.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition shadow-sm';
-        if (btn3) btn3.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 text-slate-400 hover:text-white transition';
-      } else {
-        if (grid2) grid2.classList.add('hidden');
-        if (grid3) grid3.classList.remove('hidden');
-        if (btn3) btn3.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition shadow-sm';
-        if (btn2) btn2.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 text-slate-400 hover:text-white transition';
-      }
-      lucide.createIcons();
+      renderMatrixInputs('a');
+      renderMatrixInputs('b');
     }
 
-    function getMatrixValues2x2() {
+    function renderMatrixInputs(target) {
+      const state = matrixState[target];
+      if (!state) return;
+      const rows = state.rows;
+      const cols = state.cols;
+      const container = document.getElementById(`container-grid-${target}`);
+      const dimLabel = document.getElementById(`mat-${target}-dim-label`);
+      const badge = document.getElementById(`mat-${target}-badge`);
+
+      if (dimLabel) dimLabel.textContent = `${rows} × ${cols}`;
+
+      if (badge) {
+        if (rows === cols) {
+          badge.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1';
+          badge.innerHTML = '<i data-lucide="check-circle-2" class="w-3 h-3"></i> Matriks Persegi (m = n)';
+        } else {
+          badge.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center gap-1';
+          badge.innerHTML = '<i data-lucide="alert-triangle" class="w-3 h-3"></i> Bukan Persegi (m ≠ n)';
+        }
+      }
+
+      if (!container) return;
+      container.style.display = 'grid';
+      container.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 72px))`;
+      container.innerHTML = '';
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const val = (state.data[r] && state.data[r][c] !== undefined) ? state.data[r][c] : 0;
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.id = `mat-${target}-${r}-${c}`;
+          input.value = val;
+          input.className = `w-14 sm:w-16 p-2 text-center rounded-lg bg-dark-850 border ${target === 'a' ? 'border-slate-700 text-indigo-200 focus:border-indigo-500' : 'border-slate-700 text-emerald-200 focus:border-emerald-500'} font-mono text-xs sm:text-sm font-bold focus:outline-none transition shadow-inner`;
+          input.placeholder = `${target.toUpperCase()}${r+1}${c+1}`;
+          input.oninput = (e) => saveMatrixCell(target, r, c, e.target.value);
+          container.appendChild(input);
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function saveMatrixCell(target, r, c, val) {
+      if (!matrixState[target].data[r]) matrixState[target].data[r] = [];
+      matrixState[target].data[r][c] = parseFloat(val) || 0;
+    }
+
+    function changeMatrixDimension(target) {
+      const selRows = document.getElementById(`sel-mat-${target}-rows`);
+      const selCols = document.getElementById(`sel-mat-${target}-cols`);
+      if (!selRows || !selCols) return;
+
+      const newRows = parseInt(selRows.value) || 2;
+      const newCols = parseInt(selCols.value) || 2;
+
+      getMatrixValues(target);
+
+      const oldData = matrixState[target].data || [];
+      const newData = [];
+      for (let r = 0; r < newRows; r++) {
+        const row = [];
+        for (let c = 0; c < newCols; c++) {
+          if (oldData[r] && oldData[r][c] !== undefined) {
+            row.push(oldData[r][c]);
+          } else {
+            row.push(r === c ? 1 : 0);
+          }
+        }
+        newData.push(row);
+      }
+      matrixState[target].rows = newRows;
+      matrixState[target].cols = newCols;
+      matrixState[target].data = newData;
+
+      renderMatrixInputs(target);
+    }
+
+    function setMatrixPreset(ra, ca, rb, cb) {
+      matrixState.a.rows = ra;
+      matrixState.a.cols = ca;
+      matrixState.b.rows = rb;
+      matrixState.b.cols = cb;
+
+      const defaultA = [
+        [4, 2, 1, 0],
+        [1, 3, 0, 2],
+        [2, 0, 1, 1],
+        [0, 1, 2, 1]
+      ];
+      const defaultB = [
+        [1, -1, 2, 1],
+        [2, 0, 1, -2],
+        [-1, 3, 0, 1],
+        [2, 1, -1, 0]
+      ];
+
+      matrixState.a.data = [];
+      for (let r = 0; r < ra; r++) {
+        matrixState.a.data.push(defaultA[r].slice(0, ca));
+      }
+      matrixState.b.data = [];
+      for (let r = 0; r < rb; r++) {
+        matrixState.b.data.push(defaultB[r].slice(0, cb));
+      }
+
+      const selAR = document.getElementById('sel-mat-a-rows');
+      const selAC = document.getElementById('sel-mat-a-cols');
+      const selBR = document.getElementById('sel-mat-b-rows');
+      const selBC = document.getElementById('sel-mat-b-cols');
+      if (selAR) selAR.value = ra;
+      if (selAC) selAC.value = ca;
+      if (selBR) selBR.value = rb;
+      if (selBC) selBC.value = cb;
+
+      renderMatrixInputs('a');
+      renderMatrixInputs('b');
+    }
+
+    function syncMatrixBWithA() {
+      const ra = matrixState.a.rows;
+      const ca = matrixState.a.cols;
+      setMatrixPreset(ra, ca, ra, ca);
+    }
+
+    function randomizeMatrixValues() {
+      ['a', 'b'].forEach(target => {
+        const state = matrixState[target];
+        for (let r = 0; r < state.rows; r++) {
+          for (let c = 0; c < state.cols; c++) {
+            state.data[r][c] = Math.floor(Math.random() * 9) - 3;
+          }
+        }
+        renderMatrixInputs(target);
+      });
+    }
+
+    function getMatrixValues(target) {
+      const state = matrixState[target];
+      const res = [];
+      for (let r = 0; r < state.rows; r++) {
+        const row = [];
+        for (let c = 0; c < state.cols; c++) {
+          const el = document.getElementById(`mat-${target}-${r}-${c}`);
+          const val = el ? (parseFloat(el.value) || 0) : ((state.data[r] && state.data[r][c]) || 0);
+          row.push(val);
+        }
+        res.push(row);
+      }
+      state.data = res;
+      return res;
+    }
+
+    function formatMatrixLatex(mat) {
+      const rowsStr = mat.map(row =>
+        row.map(v => {
+          if (typeof v === 'number') {
+            return Number.isInteger(v) ? String(v) : Number(v.toFixed(3)).toString();
+          }
+          return String(v);
+        }).join(' & ')
+      ).join(' \\\\ ');
+      return '\\begin{pmatrix} ' + rowsStr + ' \\end{pmatrix}';
+    }
+
+    function detNxN(M) {
+      const n = M.length;
+      if (n === 1) return M[0][0];
+      if (n === 2) return M[0][0] * M[1][1] - M[0][1] * M[1][0];
+      if (n === 3) {
+        return (
+          M[0][0]*M[1][1]*M[2][2] +
+          M[0][1]*M[1][2]*M[2][0] +
+          M[0][2]*M[1][0]*M[2][1]
+        ) - (
+          M[0][2]*M[1][1]*M[2][0] +
+          M[0][0]*M[1][2]*M[2][1] +
+          M[0][1]*M[1][0]*M[2][2]
+        );
+      }
+      let det = 0;
+      for (let j = 0; j < n; j++) {
+        const sub = [];
+        for (let i = 1; i < n; i++) {
+          const row = [];
+          for (let k = 0; k < n; k++) {
+            if (k !== j) row.push(M[i][k]);
+          }
+          sub.push(row);
+        }
+        const sign = (j % 2 === 0) ? 1 : -1;
+        det += sign * M[0][j] * detNxN(sub);
+      }
+      return det;
+    }
+
+    function calcAdj3x3(a) {
+      const c11 = +(a[1][1]*a[2][2] - a[1][2]*a[2][1]);
+      const c12 = -(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
+      const c13 = +(a[1][0]*a[2][1] - a[1][1]*a[2][0]);
+
+      const c21 = -(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
+      const c22 = +(a[0][0]*a[2][2] - a[0][2]*a[2][0]);
+      const c23 = -(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
+
+      const c31 = +(a[0][1]*a[1][2] - a[0][2]*a[1][1]);
+      const c32 = -(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
+      const c33 = +(a[0][0]*a[1][1] - a[0][1]*a[1][0]);
+
       return {
-        a11: parseFloat(document.getElementById('mat-a11').value) || 0,
-        a12: parseFloat(document.getElementById('mat-a12').value) || 0,
-        a21: parseFloat(document.getElementById('mat-a21').value) || 0,
-        a22: parseFloat(document.getElementById('mat-a22').value) || 0,
-        b11: parseFloat(document.getElementById('mat-b11').value) || 0,
-        b12: parseFloat(document.getElementById('mat-b12').value) || 0,
-        b21: parseFloat(document.getElementById('mat-b21').value) || 0,
-        b22: parseFloat(document.getElementById('mat-b22').value) || 0
+        cof: [[c11, c12, c13], [c21, c22, c23], [c31, c32, c33]],
+        adj: [[c11, c21, c31], [c12, c22, c32], [c13, c23, c33]]
       };
     }
 
-    function getMatrixValues3x3() {
-      const a = [
-        [parseFloat(document.getElementById('m3-a11').value) || 0, parseFloat(document.getElementById('m3-a12').value) || 0, parseFloat(document.getElementById('m3-a13').value) || 0],
-        [parseFloat(document.getElementById('m3-a21').value) || 0, parseFloat(document.getElementById('m3-a22').value) || 0, parseFloat(document.getElementById('m3-a23').value) || 0],
-        [parseFloat(document.getElementById('m3-a31').value) || 0, parseFloat(document.getElementById('m3-a32').value) || 0, parseFloat(document.getElementById('m3-a33').value) || 0]
-      ];
-      const b = [
-        [parseFloat(document.getElementById('m3-b11').value) || 0, parseFloat(document.getElementById('m3-b12').value) || 0, parseFloat(document.getElementById('m3-b13').value) || 0],
-        [parseFloat(document.getElementById('m3-b21').value) || 0, parseFloat(document.getElementById('m3-b22').value) || 0, parseFloat(document.getElementById('m3-b23').value) || 0],
-        [parseFloat(document.getElementById('m3-b31').value) || 0, parseFloat(document.getElementById('m3-b32').value) || 0, parseFloat(document.getElementById('m3-b33').value) || 0]
-      ];
-      return { a, b };
+    function invertNxN(M) {
+      const n = M.length;
+      const A = M.map((row, i) => {
+        const ext = new Array(n).fill(0);
+        ext[i] = 1;
+        return [...row, ...ext];
+      });
+      for (let i = 0; i < n; i++) {
+        let pivot = i;
+        for (let r = i + 1; r < n; r++) {
+          if (Math.abs(A[r][i]) > Math.abs(A[pivot][i])) pivot = r;
+        }
+        if (Math.abs(A[pivot][i]) < 1e-12) return null;
+        if (pivot !== i) {
+          const tmp = A[i];
+          A[i] = A[pivot];
+          A[pivot] = tmp;
+        }
+        const div = A[i][i];
+        for (let c = 0; c < 2 * n; c++) A[i][c] /= div;
+        for (let r = 0; r < n; r++) {
+          if (r !== i) {
+            const factor = A[r][i];
+            for (let c = 0; c < 2 * n; c++) A[r][c] -= factor * A[i][c];
+          }
+        }
+      }
+      return A.map(row => row.slice(n).map(v => Math.round(v * 1000) / 1000));
     }
 
     function calcMatrixAction(op) {
       const out = document.getElementById('matrix-result-content');
       if (!out) return;
 
-      if (currentMatrixOrdo === 2) {
-        const m = getMatrixValues2x2();
-        if (op === 'detA') {
-          const det = m.a11 * m.a22 - m.a12 * m.a21;
+      const A = getMatrixValues('a');
+      const B = getMatrixValues('b');
+      const mA = matrixState.a.rows;
+      const nA = matrixState.a.cols;
+      const mB = matrixState.b.rows;
+      const nB = matrixState.b.cols;
+
+      if (op === 'invA' || op === 'invB') {
+        const target = (op === 'invA') ? 'a' : 'b';
+        const labelName = (target === 'a') ? 'Matriks A' : 'Matriks B';
+        const sym = (target === 'a') ? 'A' : 'B';
+        const m = (target === 'a') ? mA : mB;
+        const n = (target === 'a') ? nA : nB;
+        const M = (target === 'a') ? A : B;
+
+        if (m !== n) {
           out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-indigo-300 font-bold">Langkah Perhitungan Determinan Matriks A (Ordo 2 &times; 2):</div>
-              <div>$$\\det(A) = (a_{11} \\cdot a_{22}) - (a_{12} \\cdot a_{21})$$</div>
-              <div>$$\\det(A) = (${m.a11} \\cdot ${m.a22}) - (${m.a12} \\cdot ${m.a21}) = ${m.a11 * m.a22} - ${m.a12 * m.a21} = \\mathbf{${det}}$$</div>
+            <div class="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-amber-300 text-sm sm:text-base">
+                <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-400"></i>
+                <span>❌ Syarat Invers Tidak Terpenuhi: ${labelName} Bukan Matriks Persegi!</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                ${labelName} yang kamu masukkan berordo <strong class="text-white font-mono font-bold">${m} &times; ${n}</strong> (${m} baris dan ${n} kolom).
+                Dalam aljabar linear, <strong>invers matriks (${sym}⁻¹) HANYA terdefinisi jika dan hanya jika matriks berordo persegi (m = n)</strong>.
+              </p>
+              <div class="p-3.5 rounded-xl bg-dark-950/70 border border-slate-800 text-xs text-slate-300 space-y-2">
+                <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+                  <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400"></i>
+                  <span>Mengapa harus Matriks Persegi ($m = n$)?</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                  Definisi formal invers mengharuskan berlakunya sifat bolak-balik perkalian identitas:
+                </p>
+                <div class="text-center py-1">
+                  $$${sym} \\cdot ${sym}^{-1} = ${sym}^{-1} \\cdot ${sym} = I_n$$
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                  Jika matriks berukuran $${m} \\times ${n}$ (bukan persegi), maka perkalian dari kiri dan kanan akan menghasilkan ordo dimensi yang berbeda atau bahkan tidak terdefinisi secara aljabar, sehingga matriks identitas tunggal $I$ tidak mungkin terbentuk!
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 pt-1">
+                <span class="text-xs text-emerald-400 font-semibold">Ubah ke Matriks Persegi:</span>
+                <button onclick="setMatrixPreset(2, 2, 2, 2); calcMatrixAction('${op}')" class="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition">Ubah ke 2 &times; 2</button>
+                <button onclick="setMatrixPreset(3, 3, 3, 3); calcMatrixAction('${op}')" class="px-2.5 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-white text-xs font-bold transition">Ubah ke 3 &times; 3</button>
+              </div>
             </div>
           `;
-        } else if (op === 'invA') {
-          const det = m.a11 * m.a22 - m.a12 * m.a21;
-          if (det === 0) {
+        } else {
+          // SQUARE MATRIX: COMPUTE INVERSE
+          const det = detNxN(M);
+          if (Math.abs(det) < 1e-12) {
             out.innerHTML = `
-              <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-bold">
-                Determinan &det;(A) = 0 (Matriks Singular). Matriks A TIDAK MEMILIKI INVERS karena pembagian dengan nol tidak terdefinisi!
+              <div class="p-4 sm:p-5 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-300 space-y-2">
+                <div class="flex items-center gap-2 font-bold text-sm sm:text-base">
+                  <i data-lucide="x-circle" class="w-5 h-5 text-rose-400"></i>
+                  <span>Matriks Singular: Determinan \\det(${sym}) = 0</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Karena nilai determinan adalah 0, rumus invers mensyaratkan pembagian dengan determinan:
+                </p>
+                <div class="text-center py-1">
+                  $${sym}^{-1} = \\frac{1}{\\det(${sym})} \\text{Adj}(${sym}) = \\frac{1}{0} \\text{Adj}(${sym})$
+                </div>
+                <p class="text-xs text-rose-400">
+                  Pembagian dengan angka 0 tidak terdefinisi dalam matematika. Oleh karena itu, <strong>${labelName} TIDAK MEMILIKI INVERS</strong>.
+                </p>
+              </div>
+            `;
+          } else if (n === 1) {
+            const invVal = Number((1 / M[0][0]).toFixed(3));
+            out.innerHTML = `
+              <div class="space-y-3">
+                <div class="text-indigo-300 font-bold text-sm sm:text-base">Langkah Invers ${labelName} Ordo 1 &times; 1:</div>
+                <div class="text-xs text-slate-300">1. Matriks Skalar Ordo 1x1: $$${sym} = \\begin{pmatrix} ${M[0][0]} \\end{pmatrix}$$</div>
+                <div class="text-xs text-slate-300">2. Invers adalah kebalikan nilai skalar: $$${sym}^{-1} = \\begin{pmatrix} \\frac{1}{${M[0][0]}} \\end{pmatrix} = \\begin{pmatrix} ${invVal} \\end{pmatrix}$$</div>
+              </div>
+            `;
+          } else if (n === 2) {
+            const adj = [
+              [M[1][1], -M[0][1]],
+              [-M[1][0], M[0][0]]
+            ];
+            const inv = adj.map(row => row.map(v => Number((v / det).toFixed(3))));
+            out.innerHTML = `
+              <div class="space-y-3">
+                <div class="text-indigo-300 font-bold text-sm sm:text-base">Langkah Lengkap Invers ${labelName} Ordo 2 &times; 2:</div>
+                <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-xs text-slate-300 space-y-2">
+                  <div class="font-bold text-slate-200">1. Hitung Determinan Matriks:</div>
+                  <div>$$\\det(${sym}) = (a_{11} \\cdot a_{22}) - (a_{12} \\cdot a_{21})$$</div>
+                  <div>$$\\det(${sym}) = (${M[0][0]} \\cdot ${M[1][1]}) - (${M[0][1]} \\cdot ${M[1][0]}) = ${M[0][0]*M[1][1]} - ${M[0][1]*M[1][0]} = \\mathbf{${det}}$$</div>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-xs text-slate-300 space-y-2">
+                  <div class="font-bold text-slate-200">2. Tentukan Matriks Adjoin $\\text{Adj}(${sym})$:</div>
+                  <div class="text-slate-400">Tukar elemen diagonal utama, lalu kalikan diagonal sekunder dengan -1:</div>
+                  <div>$$\\text{Adj}(${sym}) = \\begin{pmatrix} d & -b \\ -c & a \\end{pmatrix} = ${formatMatrixLatex(adj)}$$</div>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-xs text-slate-300 space-y-2">
+                  <div class="font-bold text-slate-200">3. Kalikan Skalar $\\frac{1}{\\det(${sym})}$:</div>
+                  <div>$$${sym}^{-1} = \\frac{1}{\\det(${sym})} \\text{Adj}(${sym}) = \\frac{1}{${det}} ${formatMatrixLatex(adj)}$$</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 space-y-1">
+                  <div class="font-bold text-sm">Hasil Akhir Matriks Invers ${sym}&sup1;:</div>
+                  <div class="text-sm">$$${sym}^{-1} = ${formatMatrixLatex(inv)}$$</div>
+                </div>
+              </div>
+            `;
+          } else if (n === 3) {
+            const { cof, adj } = calcAdj3x3(M);
+            const inv = adj.map(row => row.map(v => Number((v / det).toFixed(3))));
+            out.innerHTML = `
+              <div class="space-y-3">
+                <div class="text-indigo-300 font-bold text-sm sm:text-base">Langkah Lengkap Invers ${labelName} Ordo 3 &times; 3:</div>
+                <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+                  <div class="font-bold text-slate-200">1. Determinan Metode Sarrus:</div>
+                  <div>$$\\det(${sym}) = \\mathbf{${det}}$$</div>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+                  <div class="font-bold text-slate-200">2. Matriks Kofaktor $\\text{Cof}(${sym})$ &amp; Matriks Adjoin $\\text{Adj}(${sym}) = \\text{Cof}(${sym})^T$:</div>
+                  <div>$$\\text{Adj}(${sym}) = ${formatMatrixLatex(adj)}$$</div>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+                  <div class="font-bold text-slate-200">3. Rumus Invers $${sym}^{-1} = \\frac{1}{\\det(${sym})} \\text{Adj}(${sym})$:</div>
+                  <div>$$${sym}^{-1} = \\frac{1}{${det}} ${formatMatrixLatex(adj)}$$</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 space-y-1">
+                  <div class="font-bold text-sm">Hasil Akhir Matriks Invers ${sym}&sup1;:</div>
+                  <div class="text-sm">$$${sym}^{-1} = ${formatMatrixLatex(inv)}$$</div>
+                </div>
               </div>
             `;
           } else {
-            const i11 = (m.a22 / det).toFixed(3);
-            const i12 = (-m.a12 / det).toFixed(3);
-            const i21 = (-m.a21 / det).toFixed(3);
-            const i22 = (m.a11 / det).toFixed(3);
+            const inv = invertNxN(M);
             out.innerHTML = `
-              <div class="space-y-2">
-                <div class="text-indigo-300 font-bold">Langkah Perhitungan Invers Matriks A (Ordo 2 &times; 2):</div>
-                <div class="text-xs text-slate-300">1. Hitung Determinan: $$\det(A) = (${m.a11})(${m.a22}) - (${m.a12})(${m.a21}) = ${det}$$</div>
-                <div class="text-xs text-slate-300">2. Gunakan Rumus Adjoin Ordo 2x2: $$A^{-1} = \\frac{1}{\\det(A)} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$</div>
-                <div>$$A^{-1} = \\frac{1}{${det}} \\begin{pmatrix} ${m.a22} & ${-m.a12} \\\\ ${-m.a21} & ${m.a11} \\end{pmatrix} = \\begin{pmatrix} ${i11} & ${i12} \\\\ ${i21} & ${i22} \\end{pmatrix}$$</div>
+              <div class="space-y-3">
+                <div class="text-indigo-300 font-bold text-sm sm:text-base">Invers ${labelName} Ordo ${n} &times; ${n} (Eliminasi Gauss-Jordan):</div>
+                <div class="text-xs text-slate-300">Determinan: $$\\det(${sym}) = ${det}$$</div>
+                <div class="text-xs sm:text-sm font-bold text-emerald-300">Hasil Akhir Matriks Invers:
+                  $$${sym}^{-1} = ${formatMatrixLatex(inv)}$$
+                </div>
               </div>
             `;
           }
-        } else if (op === 'transA') {
+        }
+      } else if (op === 'detA' || op === 'detB') {
+        const target = (op === 'detA') ? 'a' : 'b';
+        const labelName = (target === 'a') ? 'Matriks A' : 'Matriks B';
+        const sym = (target === 'a') ? 'A' : 'B';
+        const m = (target === 'a') ? mA : mB;
+        const n = (target === 'a') ? nA : nB;
+        const M = (target === 'a') ? A : B;
+
+        if (m !== n) {
           out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-indigo-300 font-bold">Transpose Matriks A (Tukar Baris Menjadi Kolom):</div>
-              <div>$$A^T = \\begin{pmatrix} ${m.a11} & ${m.a21} \\\\ ${m.a12} & ${m.a22} \\end{pmatrix}$$</div>
+            <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 space-y-2">
+              <div class="font-bold text-amber-300 flex items-center gap-2">
+                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                <span>Syarat Determinan: ${labelName} Bukan Matriks Persegi (${m} &times; ${n})</span>
+              </div>
+              <p class="text-xs text-slate-300">
+                Nilai determinan hanya terdefinisi untuk matriks persegi ($m = n$). Silakan sesuaikan jumlah baris dan kolom agar bernilai sama.
+              </p>
             </div>
           `;
-        } else if (op === 'add') {
-          const c11 = m.a11 + m.b11;
-          const c12 = m.a12 + m.b12;
-          const c21 = m.a21 + m.b21;
-          const c22 = m.a22 + m.b22;
+        } else {
+          const det = detNxN(M);
           out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-emerald-300 font-bold">Penjumlahan Matriks A + B:</div>
-              <div>$$A + B = \\begin{pmatrix} ${m.a11} + (${m.b11}) & ${m.a12} + (${m.b12}) \\\\ ${m.a21} + (${m.b21}) & ${m.a22} + (${m.b22}) \\end{pmatrix} = \\begin{pmatrix} ${c11} & ${c12} \\\\ ${c21} & ${c22} \\end{pmatrix}$$</div>
-            </div>
-          `;
-        } else if (op === 'mult') {
-          const c11 = m.a11 * m.b11 + m.a12 * m.b21;
-          const c12 = m.a11 * m.b12 + m.a12 * m.b22;
-          const c21 = m.a21 * m.b11 + m.a22 * m.b21;
-          const c22 = m.a21 * m.b12 + m.a22 * m.b22;
-          out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-amber-300 font-bold">Perkalian Matriks A &times; B (Baris &times; Kolom):</div>
-              <div>$$A \\times B = \\begin{pmatrix} (${m.a11})(${m.b11}) + (${m.a12})(${m.b21}) & (${m.a11})(${m.b12}) + (${m.a12})(${m.b22}) \\\\ (${m.a21})(${m.b11}) + (${m.a22})(${m.b21}) & (${m.a21})(${m.b12}) + (${m.a22})(${m.b22}) \\end{pmatrix}$$</div>
-              <div>$$A \\times B = \\begin{pmatrix} ${c11} & ${c12} \\\\ ${c21} & ${c22} \\end{pmatrix}$$</div>
+            <div class="space-y-3">
+              <div class="text-indigo-300 font-bold text-sm sm:text-base">Perhitungan Determinan ${labelName} (${n} &times; ${n}):</div>
+              ${n === 2 ? `
+                <div class="text-xs text-slate-300">$$\\det(${sym}) = (a_{11} \\cdot a_{22}) - (a_{12} \\cdot a_{21})$$</div>
+                <div class="text-xs text-slate-300">$$\\det(${sym}) = (${M[0][0]} \\cdot ${M[1][1]}) - (${M[0][1]} \\cdot ${M[1][0]}) = ${M[0][0]*M[1][1]} - ${M[0][1]*M[1][0]}$$</div>
+              ` : ''}
+              <div class="p-3 rounded-xl bg-dark-950/60 border border-slate-800 text-sm font-bold text-emerald-400">
+                $$\\det(${sym}) = \\mathbf{${det}}$$
+              </div>
             </div>
           `;
         }
-      } else {
-        // ORDO 3X3 CALCULATION
-        const { a, b } = getMatrixValues3x3();
-        // Det 3x3 via Sarrus
-        const det3 = (
-          a[0][0]*a[1][1]*a[2][2] +
-          a[0][1]*a[1][2]*a[2][0] +
-          a[0][2]*a[1][0]*a[2][1]
-        ) - (
-          a[0][2]*a[1][1]*a[2][0] +
-          a[0][0]*a[1][2]*a[2][1] +
-          a[0][1]*a[1][0]*a[2][2]
-        );
+      } else if (op === 'transA' || op === 'transB') {
+        const target = (op === 'transA') ? 'a' : 'b';
+        const labelName = (target === 'a') ? 'Matriks A' : 'Matriks B';
+        const sym = (target === 'a') ? 'A' : 'B';
+        const m = (target === 'a') ? mA : mB;
+        const n = (target === 'a') ? nA : nB;
+        const M = (target === 'a') ? A : B;
 
-        if (op === 'detA') {
+        const transposed = [];
+        for (let c = 0; c < n; c++) {
+          const row = [];
+          for (let r = 0; r < m; r++) {
+            row.push(M[r][c]);
+          }
+          transposed.push(row);
+        }
+
+        out.innerHTML = `
+          <div class="space-y-3">
+            <div class="text-indigo-300 font-bold text-sm sm:text-base">Transpose ${labelName} ($${sym}^T$):</div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Transpose menukar baris menjadi kolom. Ordo awal <strong class="text-white">${m} &times; ${n}</strong> berubah menjadi <strong class="text-emerald-400">${n} &times; ${m}</strong>.
+            </p>
+            <div class="text-xs sm:text-sm">
+              $$${sym} = ${formatMatrixLatex(M)} \\quad \\implies \\quad ${sym}^T = ${formatMatrixLatex(transposed)}$$
+            </div>
+          </div>
+        `;
+      } else if (op === 'add' || op === 'sub') {
+        const isAdd = (op === 'add');
+        const opSym = isAdd ? '+' : '-';
+        const opName = isAdd ? 'Penjumlahan' : 'Pengurangan';
+
+        if (mA !== mB || nA !== nB) {
           out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-indigo-300 font-bold">Langkah Perhitungan Determinan Matriks A 3&times;3 (Metode Sarrus):</div>
-              <div class="text-xs text-slate-300 leading-relaxed">
-                $$\\det(A) = (a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32}) - (a_{13}a_{22}a_{31} + a_{11}a_{23}a_{32} + a_{12}a_{21}a_{33})$$
+            <div class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-200 space-y-2">
+              <div class="font-bold text-rose-300 flex items-center gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                <span>Syarat ${opName} Tidak Terpenuhi: Ordo Tidak Sama!</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Penjumlahan dan pengurangan matriks mensyaratkan kedua matriks berordo <strong>sama persis ($m = p$ dan $n = q$)</strong>.
+                Saat ini Matriks A berordo <strong class="text-white">${mA} &times; ${nA}</strong> sedangkan Matriks B berordo <strong class="text-white">${mB} &times; ${nB}</strong>.
+              </p>
+              <button onclick="syncMatrixBWithA(); calcMatrixAction('${op}')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">Samakan Ordo Matriks B ke A</button>
+            </div>
+          `;
+        } else {
+          const res = [];
+          for (let r = 0; r < mA; r++) {
+            const row = [];
+            for (let c = 0; c < nA; c++) {
+              row.push(isAdd ? (A[r][c] + B[r][c]) : (A[r][c] - B[r][c]));
+            }
+            res.push(row);
+          }
+          out.innerHTML = `
+            <div class="space-y-3">
+              <div class="text-emerald-300 font-bold text-sm sm:text-base">${opName} Matriks A ${opSym} B:</div>
+              <div class="text-xs text-slate-300">
+                Operasi dilakukan pada setiap elemen yang seletak:
               </div>
               <div>
-                $$\\det(A) = [(${a[0][0]}\\cdot${a[1][1]}\\cdot${a[2][2]}) + (${a[0][1]}\\cdot${a[1][2]}\\cdot${a[2][0]}) + (${a[0][2]}\\cdot${a[1][0]}\\cdot${a[2][1]})] - [(${a[0][2]}\\cdot${a[1][1]}\\cdot${a[2][0]}) + (${a[0][0]}\\cdot${a[1][2]}\\cdot${a[2][1]}) + (${a[0][1]}\\cdot${a[1][0]}\\cdot${a[2][2]})]$$
-              </div>
-              <div class="text-sm font-bold text-emerald-400">
-                $$\\det(A) = \\mathbf{${det3}}$$
+                $$A ${opSym} B = ${formatMatrixLatex(A)} ${opSym} ${formatMatrixLatex(B)} = ${formatMatrixLatex(res)}$$
               </div>
             </div>
           `;
-        } else if (op === 'invA') {
-          if (det3 === 0) {
-            out.innerHTML = `
-              <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-bold">
-                Determinan &det;(A) = 0 (Matriks Singular). Matriks A 3&times;3 TIDAK MEMILIKI INVERS!
-              </div>
-            `;
-          } else {
-            // Calculate 3x3 Cofactor Matrix
-            const c11 = (a[1][1]*a[2][2] - a[1][2]*a[2][1]);
-            const c12 = -(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
-            const c13 = (a[1][0]*a[2][1] - a[1][1]*a[2][0]);
-
-            const c21 = -(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
-            const c22 = (a[0][0]*a[2][2] - a[0][2]*a[2][0]);
-            const c23 = -(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
-
-            const c31 = (a[0][1]*a[1][2] - a[0][2]*a[1][1]);
-            const c32 = -(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
-            const c33 = (a[0][0]*a[1][1] - a[0][1]*a[1][0]);
-
-            // Adjoint is transpose of Cofactor
-            const adj = [
-              [c11, c21, c31],
-              [c12, c22, c32],
-              [c13, c23, c33]
-            ];
-
-            const invRes = adj.map(row => row.map(v => (v / det3).toFixed(3)));
-
-            out.innerHTML = `
-              <div class="space-y-2.5">
-                <div class="text-indigo-300 font-bold text-sm">Langkah Lengkap Invers Matriks A (Ordo 3 &times; 3):</div>
-                <div class="text-xs text-slate-300">1. Determinan Matriks A: $$\det(A) = ${det3}$$</div>
-                <div class="text-xs text-slate-300">2. Matriks Adjoin $\\text{Adj}(A) = \\text{Cof}(A)^T$:
-                  $$\\text{Adj}(A) = \\begin{pmatrix} ${c11} & ${c21} & ${c31} \\\\ ${c12} & ${c22} & ${c32} \\\\ ${c13} & ${c23} & ${c33} \\end{pmatrix}$$
-                </div>
-                <div class="text-xs text-slate-300">3. Kalikan dengan $\\frac{1}{\\det(A)}$:
-                  $$A^{-1} = \\frac{1}{${det3}} \\begin{pmatrix} ${c11} & ${c21} & ${c31} \\\\ ${c12} & ${c22} & ${c32} \\\\ ${c13} & ${c23} & ${c33} \\end{pmatrix}$$
-                </div>
-                <div class="text-xs sm:text-sm font-bold text-emerald-300">Hasil Akhir Matriks Invers $A^{-1}$:
-                  $$A^{-1} = \\begin{pmatrix} ${invRes[0][0]} & ${invRes[0][1]} & ${invRes[0][2]} \\\\ ${invRes[1][0]} & ${invRes[1][1]} & ${invRes[1][2]} \\\\ ${invRes[2][0]} & ${invRes[2][1]} & ${invRes[2][2]} \\end{pmatrix}$$
-                </div>
-              </div>
-            `;
-          }
-        } else if (op === 'transA') {
+        }
+      } else if (op === 'mult') {
+        if (nA !== mB) {
           out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-indigo-300 font-bold">Transpose Matriks A 3&times;3:</div>
-              <div>$$A^T = \\begin{pmatrix} ${a[0][0]} & ${a[1][0]} & ${a[2][0]} \\\\ ${a[0][1]} & ${a[1][1]} & ${a[2][1]} \\\\ ${a[0][2]} & ${a[1][2]} & ${a[2][2]} \\end{pmatrix}$$</div>
+            <div class="p-4 sm:p-5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-200 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-rose-300 text-sm sm:text-base">
+                <i data-lucide="x-circle" class="w-5 h-5 text-rose-400"></i>
+                <span>❌ Syarat Perkalian Tidak Terpenuhi: Kolom A &ne; Baris B!</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Perkalian matriks $A_{m \\times n} \\times B_{p \\times q}$ hanya dapat dilakukan jika <strong>jumlah kolom matriks pertama ($n$) sama dengan jumlah baris matriks kedua ($p$)</strong>.
+              </p>
+              <div class="p-3 rounded-xl bg-dark-950/70 border border-slate-800 text-xs text-slate-300 space-y-1.5 font-mono">
+                <div>Kolom Matriks A (n) = <span class="text-amber-400 font-bold">${nA}</span></div>
+                <div>Baris Matriks B (p) = <span class="text-rose-400 font-bold">${mB}</span></div>
+                <div class="text-slate-400">Karena ${nA} &ne; ${mB}, perkalian baris dengan kolom tidak memiliki pasangan yang cocok!</div>
+              </div>
+              <div class="flex items-center gap-2 pt-1">
+                <button onclick="setMatrixPreset(2, 3, 3, 2); calcMatrixAction('mult')" class="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition">Uji Preset Cocok: 2&times;3 &amp; 3&times;2</button>
+              </div>
             </div>
           `;
-        } else if (op === 'add') {
-          const sum = [
-            [a[0][0]+b[0][0], a[0][1]+b[0][1], a[0][2]+b[0][2]],
-            [a[1][0]+b[1][0], a[1][1]+b[1][1], a[1][2]+b[1][2]],
-            [a[2][0]+b[2][0], a[2][1]+b[2][1], a[2][2]+b[2][2]]
-          ];
-          out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-emerald-300 font-bold">Penjumlahan Matriks A + B (3 &times; 3):</div>
-              <div>$$A + B = \\begin{pmatrix} ${sum[0][0]} & ${sum[0][1]} & ${sum[0][2]} \\\\ ${sum[1][0]} & ${sum[1][1]} & ${sum[1][2]} \\\\ ${sum[2][0]} & ${sum[2][1]} & ${sum[2][2]} \\end{pmatrix}$$</div>
-            </div>
-          `;
-        } else if (op === 'mult') {
-          const prod = [
-            [0,0,0],
-            [0,0,0],
-            [0,0,0]
-          ];
-          for (let r = 0; r < 3; r++) {
-            for (let c = 0; c < 3; c++) {
-              prod[r][c] = a[r][0]*b[0][c] + a[r][1]*b[1][c] + a[r][2]*b[2][c];
+        } else {
+          const res = [];
+          for (let i = 0; i < mA; i++) {
+            const row = [];
+            for (let j = 0; j < nB; j++) {
+              let sum = 0;
+              for (let k = 0; k < nA; k++) {
+                sum += A[i][k] * B[k][j];
+              }
+              row.push(sum);
             }
+            res.push(row);
           }
           out.innerHTML = `
-            <div class="space-y-2">
-              <div class="text-amber-300 font-bold">Perkalian Matriks A &times; B (3 &times; 3):</div>
-              <div>$$A \\times B = \\begin{pmatrix} ${prod[0][0]} & ${prod[0][1]} & ${prod[0][2]} \\\\ ${prod[1][0]} & ${prod[1][1]} & ${prod[1][2]} \\\\ ${prod[2][0]} & ${prod[2][1]} & ${prod[2][2]} \\end{pmatrix}$$</div>
+            <div class="space-y-3">
+              <div class="text-amber-300 font-bold text-sm sm:text-base">Perkalian Matriks A &times; B (Dimensi Hasil: ${mA} &times; ${nB}):</div>
+              <p class="text-xs text-slate-300">
+                Setiap elemen diperoleh dari penjumlahan hasil kali elemen baris Matriks A dengan elemen kolom Matriks B:
+              </p>
+              <div class="overflow-x-auto py-1">
+                $$A \\times B = ${formatMatrixLatex(A)} \\times ${formatMatrixLatex(B)} = ${formatMatrixLatex(res)}$$
+              </div>
             </div>
           `;
         }
@@ -3975,7 +4376,8 @@ function doPost(e) {
           strict: false
         });
       }
-      addStudentXP(15, 'Eksplorasi Lab Matriks');
+      if (window.lucide) lucide.createIcons();
+      if (typeof addStudentXP === 'function') addStudentXP(15, 'Eksplorasi Lab Matriks');
     }
 
     // 4. PYTHAGORAS VISUALIZER
