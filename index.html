@@ -97,6 +97,8 @@
   <script src="data/soal_bank_per_bab.js?v=1793381163"></script>
   <script src="features_assessment.js?v=1793381163"></script>
   <script src="features_ui_pwa.js?v=1793381163"></script>
+  <script src="features_exam_scratchpad.js"></script>
+  <script src="features_advanced_labs.js"></script>
 
   <style>
     body {
@@ -319,6 +321,18 @@
           <span class="text-[11px] text-slate-300">Cari Materi & Rumus...</span>
         </button>
 
+        <!-- Daily Study Streak (🔥) Badge -->
+        <div id="top-streak-badge" onclick="window.TheArichAdaptiveLearning && window.TheArichAdaptiveLearning.showStreakModal()" class="cursor-pointer px-2 sm:px-2.5 py-1 rounded-xl bg-gradient-to-r from-orange-500/15 via-amber-500/15 to-red-500/15 border border-orange-500/30 hover:border-orange-400 text-orange-400 text-xs font-bold flex items-center gap-1.5 shadow-sm shadow-orange-500/10 transition relative group streak-flame-pulse" title="🔥 Daily Study Streak: Klik untuk melihat pencapaian dan milestone!">
+          <span class="inline-flex items-center justify-center relative">
+            <span class="text-sm sm:text-base select-none transform group-hover:scale-125 transition-transform duration-200">🔥</span>
+            <span class="absolute inset-0 bg-orange-500/35 blur-xs rounded-full animate-ping pointer-events-none opacity-40"></span>
+          </span>
+          <span id="top-streak-text" class="text-[11px] font-black tracking-wide text-orange-300">
+            <span class="hidden sm:inline">0 Hari Streak</span>
+            <span class="sm:hidden">0 Hari</span>
+          </span>
+        </div>
+
         <!-- Student XP & Level Badge -->
         <div id="top-xp-badge" onclick="showLevelDetailsModal()" class="cursor-pointer px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-500/15 to-indigo-500/15 border border-amber-500/30 hover:border-amber-400/50 text-amber-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition" title="Lihat Level & Target Belajar">
           <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400 animate-pulse"></i>
@@ -420,6 +434,9 @@
         <div class="clean-card rounded-2xl p-5 sm:p-6">
           <div class="flex items-center space-x-2 mb-2">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30" id="dash-grade-badge">Kelas 11 SMA</span>
+            <span class="cursor-pointer px-2.5 py-0.5 rounded text-[10px] font-black bg-orange-500/20 text-orange-300 border border-orange-500/30 flex items-center gap-1 transition hover:border-orange-400/60" id="dash-streak-welcome-pill" onclick="window.TheArichAdaptiveLearning && window.TheArichAdaptiveLearning.showStreakModal()" title="Lihat Status Daily Streak">
+              🔥 <span class="font-bold">0 Hari Streak</span>
+            </span>
           </div>
           <h2 class="text-xl sm:text-2xl font-bold text-white mb-1">
             Halo, <span id="dash-student-name">-</span>
@@ -439,6 +456,11 @@
               <i data-lucide="history" class="w-3.5 h-3.5 text-indigo-400"></i> Riwayat Nilai Saya
             </button>
           </div>
+        </div>
+
+        <!-- High-Profile Spaced Repetition Daily Mission Card -->
+        <div id="card-daily-retention-mission">
+          <!-- Dynamically populated by features_adaptive_learning.js -->
         </div>
 
         <!-- Student Progress Summary Card on Dashboard -->
@@ -644,6 +666,13 @@
                 </span>
 
                 <div class="flex items-center gap-2 ml-auto">
+                  <button onclick="toggleExamScratchpad()" id="btn-exam-scratchpad" title="Buka Papan Coretan Digital" class="px-2.5 py-1 rounded-lg border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 hover:text-cyan-200 text-xs font-semibold flex items-center gap-1.5 transition shadow-xs hover:shadow-cyan-500/20 shrink-0 cursor-pointer">
+                    <span class="text-xs">✏️</span>
+                    <span class="hidden sm:inline">Papan Coretan</span>
+                    <span class="sm:hidden">Coretan</span>
+                    <span id="scratchpad-q-indicator" class="hidden w-2 h-2 rounded-full bg-cyan-400 scratchpad-pulse" title="Ada coretan tersimpan di soal ini"></span>
+                  </button>
+
                   <button onclick="toggleCurrentDoubt()" id="exam-doubt-btn" class="px-2.5 py-1 rounded border border-slate-700 text-slate-400 text-xs flex items-center gap-1 hover:border-amber-400 hover:text-amber-300 transition shrink-0">
                     <i data-lucide="flag" class="w-3 h-3"></i>
                     <span id="exam-doubt-label">Ragu-ragu</span>
@@ -1001,6 +1030,18 @@
             <button onclick="switchMathLabTool('vector')" id="ml-tab-vector" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-cyan-400 hover:text-white border border-cyan-800/60 flex items-center gap-2 transition shrink-0">
               <i data-lucide="compass" class="w-4 h-4 text-cyan-400"></i>
               <span>⚡ Lab Vektor & Resultan Fisika</span>
+            </button>
+            <button onclick="switchMathLabTool('projectile')" id="ml-tab-projectile" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-rose-400 hover:text-white border border-rose-800/60 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="crosshair" class="w-4 h-4 text-rose-400"></i>
+              <span>🎯 Gerak Parabola Fisika (Cannon)</span>
+            </button>
+            <button onclick="switchMathLabTool('solver')" id="ml-tab-solver" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-amber-400 hover:text-white border border-amber-800/60 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="calculator" class="w-4 h-4 text-amber-400"></i>
+              <span>📐 Solver Aljabar &amp; Kalkulus</span>
+            </button>
+            <button onclick="switchMathLabTool('plotter')" id="ml-tab-plotter" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-dark-850 hover:bg-dark-800 text-purple-400 hover:text-white border border-purple-800/60 flex items-center gap-2 transition shrink-0">
+              <i data-lucide="activity" class="w-4 h-4 text-purple-400"></i>
+              <span>📈 Plotter Grafik Fungsi Interaktif</span>
             </button>
           </div>
         </div>
@@ -1491,9 +1532,6 @@
           </div>
         </div>
 
-      </div>
-
-      
         <!-- TOOL 5: SIMULASI VEKTOR & RESULTAN FISIKA (BARU!) -->
         <div id="ml-panel-vector" class="hidden space-y-6">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -1605,6 +1643,446 @@
 
           </div>
         </div>
+
+        <!-- TOOL 6: GERAK PARABOLA FISIKA (PROJECTILE CANNON SANDBOX) -->
+        <div id="ml-panel-projectile" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Canvas Area (8 Cols) -->
+            <div class="lg:col-span-8 clean-card rounded-2xl p-5 border border-rose-500/30 flex flex-col items-center justify-center relative overflow-hidden">
+              <div class="w-full flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50"></span>
+                  <span class="text-xs font-bold text-white uppercase tracking-wider">Simulasi 60 FPS Gerak Parabola Realistis</span>
+                  <span id="pm-gravity-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">g = 9.8 m/s²</span>
+                </div>
+                <div id="pm-live-pos" class="text-[11px] font-mono text-slate-400">
+                  (x: 0.0m, y: 0.0m | v: 35.0m/s)
+                </div>
+              </div>
+
+              <!-- Interactive Canvas -->
+              <canvas id="canvas-projectile" class="w-full rounded-xl bg-slate-950 border border-slate-800 shadow-inner block select-none touch-none" height="420" style="height: 420px;"></canvas>
+
+              <!-- Real-time Telemetry Bar below Canvas -->
+              <div class="w-full grid grid-cols-2 sm:grid-cols-5 gap-2 mt-4 pt-3 border-t border-slate-800/80 text-center">
+                <div class="p-2 rounded-xl bg-dark-900 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-bold block">Tinggi Maks (Hmax)</span>
+                  <span id="pm-telemetry-hmax" class="text-xs sm:text-sm font-mono font-bold text-amber-400">0.00 m</span>
+                </div>
+                <div class="p-2 rounded-xl bg-dark-900 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-bold block">Waktu Terbang (t)</span>
+                  <span id="pm-telemetry-ttotal" class="text-xs sm:text-sm font-mono font-bold text-cyan-400">0.00 s</span>
+                </div>
+                <div class="p-2 rounded-xl bg-dark-900 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-bold block">Jangkauan (Xmax)</span>
+                  <span id="pm-telemetry-xmax" class="text-xs sm:text-sm font-mono font-bold text-emerald-400">0.00 m</span>
+                </div>
+                <div class="p-2 rounded-xl bg-dark-900 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-bold block">Komp. Vx (Konstan)</span>
+                  <span id="pm-telemetry-vx" class="text-xs sm:text-sm font-mono font-bold text-indigo-400">0.00 m/s</span>
+                </div>
+                <div class="p-2 rounded-xl bg-dark-900 border border-slate-800 col-span-2 sm:col-span-1">
+                  <span class="text-[10px] text-slate-400 uppercase font-bold block">Komp. Awal Vy</span>
+                  <span id="pm-telemetry-vy" class="text-xs sm:text-sm font-mono font-bold text-rose-400">0.00 m/s</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Controls & Gamification Sidebar (4 Cols) -->
+            <div class="lg:col-span-4 space-y-4">
+              
+              <!-- Gamified Target Card -->
+              <div class="clean-card rounded-2xl p-4 border border-emerald-500/30 bg-gradient-to-br from-emerald-950/20 via-dark-900 to-indigo-950/20 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold text-emerald-300 flex items-center gap-1.5 uppercase tracking-wide">
+                    <i data-lucide="target" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Tantangan Tembak Sasaran</span>
+                  </h4>
+                  <div class="flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Streak: <strong id="pm-streak-count">0</strong></span>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-dark-950/80 border border-emerald-500/20 flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] text-slate-400 uppercase block font-semibold">Jarak Target (D)</span>
+                    <span id="pm-target-distance" class="text-lg font-mono font-black text-white">110.0 m</span>
+                  </div>
+                  <button onclick="generateNewProjectileTarget()" class="px-2.5 py-1.5 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 hover:text-white text-[11px] font-semibold transition flex items-center gap-1">
+                    <i data-lucide="refresh-cw" class="w-3 h-3 text-emerald-400"></i>
+                    <span>Target Baru</span>
+                  </button>
+                </div>
+
+                <div id="pm-target-status" class="text-xs text-center py-1">
+                  <span class="text-slate-400">Arahkan meriam ke target ± 2 m</span>
+                </div>
+              </div>
+
+              <!-- Cannon Angle & Velocity Sliders -->
+              <div class="clean-card rounded-2xl p-4 border border-slate-800 space-y-4">
+                <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-rose-400"></i>
+                  <span>Atur Parameter Peluncuran:</span>
+                </h4>
+
+                <!-- Angle Slider -->
+                <div>
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
+                    <span class="text-rose-400">Sudut Elevasi (&theta;):</span>
+                    <div class="flex items-center gap-1">
+                      <input type="number" id="pm-input-angle" min="0" max="90" value="45" oninput="ProjectileLab.setAngle(this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-rose-300 font-bold text-xs focus:border-rose-500">
+                      <span class="text-slate-500 text-xs">&deg;</span>
+                    </div>
+                  </div>
+                  <input type="range" id="pm-slider-angle" min="0" max="90" step="1" value="45" oninput="ProjectileLab.setAngle(this.value)" class="w-full accent-rose-500 cursor-pointer">
+                </div>
+
+                <!-- Initial Velocity Slider -->
+                <div>
+                  <div class="flex justify-between items-center text-xs font-semibold mb-1">
+                    <span class="text-cyan-400">Kecepatan Awal (v&₀):</span>
+                    <div class="flex items-center gap-1">
+                      <input type="number" id="pm-input-v0" min="5" max="80" value="35" oninput="ProjectileLab.setVelocity(this.value)" class="w-16 px-2 py-0.5 text-center rounded bg-dark-900 border border-slate-700 font-mono text-cyan-300 font-bold text-xs focus:border-cyan-500">
+                      <span class="text-slate-500 text-xs">m/s</span>
+                    </div>
+                  </div>
+                  <input type="range" id="pm-slider-v0" min="5" max="80" step="1" value="35" oninput="ProjectileLab.setVelocity(this.value)" class="w-full accent-cyan-500 cursor-pointer">
+                </div>
+
+                <!-- Gravity Presets -->
+                <div class="space-y-1.5 pt-1">
+                  <span class="text-[11px] font-semibold text-slate-400 block">Preset Gravitasi Ruang:</span>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button onclick="setProjectileGravity('earth', 9.8)" id="pm-grav-earth" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md shadow-indigo-600/30 border border-indigo-400 transition text-left flex items-center justify-between">
+                      <span>🌍 Bumi</span>
+                      <span class="text-[10px] font-mono text-indigo-200">9.8</span>
+                    </button>
+                    <button onclick="setProjectileGravity('moon', 1.6)" id="pm-grav-moon" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700 transition text-left flex items-center justify-between">
+                      <span>🌕 Bulan</span>
+                      <span class="text-[10px] font-mono text-slate-400">1.6</span>
+                    </button>
+                    <button onclick="setProjectileGravity('mars', 3.7)" id="pm-grav-mars" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700 transition text-left flex items-center justify-between">
+                      <span>🪐 Mars</span>
+                      <span class="text-[10px] font-mono text-slate-400">3.7</span>
+                    </button>
+                    <button onclick="setProjectileGravity('jupiter', 24.8)" id="pm-grav-jupiter" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700 transition text-left flex items-center justify-between">
+                      <span>🚀 Jupiter</span>
+                      <span class="text-[10px] font-mono text-slate-400">24.8</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-2 space-y-2">
+                  <button id="pm-btn-fire" onclick="fireProjectile()" class="w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 transition cursor-pointer">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>🚀 Tembak Peluru Meriam</span>
+                  </button>
+                  <button onclick="resetProjectileLab()" class="w-full py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <span>Reset / Bersihkan Jejak</span>
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOOL 7: STEP-BY-STEP MATH & CALCULUS SOLVER -->
+        <div id="ml-panel-solver" class="hidden space-y-6">
+          
+          <!-- Mode Tabs -->
+          <div class="clean-card rounded-2xl p-4 border border-amber-500/30 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-amber-950/20 via-dark-900 to-indigo-950/20">
+            <div class="flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+              <span class="text-xs font-bold text-white uppercase tracking-wider">Kalkulator Pembahasan Aljabar &amp; Kalkulus Bertahap</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="switchSolverMode('quadratic')" id="sl-tab-quadratic" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 flex items-center gap-1.5 shadow-md shadow-amber-500/20 transition">
+                <i data-lucide="sigma" class="w-3.5 h-3.5"></i>
+                <span>1. Persamaan Kuadrat</span>
+              </button>
+              <button onclick="switchSolverMode('spldv')" id="sl-tab-spldv" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition">
+                <i data-lucide="split" class="w-3.5 h-3.5"></i>
+                <span>2. SPLDV (Cramer &amp; Eliminasi)</span>
+              </button>
+              <button onclick="switchSolverMode('calculus')" id="sl-tab-calculus" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition">
+                <i data-lucide="function-square" class="w-3.5 h-3.5"></i>
+                <span>3. Turunan Polinomial</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 1: Persamaan Kuadrat -->
+          <div id="sl-section-quadratic" class="space-y-5">
+            <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                <h4 class="text-xs font-bold text-amber-300 flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
+                  <span>Input Koefisien Persamaan Kuadrat: ax&sup2; + bx + c = 0</span>
+                </h4>
+                <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+                  <span class="text-slate-400">Contoh Cepat:</span>
+                  <button onclick="setSolverPreset('quadratic', 'real_distinct')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-amber-400">x&sup2; - 5x + 6</button>
+                  <button onclick="setSolverPreset('quadratic', 'fraction_roots')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-amber-400">2x&sup2; + 5x - 3</button>
+                  <button onclick="setSolverPreset('quadratic', 'twin_roots')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-amber-400">x&sup2; - 6x + 9 (D=0)</button>
+                  <button onclick="setSolverPreset('quadratic', 'complex_roots')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-amber-400">x&sup2; + 2x + 5 (D&lt;0)</button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-3 max-w-lg">
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Koefisien a</label>
+                  <input type="number" id="sl-quad-a" value="1" oninput="solveQuadratic()" class="w-full px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-amber-300 font-bold text-xs focus:border-amber-500">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Koefisien b</label>
+                  <input type="number" id="sl-quad-b" value="-5" oninput="solveQuadratic()" class="w-full px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-amber-300 font-bold text-xs focus:border-amber-500">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Konstanta c</label>
+                  <input type="number" id="sl-quad-c" value="6" oninput="solveQuadratic()" class="w-full px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-amber-300 font-bold text-xs focus:border-amber-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Container -->
+            <div id="sl-output-quadratic"></div>
+          </div>
+
+          <!-- Section 2: SPLDV -->
+          <div id="sl-section-spldv" class="hidden space-y-5">
+            <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                <h4 class="text-xs font-bold text-cyan-300 flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
+                  <span>Input Sistem Persamaan Linear Dua Variabel (SPLDV)</span>
+                </h4>
+                <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+                  <span class="text-slate-400">Contoh Cepat:</span>
+                  <button onclick="setSolverPreset('spldv', 'integers')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-cyan-400">(3, 2)</button>
+                  <button onclick="setSolverPreset('spldv', 'cramer_nice')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-cyan-400">(2, 3)</button>
+                  <button onclick="setSolverPreset('spldv', 'decimals')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-cyan-400">(3.5, 1)</button>
+                  <button onclick="setSolverPreset('spldv', 'parallel')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-rose-400">Sejajar (D=0)</button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Equation 1 -->
+                <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+                  <span class="text-[11px] font-bold text-slate-300 block">Persamaan (1): a₁x + b₁y = c₁</span>
+                  <div class="grid grid-cols-3 gap-2">
+                    <div>
+                      <label class="text-[9px] text-slate-400 block mb-0.5">a₁ (x)</label>
+                      <input type="number" id="sl-spldv-a1" value="2" oninput="solveSPLDV()" class="w-full px-2 py-1 rounded-lg bg-dark-950 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                    </div>
+                    <div>
+                      <label class="text-[9px] text-slate-400 block mb-0.5">b₁ (y)</label>
+                      <input type="number" id="sl-spldv-b1" value="1" oninput="solveSPLDV()" class="w-full px-2 py-1 rounded-lg bg-dark-950 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                    </div>
+                    <div>
+                      <label class="text-[9px] text-slate-400 block mb-0.5">c₁</label>
+                      <input type="number" id="sl-spldv-c1" value="8" oninput="solveSPLDV()" class="w-full px-2 py-1 rounded-lg bg-dark-950 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Equation 2 -->
+                <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 space-y-2">
+                  <span class="text-[11px] font-bold text-slate-300 block">Persamaan (2): a₂x + b₂y = c₂</span>
+                  <div class="grid grid-cols-3 gap-2">
+                    <div>
+                      <label class="text-[9px] text-slate-400 block mb-0.5">a₂ (x)</label>
+                      <input type="number" id="sl-spldv-a2" value="1" oninput="solveSPLDV()" class="w-full px-2 py-1 rounded-lg bg-dark-950 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                    </div>
+                    <div>
+                      <label class="text-[9px] text-slate-400 block mb-0.5">b₂ (y)</label>
+                      <input type="number" id="sl-spldv-b2" value="-1" oninput="solveSPLDV()" class="w-full px-2 py-1 rounded-lg bg-dark-950 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                    </div>
+                    <div>
+                      <label class="text-[9px] text-slate-400 block mb-0.5">c₂</label>
+                      <input type="number" id="sl-spldv-c2" value="1" oninput="solveSPLDV()" class="w-full px-2 py-1 rounded-lg bg-dark-950 border border-slate-700 font-mono text-cyan-300 font-bold text-xs">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Container -->
+            <div id="sl-output-spldv"></div>
+          </div>
+
+          <!-- Section 3: Turunan Polinomial -->
+          <div id="sl-section-calculus" class="hidden space-y-5">
+            <div class="clean-card rounded-2xl p-5 border border-slate-800 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                <h4 class="text-xs font-bold text-purple-300 flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-purple-400"></i>
+                  <span>Input Polinomial f(x) = ax&sup3; + bx&sup2; + cx + d &amp; Titik Singgung x₀</span>
+                </h4>
+                <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+                  <span class="text-slate-400">Contoh Cepat:</span>
+                  <button onclick="setSolverPreset('calculus', 'cubic_standard')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-purple-400">Kubik Standar</button>
+                  <button onclick="setSolverPreset('calculus', 'cubic_simple')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-purple-400">2x&sup3; - 6x + 4</button>
+                  <button onclick="setSolverPreset('calculus', 'quadratic_poly')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-purple-400">Kuadrat (a=0)</button>
+                  <button onclick="setSolverPreset('calculus', 'inflection')" class="px-2 py-0.5 rounded bg-dark-850 hover:bg-dark-800 border border-slate-700 text-purple-400">x&sup3; + 2</button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Koefisien a (x&sup3;)</label>
+                  <input type="number" id="sl-calc-a" value="1" oninput="solveCalculus()" class="w-full px-2.5 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-purple-300 font-bold text-xs focus:border-purple-500">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Koefisien b (x&sup2;)</label>
+                  <input type="number" id="sl-calc-b" value="-3" oninput="solveCalculus()" class="w-full px-2.5 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-purple-300 font-bold text-xs focus:border-purple-500">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Koefisien c (x)</label>
+                  <input type="number" id="sl-calc-c" value="-9" oninput="solveCalculus()" class="w-full px-2.5 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-purple-300 font-bold text-xs focus:border-purple-500">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Konstanta d</label>
+                  <input type="number" id="sl-calc-d" value="5" oninput="solveCalculus()" class="w-full px-2.5 py-1.5 rounded-xl bg-dark-900 border border-slate-700 font-mono text-purple-300 font-bold text-xs focus:border-purple-500">
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                  <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Titik Evaluasi x₀</label>
+                  <input type="number" id="sl-calc-x0" value="2" oninput="solveCalculus()" class="w-full px-2.5 py-1.5 rounded-xl bg-dark-900 border border-purple-500/50 font-mono text-purple-200 font-bold text-xs focus:border-purple-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Container -->
+            <div id="sl-output-calculus"></div>
+          </div>
+
+        </div>
+
+        <!-- TOOL 8: INTERACTIVE FUNCTION GRAPH PLOTTER -->
+        <div id="ml-panel-plotter" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Plotter Canvas Area (8 Cols) -->
+            <div class="lg:col-span-8 clean-card rounded-2xl p-5 border border-purple-500/30 flex flex-col items-center justify-center relative overflow-hidden">
+              <div class="w-full flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-sm shadow-purple-500/50"></span>
+                  <span class="text-xs font-bold text-white uppercase tracking-wider">Canvas Plotter Bidang Kartesius Dinamis</span>
+                </div>
+                <!-- Live crosshair coordinates HUD -->
+                <div id="fp-live-hud" class="text-xs font-mono bg-dark-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-slate-300">
+                  <span class="text-slate-400">Arahkan kursor ke grafik</span>
+                </div>
+              </div>
+
+              <!-- Canvas Container -->
+              <div class="w-full relative">
+                <canvas id="canvas-func-plotter" class="w-full rounded-xl bg-slate-950 border border-slate-800 shadow-inner block select-none cursor-crosshair touch-none" height="420" style="height: 420px;"></canvas>
+
+                <!-- Floating Canvas Zoom & Reset Controls -->
+                <div class="absolute bottom-4 right-4 flex items-center gap-1.5 bg-dark-900/90 backdrop-blur-md p-1.5 rounded-xl border border-slate-700 shadow-lg">
+                  <button onclick="zoomPlotter(0.8)" title="Perbesar (Zoom In)" class="w-7 h-7 rounded-lg bg-dark-800 hover:bg-dark-750 text-slate-200 hover:text-white flex items-center justify-center font-bold text-xs transition">
+                    +
+                  </button>
+                  <button onclick="zoomPlotter(1.25)" title="Perkecil (Zoom Out)" class="w-7 h-7 rounded-lg bg-dark-800 hover:bg-dark-750 text-slate-200 hover:text-white flex items-center justify-center font-bold text-xs transition">
+                    &minus;
+                  </button>
+                  <button onclick="resetPlotterView()" title="Reset Tampilan (1:1)" class="px-2.5 h-7 rounded-lg bg-dark-800 hover:bg-dark-750 text-[11px] font-semibold text-slate-300 hover:text-white flex items-center gap-1 transition">
+                    <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                    <span>Reset</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Pan & Zoom Helper Hint -->
+              <div class="w-full flex items-center justify-between text-[11px] text-slate-500 mt-3 pt-2 border-t border-slate-800/60">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="move" class="w-3 h-3 text-indigo-400"></i>
+                  Klik &amp; seret mouse atau usap layar untuk menggeser (Pan)
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="zoom-in" class="w-3 h-3 text-purple-400"></i>
+                  Putar roda mouse untuk Zoom in/out
+                </span>
+              </div>
+            </div>
+
+            <!-- Controls & Key Points Table (4 Cols) -->
+            <div class="lg:col-span-4 space-y-4">
+              
+              <!-- Expression Input Card -->
+              <div class="clean-card rounded-2xl p-4 border border-purple-500/30 space-y-3">
+                <h4 class="text-xs font-bold text-purple-300 flex items-center gap-2 uppercase tracking-wide">
+                  <i data-lucide="terminal" class="w-4 h-4 text-purple-400"></i>
+                  <span>Fungsi Matematika: f(x)</span>
+                </h4>
+
+                <div class="space-y-1.5">
+                  <div class="relative">
+                    <input type="text" id="fp-input-expr" value="x^2 - 4" oninput="plotUserFunction(this.value)" placeholder="Contoh: sin(x), x^2 - 4, 2^x" class="w-full px-3 py-2 rounded-xl bg-dark-900 border border-slate-700 font-mono text-purple-300 font-bold text-xs focus:border-purple-500 focus:outline-none">
+                    <button onclick="plotUserFunction(document.getElementById('fp-input-expr').value)" class="absolute right-1.5 top-1.5 px-2.5 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-[10px] font-bold transition">
+                      Plot
+                    </button>
+                  </div>
+                  <div id="fp-error-msg" class="text-[11px] text-rose-400 font-medium hidden"></div>
+                </div>
+
+                <!-- Quick Function Presets -->
+                <div class="space-y-1.5 pt-1">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Preset Fungsi Populer:</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button onclick="setPlotterPreset('x^2 - 4')" class="px-2 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-[11px] font-mono text-purple-300">x&sup2; - 4</button>
+                    <button onclick="setPlotterPreset('sin(x)')" class="px-2 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-[11px] font-mono text-cyan-300">sin(x)</button>
+                    <button onclick="setPlotterPreset('x^3 - 3*x')" class="px-2 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-[11px] font-mono text-amber-300">x&sup3; - 3x</button>
+                    <button onclick="setPlotterPreset('cos(x) + 0.5*x')" class="px-2 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-[11px] font-mono text-indigo-300">cos(x)+0.5x</button>
+                    <button onclick="setPlotterPreset('2^x - 3')" class="px-2 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-[11px] font-mono text-emerald-300">2^x - 3</button>
+                    <button onclick="setPlotterPreset('sqrt(abs(x))')" class="px-2 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-[11px] font-mono text-rose-300">&radic;|x|</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Point Analysis Card -->
+              <div class="clean-card rounded-2xl p-4 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                  <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <i data-lucide="crosshair" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Analisis Titik Kunci (Key Points):</span>
+                  </h4>
+                  <span class="text-[10px] text-slate-400 font-mono">Otomatis</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-xs text-left">
+                    <thead>
+                      <tr class="text-[10px] uppercase font-bold text-slate-500 border-b border-slate-800">
+                        <th class="pb-1.5">Properti</th>
+                        <th class="pb-1.5 text-right">Koordinat (x, y)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="fp-key-points-body">
+                      <!-- Injected via JS -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="text-[10px] text-slate-500 leading-relaxed pt-1">
+                  Titik hijau menandakan akar pembuat nol ($f(x) = 0$), titik jingga/ungu menandakan puncak minimum/maksimum lokal.
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
 
       <!-- ==================================================== -->
       <!-- VIEW 8: LEMBAR RUMUS SAKTI (CHEAT SHEET HUB) (BARU!)  -->
@@ -4362,7 +4840,7 @@ function doPost(e) {
     }
 
     function switchMathLabTool(tool) {
-      const tools = ['trig', 'parabola', 'matrix', 'pythagoras', 'vector'];
+      const tools = ['trig', 'parabola', 'matrix', 'pythagoras', 'vector', 'projectile', 'solver', 'plotter'];
       tools.forEach(t => {
         const panel = document.getElementById(`ml-panel-${t}`);
         const tab = document.getElementById(`ml-tab-${t}`);
@@ -4381,6 +4859,9 @@ function doPost(e) {
       if (tool === 'parabola') updateParabola();
       if (tool === 'pythagoras') updatePythagoras();
       if (tool === 'vector') updateVectorLab();
+      if (tool === 'projectile' && window.initProjectileLab) window.initProjectileLab();
+      if (tool === 'solver' && window.initSolverLab) window.initSolverLab();
+      if (tool === 'plotter' && window.initPlotterLab) window.initPlotterLab();
     }
 
     // 1. TRIGONOMETRY UNIT CIRCLE
@@ -5912,5 +6393,7 @@ function doPost(e) {
 
   <!-- Student Experience & LMS Workflow Extension -->
   <script src="features_student_exp.js"></script>
+  <!-- Adaptive Learning & Gamification Suite -->
+  <script src="features_adaptive_learning.js"></script>
 </body>
 </html>
