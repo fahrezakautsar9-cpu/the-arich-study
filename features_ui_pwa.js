@@ -297,6 +297,9 @@
       }
     });
 
+    // Ensure install button is visible
+    showPWAInstallTrigger();
+
     // Connectivity status listeners
     window.addEventListener('online', () => {
       if (typeof window.showXPToast === 'function') {
@@ -312,17 +315,22 @@
   }
 
   function showPWAInstallTrigger() {
+    // If already running in standalone mode (installed), don't show install button
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+      return;
+    }
+
     const topbarRight = document.querySelector('header .flex.items-center.space-x-2');
     if (!topbarRight || document.getElementById('btn-pwa-install')) return;
 
     const btn = document.createElement('button');
     btn.id = 'btn-pwa-install';
-    btn.className = 'pwa-install-btn px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-600/30 transition animate-bounce';
-    btn.title = 'Pasang The Arich Study sebagai Aplikasi Standalone (PWA)';
+    btn.className = 'pwa-install-btn px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-600/30 transition cursor-pointer';
+    btn.title = 'Pasang The Arich Study sebagai Aplikasi Layar Utama (PWA)';
     btn.onclick = promptPWAInstall;
     btn.innerHTML = `
       <i data-lucide="download" class="w-3.5 h-3.5"></i>
-      <span class="hidden sm:inline text-[11px]">Pasang App</span>
+      <span class="text-[11px]">Pasang App</span>
     `;
 
     topbarRight.insertBefore(btn, topbarRight.firstChild);
@@ -338,21 +346,127 @@
   }
 
   function promptPWAInstall() {
-    if (!deferredPrompt) {
-      alert('Aplikasi sudah siap digunakan secara offline atau browser Anda belum mendukung auto-prompt.');
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('[The Arich PWA] User accepted the install prompt');
+          hidePWAInstallTrigger();
+        } else {
+          console.log('[The Arich PWA] User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      });
       return;
     }
 
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('[The Arich PWA] User accepted the install prompt');
-      } else {
-        console.log('[The Arich PWA] User dismissed the install prompt');
-      }
-      deferredPrompt = null;
-      hidePWAInstallTrigger();
-    });
+    // Fallback: If browser does not support auto-prompt (e.g. Safari iOS, Firefox, or in-app browser)
+    openPWAInstallGuideModal();
+  }
+
+  function openPWAInstallGuideModal() {
+    let modal = document.getElementById('modal-pwa-install-guide');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'modal-pwa-install-guide';
+      modal.className = 'fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto';
+      document.body.appendChild(modal);
+    }
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    modal.innerHTML = `
+      <div class="relative w-full max-w-lg clean-card rounded-3xl p-6 sm:p-7 border border-indigo-500/40 shadow-2xl bg-dark-900 text-slate-100 space-y-5 animate-in fade-in zoom-in duration-200">
+        <!-- Header -->
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
+              <i data-lucide="smartphone" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-sm sm:text-base font-extrabold text-white">Pasang Aplikasi The Arich Study</h3>
+              <p class="text-[11px] text-slate-400">Gunakan layaknya aplikasi native tanpa URL bar, cepat & offline-ready</p>
+            </div>
+          </div>
+          <button onclick="document.getElementById('modal-pwa-install-guide').classList.add('hidden')" class="p-1.5 rounded-xl bg-dark-800 hover:bg-dark-750 text-slate-400 hover:text-white transition cursor-pointer">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Instructions depending on Device -->
+        <div class="space-y-4 text-xs sm:text-sm">
+          ${isIOS ? `
+            <div class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-indigo-300">
+                <i data-lucide="apple" class="w-4 h-4"></i>
+                <span>Panduan untuk iPhone & iPad (Safari):</span>
+              </div>
+              <ol class="list-decimal list-inside space-y-2 text-slate-300 text-xs leading-relaxed">
+                <li>Ketuk tombol <strong class="text-white">Share</strong> (ikon kotak dengan panah ke atas <i data-lucide="share" class="w-3.5 h-3.5 inline text-indigo-400"></i>) di bilah bawah Safari.</li>
+                <li>Gulir ke bawah dan ketuk <strong class="text-white">"Tambahkan ke Layar Utama" (Add to Home Screen)</strong>.</li>
+                <li>Ketuk tombol <strong class="text-indigo-400">"Tambah" (Add)</strong> di pojok kanan atas.</li>
+              </ol>
+            </div>
+          ` : isAndroid ? `
+            <div class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-indigo-300">
+                <i data-lucide="smartphone" class="w-4 h-4"></i>
+                <span>Panduan untuk Android (Chrome):</span>
+              </div>
+              <ol class="list-decimal list-inside space-y-2 text-slate-300 text-xs leading-relaxed">
+                <li>Ketuk menu <strong class="text-white">titik tiga (⋮)</strong> di pojok kanan atas browser Chrome.</li>
+                <li>Pilih opsi <strong class="text-white">"Instal Aplikasi"</strong> atau <strong class="text-white">"Tambahkan ke Layar Utama"</strong>.</li>
+                <li>Konfirmasi pemasangan, lalu aplikasi akan otomatis muncul di menu aplikasi HP Anda.</li>
+              </ol>
+            </div>
+          ` : `
+            <div class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-indigo-300">
+                <i data-lucide="monitor" class="w-4 h-4"></i>
+                <span>Panduan untuk Laptop / PC (Chrome / Edge):</span>
+              </div>
+              <ol class="list-decimal list-inside space-y-2 text-slate-300 text-xs leading-relaxed">
+                <li>Lihat ke <strong class="text-white">Address Bar</strong> (bilah URL) di bagian kanan atas browser.</li>
+                <li>Klik ikon <strong class="text-indigo-400">"Instal The Arich Study"</strong> (ikon layar komputer dengan panah bawah).</li>
+                <li>Atau klik menu titik tiga (⋮) &gt; <strong class="text-white">"Simpan dan Bagikan"</strong> &gt; <strong class="text-white">"Instal Aplikasi"</strong>.</li>
+              </ol>
+            </div>
+          `}
+
+          <!-- Benefits Box -->
+          <div class="grid grid-cols-3 gap-2 text-center text-[11px] pt-1">
+            <div class="p-2.5 rounded-xl bg-dark-950/80 border border-slate-800">
+              <i data-lucide="wifi-off" class="w-4 h-4 mx-auto mb-1 text-emerald-400"></i>
+              <span class="font-bold text-slate-200 block">Offline-Ready</span>
+              <span class="text-[10px] text-slate-400">Buka tanpa kuota</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-dark-950/80 border border-slate-800">
+              <i data-lucide="zap" class="w-4 h-4 mx-auto mb-1 text-amber-400"></i>
+              <span class="font-bold text-slate-200 block">Super Cepat</span>
+              <span class="text-[10px] text-slate-400">Instan tanpa reload</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-dark-950/80 border border-slate-800">
+              <i data-lucide="award" class="w-4 h-4 mx-auto mb-1 text-indigo-400"></i>
+              <span class="font-bold text-slate-200 block">+50 XP Siswa</span>
+              <span class="text-[10px] text-slate-400">Bonus pasang app</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Action -->
+        <div class="pt-2">
+          <button onclick="document.getElementById('modal-pwa-install-guide').classList.add('hidden')" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm transition cursor-pointer shadow-lg shadow-indigo-600/30">
+            Saya Paham &amp; Siap Pasang
+          </button>
+        </div>
+      </div>
+    `;
+
+    modal.classList.remove('hidden');
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
   }
 
 
@@ -955,6 +1069,7 @@
     applyTheme,
     toggleTheme,
     promptPWAInstall,
+    openPWAInstallGuideModal,
     printCurrentMateri,
     printCheatsheet,
     openCertificateModal,
@@ -967,6 +1082,7 @@
 
   // Aliases for global inline handlers
   window.toggleTheme = toggleTheme;
+  window.openPWAInstallGuideModal = openPWAInstallGuideModal;
   window.showCertificate = openCertificateModal;
   window.showReportCard = openReportCardModal;
   window.printCertificate = printCertificate;

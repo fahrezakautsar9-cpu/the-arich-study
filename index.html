@@ -85,18 +85,18 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <!-- Data Modules for All 6 Grades (Kurikulum Merdeka Lengkap) -->
-  <script src="data/cloud_config.js?v=1793288294"></script>
-  <script src="data/kurmer_kelas7_materi.js?v=1793288294"></script>
-  <script src="data/kurmer_kelas8_materi.js?v=1793288294"></script>
-  <script src="data/kurmer_kelas9_materi.js?v=1793288294"></script>
-  <script src="data/kurmer_kelas10_materi.js?v=1793288294"></script>
-  <script src="data/kurmer_kelas11_materi.js?v=1793288294"></script>
-  <script src="data/kurmer_kelas12_materi.js?v=1793288294"></script>
-  <script src="data/utbk_soal_bank.js?v=1793288294"></script>
-  <script src="data/curriculum_all_grades.js?v=1793288294"></script>
-  <script src="data/soal_bank_per_bab.js?v=1793288294"></script>
-  <script src="features_assessment.js?v=1793288294"></script>
-  <script src="features_ui_pwa.js?v=1793288294"></script>
+  <script src="data/cloud_config.js?v=1793381163"></script>
+  <script src="data/kurmer_kelas7_materi.js?v=1793381163"></script>
+  <script src="data/kurmer_kelas8_materi.js?v=1793381163"></script>
+  <script src="data/kurmer_kelas9_materi.js?v=1793381163"></script>
+  <script src="data/kurmer_kelas10_materi.js?v=1793381163"></script>
+  <script src="data/kurmer_kelas11_materi.js?v=1793381163"></script>
+  <script src="data/kurmer_kelas12_materi.js?v=1793381163"></script>
+  <script src="data/utbk_soal_bank.js?v=1793381163"></script>
+  <script src="data/curriculum_all_grades.js?v=1793381163"></script>
+  <script src="data/soal_bank_per_bab.js?v=1793381163"></script>
+  <script src="features_assessment.js?v=1793381163"></script>
+  <script src="features_ui_pwa.js?v=1793381163"></script>
 
   <style>
     body {
@@ -1399,15 +1399,57 @@
                 <i data-lucide="triangle" class="w-4 h-4 text-emerald-400"></i>
                 <span>Visual Segitiga Siku-Siku: a&sup2; + b&sup2; = c&sup2;</span>
               </div>
-              <svg id="pythagoras-svg" width="320" height="260" viewBox="0 0 320 260" class="select-none max-w-full bg-dark-950/60 rounded-xl border border-slate-800/80">
-                <!-- Triangle -->
-                <polygon id="pyt-triangle" points="50,210 230,210 50,50" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2.5" />
-                <!-- Siku-siku mark -->
-                <polyline points="50,195 65,195 65,210" fill="none" stroke="#e2e8f0" stroke-width="1.5" />
-                <!-- Labels -->
-                <text id="pyt-label-a" x="35" y="130" fill="#f43f5e" font-size="12" font-family="monospace" font-weight="bold">a = 6</text>
-                <text id="pyt-label-b" x="140" y="230" fill="#38bdf8" font-size="12" font-family="monospace" font-weight="bold">b = 8</text>
-                <text id="pyt-label-c" x="145" y="120" fill="#fbbf24" font-size="12" font-family="monospace" font-weight="bold">c = 10</text>
+              <svg id="pythagoras-svg" width="340" height="280" viewBox="0 0 340 280" class="select-none max-w-full bg-dark-950/70 rounded-xl border border-slate-800/80">
+                <defs>
+                  <linearGradient id="pyt-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.1" />
+                  </linearGradient>
+                  <filter id="pyt-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.8"/>
+                  </filter>
+                </defs>
+
+                <!-- Subtle Grid Background -->
+                <pattern id="pyt-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="2,2"/>
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#pyt-grid)" opacity="0.5"/>
+
+                <!-- Triangle Polygon -->
+                <polygon id="pyt-triangle" points="70,230 250,230 70,50" fill="url(#pyt-grad)" stroke="#10b981" stroke-width="2.5" />
+
+                <!-- Dynamic Right-Angle Square Marker -->
+                <polyline id="pyt-right-angle" points="70,215 85,215 85,230" fill="rgba(255,255,255,0.06)" stroke="#e2e8f0" stroke-width="1.8" />
+
+                <!-- Vertex Circles -->
+                <circle id="pyt-vertex-c" cx="70" cy="230" r="4.5" fill="#10b981" stroke="#fff" stroke-width="1.5" />
+                <circle id="pyt-vertex-a" cx="70" cy="50" r="4.5" fill="#f43f5e" stroke="#fff" stroke-width="1.5" />
+                <circle id="pyt-vertex-b" cx="250" cy="230" r="4.5" fill="#38bdf8" stroke="#fff" stroke-width="1.5" />
+
+                <!-- Vertex Text Labels -->
+                <text id="pyt-vertex-c-lbl" x="48" y="246" fill="#94a3b8" font-size="11" font-family="sans-serif" font-weight="bold">C (90°)</text>
+                <text id="pyt-vertex-a-lbl" x="48" y="44" fill="#f43f5e" font-size="12" font-family="sans-serif" font-weight="bold">A</text>
+                <text id="pyt-vertex-b-lbl" x="258" y="246" fill="#38bdf8" font-size="12" font-family="sans-serif" font-weight="bold">B</text>
+
+                <!-- Edge Badges (Positioned dynamically along each side) -->
+                <!-- Side a (Vertical AC) -->
+                <g id="pyt-badge-a" filter="url(#pyt-glow)">
+                  <rect id="pyt-badge-a-bg" x="12" y="125" width="52" height="22" rx="6" fill="#1e1124" stroke="#f43f5e" stroke-width="1" />
+                  <text id="pyt-label-a" x="38" y="140" fill="#fb7185" font-size="11" font-family="monospace" font-weight="bold" text-anchor="middle">a = 6</text>
+                </g>
+
+                <!-- Side b (Horizontal CB) -->
+                <g id="pyt-badge-b" filter="url(#pyt-glow)">
+                  <rect id="pyt-badge-b-bg" x="134" y="240" width="52" height="22" rx="6" fill="#082f49" stroke="#38bdf8" stroke-width="1" />
+                  <text id="pyt-label-b" x="160" y="255" fill="#7dd3fc" font-size="11" font-family="monospace" font-weight="bold" text-anchor="middle">b = 8</text>
+                </g>
+
+                <!-- Side c (Hypotenuse AB) -->
+                <g id="pyt-badge-c" filter="url(#pyt-glow)">
+                  <rect id="pyt-badge-c-bg" x="150" y="125" width="68" height="24" rx="6" fill="#451a03" stroke="#f59e0b" stroke-width="1.2" />
+                  <text id="pyt-label-c" x="184" y="141" fill="#fcd34d" font-size="11" font-family="monospace" font-weight="bold" text-anchor="middle">c = 10</text>
+                </g>
               </svg>
             </div>
 
@@ -5111,53 +5153,299 @@ function doPost(e) {
       updatePythagoras();
     }
 
+    
+    window.syncPytSlider = syncPytSlider;
+    window.syncPytInput = syncPytInput;
+    window.updatePythagoras = updatePythagoras;
+    window.syncVectorLab = syncVectorLab;
+    window.updateVectorLab = updateVectorLab;
+
     function updatePythagoras() {
-      const a = parseFloat(document.getElementById('pyt-input-a').value) || 6;
-      const b = parseFloat(document.getElementById('pyt-input-b').value) || 8;
+      const aInput = document.getElementById('pyt-input-a');
+      const bInput = document.getElementById('pyt-input-b');
+      if (!aInput || !bInput) return;
+
+      const a = Math.max(1, parseFloat(aInput.value) || 6);
+      const b = Math.max(1, parseFloat(bInput.value) || 8);
       const c = Math.sqrt(a * a + b * b);
 
-      const labelA = document.getElementById('pyt-label-a');
-      const labelB = document.getElementById('pyt-label-b');
-      const labelC = document.getElementById('pyt-label-c');
-      if (labelA) labelA.textContent = `a = ${a}`;
-      if (labelB) labelB.textContent = `b = ${b}`;
-      if (labelC) labelC.textContent = `c = ${Number.isInteger(c) ? c : c.toFixed(2)}`;
+      // SVG dimensions: width 340, height 280
+      // Margin: left 70, bottom 230, available width 230, available height 180
+      const maxW = 230;
+      const maxH = 180;
+      const scale = Math.min(maxH / a, maxW / b);
+      const drawA = a * scale;
+      const drawB = b * scale;
 
+      const baseX = 70;
+      const baseY = 230;
+      const topX = baseX;
+      const topY = baseY - drawA;
+      const rightX = baseX + drawB;
+      const rightY = baseY;
+
+      // 1. Update Triangle Polygon
+      const poly = document.getElementById('pyt-triangle');
+      if (poly) poly.setAttribute('points', `${baseX},${baseY} ${rightX},${rightY} ${topX},${topY}`);
+
+      // 2. Update Right-Angle Square Marker (siku-siku)
+      const sq = Math.min(15, Math.max(7, Math.min(drawA, drawB) / 3));
+      const rightAngle = document.getElementById('pyt-right-angle');
+      if (rightAngle) {
+        rightAngle.setAttribute('points', `${baseX},${baseY - sq} ${baseX + sq},${baseY - sq} ${baseX + sq},${baseY}`);
+      }
+
+      // 3. Update Vertex Circles & Labels
+      const vC = document.getElementById('pyt-vertex-c');
+      if (vC) { vC.setAttribute('cx', baseX); vC.setAttribute('cy', baseY); }
+      const vCLbl = document.getElementById('pyt-vertex-c-lbl');
+      if (vCLbl) { vCLbl.setAttribute('x', baseX - 16); vCLbl.setAttribute('y', baseY + 18); }
+
+      const vA = document.getElementById('pyt-vertex-a');
+      if (vA) { vA.setAttribute('cx', topX); vA.setAttribute('cy', topY); }
+      const vALbl = document.getElementById('pyt-vertex-a-lbl');
+      if (vALbl) { vALbl.setAttribute('x', topX - 16); vALbl.setAttribute('y', Math.max(16, topY - 8)); }
+
+      const vB = document.getElementById('pyt-vertex-b');
+      if (vB) { vB.setAttribute('cx', rightX); vB.setAttribute('cy', rightY); }
+      const vBLbl = document.getElementById('pyt-vertex-b-lbl');
+      if (vBLbl) { vBLbl.setAttribute('x', Math.min(320, rightX + 12)); vBLbl.setAttribute('y', rightY + 18); }
+
+      // 4. Update Edge Badges (Positioned dynamically along each side)
+      // Side a (Vertical AC: from topY to baseY)
+      const midAY = (topY + baseY) / 2;
+      const textAStr = `a = ${a}`;
+      const badgeAWidth = Math.max(48, textAStr.length * 8 + 14);
+      const badgeABg = document.getElementById('pyt-badge-a-bg');
+      const labelA = document.getElementById('pyt-label-a');
+      if (badgeABg) {
+        badgeABg.setAttribute('x', baseX - badgeAWidth - 10);
+        badgeABg.setAttribute('y', midAY - 11);
+        badgeABg.setAttribute('width', badgeAWidth);
+      }
+      if (labelA) {
+        labelA.setAttribute('x', baseX - (badgeAWidth / 2) - 10);
+        labelA.setAttribute('y', midAY + 4);
+        labelA.textContent = textAStr;
+      }
+
+      // Side b (Horizontal CB: from baseX to rightX)
+      const midBX = (baseX + rightX) / 2;
+      const textBStr = `b = ${b}`;
+      const badgeBWidth = Math.max(48, textBStr.length * 8 + 14);
+      const badgeBBg = document.getElementById('pyt-badge-b-bg');
+      const labelB = document.getElementById('pyt-label-b');
+      if (badgeBBg) {
+        badgeBBg.setAttribute('x', midBX - (badgeBWidth / 2));
+        badgeBBg.setAttribute('y', baseY + 8);
+        badgeBBg.setAttribute('width', badgeBWidth);
+      }
+      if (labelB) {
+        labelB.setAttribute('x', midBX);
+        labelB.setAttribute('y', baseY + 23);
+        labelB.textContent = textBStr;
+      }
+
+      // Side c (Hypotenuse AB: Midpoint offset perpendicularly outward)
+      const midHypX = (topX + rightX) / 2;
+      const midHypY = (topY + rightY) / 2;
+      const hypLen = Math.sqrt(drawA * drawA + drawB * drawB);
+      const normX = drawA / hypLen;
+      const normY = -drawB / hypLen;
+      const hypOffset = 24;
+      const targetHypX = Math.min(300, Math.max(60, midHypX + normX * hypOffset));
+      const targetHypY = Math.min(260, Math.max(20, midHypY + normY * hypOffset));
+
+      const cDisplay = Number.isInteger(c) ? String(c) : c.toFixed(2);
+      const textCStr = `c = ${cDisplay}`;
+      const badgeCWidth = Math.max(54, textCStr.length * 8.5 + 16);
+      const badgeCBg = document.getElementById('pyt-badge-c-bg');
+      const labelC = document.getElementById('pyt-label-c');
+      if (badgeCBg) {
+        badgeCBg.setAttribute('x', targetHypX - (badgeCWidth / 2));
+        badgeCBg.setAttribute('y', targetHypY - 12);
+        badgeCBg.setAttribute('width', badgeCWidth);
+      }
+      if (labelC) {
+        labelC.setAttribute('x', targetHypX);
+        labelC.setAttribute('y', targetHypY + 4);
+        labelC.textContent = textCStr;
+      }
+
+      // 5. Update Step-by-Step Calculation Box
       const calcEl = document.getElementById('pyt-calc-text');
       if (calcEl) {
         const a2 = a * a;
         const b2 = b * b;
         const sum = a2 + b2;
         const isInt = Number.isInteger(c);
-        calcEl.innerHTML = `c = &radic;(${a}&sup2; + ${b}&sup2;) = &radic;(${a2} + ${b2}) = &radic;${sum} = <strong>${isInt ? c : c.toFixed(3)}</strong>`;
+        calcEl.innerHTML = `c = &radic;(${a}&sup2; + ${b}&sup2;) = &radic;(${a2} + ${b2}) = &radic;${sum} = <strong class="text-amber-400 font-bold">${isInt ? c : c.toFixed(3)}</strong>`;
       }
 
+      // 6. Triple Pythagoras Badge
       const badge = document.getElementById('pyt-triple-badge');
       if (badge) {
         if (Number.isInteger(c)) {
           badge.classList.remove('hidden');
-          badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Tripel Pythagoras Sempurna (${a}, ${b}, ${c})!</span>`;
+          badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i><span>Tripel Pythagoras Sempurna (${a}, ${b}, ${c})!</span>`;
         } else {
           badge.classList.add('hidden');
         }
       }
+      if (window.lucide) lucide.createIcons();
+    }
 
-      // Draw SVG Triangle dynamically
-      const maxSide = Math.max(a, b);
-      const scale = Math.min(180 / maxSide, 15);
-      const drawA = a * scale;
-      const drawB = b * scale;
+    // 5. VECTOR & RESULTANT SIMULATOR (FISIKA FASE E & F)
+    function syncVectorLab(vecId, type, val) {
+      if (type === 'mag') {
+        const input = document.getElementById(`vec-in-mag-${vecId}`);
+        if (input) input.value = Math.max(1, parseFloat(val) || 1);
+      } else if (type === 'deg') {
+        const deg = parseFloat(val) || 0;
+        const slider = document.getElementById(`vec-slide-deg-${vecId}`);
+        if (slider) slider.value = ((deg % 360) + 360) % 360;
+      } else if (type === 'deg_slide') {
+        const input = document.getElementById(`vec-in-deg-${vecId}`);
+        if (input) input.value = val;
+      }
+      updateVectorLab();
+    }
 
-      const baseX = 50;
-      const baseY = 210;
-      const topX = baseX;
-      const topY = Math.max(20, baseY - drawA);
-      const rightX = Math.min(290, baseX + drawB);
-      const rightY = baseY;
+    function updateVectorLab() {
+      const f1Input = document.getElementById('vec-in-mag-a');
+      const deg1Input = document.getElementById('vec-in-deg-a');
+      const f2Input = document.getElementById('vec-in-mag-b');
+      const deg2Input = document.getElementById('vec-in-deg-b');
 
-      const poly = document.getElementById('pyt-triangle');
-      if (poly) poly.setAttribute('points', `${baseX},${baseY} ${rightX},${rightY} ${topX},${topY}`);
-      lucide.createIcons();
+      if (!f1Input || !deg1Input || !f2Input || !deg2Input) return;
+
+      const f1 = Math.max(0.1, parseFloat(f1Input.value) || 10);
+      const deg1 = parseFloat(deg1Input.value) || 0;
+      const f2 = Math.max(0.1, parseFloat(f2Input.value) || 8);
+      const deg2 = parseFloat(deg2Input.value) || 0;
+
+      // Update control headers
+      const valA = document.getElementById('vec-val-a');
+      const valB = document.getElementById('vec-val-b');
+      if (valA) valA.textContent = `${f1} N @ ${deg1}°`;
+      if (valB) valB.textContent = `${f2} N @ ${deg2}°`;
+
+      // Cartesian decomposition
+      const rad1 = (deg1 * Math.PI) / 180;
+      const rad2 = (deg2 * Math.PI) / 180;
+
+      const f1x = f1 * Math.cos(rad1);
+      const f1y = f1 * Math.sin(rad1);
+      const f2x = f2 * Math.cos(rad2);
+      const f2y = f2 * Math.sin(rad2);
+
+      const rx = f1x + f2x;
+      const ry = f1y + f2y;
+      const r = Math.hypot(rx, ry);
+      const degR = ((Math.atan2(ry, rx) * 180 / Math.PI) + 360) % 360;
+
+      const deltaDeg = Math.abs(deg2 - deg1);
+      const rCosinus = Math.sqrt(f1 * f1 + f2 * f2 + 2 * f1 * f2 * Math.cos((deltaDeg * Math.PI) / 180));
+
+      // Scaling inside Cartesian grid (viewBox: -170 -170 340 340, radius max 135)
+      const maxMag = Math.max(f1, f2, r, 5);
+      const scale = 130 / maxMag;
+
+      const p1x = f1x * scale;
+      const p1y = -f1y * scale; // inverted Y for SVG
+      const p2x = f2x * scale;
+      const p2y = -f2y * scale;
+      const prx = rx * scale;
+      const pry = -ry * scale;
+
+      // Update SVG Lines
+      const lineA = document.getElementById('vec-line-a');
+      if (lineA) { lineA.setAttribute('x2', p1x); lineA.setAttribute('y2', p1y); }
+
+      const lineB = document.getElementById('vec-line-b');
+      if (lineB) { lineB.setAttribute('x2', p2x); lineB.setAttribute('y2', p2y); }
+
+      const lineR = document.getElementById('vec-line-r');
+      if (lineR) { lineR.setAttribute('x2', prx); lineR.setAttribute('y2', pry); }
+
+      // Update Parallelogram dotted lines
+      const paraA = document.getElementById('vec-para-a');
+      if (paraA) {
+        paraA.setAttribute('x1', p1x); paraA.setAttribute('y1', p1y);
+        paraA.setAttribute('x2', prx); paraA.setAttribute('y2', pry);
+      }
+      const paraB = document.getElementById('vec-para-b');
+      if (paraB) {
+        paraB.setAttribute('x1', p2x); paraB.setAttribute('y1', p2y);
+        paraB.setAttribute('x2', prx); paraB.setAttribute('y2', pry);
+      }
+
+      // Update Vector Labels
+      const textA = document.getElementById('vec-text-a');
+      if (textA) {
+        const offset = 14;
+        textA.setAttribute('x', p1x + Math.cos(rad1) * offset);
+        textA.setAttribute('y', p1y - Math.sin(rad1) * offset);
+        textA.textContent = `F₁ = ${f1} N`;
+      }
+      const textB = document.getElementById('vec-text-b');
+      if (textB) {
+        const offset = 14;
+        textB.setAttribute('x', p2x + Math.cos(rad2) * offset);
+        textB.setAttribute('y', p2y - Math.sin(rad2) * offset);
+        textB.textContent = `F₂ = ${f2} N`;
+      }
+      const textR = document.getElementById('vec-text-r');
+      if (textR) {
+        const radR = (degR * Math.PI) / 180;
+        const offset = 16;
+        textR.setAttribute('x', prx + Math.cos(radR) * offset);
+        textR.setAttribute('y', pry - Math.sin(radR) * offset);
+        textR.textContent = `R = ${r.toFixed(1)} N`;
+      }
+
+      // Update Telemetry Breakdown Box
+      const telemetry = document.getElementById('vec-telemetry');
+      if (telemetry) {
+        telemetry.innerHTML = `
+          <div class="space-y-2 text-xs">
+            <div class="p-2 rounded-lg bg-dark-950/70 border border-slate-800 space-y-1">
+              <span class="text-cyan-400 font-bold block">1. Uraian Komponen Vektor F₁:</span>
+              <div class="pl-2 space-y-0.5 text-slate-300 font-mono text-[11px]">
+                <div>F₁ₓ = F₁ · cos(θ₁) = ${f1} · cos(${deg1}°) = <strong>${f1x.toFixed(2)} N</strong></div>
+                <div>F₁ᵧ = F₁ · sin(θ₁) = ${f1} · sin(${deg1}°) = <strong>${f1y.toFixed(2)} N</strong></div>
+              </div>
+            </div>
+
+            <div class="p-2 rounded-lg bg-dark-950/70 border border-slate-800 space-y-1">
+              <span class="text-amber-400 font-bold block">2. Uraian Komponen Vektor F₂:</span>
+              <div class="pl-2 space-y-0.5 text-slate-300 font-mono text-[11px]">
+                <div>F₂ₓ = F₂ · cos(θ₂) = ${f2} · cos(${deg2}°) = <strong>${f2x.toFixed(2)} N</strong></div>
+                <div>F₂ᵧ = F₂ · sin(θ₂) = ${f2} · sin(${deg2}°) = <strong>${f2y.toFixed(2)} N</strong></div>
+              </div>
+            </div>
+
+            <div class="p-2 rounded-lg bg-dark-950/70 border border-slate-800 space-y-1">
+              <span class="text-indigo-300 font-bold block">3. Penjumlahan Komponen (ΣF):</span>
+              <div class="pl-2 space-y-0.5 text-slate-300 font-mono text-[11px]">
+                <div>ΣFₓ = F₁ₓ + F₂ₓ = ${f1x.toFixed(2)} + (${f2x.toFixed(2)}) = <strong>${rx.toFixed(2)} N</strong></div>
+                <div>ΣFᵧ = F₁ᵧ + F₂ᵧ = ${f1y.toFixed(2)} + (${f2y.toFixed(2)}) = <strong>${ry.toFixed(2)} N</strong></div>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-500/40 space-y-1">
+              <span class="text-emerald-400 font-extrabold block">4. Resultan & Arah:</span>
+              <div class="pl-2 space-y-1 text-slate-200 font-mono text-xs">
+                <div>R = √((ΣFₓ)² + (ΣFᵧ)²) = √(${rx.toFixed(2)}² + ${ry.toFixed(2)}²) = <strong class="text-emerald-300 text-sm">${r.toFixed(2)} N</strong></div>
+                <div>Arah θ_R = arctan(ΣFᵧ / ΣFₓ) = <strong class="text-emerald-300">${degR.toFixed(1)}°</strong> terhadap sumbu +X</div>
+                <div class="pt-1 text-[10px] text-slate-400 border-t border-emerald-500/20">
+                  Cek Rumus Kosinus: R = √(F₁² + F₂² + 2F₁F₂ cos(Δθ)) = <span class="text-emerald-400 font-bold">${rCosinus.toFixed(2)} N</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
     }
 
     const CHEAT_SHEETS_DATA = [
