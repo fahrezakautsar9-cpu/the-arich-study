@@ -1,0 +1,35 @@
+{
+  "name": "The Arich Study — Platform Belajar Matematika & Fisika",
+  "short_name": "The Arich Study",
+  "description": "Platform Belajar Interaktif Matematika & Fisika SMP/SMA Kurikulum Merdeka dan Persiapan UTBK SNBT",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#070a12",
+  "background_color": "#070a12",
+  "categories": ["education", "books", "productivity"],
+  "lang": "id",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

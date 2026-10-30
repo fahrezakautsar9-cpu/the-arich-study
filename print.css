@@ -1,0 +1,317 @@
+/**
+ * ============================================================================
+ * The Arich Study — Professional Print & PDF Stylesheet (@media print)
+ * Optimized for high-definition A4 export, Crisp Black Ink, and Math Rendering.
+ * ============================================================================
+ */
+
+@page {
+  size: A4 portrait;
+  margin: 12mm 12mm 15mm 12mm;
+}
+
+@page certificate-landscape {
+  size: A4 landscape;
+  margin: 8mm;
+}
+
+@media print {
+  /* 1. Global Reset for Clean Paper Printing */
+  html, body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #090d16 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.55 !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 2. Hide Non-Printable Elements */
+  nav,
+  aside,
+  header,
+  #sidebar-drawer,
+  #mobile-sidebar-backdrop,
+  .no-print,
+  .btn-no-print,
+  button,
+  #sfx-btn,
+  #top-xp-badge,
+  #btn-tts-chapter,
+  #cross-grade-notice-banner,
+  #btn-materi-start-exam,
+  #xp-toast-notify,
+  #modal-answer-key-pin,
+  #modal-teacher-pin,
+  #modal-submit-confirm,
+  #modal-gsheets,
+  #modal-global-search,
+  #modal-level-details,
+  .theme-switch-btn,
+  .theme-toggle-btn,
+  .pwa-install-btn,
+  #gate-saved-accounts-section,
+  #view-student-gate {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Remove desktop sidebar padding */
+  .lg\:pl-64 {
+    padding-left: 0 !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 3. High-Definition Mathematical Equations & KaTeX */
+  .katex {
+    color: #000000 !important;
+    font-size: 1.08em !important;
+    text-rendering: optimizeLegibility !important;
+  }
+
+  .katex-display {
+    color: #000000 !important;
+    margin: 0.6em 0 !important;
+    overflow: visible !important;
+  }
+
+  .reader-math-block,
+  .formula-math {
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    margin: 10px 0 !important;
+    box-shadow: none !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    color: #000000 !important;
+  }
+
+  /* 4. Page Break Rules & Container Cleanups */
+  .clean-card {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+    color: #090d16 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 14px !important;
+    padding: 14px 18px !important;
+  }
+
+  /* Headings & Texts in Print */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000000 !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    font-weight: 800 !important;
+  }
+
+  h1 { font-size: 18pt !important; }
+  h2 { font-size: 14pt !important; }
+  h3 { font-size: 12pt !important; }
+  h4 { font-size: 11pt !important; }
+
+  p, li, span, td, th {
+    color: #1e293b !important;
+  }
+
+  .text-slate-200,
+  .text-slate-300,
+  .text-slate-400,
+  .text-slate-500 {
+    color: #334155 !important;
+  }
+
+  .text-white {
+    color: #000000 !important;
+  }
+
+  /* 5. Printable Target Views */
+
+  /* View: Materi Detail (#view-materi-detail) */
+  #view-materi-detail {
+    display: block !important;
+  }
+
+  #view-materi-detail .clean-card {
+    margin-bottom: 16px !important;
+  }
+
+  #detail-subtopics-container > div,
+  .subtopic-item {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #cbd5e1 !important;
+    background: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 14px 18px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* View: Cheatsheet (Lembar Rumus Sakti) (#view-cheatsheet) */
+  #view-cheatsheet {
+    display: block !important;
+  }
+
+  #cheatsheet-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  #cheatsheet-grid .clean-card {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #cbd5e1 !important;
+    margin-bottom: 0 !important;
+    padding: 12px 14px !important;
+  }
+
+  /* View: Exam Review Sheet (#view-exam-review) */
+  #view-exam-review {
+    display: block !important;
+  }
+
+  #view-exam-review .review-q-card {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #cbd5e1 !important;
+    background: #ffffff !important;
+    border-radius: 8px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* 6. Document Header for Printable Modules */
+  .print-document-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .print-document-header .brand-title {
+    font-size: 14pt !important;
+    font-weight: 900 !important;
+    color: #4338ca !important;
+  }
+
+  .print-document-header .brand-subtitle {
+    font-size: 8.5pt !important;
+    color: #475569 !important;
+  }
+
+  .print-document-header .doc-meta {
+    font-size: 8.5pt !important;
+    color: #475569 !important;
+    text-align: right !important;
+  }
+
+  /* 7. Printable Certificate Modals (#certificate-modal & #modal-mastery-certificate) */
+  body.printing-certificate #view-materi-detail,
+  body.printing-certificate #view-cheatsheet,
+  body.printing-certificate #view-dashboard,
+  body.printing-certificate #view-history,
+  body.printing-certificate #view-exam-catalog,
+  body.printing-certificate #view-exam-review,
+  body.printing-certificate #view-mathlab {
+    display: none !important;
+  }
+
+  body.printing-certificate #certificate-modal,
+  body.printing-certificate #modal-mastery-certificate {
+    display: flex !important;
+    position: static !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  #certificate-print-frame,
+  #certificate-print-wrapper {
+    border: 6px double #4338ca !important;
+    border-radius: 12px !important;
+    padding: 28px 36px !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    text-align: center !important;
+    position: relative !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 8. Printable Report Card Modal (#report-card-modal) */
+  body.printing-report-card #view-materi-detail,
+  body.printing-report-card #view-cheatsheet,
+  body.printing-report-card #view-dashboard,
+  body.printing-report-card #view-history,
+  body.printing-report-card #view-exam-catalog,
+  body.printing-report-card #view-exam-review,
+  body.printing-report-card #view-mathlab {
+    display: none !important;
+  }
+
+  body.printing-report-card #report-card-modal {
+    display: flex !important;
+    position: static !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  #report-card-print-frame {
+    border: 1px solid #0f172a !important;
+    border-radius: 6px !important;
+    padding: 24px 28px !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 100% !important;
+    box-shadow: none !important;
+  }
+
+  #report-card-print-frame table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 14px !important;
+    font-size: 9.5pt !important;
+  }
+
+  #report-card-print-frame th,
+  #report-card-print-frame td {
+    border: 1px solid #94a3b8 !important;
+    padding: 6px 10px !important;
+    text-align: left !important;
+  }
+
+  #report-card-print-frame th {
+    background-color: #f1f5f9 !important;
+    font-weight: 800 !important;
+  }
+
+  /* Don't print URLs next to anchors */
+  a[href]:after {
+    content: "" !important;
+  }
+}

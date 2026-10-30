@@ -7,6 +7,33 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Progressive Web App (PWA) Manifest & Meta -->
+  <meta name="theme-color" content="#070a12">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="The Arich Study">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.svg">
+
+  <!-- Immediate Theme Pre-loader (Zero-FOUC) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('the_arich_theme') || 'dark';
+        if (savedTheme === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+        } else {
+          document.documentElement.classList.remove('light');
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- High-Contrast Theme & Professional Print Stylesheets -->
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="print.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
   <title>The Arich Study — Platform Belajar Matematika & Fisika</title>
 
@@ -68,6 +95,8 @@
   <script src="data/utbk_soal_bank.js?v=1793288294"></script>
   <script src="data/curriculum_all_grades.js?v=1793288294"></script>
   <script src="data/soal_bank_per_bab.js?v=1793288294"></script>
+  <script src="features_assessment.js?v=1793288294"></script>
+  <script src="features_ui_pwa.js?v=1793288294"></script>
 
   <style>
     body {
@@ -295,6 +324,14 @@
           <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400 animate-pulse"></i>
           <span id="top-xp-text" class="text-[11px]">0 XP • Lv 1</span>
         </div>
+
+        <!-- Theme Switcher Button (Clean Paper Light vs Ambient Dark Mesh) -->
+        <button onclick="toggleTheme()" id="header-theme-toggle" class="theme-toggle-btn p-1.5 px-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-800 hover:border-slate-700 text-xs text-slate-300 hover:text-white flex items-center gap-1.5 transition shadow-sm cursor-pointer" title="Ganti Tema (Terang / Gelap)" aria-label="Ganti Tema">
+          <span class="theme-icon-container flex items-center justify-center">
+            <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-400"></i>
+          </span>
+          <span class="theme-btn-label hidden sm:inline text-[11px] font-semibold">Mode</span>
+        </button>
 
         <button onclick="toggleAudioSFX()" id="sfx-btn" class="p-1.5 px-2.5 rounded-lg bg-dark-850 border border-slate-800 text-xs text-slate-400 hover:text-white flex items-center gap-1">
           <i id="sfx-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-indigo-400"></i>
@@ -713,7 +750,7 @@
       <!-- ==================================================== -->
       <!-- VIEW 6: HASIL SKOR AKHIR                             -->
       <!-- ==================================================== -->
-      <div id="view-exam-result" class="hidden max-w-md mx-auto w-full py-6">
+      <div id="view-exam-result" class="hidden max-w-2xl mx-auto w-full py-6 space-y-4">
         <div class="clean-card rounded-2xl p-6 text-center border-emerald-500/30">
           
           <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center mx-auto mb-3 border border-emerald-500/30">
@@ -729,6 +766,14 @@
             <span class="text-xs text-slate-400 block mb-1">Nilai Kamu</span>
             <div class="text-5xl font-black text-emerald-400 font-mono" id="res-score-number">0</div>
             <div class="text-xs text-slate-400 mt-1" id="res-score-detail">0 Benar</div>
+          </div>
+
+          <!-- PROMINENT PRIMARY REVIEW BUTTON -->
+          <div class="mt-4 mb-3">
+            <button id="btn-open-exam-review" onclick="openExamReview()" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2.5 transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+              <i data-lucide="file-search" class="w-5 h-5"></i>
+              <span>🔍 Review Lembar Jawaban & Pembahasan Lengkap</span>
+            </button>
           </div>
 
           <div class="p-3 rounded-xl bg-dark-850 border border-slate-800 text-slate-300 text-xs mb-5">
@@ -753,6 +798,132 @@
           </div>
 
         </div>
+
+        <!-- ACHIEVEMENT BANNER: E-SERTIFIKAT KELULUSAN (IF SCORE >= 70) -->
+        <div id="res-certificate-banner" class="hidden clean-card rounded-2xl p-4 sm:p-5 border-amber-500/40 bg-gradient-to-br from-amber-500/10 via-dark-850 to-amber-900/10 text-left space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0 shadow-lg shadow-amber-500/20">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+            <div class="text-left flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-0.5">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  E-Sertifikat Tersedia
+                </span>
+                <span id="banner-cert-predicate" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  Cum Laude
+                </span>
+              </div>
+              <h4 class="text-sm sm:text-base font-extrabold text-white truncate">Sertifikat Kelulusan Bab & Keunggulan Akademik</h4>
+              <p class="text-xs text-slate-300">Selamat! Nilaimu melampaui batas kelulusan (KKM: 70). Klaim e-sertifikat resmimu sekarang.</p>
+            </div>
+          </div>
+          <button onclick="openCertificateModal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-0.5 cursor-pointer">
+            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+            <span>🎓 Unduh / Cetak E-Sertifikat Kelulusan</span>
+          </button>
+        </div>
+
+        <!-- DIAGNOSTIC TOPIC ANALYTICS CARD -->
+        <div id="res-diagnostic-card" class="clean-card rounded-2xl p-5 border-indigo-500/30 text-left space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+                <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-extrabold text-white">Analisis Diagnostik Penguasaan Materi</h4>
+                <p class="text-[11px] text-slate-400">Pemetaan kekuatan & kelemahanmu berdasarkan subtopik bab ini</p>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+              Evaluasi Mandiri
+            </span>
+          </div>
+
+          <!-- Subtopics Progress List -->
+          <div id="diag-subtopics-list" class="space-y-3">
+            <!-- Rendered by renderDiagnosticCard() -->
+          </div>
+
+          <!-- Smart Action Recommendation Box -->
+          <div id="diag-recommendation-box" class="pt-2">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW 6B: LEMBAR REVIEW SOAL & PEMBAHASAN LENGKAP     -->
+      <!-- ==================================================== -->
+      <div id="view-exam-review" class="hidden max-w-4xl mx-auto w-full py-4 space-y-6">
+        
+        <!-- Sticky Top Banner -->
+        <div id="review-top-banner" class="sticky top-2 z-30 clean-card rounded-2xl p-4 sm:p-5 border-indigo-500/40 backdrop-blur-xl shadow-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex items-center gap-3 min-w-0">
+            <button onclick="backToExamResult()" class="review-action-btn shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition cursor-pointer">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Kembali ke</span> Hasil Nilai
+            </button>
+            <div class="min-w-0">
+              <span class="text-[10px] uppercase font-extrabold tracking-wider text-indigo-400 block">Lembar Review Ujian</span>
+              <h3 id="review-chapter-title" class="text-sm sm:text-base font-extrabold text-white truncate">-</h3>
+            </div>
+          </div>
+
+          <!-- Score Pill & Benar/Salah/Kosong Counters -->
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+            <div id="review-score-pill" class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+              Skor: 0/100
+            </div>
+            <div class="flex items-center gap-1.5 text-xs font-bold">
+              <span id="review-count-correct" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i> <span class="val font-mono">0</span> Benar
+              </span>
+              <span id="review-count-wrong" class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center gap-1">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i> <span class="val font-mono">0</span> Salah
+              </span>
+              <span id="review-count-empty" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1">
+                <i data-lucide="minus" class="w-3.5 h-3.5"></i> <span class="val font-mono">0</span> Kosong
+              </span>
+            </div>
+            <button onclick="printExamReview()" class="review-action-btn ml-auto inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 text-xs font-bold transition cursor-pointer">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Cetak Lembar Review</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Filter Buttons -->
+        <div id="review-filter-bar" class="flex flex-wrap items-center gap-2 p-2 rounded-xl bg-dark-900 border border-slate-800">
+          <span class="text-xs font-bold text-slate-400 px-2 flex items-center gap-1">
+            <i data-lucide="filter" class="w-3.5 h-3.5"></i> Filter Soal:
+          </span>
+          <button id="btn-filter-all" onclick="filterExamReview('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition cursor-pointer">
+            Semua Soal (<span id="filter-cnt-all">0</span>)
+          </button>
+          <button id="btn-filter-wrong" onclick="filterExamReview('wrong')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 hover:bg-dark-800 text-rose-300 border border-slate-700/80 transition cursor-pointer">
+            Hanya yang Salah (<span id="filter-cnt-wrong">0</span>)
+          </button>
+          <button id="btn-filter-correct" onclick="filterExamReview('correct')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-dark-850 hover:bg-dark-800 text-emerald-300 border border-slate-700/80 transition cursor-pointer">
+            Hanya yang Benar (<span id="filter-cnt-correct">0</span>)
+          </button>
+        </div>
+
+        <!-- Question Cards Container -->
+        <div id="review-questions-container" class="space-y-6">
+          <!-- Dynamically Rendered by renderReviewCards() -->
+        </div>
+
+        <!-- Bottom Footer Navigation -->
+        <div class="text-center pt-4 pb-8">
+          <button onclick="backToExamResult()" class="review-action-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition cursor-pointer">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Kembali ke Ringkasan Nilai & Sertifikat</span>
+          </button>
+        </div>
+
       </div>
 
       <!-- ==================================================== -->
@@ -1941,6 +2112,257 @@ function doPost(e) {
   </div>
 
   <!-- ======================================================== -->
+  <!-- ======================================================== -->
+  <!-- MODAL: E-SERTIFIKAT KELULUSAN (#certificate-modal)       -->
+  <!-- ======================================================== -->
+  <div id="certificate-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-2xl bg-white text-slate-900 rounded-2xl shadow-2xl overflow-hidden my-auto border-4 border-indigo-600/20">
+      
+      <!-- Action Toolbar (Hidden in print) -->
+      <div class="no-print bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i>
+          </span>
+          <span class="text-xs font-bold tracking-wide">Sertifikat Kelulusan & Prestasi Siswa</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="printCertificate()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Cetak / PDF (A4)</span>
+          </button>
+          <button onclick="closeCertificateModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Certificate Canvas (#certificate-print-frame) -->
+      <div id="certificate-print-frame" class="p-6 sm:p-10 bg-[#fcfdfa] relative text-center">
+        
+        <!-- Ornate Border Frame -->
+        <div class="border-4 border-indigo-900/80 p-6 sm:p-8 rounded-xl relative">
+          <div class="border border-indigo-400/40 p-4 rounded-lg relative">
+            
+            <!-- Subtle Watermark -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none">
+              <svg width="280" height="280" viewBox="0 0 512 512" fill="currentColor">
+                <path d="M256,40 L160,380 L352,380 Z M256,120 L200,320 L312,320 Z"/>
+              </svg>
+            </div>
+
+            <!-- Certificate Header -->
+            <div class="mb-4">
+              <div class="text-[10px] tracking-[0.25em] font-extrabold uppercase text-indigo-700">
+                THE ARICH STUDY • PUSAT PEMBELAJARAN MATEMATIKA & FISIKA
+              </div>
+              <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1 font-serif uppercase">
+                SERTIFIKAT KELULUSAN
+              </h1>
+              <div class="h-0.5 w-24 bg-gradient-to-r from-amber-400 to-indigo-600 mx-auto mt-2"></div>
+            </div>
+
+            <!-- Certificate Body Text -->
+            <p class="text-xs text-slate-600 italic">Diberikan secara resmi kepada:</p>
+            
+            <div class="my-4">
+              <h2 id="cert-student-name" class="text-xl sm:text-2xl font-black text-indigo-950 font-serif tracking-normal border-b-2 border-slate-300 pb-1.5 inline-block min-w-[280px]">
+                Siswa The Arich Study
+              </h2>
+              <p id="cert-student-grade" class="text-xs font-bold text-slate-700 mt-1">
+                Siswa Bimbingan Belajar Mandiri
+              </p>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-700 max-w-lg mx-auto leading-relaxed">
+              Telah berhasil menyelesaikan pembelajaran modul komprehensif dan evaluasi uji kompetensi pada materi:
+            </p>
+
+            <!-- Chapter Title Badge -->
+            <div class="my-3">
+              <span id="cert-chapter-title" class="inline-block px-4 py-2 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-900 font-extrabold text-sm sm:text-base">
+                Evaluasi Kompetensi Mandiri
+              </span>
+            </div>
+
+            <!-- Score & Predicate -->
+            <div class="flex items-center justify-center gap-6 my-4 text-xs">
+              <div>
+                <span class="text-slate-500 block text-[10px] uppercase font-bold">Skor Evaluasi:</span>
+                <span id="cert-score-value" class="text-xl font-black text-emerald-700 font-mono">100 / 100</span>
+              </div>
+              <div class="h-8 w-px bg-slate-300"></div>
+              <div>
+                <span class="text-slate-500 block text-[10px] uppercase font-bold">Predikat:</span>
+                <span id="cert-predicate-value" class="text-base font-extrabold text-indigo-800">Sangat Memuaskan (A)</span>
+              </div>
+            </div>
+
+            <!-- Certificate Footer Signatures -->
+            <div class="grid grid-cols-2 gap-4 mt-8 pt-4 border-t border-slate-200 text-xs">
+              <div>
+                <div id="cert-date" class="text-slate-600 text-[11px]">Indonesia, 2026</div>
+                <div class="h-12 flex items-center justify-center">
+                  <span class="text-indigo-600 font-serif italic text-sm font-bold tracking-wider">The Arich Academy</span>
+                </div>
+                <div class="font-bold text-slate-800 text-[11px] border-t border-slate-400 pt-1 inline-block min-w-[140px]">
+                  Tim Kurikulum The Arich
+                </div>
+              </div>
+
+              <div>
+                <div class="text-slate-600 text-[11px]">Verifikasi Sistem Digital</div>
+                <div class="h-12 flex items-center justify-center">
+                  <div class="w-10 h-10 rounded-full border-2 border-amber-500 flex items-center justify-center text-amber-600 font-mono text-[9px] font-black uppercase">
+                    VERIFIED
+                  </div>
+                </div>
+                <div class="font-mono text-[10px] text-slate-500 border-t border-slate-400 pt-1 inline-block min-w-[140px]" id="cert-verify-id">
+                  ID: ARICH-2026-CERT
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: RAPOR HASIL BELAJAR SISWA (#report-card-modal)   -->
+  <!-- ======================================================== -->
+  <div id="report-card-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-white text-slate-900 rounded-2xl shadow-2xl overflow-hidden my-auto border border-slate-200">
+      
+      <!-- Action Toolbar (Hidden in print) -->
+      <div class="no-print bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-xs">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          </span>
+          <span class="text-xs font-bold tracking-wide">Rapor Belajar Siswa (Academic Report Card)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="printReportCard()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Cetak Rapor (A4 PDF)</span>
+          </button>
+          <button onclick="closeReportCardModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Report Card Frame (#report-card-print-frame) -->
+      <div id="report-card-print-frame" class="p-6 sm:p-8 bg-white text-slate-900">
+        
+        <!-- Report Header -->
+        <div class="border-b-2 border-slate-900 pb-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-indigo-700 text-lg sm:text-xl tracking-tight">The Arich <span class="text-slate-900">Study</span></span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold uppercase">Rapor Akademik</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-0.5">Platform Pembelajaran Terstandar Kurikulum Merdeka Matematika & Fisika</p>
+          </div>
+          <div class="text-left sm:text-right text-xs text-slate-500 font-mono">
+            <div id="rc-doc-num">NO: ARICH-RAPOR-2026/01</div>
+            <div id="rc-print-date">Dicetak: 2026</div>
+          </div>
+        </div>
+
+        <!-- Student Profile Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-5">
+          <div>
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Nama Lengkap</span>
+            <strong id="rc-student-name" class="text-slate-900 text-sm">-</strong>
+          </div>
+          <div>
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Jenjang Belajar</span>
+            <strong id="rc-student-grade" class="text-slate-900 text-sm">-</strong>
+          </div>
+          <div>
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Asal Sekolah</span>
+            <strong id="rc-student-school" class="text-slate-900 text-sm">-</strong>
+          </div>
+          <div>
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Total XP / Level</span>
+            <strong id="rc-student-xp" class="text-amber-700 text-sm font-mono">-</strong>
+          </div>
+        </div>
+
+        <!-- Metrics KPI Row -->
+        <div class="grid grid-cols-3 gap-3 text-center mb-5">
+          <div class="p-3 rounded-xl border border-slate-200 bg-white">
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Rata-Rata Nilai</span>
+            <div id="rc-avg-score" class="text-2xl font-black text-indigo-700 font-mono">0</div>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-white">
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Latihan Diselesaikan</span>
+            <div id="rc-total-exams" class="text-2xl font-black text-slate-800 font-mono">0</div>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-white">
+            <span class="text-slate-500 text-[10px] uppercase font-bold block">Status Kelulusan</span>
+            <div id="rc-status-summary" class="text-base sm:text-lg font-black text-emerald-700 mt-1">Sangat Baik</div>
+          </div>
+        </div>
+
+        <!-- Table of Submissions -->
+        <div class="mb-6">
+          <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Riwayat Uji Kompetensi & Latihan Soal:</h4>
+          <table class="w-full text-left text-xs border border-slate-200">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200 text-[11px]">
+                <th class="p-2 border-r border-slate-200 w-8 text-center">No</th>
+                <th class="p-2 border-r border-slate-200">Tanggal & Waktu</th>
+                <th class="p-2 border-r border-slate-200">Bab / Pokok Bahasan</th>
+                <th class="p-2 border-r border-slate-200 text-center">Benar</th>
+                <th class="p-2 border-r border-slate-200 text-center">Skor</th>
+                <th class="p-2 text-center">Predikat</th>
+              </tr>
+            </thead>
+            <tbody id="rc-table-body" class="divide-y divide-slate-200">
+              <tr>
+                <td colspan="6" class="p-4 text-center text-slate-500 italic">
+                  Belum ada riwayat latihan soal yang tercatat. Selesaikan minimal 1 latihan bab untuk menampilkan daftar nilai.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Notes & Evaluation -->
+        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-xs mb-6 space-y-1">
+          <div class="font-bold text-slate-800">Catatan & Rekomendasi Guru:</div>
+          <p id="rc-teacher-notes" class="text-slate-600 leading-relaxed">
+            Siswa menunjukkan komitmen belajar yang luar biasa dalam mempelajari konsep dan menyelesaikan latihan soal mandiri. Tingkatkan pemahaman pada subtopik pemodelan dan variasi soal HOTS untuk persiapan UTBK SNBT.
+          </p>
+        </div>
+
+        <!-- Signatures Section -->
+        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200 text-xs text-center">
+          <div>
+            <div class="text-slate-500 text-[11px]">Mengetahui Orang Tua / Siswa:</div>
+            <div class="h-16 flex items-end justify-center">
+              <span class="border-b border-slate-400 pb-1 px-8 font-semibold text-slate-800" id="rc-sign-student">-</span>
+            </div>
+          </div>
+          <div>
+            <div class="text-slate-500 text-[11px]">Guru Pembimbing The Arich Study:</div>
+            <div class="h-16 flex items-end justify-center">
+              <span class="border-b border-slate-400 pb-1 px-8 font-semibold text-slate-800">Tim Kurikulum Akademik</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
   <!-- 5. JAVASCRIPT MASTER APPLICATION LOGIC                   -->
   <!-- ======================================================== -->
   <script>
@@ -2112,6 +2534,7 @@ function doPost(e) {
       const acc = accounts.find(a => a.name.toLowerCase() === name.toLowerCase());
       if (acc) {
         currentStudent = { name: acc.name, grade: acc.grade, school: acc.school || 'Sekolah' };
+        window.currentStudent = currentStudent;
         localStorage.setItem(USER_KEY, JSON.stringify(currentStudent));
         saveRegisteredStudent(currentStudent);
         loadGradeCurriculum(acc.grade);
@@ -2136,6 +2559,7 @@ function doPost(e) {
       if (stored) {
         try {
           currentStudent = JSON.parse(stored);
+          window.currentStudent = currentStudent;
           loadGradeCurriculum(currentStudent.grade);
           updateHeaderProfile();
           switchView('dashboard');
@@ -2159,6 +2583,7 @@ function doPost(e) {
       if (!name) return;
 
       currentStudent = { name, grade, school };
+      window.currentStudent = currentStudent;
       localStorage.setItem(USER_KEY, JSON.stringify(currentStudent));
       saveRegisteredStudent(currentStudent);
 
@@ -2173,6 +2598,7 @@ function doPost(e) {
       if (!currentGradeData) {
         currentGradeData = window.ALL_GRADES_DATA['11']; // fallback
       }
+      window.currentGradeData = currentGradeData;
       // Bind dedicated 15 questions per chapter from window.SOAL_BANK_PER_BAB
       if (currentGradeData && currentGradeData.chapters && window.SOAL_BANK_PER_BAB) {
         currentGradeData.chapters.forEach(ch => {
@@ -2221,7 +2647,7 @@ function doPost(e) {
         toggleMobileSidebar();
       }
 
-      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'history', 'teacher-dashboard', 'mathlab', 'cheatsheet'];
+      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'exam-review', 'history', 'teacher-dashboard', 'mathlab', 'cheatsheet'];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
@@ -2231,7 +2657,7 @@ function doPost(e) {
       document.querySelectorAll('.sb-nav-item').forEach(b => {
         b.className = 'sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition';
       });
-      const activeNavId = (viewName === 'exam-catalog' || viewName === 'exam') ? 'sb-nav-exam' : `sb-nav-${viewName}`;
+      const activeNavId = (viewName === 'exam-catalog' || viewName === 'exam' || viewName === 'exam-review') ? 'sb-nav-exam' : `sb-nav-${viewName}`;
       const navBtn = document.getElementById(activeNavId);
       if (navBtn) {
         navBtn.className = 'sb-nav-item active w-full px-3 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white flex items-center gap-2.5 transition';
@@ -2386,6 +2812,9 @@ function doPost(e) {
     }
 
     function renderDashboardChapters() {
+      if (window.TheArichStudentExp && typeof window.TheArichStudentExp.renderContinueReadingWidget === 'function') {
+        window.TheArichStudentExp.renderContinueReadingWidget();
+      }
       const container = document.getElementById('dash-chapters-overview');
       if (!container || !currentGradeData || !currentGradeData.chapters) return;
 
@@ -2661,6 +3090,16 @@ function doPost(e) {
 
       switchView('materi-detail');
       updateReaderFontSizeButtons(curSize);
+      if (window.TheArichStudentExp) {
+        try {
+          window.TheArichStudentExp.saveRecentReading(ch, targetGrade);
+          window.TheArichStudentExp.updateChapterProgressMeter(chapterId, ch.subtopics ? ch.subtopics.length : 3);
+          window.TheArichStudentExp.enhanceSubtopicsContainer(ch);
+          window.TheArichStudentExp.enhancePersonalScratchpad(ch);
+        } catch (e) {
+          console.warn('[TheArichStudentExp] update error:', e);
+        }
+      }
       lucide.createIcons();
       triggerLatex(subContainer);
 
@@ -2774,6 +3213,9 @@ function doPost(e) {
       currentExamChapter = ch;
       activeQuestions = ch.questions;
       userAnswers = new Array(activeQuestions.length).fill(null);
+      window.currentExamChapter = currentExamChapter;
+      window.activeQuestions = activeQuestions;
+      window.userAnswers = userAnswers;
       userDoubts = new Array(activeQuestions.length).fill(false);
       currentQIdx = 0;
       isSolutionVisible = false;
@@ -2934,6 +3376,7 @@ function doPost(e) {
 
     function selectExamOption(qIdx, oIdx) {
       userAnswers[qIdx] = oIdx;
+      window.userAnswers = userAnswers;
       renderCurrentExamQuestion(qIdx, 'none');
     }
 
@@ -3119,6 +3562,16 @@ function doPost(e) {
 
       addStudentXP(50 + Math.round(score / 2), `Selesai Kuis ${score}/100`);
       switchView('exam-result');
+      window.currentExamChapter = currentExamChapter;
+      window.activeQuestions = activeQuestions;
+      window.userAnswers = userAnswers;
+      if (window.featuresAssessment) {
+        try {
+          window.featuresAssessment.onExamCompleted(record, activeQuestions, userAnswers, currentExamChapter);
+        } catch (e) {
+          console.error('Assessment features callback error:', e);
+        }
+      }
     }
 
     function shareScoreWhatsApp() {
@@ -4975,5 +5428,201 @@ function doPost(e) {
     </div>
   </div>
 
+  <!-- ======================================================== -->
+  <!-- MODAL: E-SERTIFIKAT KELULUSAN BAB (LUXURY ACADEMIC)      -->
+  <!-- ======================================================== -->
+  <div id="modal-mastery-certificate" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-4xl bg-dark-900 border border-amber-500/40 rounded-3xl shadow-2xl p-4 sm:p-6 my-auto text-center space-y-4">
+      
+      <!-- Top Controls -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+          <i data-lucide="award" class="w-4 h-4"></i>
+          <span>E-Sertifikat Kelulusan Resmi • The Arich Study</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="printCertificate()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 transition cursor-pointer">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span>Cetak / Unduh PDF</span>
+          </button>
+          <button onclick="closeCertificateModal()" class="p-1.5 rounded-xl bg-dark-800 hover:bg-dark-750 text-slate-400 hover:text-white transition cursor-pointer">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SCROLLABLE CERTIFICATE CANVAS WRAPPER (FOR MOBILE & PRINT) -->
+      <div class="overflow-x-auto py-2">
+        <div id="certificate-print-wrapper" class="relative bg-[#fcfbf7] text-slate-900 rounded-2xl p-6 sm:p-10 shadow-2xl border-4 border-[#b45309] font-sans min-w-[680px] max-w-[850px] mx-auto overflow-hidden">
+          
+          <!-- Inner Thin Frame -->
+          <div class="border border-[#b45309]/50 rounded-xl p-6 sm:p-8 relative">
+            
+            <!-- Top Center Guilloche Security Rosette -->
+            <div class="mb-3">
+              <svg viewBox="0 0 160 160" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="goldGradCert" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#b45309"/>
+                    <stop offset="50%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#d97706"/>
+                  </linearGradient>
+                  <linearGradient id="cyanGradCert" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="100%" stop-color="#06b6d4"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="76" fill="none" stroke="url(#goldGradCert)" stroke-width="1.2" stroke-dasharray="2,3"/>
+                <circle cx="80" cy="80" r="72" fill="none" stroke="url(#goldGradCert)" stroke-width="0.8"/>
+                <circle cx="80" cy="80" r="66" fill="none" stroke="url(#cyanGradCert)" stroke-width="1"/>
+                <g stroke="url(#goldGradCert)" fill="none" stroke-width="0.75" opacity="0.85">
+                  <path d="M80,18 C115,20 142,47 142,80 C142,113 115,142 80,142 C45,142 18,115 18,80 C18,45 45,18 80,18 Z" transform="rotate(0 80 80)"/>
+                  <path d="M80,18 C115,20 142,47 142,80 C142,113 115,142 80,142 C45,142 18,115 18,80 C18,45 45,18 80,18 Z" transform="rotate(15 80 80)"/>
+                  <path d="M80,18 C115,20 142,47 142,80 C142,113 115,142 80,142 C45,142 18,115 18,80 C18,45 45,18 80,18 Z" transform="rotate(30 80 80)"/>
+                  <path d="M80,18 C115,20 142,47 142,80 C142,113 115,142 80,142 C45,142 18,115 18,80 C18,45 45,18 80,18 Z" transform="rotate(45 80 80)"/>
+                  <path d="M80,18 C115,20 142,47 142,80 C142,113 115,142 80,142 C45,142 18,115 18,80 C18,45 45,18 80,18 Z" transform="rotate(60 80 80)"/>
+                  <path d="M80,18 C115,20 142,47 142,80 C142,113 115,142 80,142 C45,142 18,115 18,80 C18,45 45,18 80,18 Z" transform="rotate(75 80 80)"/>
+                </g>
+                <circle cx="80" cy="80" r="32" fill="#0f172a" stroke="url(#goldGradCert)" stroke-width="2"/>
+                <path d="M80,54 L86,72 L106,72 L90,84 L96,104 L80,92 L64,104 L70,84 L54,72 L74,72 Z" fill="url(#goldGradCert)"/>
+              </svg>
+            </div>
+
+            <!-- Header Organization -->
+            <div class="space-y-0.5 mb-4">
+              <span class="text-[10px] sm:text-xs font-extrabold tracking-[0.25em] text-[#b45309] uppercase block">
+                LEMBAGA PENDIDIKAN & RISET SAINS
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black tracking-wide text-slate-950 uppercase font-serif">
+                THE ARICH STUDY
+              </h2>
+              <p class="text-[10px] text-slate-600 tracking-wider">
+                Center of Advanced Mathematics, Physics & STEM Excellence
+              </p>
+            </div>
+
+            <!-- Certificate Title -->
+            <div class="my-4 py-2 border-y border-[#b45309]/30">
+              <h1 class="text-base sm:text-lg md:text-xl font-extrabold tracking-wider text-slate-900 uppercase">
+                THE ARICH STUDY — CERTIFICATE OF MASTERY & ACADEMIC EXCELLENCE
+              </h1>
+              <p class="text-xs italic text-[#b45309] font-serif mt-0.5">
+                Sertifikat Kelulusan & Penguasaan Kompetensi Modul
+              </p>
+            </div>
+
+            <!-- Recipient Presentation -->
+            <div class="my-4 space-y-1">
+              <p class="text-xs text-slate-600">Sertifikat ini dengan penuh kehormatan dan kebanggaan dianugerahkan kepada:</p>
+              <div id="cert-recipient-name" class="text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-wide text-slate-950 capitalize py-1">
+                -
+              </div>
+              <div id="cert-recipient-meta" class="text-xs font-semibold text-slate-700">
+                -
+              </div>
+            </div>
+
+            <!-- Achievement Description -->
+            <div class="my-4 max-w-xl mx-auto text-xs sm:text-sm text-slate-700 leading-relaxed space-y-1">
+              <p>
+                Telah menunjukkan kompetensi dan penguasaan materi yang luar biasa pada modul
+                <strong id="cert-chapter-name" class="text-slate-950 font-extrabold">-</strong>
+                (<span id="cert-subject-grade" class="font-semibold text-indigo-950">-</span>)
+                dengan nilai akhir evaluasi
+                <span id="cert-score-number" class="font-black text-emerald-800 font-mono text-base">-</span>/100
+              </p>
+              <div class="inline-block mt-1 px-4 py-1 rounded-full bg-amber-500/10 border border-amber-600/30 text-amber-900 font-bold text-xs">
+                Predikat: <span id="cert-predicate-text" class="font-extrabold">-</span>
+              </div>
+            </div>
+
+            <!-- Bottom Grid: Signatures & Seal -->
+            <div class="mt-8 pt-4 border-t border-[#b45309]/20 grid grid-cols-3 items-end gap-2 text-center">
+              
+              <!-- Lead Academic Director -->
+              <div class="space-y-1">
+                <div class="h-12 flex items-center justify-center">
+                  <svg viewBox="0 0 140 45" class="w-28 h-10 text-indigo-950 stroke-current fill-none stroke-[1.8]" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,35 C30,5 45,45 60,15 C75,35 90,10 110,25 C125,35 130,15 135,20 M35,28 C55,28 75,28 105,28"/>
+                  </svg>
+                </div>
+                <div class="border-t border-slate-700 pt-1">
+                  <p class="text-xs font-black text-slate-900">Dr. Fahr Arich, M.Sc.</p>
+                  <p class="text-[9px] text-slate-600 uppercase font-bold tracking-wider">Lead Academic Director</p>
+                  <p class="text-[8px] text-slate-500">The Arich Study</p>
+                </div>
+              </div>
+
+              <!-- Official Embossed Center Seal -->
+              <div class="space-y-1 flex flex-col items-center justify-center">
+                <svg viewBox="0 0 120 120" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="sealGoldModal" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#f59e0b"/>
+                      <stop offset="50%" stop-color="#b45309"/>
+                      <stop offset="100%" stop-color="#78350f"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="56" fill="url(#sealGoldModal)" stroke="#d97706" stroke-width="2"/>
+                  <circle cx="60" cy="60" r="50" fill="none" stroke="#fef3c7" stroke-width="1.5" stroke-dasharray="3,2"/>
+                  <circle cx="60" cy="60" r="42" fill="none" stroke="#fef3c7" stroke-width="1"/>
+                  <g fill="#fef3c7" font-size="6.5" font-weight="bold" font-family="'Plus Jakarta Sans', sans-serif" text-anchor="middle">
+                    <text x="60" y="32" letter-spacing="1.5">★ THE ARICH STUDY ★</text>
+                    <text x="60" y="94" letter-spacing="1">OFFICIAL SEAL</text>
+                  </g>
+                  <path d="M60,42 L64,52 L75,52 L66,59 L70,70 L60,63 L50,70 L54,59 L45,52 L56,52 Z" fill="#fef3c7"/>
+                </svg>
+                <div class="mt-1">
+                  <p id="cert-verification-id" class="font-mono text-[9px] font-black text-slate-800 tracking-wider">
+                    CERT-ARICH-K11-2026-XXXX
+                  </p>
+                  <p id="cert-issue-date" class="text-[8px] text-slate-600">
+                    Diterbitkan: -
+                  </p>
+                </div>
+              </div>
+
+              <!-- Head of STEM Assessment -->
+              <div class="space-y-1">
+                <div class="h-12 flex items-center justify-center">
+                  <svg viewBox="0 0 140 45" class="w-28 h-10 text-indigo-950 stroke-current fill-none stroke-[1.8]" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15,20 C35,40 50,10 70,30 C85,15 100,35 125,18 C115,35 130,25 138,22 M25,32 C65,30 95,30 120,30"/>
+                  </svg>
+                </div>
+                <div class="border-t border-slate-700 pt-1">
+                  <p class="text-xs font-black text-slate-900">Prof. Kautsar Wardana, Ph.D.</p>
+                  <p class="text-[9px] text-slate-600 uppercase font-bold tracking-wider">Head of STEM Assessment</p>
+                  <p class="text-[8px] text-slate-500">Curriculum & Certification</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Modal Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-slate-400">
+        <span class="flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+          E-Sertifikat terverifikasi resmi dan sah sebagai bukti ketuntasan belajar bab.
+        </span>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button onclick="printCertificate()" class="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span>🖨️ Cetak / Unduh PDF Sertifikat</span>
+          </button>
+          <button onclick="closeCertificateModal()" class="px-4 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-750 border border-slate-700 text-slate-300 font-semibold text-xs transition cursor-pointer">
+            Tutup
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Student Experience & LMS Workflow Extension -->
+  <script src="features_student_exp.js"></script>
 </body>
 </html>

@@ -1,0 +1,446 @@
+/**
+ * ============================================================================
+ * The Arich Study — Theme Architecture (Light Paper vs Ambient Mesh Dark)
+ * High contrast, buttery smooth transition, and ergonomic daylight reading.
+ * ============================================================================
+ */
+
+:root {
+  /* Default: Dark Mesh Theme Tokens */
+  --theme-bg-base: #070a12;
+  --theme-text-primary: #f8fafc;
+  --theme-text-secondary: #94a3b8;
+  --theme-text-muted: #64748b;
+  --theme-card-bg: linear-gradient(135deg, rgba(22, 30, 50, 0.72) 0%, rgba(13, 20, 36, 0.65) 100%);
+  --theme-card-border: rgba(255, 255, 255, 0.08);
+  --theme-card-hover-border: rgba(99, 102, 241, 0.3);
+  --theme-card-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  --theme-card-hover-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(99, 102, 241, 0.3);
+  
+  --theme-sidebar-bg: #0f1422;
+  --theme-sidebar-border: rgba(30, 41, 59, 0.8);
+  --theme-topbar-bg: rgba(15, 20, 34, 0.92);
+  --theme-topbar-border: rgba(30, 41, 59, 0.8);
+
+  --theme-subtle-box: #0f1422;
+  --theme-subtle-box-alt: #141b2d;
+  --theme-subtle-border: rgba(51, 65, 85, 0.6);
+
+  --theme-katex-color: #f1f5f9;
+  --theme-math-block-bg: rgba(15, 20, 34, 0.92);
+  --theme-math-block-border: rgba(99, 102, 241, 0.3);
+
+  --theme-input-bg: #0f1422;
+  --theme-input-border: #334155;
+  --theme-input-text: #ffffff;
+  --theme-input-placeholder: #64748b;
+
+  --theme-scrollbar-track: #090d16;
+  --theme-scrollbar-thumb: #1e293b;
+  --theme-scrollbar-hover: #334155;
+
+  --theme-transition-duration: 0.28s;
+  --theme-transition-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ----------------------------------------------------------------------------
+ * 1. LIGHT PAPER THEME ("Ruang Belajar Terang" / High Contrast Daylight Mode)
+ * ---------------------------------------------------------------------------- */
+html.light,
+html:not(.dark) {
+  --theme-bg-base: #f8fafc;
+  --theme-text-primary: #0f172a;
+  --theme-text-secondary: #475569;
+  --theme-text-muted: #64748b;
+
+  --theme-card-bg: #ffffff;
+  --theme-card-border: rgba(15, 23, 42, 0.08);
+  --theme-card-hover-border: rgba(99, 102, 241, 0.25);
+  --theme-card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --theme-card-hover-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(99, 102, 241, 0.25);
+
+  --theme-sidebar-bg: #ffffff;
+  --theme-sidebar-border: rgba(15, 23, 42, 0.08);
+  --theme-topbar-bg: rgba(255, 255, 255, 0.92);
+  --theme-topbar-border: rgba(15, 23, 42, 0.08);
+
+  --theme-subtle-box: #f8fafc;
+  --theme-subtle-box-alt: #f1f5f9;
+  --theme-subtle-border: rgba(15, 23, 42, 0.10);
+
+  --theme-katex-color: #090d16;
+  --theme-math-block-bg: #f8fafc;
+  --theme-math-block-border: rgba(99, 102, 241, 0.22);
+
+  --theme-input-bg: #ffffff;
+  --theme-input-border: #cbd5e1;
+  --theme-input-text: #0f172a;
+  --theme-input-placeholder: #94a3b8;
+
+  --theme-scrollbar-track: #f1f5f9;
+  --theme-scrollbar-thumb: #cbd5e1;
+  --theme-scrollbar-hover: #94a3b8;
+}
+
+/* ----------------------------------------------------------------------------
+ * 2. GLOBAL APPLIED STYLES & BUTTERY SMOOTH TRANSITIONS
+ * ---------------------------------------------------------------------------- */
+body {
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-ease),
+              color var(--theme-transition-duration) var(--theme-transition-ease);
+}
+
+.clean-card,
+#sidebar-drawer,
+header,
+input,
+select,
+textarea,
+.reader-math-block {
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-ease),
+              border-color var(--theme-transition-duration) var(--theme-transition-ease),
+              color var(--theme-transition-duration) var(--theme-transition-ease),
+              box-shadow var(--theme-transition-duration) var(--theme-transition-ease);
+}
+
+/* Light Mode Background & Body Overrides */
+html.light body,
+html:not(.dark) body {
+  background-color: var(--theme-bg-base) !important;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.07) 0px, transparent 48%),
+    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.06) 0px, transparent 48%),
+    radial-gradient(at 50% 35%, rgba(241, 245, 249, 0.9) 0px, transparent 60%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.04) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(14, 165, 233, 0.05) 0px, transparent 50%) !important;
+  color: var(--theme-text-primary) !important;
+}
+
+/* Light Mode Clean Card */
+html.light .clean-card,
+html:not(.dark) .clean-card {
+  background: var(--theme-card-bg) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  box-shadow: var(--theme-card-shadow) !important;
+}
+
+html.light .clean-card:hover,
+html:not(.dark) .clean-card:hover {
+  box-shadow: var(--theme-card-hover-shadow) !important;
+  border-color: var(--theme-card-hover-border) !important;
+}
+
+/* Light Mode Sidebar Drawer */
+html.light #sidebar-drawer,
+html:not(.dark) #sidebar-drawer {
+  background-color: var(--theme-sidebar-bg) !important;
+  border-right-color: var(--theme-sidebar-border) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light #sidebar-drawer .border-b,
+html.light #sidebar-drawer .border-t,
+html:not(.dark) #sidebar-drawer .border-b,
+html:not(.dark) #sidebar-drawer .border-t {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light #sb-profile-box,
+html:not(.dark) #sb-profile-box {
+  background-color: var(--theme-subtle-box) !important;
+  border-color: var(--theme-subtle-border) !important;
+}
+
+html.light #sb-user-name,
+html:not(.dark) #sb-user-name {
+  color: #0f172a !important;
+}
+
+html.light .sb-nav-item:not(.active),
+html:not(.dark) .sb-nav-item:not(.active) {
+  color: #475569 !important;
+}
+
+html.light .sb-nav-item:not(.active):hover,
+html:not(.dark) .sb-nav-item:not(.active):hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Light Mode Top Bar Header */
+html.light header,
+html:not(.dark) header {
+  background-color: var(--theme-topbar-bg) !important;
+  border-bottom-color: var(--theme-topbar-border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+html.light #top-bar-title,
+html:not(.dark) #top-bar-title {
+  color: #0f172a !important;
+}
+
+html.light #top-bar-grade-badge,
+html:not(.dark) #top-bar-grade-badge {
+  background-color: #e0e7ff !important;
+  border-color: #c7d2fe !important;
+  color: #3730a3 !important;
+}
+
+/* Light Mode Mobile Bottom Nav */
+html.light nav.fixed.bottom-0,
+html:not(.dark) nav.fixed.bottom-0 {
+  background-color: #ffffff !important;
+  border-top-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light nav.fixed.bottom-0 button:not(.text-indigo-400),
+html:not(.dark) nav.fixed.bottom-0 button:not(.text-indigo-400) {
+  color: #64748b !important;
+}
+
+/* Light Mode Inputs, Selects, and Textareas */
+html.light input:not([type="checkbox"]):not([type="radio"]),
+html.light select,
+html.light textarea,
+html:not(.dark) input:not([type="checkbox"]):not([type="radio"]),
+html:not(.dark) select,
+html:not(.dark) textarea {
+  background-color: var(--theme-input-bg) !important;
+  border-color: var(--theme-input-border) !important;
+  color: var(--theme-input-text) !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder,
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: var(--theme-input-placeholder) !important;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus,
+html:not(.dark) input:focus,
+html:not(.dark) select:focus,
+html:not(.dark) textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Light Mode Text Contrast Adaptation */
+html.light h1:not(.keep-text-white),
+html.light h2:not(.keep-text-white),
+html.light h3:not(.keep-text-white),
+html.light h4:not(.keep-text-white),
+html.light h5:not(.keep-text-white),
+html.light h6:not(.keep-text-white),
+html:not(.dark) h1:not(.keep-text-white),
+html:not(.dark) h2:not(.keep-text-white),
+html:not(.dark) h3:not(.keep-text-white),
+html:not(.dark) h4:not(.keep-text-white),
+html:not(.dark) h5:not(.keep-text-white),
+html:not(.dark) h6:not(.keep-text-white) {
+  color: #0f172a;
+}
+
+/* Secondary & Muted text overrides */
+html.light .text-slate-200,
+html:not(.dark) .text-slate-200 {
+  color: #1e293b;
+}
+
+html.light .text-slate-300,
+html:not(.dark) .text-slate-300 {
+  color: #334155;
+}
+
+html.light .text-slate-400,
+html:not(.dark) .text-slate-400 {
+  color: #475569;
+}
+
+html.light .text-slate-500,
+html:not(.dark) .text-slate-500 {
+  color: #64748b;
+}
+
+/* Ensure colored button texts stay white */
+html.light .bg-indigo-600,
+html.light .bg-indigo-700,
+html.light .bg-emerald-600,
+html.light .bg-amber-600,
+html.light .bg-rose-600,
+html:not(.dark) .bg-indigo-600,
+html:not(.dark) .bg-indigo-700,
+html:not(.dark) .bg-emerald-600,
+html:not(.dark) .bg-amber-600,
+html:not(.dark) .bg-rose-600 {
+  color: #ffffff !important;
+}
+
+html.light .bg-indigo-600 *,
+html.light .bg-emerald-600 *,
+html.light .bg-amber-600 *,
+html.light .bg-rose-600 *,
+html:not(.dark) .bg-indigo-600 *,
+html:not(.dark) .bg-emerald-600 *,
+html:not(.dark) .bg-amber-600 *,
+html:not(.dark) .bg-rose-600 * {
+  color: #ffffff !important;
+}
+
+/* Dark Container Backgrounds adapted for Paper */
+html.light .bg-dark-950,
+html:not(.dark) .bg-dark-950 {
+  background-color: var(--theme-bg-base) !important;
+}
+
+html.light .bg-dark-900,
+html:not(.dark) .bg-dark-900 {
+  background-color: var(--theme-subtle-box) !important;
+}
+
+html.light .bg-dark-850,
+html:not(.dark) .bg-dark-850 {
+  background-color: var(--theme-subtle-box-alt) !important;
+}
+
+html.light .bg-dark-800,
+html:not(.dark) .bg-dark-800 {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .border-slate-800,
+html.light .border-slate-700,
+html:not(.dark) .border-slate-800,
+html:not(.dark) .border-slate-700 {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Light Mode KaTeX and Math Blocks */
+html.light .katex,
+html:not(.dark) .katex {
+  color: var(--theme-katex-color) !important;
+}
+
+html.light .katex-display,
+html:not(.dark) .katex-display {
+  color: #090d16 !important;
+}
+
+html.light .reader-math-block,
+html:not(.dark) .reader-math-block {
+  background: var(--theme-math-block-bg) !important;
+  border-color: var(--theme-math-block-border) !important;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Light Mode Modals */
+html.light .fixed.inset-0.bg-black\/75,
+html.light .fixed.inset-0.bg-black\/70,
+html.light .fixed.inset-0.bg-black\/60,
+html:not(.dark) .fixed.inset-0.bg-black\/75,
+html:not(.dark) .fixed.inset-0.bg-black\/70,
+html:not(.dark) .fixed.inset-0.bg-black\/60 {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+/* Light Mode Scrollbar */
+html.light ::-webkit-scrollbar-track,
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: var(--theme-scrollbar-track);
+}
+
+html.light ::-webkit-scrollbar-thumb,
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: var(--theme-scrollbar-thumb);
+}
+
+html.light ::-webkit-scrollbar-thumb:hover,
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-scrollbar-hover);
+}
+
+/* ----------------------------------------------------------------------------
+ * 3. THEME SWITCHER BUTTON STYLES & ANIMATIONS
+ * ---------------------------------------------------------------------------- */
+.theme-switch-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 11px;
+  font-weight: 600;
+  gap: 6px;
+  border: 1px solid var(--theme-subtle-border);
+  background: var(--theme-subtle-box);
+  color: var(--theme-text-secondary);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-switch-btn:hover {
+  color: var(--theme-text-primary);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-1px);
+}
+
+.theme-switch-btn:active {
+  transform: scale(0.96);
+}
+
+.theme-icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.theme-icon-sun,
+.theme-icon-moon {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+}
+
+/* Dark mode state: show Sun to toggle to light */
+html.dark .theme-icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+html.dark .theme-icon-moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+  position: absolute;
+}
+
+/* Light mode state: show Moon to toggle to dark */
+html.light .theme-icon-sun,
+html:not(.dark) .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+  position: absolute;
+}
+
+html.light .theme-icon-moon,
+html:not(.dark) .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  color: #6366f1;
+}
+
+/* Subtle ripple flash effect on toggle */
+.theme-toggle-flash {
+  animation: themeFlash 0.4s ease-out;
+}
+
+@keyframes themeFlash {
+  0% { opacity: 0.85; filter: brightness(1.25); }
+  100% { opacity: 1; filter: brightness(1); }
+}
