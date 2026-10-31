@@ -18,6 +18,10 @@
  * 
  * *Catatan: Script ini otomatis membuat file "Database The Arich Study" 
  * di Google Drive Anda tanpa perlu Anda buat manual!
+ * Dilengkapi 3 Sheet Terpadu:
+ * 1. Daftar_Siswa: Profil, Akun, Jenjang, XP, Streak, Waktu Aktif
+ * 2. Rekap_Nilai: Riwayat Ujian, Bab, Skor, Status Kelulusan
+ * 3. Bank_Kesalahan: Rekam Jejak Soal Salah, Analisis Jebakan & Status Remedial (Tuntas/Perlu Diulang)
  * ==============================================================================
  */
 
@@ -40,38 +44,47 @@ function getSpreadsheet() {
   var newSS = SpreadsheetApp.create("Database The Arich Study");
   props.setProperty("ARICH_SHEET_ID", newSS.getId());
   
-  // Siapkan sheet Daftar_Siswa
+  // Siapkan sheet 1: Daftar_Siswa
   var sSiswa = newSS.getActiveSheet();
   sSiswa.setName("Daftar_Siswa");
-  sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir"]);
-  sSiswa.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#059669").setFontColor("#ffffff");
+  sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir", "Total XP", "Streak Hari"]);
+  sSiswa.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#059669").setFontColor("#ffffff");
   sSiswa.setFrozenRows(1);
   
-  // Siapkan sheet Rekap_Nilai
+  // Siapkan sheet 2: Rekap_Nilai
   var sNilai = newSS.insertSheet("Rekap_Nilai");
   sNilai.appendRow(["Waktu Ujian", "Nama Siswa", "Kelas", "Materi Bab", "Benar", "Total Soal", "Skor", "Status"]);
   sNilai.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#4f46e5").setFontColor("#ffffff");
   sNilai.setFrozenRows(1);
+
+  // Siapkan sheet 3: Bank_Kesalahan
+  var sSalah = newSS.insertSheet("Bank_Kesalahan");
+  sSalah.appendRow(["Waktu Dicatat", "Nama Siswa", "Jenjang", "Bab / Modul", "ID Soal", "Teks Soal", "Jawaban Siswa", "Jawaban Benar", "Penjelasan", "Status", "Percobaan", "Update Terakhir"]);
+  sSalah.getRange(1, 1, 1, 12).setFontWeight("bold").setBackground("#e11d48").setFontColor("#ffffff");
+  sSalah.setFrozenRows(1);
   
   return newSS;
 }
 
-// Menangani tarikan data oleh Guru (GET request)
+// Menangani tarikan data oleh Guru & Sinkronisasi Akun Siswa (GET request)
 function doGet(e) {
   var ss = getSpreadsheet();
+  var params = (e && e.parameter) ? e.parameter : {};
   
   // 1. Ambil Data Murid dari sheet Daftar_Siswa
   var sheetSiswa = ss.getSheetByName("Daftar_Siswa") || ss.getSheets()[0];
   var students = [];
   if (sheetSiswa && sheetSiswa.getLastRow() > 1) {
-    var sData = sheetSiswa.getRange(2, 1, sheetSiswa.getLastRow() - 1, 5).getValues();
+    var sData = sheetSiswa.getRange(2, 1, sheetSiswa.getLastRow() - 1, Math.min(sheetSiswa.getLastColumn(), 7)).getValues();
     students = sData.map(function(r) { 
       return { 
         timestamp: r[0], 
         name: r[1], 
         gradeName: r[2], 
         school: r[3], 
-        lastLogin: r[4] 
+        lastLogin: r[4],
+        xp: r[5] || 0,
+        streak: r[6] || 0
       }; 
     });
   }
@@ -95,15 +108,55 @@ function doGet(e) {
     });
   }
 
+  // 3. Ambil Bank Kesalahan
+  var sheetSalah = ss.getSheetByName("Bank_Kesalahan");
+  var mistakes = [];
+  if (sheetSalah && sheetSalah.getLastRow() > 1) {
+    var mData = sheetSalah.getRange(2, 1, sheetSalah.getLastRow() - 1, Math.min(sheetSalah.getLastColumn(), 12)).getValues();
+    mistakes = mData.map(function(r) {
+      return {
+        timestamp: r[0],
+        studentName: r[1],
+        gradeName: r[2],
+        chapterTitle: r[3],
+        questionId: r[4],
+        questionText: r[5],
+        userAnswer: r[6],
+        correctAnswer: r[7],
+        explanation: r[8],
+        status: r[9] || "PERLU_DIULANG",
+        attempts: r[10] || 1,
+        lastAttemptAt: r[11] || r[0]
+      };
+    });
+  }
+
+  // JIKA SISWA MEMINTA DATA AKUN PRIBADI SECARA SPESIFIK (?action=get_student&name=...)
+  if (params.action === "get_student" && params.name) {
+    var target = params.name.toString().trim().toLowerCase();
+    var myStudent = students.filter(function(s) { return (s.name || "").toString().trim().toLowerCase() === target; })[0] || null;
+    var mySubmissions = submissions.filter(function(sub) { return (sub.studentName || "").toString().trim().toLowerCase() === target; });
+    var myMistakes = mistakes.filter(function(m) { return (m.studentName || "").toString().trim().toLowerCase() === target; });
+
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: "success", 
+      student: myStudent,
+      submissions: mySubmissions,
+      mistakes: myMistakes
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  // Default Guru Response
   return ContentService.createTextOutput(JSON.stringify({ 
     status: "success", 
     sheetUrl: ss.getUrl(),
     students: students, 
-    submissions: submissions 
+    submissions: submissions,
+    totalMistakesRecorded: mistakes.length
   })).setMimeType(ContentService.MimeType.JSON);
 }
 
-// Menangani pendaftaran murid & kiriman nilai dari HP siswa (POST request)
+// Menangani pendaftaran murid, sinkronisasi kesalahan, & kiriman nilai (POST request)
 function doPost(e) {
   var lock = LockService.getScriptLock();
   try {
@@ -124,8 +177,8 @@ function doPost(e) {
       var sSiswa = ss.getSheetByName("Daftar_Siswa") || ss.insertSheet("Daftar_Siswa");
       
       if (sSiswa.getLastRow() === 0) {
-        sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir"]);
-        sSiswa.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#059669").setFontColor("#ffffff");
+        sSiswa.appendRow(["Waktu Terdaftar", "Nama Siswa", "Kelas", "Asal Sekolah", "Aktivitas Terakhir", "Total XP", "Streak Hari"]);
+        sSiswa.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#059669").setFontColor("#ffffff");
         sSiswa.setFrozenRows(1);
       }
       
@@ -146,8 +199,10 @@ function doPost(e) {
         sSiswa.getRange(foundIndex, 3).setValue(data.gradeName || data.grade || "-"); 
         sSiswa.getRange(foundIndex, 4).setValue(data.school || "Sekolah"); 
         sSiswa.getRange(foundIndex, 5).setValue(now); 
+        if (data.xp !== undefined) sSiswa.getRange(foundIndex, 6).setValue(data.xp);
+        if (data.streak !== undefined) sSiswa.getRange(foundIndex, 7).setValue(data.streak);
       } else { 
-        sSiswa.appendRow([now, data.name, data.gradeName || data.grade || "-", data.school || "Sekolah", now]); 
+        sSiswa.appendRow([now, data.name, data.gradeName || data.grade || "-", data.school || "Sekolah", now, data.xp || 0, data.streak || 0]); 
       }
       
       return ContentService.createTextOutput(JSON.stringify({ 
@@ -158,7 +213,7 @@ function doPost(e) {
     }
     
     // AKSI 2: PENGIRIMAN NILAI LATIHAN/UJIAN
-    if (data.action === "submit_exam" || data.score !== undefined) {
+    if (data.action === "submit_exam" || (data.score !== undefined && !data.action)) {
       var sNilai = ss.getSheetByName("Rekap_Nilai") || ss.insertSheet("Rekap_Nilai");
       
       if (sNilai.getLastRow() === 0) {
@@ -168,7 +223,7 @@ function doPost(e) {
       }
       
       var examTime = data.timestamp || Utilities.formatDate(new Date(), "Asia/Jakarta", "dd/MM/yyyy HH:mm:ss");
-      var isPassed = (data.passed === true || data.passed === "TUNTAS" || Number(data.score) >= 75);
+      var isPassed = (data.passed === true || data.passed === "TUNTAS" || Number(data.score) >= 70);
       
       sNilai.appendRow([
         examTime, 
@@ -185,6 +240,151 @@ function doPost(e) {
         status: "success", 
         sheetUrl: ss.getUrl(),
         message: "Nilai ujian berhasil direkap di Cloud" 
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // AKSI 3: SINKRONISASI BUKU CATATAN SALAH (SMART ERROR BANK)
+    if (data.action === "sync_mistakes") {
+      var sSalah = ss.getSheetByName("Bank_Kesalahan");
+      if (!sSalah) {
+        sSalah = ss.insertSheet("Bank_Kesalahan");
+        sSalah.appendRow(["Waktu Dicatat", "Nama Siswa", "Jenjang", "Bab / Modul", "ID Soal", "Teks Soal", "Jawaban Siswa", "Jawaban Benar", "Penjelasan", "Status", "Percobaan", "Update Terakhir"]);
+        sSalah.getRange(1, 1, 1, 12).setFontWeight("bold").setBackground("#e11d48").setFontColor("#ffffff");
+        sSalah.setFrozenRows(1);
+      }
+
+      var items = data.mistakes || [];
+      var existingData = (sSalah.getLastRow() > 1) ? sSalah.getRange(2, 1, sSalah.getLastRow() - 1, 12).getValues() : [];
+      var nowTime = Utilities.formatDate(new Date(), "Asia/Jakarta", "dd/MM/yyyy HH:mm:ss");
+      var updatedCount = 0;
+      var addedCount = 0;
+
+      items.forEach(function(item) {
+        var student = (data.studentName || item.studentName || "-").toString().trim().toLowerCase();
+        var qId = (item.questionId || item.id || "").toString().trim();
+        
+        // Cari apakah soal ini sudah pernah tercatat untuk siswa ini
+        var foundRow = -1;
+        for (var r = 0; r < existingData.length; r++) {
+          var rowStudent = (existingData[r][1] || "").toString().trim().toLowerCase();
+          var rowQId = (existingData[r][4] || "").toString().trim();
+          if (rowStudent === student && rowQId === qId) {
+            foundRow = r + 2; // offset header
+            break;
+          }
+        }
+
+        if (foundRow > 0) {
+          // Update Status, Jawaban Baru, Percobaan, Waktu
+          sSalah.getRange(foundRow, 7).setValue(String(item.userAnswerText || item.userAnswer || "-"));
+          sSalah.getRange(foundRow, 10).setValue(item.status || "PERLU_DIULANG");
+          sSalah.getRange(foundRow, 11).setValue(item.attempts || 1);
+          sSalah.getRange(foundRow, 12).setValue(nowTime);
+          updatedCount++;
+        } else {
+          // Tambahkan baris baru
+          sSalah.appendRow([
+            item.timestamp || nowTime,
+            data.studentName || item.studentName || "-",
+            item.gradeName || item.gradeCode || "-",
+            item.chapterTitle || "-",
+            qId,
+            (item.questionText || "-").substring(0, 500),
+            String(item.userAnswerText || item.userAnswer || "-"),
+            String(item.correctAnswerText || item.correctAnswer || "-"),
+            (item.explanation || "-").substring(0, 500),
+            item.status || "PERLU_DIULANG",
+            item.attempts || 1,
+            nowTime
+          ]);
+          addedCount++;
+        }
+      });
+
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        message: "Sinkronisasi Bank Kesalahan Berhasil",
+        added: addedCount,
+        updated: updatedCount
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // AKSI 4: TARIK DATA LENGKAP AKUN SISWA (RESTORE ACROSS DEVICES)
+    if (data.action === "get_student_data") {
+      var studentTarget = (data.studentName || data.name || "").toString().trim().toLowerCase();
+      
+      // 1. Profil Siswa
+      var sSiswa = ss.getSheetByName("Daftar_Siswa");
+      var matchedStudent = null;
+      if (sSiswa && sSiswa.getLastRow() > 1) {
+        var sValues = sSiswa.getRange(2, 1, sSiswa.getLastRow() - 1, Math.min(sSiswa.getLastColumn(), 7)).getValues();
+        for (var i = 0; i < sValues.length; i++) {
+          if ((sValues[i][1] || "").toString().trim().toLowerCase() === studentTarget) {
+            matchedStudent = {
+              timestamp: sValues[i][0],
+              name: sValues[i][1],
+              gradeName: sValues[i][2],
+              school: sValues[i][3],
+              lastLogin: sValues[i][4],
+              xp: sValues[i][5] || 0,
+              streak: sValues[i][6] || 0
+            };
+            break;
+          }
+        }
+      }
+
+      // 2. Submissions
+      var sNilai = ss.getSheetByName("Rekap_Nilai");
+      var matchedSubmissions = [];
+      if (sNilai && sNilai.getLastRow() > 1) {
+        var nValues = sNilai.getRange(2, 1, sNilai.getLastRow() - 1, 8).getValues();
+        for (var j = 0; j < nValues.length; j++) {
+          if ((nValues[j][1] || "").toString().trim().toLowerCase() === studentTarget) {
+            matchedSubmissions.push({
+              timestamp: nValues[j][0],
+              studentName: nValues[j][1],
+              studentClass: nValues[j][2],
+              displaySubject: nValues[j][3],
+              correctCount: nValues[j][4],
+              totalQuestions: nValues[j][5],
+              score: nValues[j][6],
+              passed: nValues[j][7] === "TUNTAS" || nValues[j][7] === true
+            });
+          }
+        }
+      }
+
+      // 3. Bank Kesalahan
+      var sSalah = ss.getSheetByName("Bank_Kesalahan");
+      var matchedMistakes = [];
+      if (sSalah && sSalah.getLastRow() > 1) {
+        var mValues = sSalah.getRange(2, 1, sSalah.getLastRow() - 1, Math.min(sSalah.getLastColumn(), 12)).getValues();
+        for (var k = 0; k < mValues.length; k++) {
+          if ((mValues[k][1] || "").toString().trim().toLowerCase() === studentTarget) {
+            matchedMistakes.push({
+              timestamp: mValues[k][0],
+              studentName: mValues[k][1],
+              gradeName: mValues[k][2],
+              chapterTitle: mValues[k][3],
+              questionId: mValues[k][4],
+              questionText: mValues[k][5],
+              userAnswer: mValues[k][6],
+              correctAnswer: mValues[k][7],
+              explanation: mValues[k][8],
+              status: mValues[k][9] || "PERLU_DIULANG",
+              attempts: mValues[k][10] || 1,
+              lastAttemptAt: mValues[k][11] || mValues[k][0]
+            });
+          }
+        }
+      }
+
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        student: matchedStudent,
+        submissions: matchedSubmissions,
+        mistakes: matchedMistakes
       })).setMimeType(ContentService.MimeType.JSON);
     }
     

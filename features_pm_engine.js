@@ -682,7 +682,7 @@
     const views = [
       'view-materi-catalog', 'view-materi-detail', 'view-cheatsheet',
       'view-exam-catalog', 'view-exam', 'view-exam-review',
-      'view-pm-exam', 'view-pm-review'
+      'view-pm-exam', 'view-pm-review', 'view-error-bank'
     ];
     views.forEach(id => {
       const el = document.getElementById(id);
@@ -1253,6 +1253,15 @@
       domainStats,
       submittedAt: new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })
     };
+
+    // Hook into Smart Error Bank
+    if (window.TheArichErrorBank) {
+      try {
+        window.TheArichErrorBank.recordFromPM(itemResults, PMState);
+      } catch (errEb) {
+        console.warn('[TheArichErrorBank] Error recording PM mistakes:', errEb);
+      }
+    }
 
     // Render Review View
     renderDiagnosticReviewSheet();
