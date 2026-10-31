@@ -85,18 +85,18 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <!-- Data Modules for All 6 Grades (Kurikulum Merdeka Lengkap) -->
-  <script src="data/cloud_config.js?v=1793381163"></script>
-  <script src="data/kurmer_kelas7_materi.js?v=1793381163"></script>
-  <script src="data/kurmer_kelas8_materi.js?v=1793381163"></script>
-  <script src="data/kurmer_kelas9_materi.js?v=1793381163"></script>
-  <script src="data/kurmer_kelas10_materi.js?v=1793381163"></script>
-  <script src="data/kurmer_kelas11_materi.js?v=1793381163"></script>
-  <script src="data/kurmer_kelas12_materi.js?v=1793381163"></script>
-  <script src="data/utbk_soal_bank.js?v=1793381163"></script>
-  <script src="data/curriculum_all_grades.js?v=1793381163"></script>
-  <script src="data/soal_bank_per_bab.js?v=1793381163"></script>
-  <script src="features_assessment.js?v=1793381163"></script>
-  <script src="features_ui_pwa.js?v=1793381163"></script>
+  <script src="data/cloud_config.js?v=1793387777"></script>
+  <script src="data/kurmer_kelas7_materi.js?v=1793387777"></script>
+  <script src="data/kurmer_kelas8_materi.js?v=1793387777"></script>
+  <script src="data/kurmer_kelas9_materi.js?v=1793387777"></script>
+  <script src="data/kurmer_kelas10_materi.js?v=1793387777"></script>
+  <script src="data/kurmer_kelas11_materi.js?v=1793387777"></script>
+  <script src="data/kurmer_kelas12_materi.js?v=1793387777"></script>
+  <script src="data/utbk_soal_bank.js?v=1793387777"></script>
+  <script src="data/curriculum_all_grades.js?v=1793387777"></script>
+  <script src="data/soal_bank_per_bab.js?v=1793387777"></script>
+  <script src="features_assessment.js?v=1793387777"></script>
+  <script src="features_ui_pwa.js?v=1793387777"></script>
   <script src="features_exam_scratchpad.js"></script>
   <script src="features_advanced_labs.js"></script>
 
@@ -3112,6 +3112,21 @@ function doPost(e) {
       switchView('dashboard');
     }
 
+    function resolveChapterQuestions(chId) {
+      if (!window.SOAL_BANK_PER_BAB || !chId) return null;
+      if (window.SOAL_BANK_PER_BAB[chId] && window.SOAL_BANK_PER_BAB[chId].length > 0) {
+        return window.SOAL_BANK_PER_BAB[chId];
+      }
+      const cleanId = chId.toLowerCase().replace(/[^a-z0-9]/g, '');
+      for (const [k, qList] of Object.entries(window.SOAL_BANK_PER_BAB)) {
+        const cleanK = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if ((cleanId.includes(cleanK) || cleanK.includes(cleanId)) && qList.length > 0) {
+          return qList;
+        }
+      }
+      return null;
+    }
+
     function loadGradeCurriculum(gradeStr) {
       if (!window.ALL_GRADES_DATA) return;
       currentGradeData = window.ALL_GRADES_DATA[gradeStr];
@@ -3119,11 +3134,12 @@ function doPost(e) {
         currentGradeData = window.ALL_GRADES_DATA['11']; // fallback
       }
       window.currentGradeData = currentGradeData;
-      // Bind dedicated 15 questions per chapter from window.SOAL_BANK_PER_BAB
+      // Bind dedicated questions per chapter from window.SOAL_BANK_PER_BAB
       if (currentGradeData && currentGradeData.chapters && window.SOAL_BANK_PER_BAB) {
         currentGradeData.chapters.forEach(ch => {
-          if (window.SOAL_BANK_PER_BAB[ch.id]) {
-            ch.questions = window.SOAL_BANK_PER_BAB[ch.id];
+          const qs = resolveChapterQuestions(ch.id);
+          if (qs && qs.length > 0) {
+            ch.questions = qs;
           }
         });
       }
@@ -3217,6 +3233,8 @@ function doPost(e) {
         renderExamCatalog();
       } else if (viewName === 'exam') {
         document.getElementById('top-bar-title').textContent = 'Latihan Soal CBT';
+      } else if (viewName === 'exam-result') {
+        document.getElementById('top-bar-title').textContent = 'Hasil Latihan Soal';
       } else if (viewName === 'history') {
         document.getElementById('top-bar-title').textContent = 'Riwayat Nilai';
         renderHistoryTable();
@@ -3722,8 +3740,9 @@ function doPost(e) {
       if (!ch) return;
 
       if (!ch.questions || ch.questions.length === 0) {
-        if (window.SOAL_BANK_PER_BAB && window.SOAL_BANK_PER_BAB[ch.id]) {
-          ch.questions = window.SOAL_BANK_PER_BAB[ch.id];
+        const found = resolveChapterQuestions(ch.id);
+        if (found && found.length > 0) {
+          ch.questions = found;
         } else {
           alert('Soal untuk bab ini sedang disiapkan.');
           return;

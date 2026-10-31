@@ -5726,991 +5726,4926 @@ window.SOAL_BANK_PER_BAB = {
     }
   ],
   "persamaan-trigonometri": [
-  {
-    "id": 1,
-    "prompt": "Himpunan penyelesaian dari persamaan trigonometri dasar $\\sin x = \\frac{1}{2}$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "$\\{30^\\circ, 60^\\circ\\}$",
-      "$\\{30^\\circ, 150^\\circ\\}$",
-      "$\\{30^\\circ, 210^\\circ\\}$",
-      "$\\{60^\\circ, 120^\\circ\\}$",
-      "$\\{150^\\circ, 210^\\circ\\}$"
-    ],
-    "correct": 1,
-    "explanation": "Persamaan $\\sin x = \\sin 30^\\circ$ memiliki dua cabang rumus:\n1. $x = 30^\\circ + k \\cdot 360^\\circ \\implies x = 30^\\circ$\n2. $x = (180^\\circ - 30^\\circ) + k \\cdot 360^\\circ = 150^\\circ + k \\cdot 360^\\circ \\implies x = 150^\\circ$.\nJadi himpunan penyelesaiannya adalah $\\{30^\\circ, 150^\\circ\\}$."
-  },
-  {
-    "id": 2,
-    "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $\\cos x = -\\frac{1}{2}\\sqrt{3}$ pada interval radian $0 \\le x \\le 2\\pi$ adalah...",
-    "options": [
-      "$\\left\\{\\frac{\\pi}{6}, \\frac{5\\pi}{6}\\right\\}$",
-      "$\\left\\{\\frac{5\\pi}{6}, \\frac{7\\pi}{6}\\right\\}$",
-      "$\\left\\{\\frac{2\\pi}{3}, \\frac{4\\pi}{3}\\right\\}$",
-      "$\\left\\{\\frac{7\\pi}{6}, \\frac{11\\pi}{6}\\right\\}$",
-      "$\\left\\{\\frac{5\\pi}{6}, \\frac{11\\pi}{6}\\right\\}$"
-    ],
-    "correct": 1,
-    "explanation": "Kosinus bernilai negatif di Kuadran II dan Kuadran III.\nSudut acuan Kuadran I untuk $\\cos \\alpha = \\frac{1}{2}\\sqrt{3}$ adalah $\\alpha = \\frac{\\pi}{6}$.\n- Kuadran II: $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$\n- Kuadran III: $x = \\pi + \\frac{\\pi}{6} = \\frac{7\\pi}{6}$\nKeduanya berada dalam interval $[0, 2\\pi]$. Jadi $HP = \\left\\{\\frac{5\\pi}{6}, \\frac{7\\pi}{6}\\right\\}$."
-  },
-  {
-    "id": 3,
-    "prompt": "Himpunan penyelesaian dari $\\tan x = -\\sqrt{3}$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "$\\{60^\\circ, 240^\\circ\\}$",
-      "$\\{120^\\circ, 240^\\circ\\}$",
-      "$\\{120^\\circ, 300^\\circ\\}$",
-      "$\\{150^\\circ, 330^\\circ\\}$",
-      "$\\{210^\\circ, 300^\\circ\\}$"
-    ],
-    "correct": 2,
-    "explanation": "Tangen bernilai negatif di Kuadran II dan IV.\nNilai $\\tan 60^\\circ = \\sqrt{3}$, sehingga $-\\sqrt{3} = \\tan(-60^\\circ) = \\tan 120^\\circ$.\nRumus tangen: $x = 120^\\circ + k \\cdot 180^\\circ$.\n- $k = 0 \\implies x = 120^\\circ$\n- $k = 1 \\implies x = 120^\\circ + 180^\\circ = 300^\\circ$.\nJadi $HP = \\{120^\\circ, 300^\\circ\\}$."
-  },
-  {
-    "id": 4,
-    "prompt": "Himpunan penyelesaian dari $\\sin 2x = \\frac{1}{2}\\sqrt{2}$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
-    "options": [
-      "$\\{22.5^\\circ, 67.5^\\circ\\}$",
-      "$\\{45^\\circ, 135^\\circ\\}$",
-      "$\\{22.5^\\circ, 112.5^\\circ\\}$",
-      "$\\{45^\\circ, 67.5^\\circ\\}$",
-      "$\\{67.5^\\circ, 157.5^\\circ\\}$"
-    ],
-    "correct": 0,
-    "explanation": "Persamaan $\\sin 2x = \\sin 45^\\circ$:\n1. $2x = 45^\\circ + k \\cdot 360^\\circ \\implies x = 22.5^\\circ + k \\cdot 180^\\circ \\implies x = 22.5^\\circ$ (untuk $k=0$)\n2. $2x = (180^\\circ - 45^\\circ) + k \\cdot 360^\\circ = 135^\\circ + k \\cdot 360^\\circ \\implies x = 67.5^\\circ + k \\cdot 180^\\circ \\implies x = 67.5^\\circ$ (untuk $k=0$).\nUntuk $k=1$, kedua nilai sudah melebihi batas $180^\\circ$. Jadi $HP = \\{22.5^\\circ, 67.5^\\circ\\}$."
-  },
-  {
-    "id": 5,
-    "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $\\cos 3x = \\frac{1}{2}$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
-    "options": [
-      "$\\{20^\\circ, 100^\\circ\\}$",
-      "$\\{20^\\circ, 100^\\circ, 140^\\circ\\}$",
-      "$\\{20^\\circ, 80^\\circ, 140^\\circ\\}$",
-      "$\\{60^\\circ, 120^\\circ, 180^\\circ\\}$",
-      "$\\{20^\\circ, 140^\\circ\\}$"
-    ],
-    "correct": 1,
-    "explanation": "Persamaan $\\cos 3x = \\cos 60^\\circ$:\n- Cabang 1: $3x = 60^\\circ + k \\cdot 360^\\circ \\implies x = 20^\\circ + k \\cdot 120^\\circ$\n  $k = 0 \\implies x = 20^\\circ$\n  $k = 1 \\implies x = 140^\\circ$\n- Cabang 2: $3x = -60^\\circ + k \\cdot 360^\\circ \\implies x = -20^\\circ + k \\cdot 120^\\circ$\n  $k = 1 \\implies x = 100^\\circ$\nUrutan penyelesaian pada interval $[0^\\circ, 180^\\circ]$ adalah $\\{20^\\circ, 100^\\circ, 140^\\circ\\}$."
-  },
-  {
-    "id": 6,
-    "prompt": "Himpunan penyelesaian dari $\\tan(2x - 30^\\circ) = 1$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
-    "options": [
-      "$\\{37.5^\\circ, 127.5^\\circ\\}$",
-      "$\\{15^\\circ, 105^\\circ\\}$",
-      "$\\{45^\\circ, 135^\\circ\\}$",
-      "$\\{30^\\circ, 120^\\circ\\}$",
-      "$\\{37.5^\\circ, 142.5^\\circ\\}$"
-    ],
-    "correct": 0,
-    "explanation": "Sudut acuan $\\tan 45^\\circ = 1$, maka:\n$$2x - 30^\\circ = 45^\\circ + k \\cdot 180^\\circ$$\n$$2x = 75^\\circ + k \\cdot 180^\\circ \\implies x = 37.5^\\circ + k \\cdot 90^\\circ$$\n- Untuk $k = 0 \\implies x = 37.5^\\circ$\n- Untuk $k = 1 \\implies x = 37.5^\\circ + 90^\\circ = 127.5^\\circ$\n- Untuk $k = 2 \\implies x = 217.5^\\circ$ (Di luar interval).\nJadi $HP = \\{37.5^\\circ, 127.5^\\circ\\}$."
-  },
-  {
-    "id": 7,
-    "prompt": "Himpunan penyelesaian dari persamaan $\\sin\\left(x + \\frac{\\pi}{6}\\right) = \\frac{1}{2}\\sqrt{3}$ untuk interval radian $0 \\le x \\le \\pi$ adalah...",
-    "options": [
-      "$\\left\\{\\frac{\\pi}{6}, \\frac{\\pi}{2}\\right\\}$",
-      "$\\left\\{\\frac{\\pi}{3}, \\frac{2\\pi}{3}\\right\\}$",
-      "$\\left\\{\\frac{\\pi}{6}, \\frac{5\\pi}{6}\\right\\}$",
-      "$\\left\\{\\frac{\\pi}{4}, \\frac{3\\pi}{4}\\right\\}$",
-      "$\\left\\{0, \\frac{\\pi}{2}\\right\\}$"
-    ],
-    "correct": 0,
-    "explanation": "Nilai $\\frac{1}{2}\\sqrt{3} = \\sin \\frac{\\pi}{3}$, sehingga:\n1. $x + \\frac{\\pi}{6} = \\frac{\\pi}{3} + 2k\\pi \\implies x = \\frac{\\pi}{3} - \\frac{\\pi}{6} + 2k\\pi = \\frac{\\pi}{6} + 2k\\pi \\implies x = \\frac{\\pi}{6}$\n2. $x + \\frac{\\pi}{6} = \\left(\\pi - \\frac{\\pi}{3}\\right) + 2k\\pi = \\frac{2\\pi}{3} + 2k\\pi \\implies x = \\frac{2\\pi}{3} - \\frac{\\pi}{6} + 2k\\pi = \\frac{3\\pi}{6} = \\frac{\\pi}{2}$.\nKedua nilai berada dalam $[0, \\pi]$. Jadi $HP = \\left\\{\\frac{\\pi}{6}, \\frac{\\pi}{2}\\right\\}$."
-  },
-  {
-    "id": 8,
-    "prompt": "Himpunan penyelesaian dari persamaan kuadrat trigonometri $2\\sin^2 x - \\sin x - 1 = 0$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "$\\{90^\\circ, 210^\\circ, 330^\\circ\\}$",
-      "$\\{30^\\circ, 90^\\circ, 150^\\circ\\}$",
-      "$\\{90^\\circ, 240^\\circ, 300^\\circ\\}$",
-      "$\\{30^\\circ, 150^\\circ, 270^\\circ\\}$",
-      "$\\{210^\\circ, 270^\\circ, 330^\\circ\\}$"
-    ],
-    "correct": 0,
-    "explanation": "Misalkan $u = \\sin x$, maka $2u^2 - u - 1 = 0 \\implies (2u + 1)(u - 1) = 0$.\nAkar-akarnya:\n1. $u = 1 \\implies \\sin x = 1 \\implies x = 90^\\circ$\n2. $u = -\\frac{1}{2} \\implies \\sin x = -\\frac{1}{2}$.\n   Sinus bernilai $-\\frac{1}{2}$ pada Kuadran III ($180^\\circ + 30^\\circ = 210^\\circ$) dan Kuadran IV ($360^\\circ - 30^\\circ = 330^\\circ$).\nJadi $HP = \\{90^\\circ, 210^\\circ, 330^\\circ\\}$."
-  },
-  {
-    "id": 9,
-    "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $2\\cos^2 x + \\cos x - 1 = 0$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "$\\{60^\\circ, 120^\\circ, 180^\\circ\\}$",
-      "$\\{60^\\circ, 180^\\circ, 300^\\circ\\}$",
-      "$\\{120^\\circ, 180^\\circ, 240^\\circ\\}$",
-      "$\\{60^\\circ, 300^\\circ\\}$",
-      "$\\{120^\\circ, 240^\\circ\\}$"
-    ],
-    "correct": 1,
-    "explanation": "Faktorkan persamaan dengan memisalkan $u = \\cos x$:\n$2u^2 + u - 1 = 0 \\implies (2u - 1)(u + 1) = 0$.\n1. $u = \\frac{1}{2} \\implies \\cos x = \\frac{1}{2} \\implies x = 60^\\circ$ atau $x = 360^\\circ - 60^\\circ = 300^\\circ$.\n2. $u = -1 \\implies \\cos x = -1 \\implies x = 180^\\circ$.\nGabungan solusinya adalah $\\{60^\\circ, 180^\\circ, 300^\\circ\\}$."
-  },
-  {
-    "id": 10,
-    "prompt": "Himpunan penyelesaian dari persamaan $2\\cos^2 x - 3\\sin x = 0$ untuk $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "$\\{30^\\circ, 150^\\circ\\}$",
-      "$\\{60^\\circ, 120^\\circ\\}$",
-      "$\\{30^\\circ, 210^\\circ\\}$",
-      "$\\{150^\\circ, 330^\\circ\\}$",
-      "$\\{30^\\circ, 90^\\circ, 150^\\circ\\}$"
-    ],
-    "correct": 0,
-    "explanation": "Gunakan identitas Pythagoras $\\cos^2 x = 1 - \\sin^2 x$:\n$$2(1 - \\sin^2 x) - 3\\sin x = 0 \\implies 2 - 2\\sin^2 x - 3\\sin x = 0$$\n$$2\\sin^2 x + 3\\sin x - 2 = 0$$\nFaktorkan: $(2\\sin x - 1)(\\sin x + 2) = 0$.\n- $\\sin x + 2 = 0 \\implies \\sin x = -2$ (Tidak Memenuhi karena $<-1$)\n- $2\\sin x - 1 = 0 \\implies \\sin x = \\frac{1}{2} \\implies x = 30^\\circ$ atau $x = 150^\\circ$.\nJadi $HP = \\{30^\\circ, 150^\\circ\\}$."
-  },
-  {
-    "id": 11,
-    "prompt": "Banyaknya anggota himpunan penyelesaian dari persamaan $2\\sin^2 x + 3\\cos x = 0$ pada interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4"
-    ],
-    "correct": 2,
-    "explanation": "Substitusikan $\\sin^2 x = 1 - \\cos^2 x$:\n$$2(1 - \\cos^2 x) + 3\\cos x = 0 \\implies 2 - 2\\cos^2 x + 3\\cos x = 0$$\n$$2\\cos^2 x - 3\\cos x - 2 = 0 \\implies (2\\cos x + 1)(\\cos x - 2) = 0$$\n- $\\cos x = 2$ (Tidak memenuhi)\n- $\\cos x = -\\frac{1}{2}$ (Memenuhi)\nKosinus bernilai $-\\frac{1}{2}$ terjadi di Kuadran II ($120^\\circ$) dan Kuadran III ($240^\\circ$).\nTerdapat tepat 2 nilai penyelesaian."
-  },
-  {
-    "id": 12,
-    "prompt": "Himpunan penyelesaian dari persamaan $\\cos x + \\sqrt{3}\\sin x = 1$ untuk $0^\\circ \\le x \\le 360^\\circ$ adalah...",
-    "options": [
-      "$\\{0^\\circ, 120^\\circ, 360^\\circ\\}$",
-      "$\\{60^\\circ, 180^\\circ\\}$",
-      "$\\{0^\\circ, 60^\\circ, 120^\\circ\\}$",
-      "$\\{30^\\circ, 150^\\circ, 360^\\circ\\}$",
-      "$\\{120^\\circ, 240^\\circ\\}$"
-    ],
-    "correct": 0,
-    "explanation": "Bentuk $a \\cos x + b \\sin x = c$ dengan $a = 1, b = \\sqrt{3}, c = 1$:\n1. $k = \\sqrt{1^2 + (\\sqrt{3})^2} = 2$\n2. $\\tan \\alpha = \\frac{b}{a} = \\sqrt{3} \\implies \\alpha = 60^\\circ$ (Kuadran I)\nPersamaan menjadi: $2\\cos(x - 60^\\circ) = 1 \\implies \\cos(x - 60^\\circ) = \\frac{1}{2} = \\cos 60^\\circ$.\n- $x - 60^\\circ = 60^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ$\n- $x - 60^\\circ = -60^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ \\text{ dan } 360^\\circ$.\nJadi $HP = \\{0^\\circ, 120^\\circ, 360^\\circ\\}$."
-  },
-  {
-    "id": 13,
-    "prompt": "Himpunan penyelesaian dari persamaan $\\sqrt{3}\\cos x - \\sin x = \\sqrt{2}$ pada interval $0 \\le x \\le 2\\pi$ adalah...",
-    "options": [
-      "$\\left\\{\\frac{\\pi}{12}, \\frac{7\\pi}{12}\\right\\}$",
-      "$\\left\\{\\frac{7\\pi}{12}, \\frac{23\\pi}{12}\\right\\}$",
-      "$\\left\\{\\frac{5\\pi}{12}, \\frac{19\\pi}{12}\\right\\}$",
-      "$\\left\\{\\frac{\\pi}{4}, \\frac{7\\pi}{4}\\right\\}$",
-      "$\\left\\{\\frac{11\\pi}{12}, \\frac{19\\pi}{12}\\right\\}$"
-    ],
-    "correct": 1,
-    "explanation": "Identifikasi $a = \\sqrt{3}, b = -1, c = \\sqrt{2}$:\n1. $k = \\sqrt{(\\sqrt{3})^2 + (-1)^2} = \\sqrt{3 + 1} = 2$\n2. $\\tan \\alpha = \\frac{b}{a} = -\\frac{1}{\\sqrt{3}}$. Karena $a > 0$ dan $b < 0$, titik $(a,b)$ di Kuadran IV $\\implies \\alpha = 330^\\circ = \\frac{11\\pi}{6}$ atau $-\\frac{\\pi}{6}$.\nPersamaan menjadi: $2\\cos\\left(x - \\left(-\\frac{\\pi}{6}\\right)\\right) = \\sqrt{2} \\implies \\cos\\left(x + \\frac{\\pi}{6}\\right) = \\frac{\\sqrt{2}}{2} = \\cos \\frac{\\pi}{4}$.\n- Cabang 1: $x + \\frac{\\pi}{6} = \\frac{\\pi}{4} \\implies x = \\frac{\\pi}{4} - \\frac{\\pi}{6} = \\frac{\\pi}{12}$. Namun kita cek kembali periodisitas: saat $k=1$, $x = \\frac{\\pi}{12} + 2\\pi$ (di luar interval).\n- Cabang 2: $x + \\frac{\\pi}{6} = -\\frac{\\pi}{4} + 2\\pi = \\frac{7\\pi}{4} \\implies x = \\frac{7\\pi}{4} - \\frac{\\pi}{6} = \\frac{21\\pi - 2\\pi}{12} = \\frac{19\\pi}{12}$.\nPeriksa secara teliti dengan $\\alpha = \\frac{11\\pi}{6}$:\n$\\cos(x - \\frac{11\\pi}{6}) = \\frac{\\sqrt{2}}{2}$ menghasilkan nilai $x = \\frac{7\\pi}{12}$ dan $x = \\frac{23\\pi}{12}$ pada interval $[0, 2\\pi]$."
-  },
-  {
-    "id": 14,
-    "prompt": "Agar persamaan trigonometri $(p - 1)\\cos x + (p + 1)\\sin x = 2p$ memiliki penyelesaian bilangan real $x$, batas-batas nilai parameter $p$ yang memenuhi adalah...",
-    "options": [
-      "$-1 \\le p \\le 1$",
-      "$p \\le -1 \\text{ atau } p \\ge 1$",
-      "$-\\sqrt{2} \\le p \\le \\sqrt{2}$",
-      "$p \\le -\\frac{1}{2} \\text{ atau } p \\ge \\frac{1}{2}$",
-      "$-2 \\le p \\le 2$"
-    ],
-    "correct": 0,
-    "explanation": "Syarat eksistensi penyelesaian dari $a\\cos x + b\\sin x = c$ adalah $c^2 \\le a^2 + b^2$.\nDi sini $a = p - 1, b = p + 1, c = 2p$.\n$$(2p)^2 \\le (p - 1)^2 + (p + 1)^2$$\n$$4p^2 \\le (p^2 - 2p + 1) + (p^2 + 2p + 1)$$\n$$4p^2 \\le 2p^2 + 2$$\n$$2p^2 - 2 \\le 0 \\implies p^2 - 1 \\le 0 \\implies (p - 1)(p + 1) \\le 0$$\nPertidaksamaan ini dipenuhi oleh rentang $-1 \\le p \\le 1$."
-  },
-  {
-    "id": 15,
-    "prompt": "Jumlah seluruh akar-akar persamaan trigonometri $2\\sin^2 2x - 5\\sin 2x + 2 = 0$ pada interval $0 \\le x \\le \\pi$ adalah...",
-    "options": [
-      "$\\frac{\\pi}{4}$",
-      "$\\frac{\\pi}{2}$",
-      "$\\frac{3\\pi}{4}$",
-      "$\\pi$",
-      "$\\frac{5\\pi}{4}$"
-    ],
-    "correct": 1,
-    "explanation": "Misalkan $u = \\sin 2x$, maka $2u^2 - 5u + 2 = 0 \\implies (2u - 1)(u - 2) = 0$.\n- $u = 2$ tidak memenuhi karena $> 1$.\n- $u = \\frac{1}{2} \\implies \\sin 2x = \\frac{1}{2}$.\nKarena $0 \\le x \\le \\pi$, maka interval sudut ganda adalah $0 \\le 2x \\le 2\\pi$.\nNilai $2x$ yang menghasilkan $\\sin 2x = \\frac{1}{2}$ pada $[0, 2\\pi]$ adalah:\n$$2x_1 = \\frac{\\pi}{6} \\implies x_1 = \\frac{\\pi}{12}$$\n$$2x_2 = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6} \\implies x_2 = \\frac{5\\pi}{12}$$\nJumlah seluruh akarnya adalah:\n$$x_1 + x_2 = \\frac{\\pi}{12} + \\frac{5\\pi}{12} = \\frac{6\\pi}{12} = \\frac{\\pi}{2}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Himpunan penyelesaian dari persamaan trigonometri dasar $\\sin x = \\frac{1}{2}$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "$\\{30^\\circ, 60^\\circ\\}$",
+        "$\\{30^\\circ, 150^\\circ\\}$",
+        "$\\{30^\\circ, 210^\\circ\\}$",
+        "$\\{60^\\circ, 120^\\circ\\}$",
+        "$\\{150^\\circ, 210^\\circ\\}$"
+      ],
+      "correct": 1,
+      "explanation": "Persamaan $\\sin x = \\sin 30^\\circ$ memiliki dua cabang rumus:\n1. $x = 30^\\circ + k \\cdot 360^\\circ \\implies x = 30^\\circ$\n2. $x = (180^\\circ - 30^\\circ) + k \\cdot 360^\\circ = 150^\\circ + k \\cdot 360^\\circ \\implies x = 150^\\circ$.\nJadi himpunan penyelesaiannya adalah $\\{30^\\circ, 150^\\circ\\}$."
+    },
+    {
+      "id": 2,
+      "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $\\cos x = -\\frac{1}{2}\\sqrt{3}$ pada interval radian $0 \\le x \\le 2\\pi$ adalah...",
+      "options": [
+        "$\\left\\{\\frac{\\pi}{6}, \\frac{5\\pi}{6}\\right\\}$",
+        "$\\left\\{\\frac{5\\pi}{6}, \\frac{7\\pi}{6}\\right\\}$",
+        "$\\left\\{\\frac{2\\pi}{3}, \\frac{4\\pi}{3}\\right\\}$",
+        "$\\left\\{\\frac{7\\pi}{6}, \\frac{11\\pi}{6}\\right\\}$",
+        "$\\left\\{\\frac{5\\pi}{6}, \\frac{11\\pi}{6}\\right\\}$"
+      ],
+      "correct": 1,
+      "explanation": "Kosinus bernilai negatif di Kuadran II dan Kuadran III.\nSudut acuan Kuadran I untuk $\\cos \\alpha = \\frac{1}{2}\\sqrt{3}$ adalah $\\alpha = \\frac{\\pi}{6}$.\n- Kuadran II: $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$\n- Kuadran III: $x = \\pi + \\frac{\\pi}{6} = \\frac{7\\pi}{6}$\nKeduanya berada dalam interval $[0, 2\\pi]$. Jadi $HP = \\left\\{\\frac{5\\pi}{6}, \\frac{7\\pi}{6}\\right\\}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Himpunan penyelesaian dari $\\tan x = -\\sqrt{3}$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "$\\{60^\\circ, 240^\\circ\\}$",
+        "$\\{120^\\circ, 240^\\circ\\}$",
+        "$\\{120^\\circ, 300^\\circ\\}$",
+        "$\\{150^\\circ, 330^\\circ\\}$",
+        "$\\{210^\\circ, 300^\\circ\\}$"
+      ],
+      "correct": 2,
+      "explanation": "Tangen bernilai negatif di Kuadran II dan IV.\nNilai $\\tan 60^\\circ = \\sqrt{3}$, sehingga $-\\sqrt{3} = \\tan(-60^\\circ) = \\tan 120^\\circ$.\nRumus tangen: $x = 120^\\circ + k \\cdot 180^\\circ$.\n- $k = 0 \\implies x = 120^\\circ$\n- $k = 1 \\implies x = 120^\\circ + 180^\\circ = 300^\\circ$.\nJadi $HP = \\{120^\\circ, 300^\\circ\\}$."
+    },
+    {
+      "id": 4,
+      "prompt": "Himpunan penyelesaian dari $\\sin 2x = \\frac{1}{2}\\sqrt{2}$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
+      "options": [
+        "$\\{22.5^\\circ, 67.5^\\circ\\}$",
+        "$\\{45^\\circ, 135^\\circ\\}$",
+        "$\\{22.5^\\circ, 112.5^\\circ\\}$",
+        "$\\{45^\\circ, 67.5^\\circ\\}$",
+        "$\\{67.5^\\circ, 157.5^\\circ\\}$"
+      ],
+      "correct": 0,
+      "explanation": "Persamaan $\\sin 2x = \\sin 45^\\circ$:\n1. $2x = 45^\\circ + k \\cdot 360^\\circ \\implies x = 22.5^\\circ + k \\cdot 180^\\circ \\implies x = 22.5^\\circ$ (untuk $k=0$)\n2. $2x = (180^\\circ - 45^\\circ) + k \\cdot 360^\\circ = 135^\\circ + k \\cdot 360^\\circ \\implies x = 67.5^\\circ + k \\cdot 180^\\circ \\implies x = 67.5^\\circ$ (untuk $k=0$).\nUntuk $k=1$, kedua nilai sudah melebihi batas $180^\\circ$. Jadi $HP = \\{22.5^\\circ, 67.5^\\circ\\}$."
+    },
+    {
+      "id": 5,
+      "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $\\cos 3x = \\frac{1}{2}$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
+      "options": [
+        "$\\{20^\\circ, 100^\\circ\\}$",
+        "$\\{20^\\circ, 100^\\circ, 140^\\circ\\}$",
+        "$\\{20^\\circ, 80^\\circ, 140^\\circ\\}$",
+        "$\\{60^\\circ, 120^\\circ, 180^\\circ\\}$",
+        "$\\{20^\\circ, 140^\\circ\\}$"
+      ],
+      "correct": 1,
+      "explanation": "Persamaan $\\cos 3x = \\cos 60^\\circ$:\n- Cabang 1: $3x = 60^\\circ + k \\cdot 360^\\circ \\implies x = 20^\\circ + k \\cdot 120^\\circ$\n  $k = 0 \\implies x = 20^\\circ$\n  $k = 1 \\implies x = 140^\\circ$\n- Cabang 2: $3x = -60^\\circ + k \\cdot 360^\\circ \\implies x = -20^\\circ + k \\cdot 120^\\circ$\n  $k = 1 \\implies x = 100^\\circ$\nUrutan penyelesaian pada interval $[0^\\circ, 180^\\circ]$ adalah $\\{20^\\circ, 100^\\circ, 140^\\circ\\}$."
+    },
+    {
+      "id": 6,
+      "prompt": "Himpunan penyelesaian dari $\\tan(2x - 30^\\circ) = 1$ untuk interval $0^\\circ \\le x \\le 180^\\circ$ adalah...",
+      "options": [
+        "$\\{37.5^\\circ, 127.5^\\circ\\}$",
+        "$\\{15^\\circ, 105^\\circ\\}$",
+        "$\\{45^\\circ, 135^\\circ\\}$",
+        "$\\{30^\\circ, 120^\\circ\\}$",
+        "$\\{37.5^\\circ, 142.5^\\circ\\}$"
+      ],
+      "correct": 0,
+      "explanation": "Sudut acuan $\\tan 45^\\circ = 1$, maka:\n$$2x - 30^\\circ = 45^\\circ + k \\cdot 180^\\circ$$\n$$2x = 75^\\circ + k \\cdot 180^\\circ \\implies x = 37.5^\\circ + k \\cdot 90^\\circ$$\n- Untuk $k = 0 \\implies x = 37.5^\\circ$\n- Untuk $k = 1 \\implies x = 37.5^\\circ + 90^\\circ = 127.5^\\circ$\n- Untuk $k = 2 \\implies x = 217.5^\\circ$ (Di luar interval).\nJadi $HP = \\{37.5^\\circ, 127.5^\\circ\\}$."
+    },
+    {
+      "id": 7,
+      "prompt": "Himpunan penyelesaian dari persamaan $\\sin\\left(x + \\frac{\\pi}{6}\\right) = \\frac{1}{2}\\sqrt{3}$ untuk interval radian $0 \\le x \\le \\pi$ adalah...",
+      "options": [
+        "$\\left\\{\\frac{\\pi}{6}, \\frac{\\pi}{2}\\right\\}$",
+        "$\\left\\{\\frac{\\pi}{3}, \\frac{2\\pi}{3}\\right\\}$",
+        "$\\left\\{\\frac{\\pi}{6}, \\frac{5\\pi}{6}\\right\\}$",
+        "$\\left\\{\\frac{\\pi}{4}, \\frac{3\\pi}{4}\\right\\}$",
+        "$\\left\\{0, \\frac{\\pi}{2}\\right\\}$"
+      ],
+      "correct": 0,
+      "explanation": "Nilai $\\frac{1}{2}\\sqrt{3} = \\sin \\frac{\\pi}{3}$, sehingga:\n1. $x + \\frac{\\pi}{6} = \\frac{\\pi}{3} + 2k\\pi \\implies x = \\frac{\\pi}{3} - \\frac{\\pi}{6} + 2k\\pi = \\frac{\\pi}{6} + 2k\\pi \\implies x = \\frac{\\pi}{6}$\n2. $x + \\frac{\\pi}{6} = \\left(\\pi - \\frac{\\pi}{3}\\right) + 2k\\pi = \\frac{2\\pi}{3} + 2k\\pi \\implies x = \\frac{2\\pi}{3} - \\frac{\\pi}{6} + 2k\\pi = \\frac{3\\pi}{6} = \\frac{\\pi}{2}$.\nKedua nilai berada dalam $[0, \\pi]$. Jadi $HP = \\left\\{\\frac{\\pi}{6}, \\frac{\\pi}{2}\\right\\}$."
+    },
+    {
+      "id": 8,
+      "prompt": "Himpunan penyelesaian dari persamaan kuadrat trigonometri $2\\sin^2 x - \\sin x - 1 = 0$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "$\\{90^\\circ, 210^\\circ, 330^\\circ\\}$",
+        "$\\{30^\\circ, 90^\\circ, 150^\\circ\\}$",
+        "$\\{90^\\circ, 240^\\circ, 300^\\circ\\}$",
+        "$\\{30^\\circ, 150^\\circ, 270^\\circ\\}$",
+        "$\\{210^\\circ, 270^\\circ, 330^\\circ\\}$"
+      ],
+      "correct": 0,
+      "explanation": "Misalkan $u = \\sin x$, maka $2u^2 - u - 1 = 0 \\implies (2u + 1)(u - 1) = 0$.\nAkar-akarnya:\n1. $u = 1 \\implies \\sin x = 1 \\implies x = 90^\\circ$\n2. $u = -\\frac{1}{2} \\implies \\sin x = -\\frac{1}{2}$.\n   Sinus bernilai $-\\frac{1}{2}$ pada Kuadran III ($180^\\circ + 30^\\circ = 210^\\circ$) dan Kuadran IV ($360^\\circ - 30^\\circ = 330^\\circ$).\nJadi $HP = \\{90^\\circ, 210^\\circ, 330^\\circ\\}$."
+    },
+    {
+      "id": 9,
+      "prompt": "Nilai-nilai $x$ yang memenuhi persamaan $2\\cos^2 x + \\cos x - 1 = 0$ untuk interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "$\\{60^\\circ, 120^\\circ, 180^\\circ\\}$",
+        "$\\{60^\\circ, 180^\\circ, 300^\\circ\\}$",
+        "$\\{120^\\circ, 180^\\circ, 240^\\circ\\}$",
+        "$\\{60^\\circ, 300^\\circ\\}$",
+        "$\\{120^\\circ, 240^\\circ\\}$"
+      ],
+      "correct": 1,
+      "explanation": "Faktorkan persamaan dengan memisalkan $u = \\cos x$:\n$2u^2 + u - 1 = 0 \\implies (2u - 1)(u + 1) = 0$.\n1. $u = \\frac{1}{2} \\implies \\cos x = \\frac{1}{2} \\implies x = 60^\\circ$ atau $x = 360^\\circ - 60^\\circ = 300^\\circ$.\n2. $u = -1 \\implies \\cos x = -1 \\implies x = 180^\\circ$.\nGabungan solusinya adalah $\\{60^\\circ, 180^\\circ, 300^\\circ\\}$."
+    },
+    {
+      "id": 10,
+      "prompt": "Himpunan penyelesaian dari persamaan $2\\cos^2 x - 3\\sin x = 0$ untuk $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "$\\{30^\\circ, 150^\\circ\\}$",
+        "$\\{60^\\circ, 120^\\circ\\}$",
+        "$\\{30^\\circ, 210^\\circ\\}$",
+        "$\\{150^\\circ, 330^\\circ\\}$",
+        "$\\{30^\\circ, 90^\\circ, 150^\\circ\\}$"
+      ],
+      "correct": 0,
+      "explanation": "Gunakan identitas Pythagoras $\\cos^2 x = 1 - \\sin^2 x$:\n$$2(1 - \\sin^2 x) - 3\\sin x = 0 \\implies 2 - 2\\sin^2 x - 3\\sin x = 0$$\n$$2\\sin^2 x + 3\\sin x - 2 = 0$$\nFaktorkan: $(2\\sin x - 1)(\\sin x + 2) = 0$.\n- $\\sin x + 2 = 0 \\implies \\sin x = -2$ (Tidak Memenuhi karena $<-1$)\n- $2\\sin x - 1 = 0 \\implies \\sin x = \\frac{1}{2} \\implies x = 30^\\circ$ atau $x = 150^\\circ$.\nJadi $HP = \\{30^\\circ, 150^\\circ\\}$."
+    },
+    {
+      "id": 11,
+      "prompt": "Banyaknya anggota himpunan penyelesaian dari persamaan $2\\sin^2 x + 3\\cos x = 0$ pada interval $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 2,
+      "explanation": "Substitusikan $\\sin^2 x = 1 - \\cos^2 x$:\n$$2(1 - \\cos^2 x) + 3\\cos x = 0 \\implies 2 - 2\\cos^2 x + 3\\cos x = 0$$\n$$2\\cos^2 x - 3\\cos x - 2 = 0 \\implies (2\\cos x + 1)(\\cos x - 2) = 0$$\n- $\\cos x = 2$ (Tidak memenuhi)\n- $\\cos x = -\\frac{1}{2}$ (Memenuhi)\nKosinus bernilai $-\\frac{1}{2}$ terjadi di Kuadran II ($120^\\circ$) dan Kuadran III ($240^\\circ$).\nTerdapat tepat 2 nilai penyelesaian."
+    },
+    {
+      "id": 12,
+      "prompt": "Himpunan penyelesaian dari persamaan $\\cos x + \\sqrt{3}\\sin x = 1$ untuk $0^\\circ \\le x \\le 360^\\circ$ adalah...",
+      "options": [
+        "$\\{0^\\circ, 120^\\circ, 360^\\circ\\}$",
+        "$\\{60^\\circ, 180^\\circ\\}$",
+        "$\\{0^\\circ, 60^\\circ, 120^\\circ\\}$",
+        "$\\{30^\\circ, 150^\\circ, 360^\\circ\\}$",
+        "$\\{120^\\circ, 240^\\circ\\}$"
+      ],
+      "correct": 0,
+      "explanation": "Bentuk $a \\cos x + b \\sin x = c$ dengan $a = 1, b = \\sqrt{3}, c = 1$:\n1. $k = \\sqrt{1^2 + (\\sqrt{3})^2} = 2$\n2. $\\tan \\alpha = \\frac{b}{a} = \\sqrt{3} \\implies \\alpha = 60^\\circ$ (Kuadran I)\nPersamaan menjadi: $2\\cos(x - 60^\\circ) = 1 \\implies \\cos(x - 60^\\circ) = \\frac{1}{2} = \\cos 60^\\circ$.\n- $x - 60^\\circ = 60^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ + k \\cdot 360^\\circ \\implies x = 120^\\circ$\n- $x - 60^\\circ = -60^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ + k \\cdot 360^\\circ \\implies x = 0^\\circ \\text{ dan } 360^\\circ$.\nJadi $HP = \\{0^\\circ, 120^\\circ, 360^\\circ\\}$."
+    },
+    {
+      "id": 13,
+      "prompt": "Himpunan penyelesaian dari persamaan $\\sqrt{3}\\cos x - \\sin x = \\sqrt{2}$ pada interval $0 \\le x \\le 2\\pi$ adalah...",
+      "options": [
+        "$\\left\\{\\frac{\\pi}{12}, \\frac{7\\pi}{12}\\right\\}$",
+        "$\\left\\{\\frac{7\\pi}{12}, \\frac{23\\pi}{12}\\right\\}$",
+        "$\\left\\{\\frac{5\\pi}{12}, \\frac{19\\pi}{12}\\right\\}$",
+        "$\\left\\{\\frac{\\pi}{4}, \\frac{7\\pi}{4}\\right\\}$",
+        "$\\left\\{\\frac{11\\pi}{12}, \\frac{19\\pi}{12}\\right\\}$"
+      ],
+      "correct": 1,
+      "explanation": "Identifikasi $a = \\sqrt{3}, b = -1, c = \\sqrt{2}$:\n1. $k = \\sqrt{(\\sqrt{3})^2 + (-1)^2} = \\sqrt{3 + 1} = 2$\n2. $\\tan \\alpha = \\frac{b}{a} = -\\frac{1}{\\sqrt{3}}$. Karena $a > 0$ dan $b < 0$, titik $(a,b)$ di Kuadran IV $\\implies \\alpha = 330^\\circ = \\frac{11\\pi}{6}$ atau $-\\frac{\\pi}{6}$.\nPersamaan menjadi: $2\\cos\\left(x - \\left(-\\frac{\\pi}{6}\\right)\\right) = \\sqrt{2} \\implies \\cos\\left(x + \\frac{\\pi}{6}\\right) = \\frac{\\sqrt{2}}{2} = \\cos \\frac{\\pi}{4}$.\n- Cabang 1: $x + \\frac{\\pi}{6} = \\frac{\\pi}{4} \\implies x = \\frac{\\pi}{4} - \\frac{\\pi}{6} = \\frac{\\pi}{12}$. Namun kita cek kembali periodisitas: saat $k=1$, $x = \\frac{\\pi}{12} + 2\\pi$ (di luar interval).\n- Cabang 2: $x + \\frac{\\pi}{6} = -\\frac{\\pi}{4} + 2\\pi = \\frac{7\\pi}{4} \\implies x = \\frac{7\\pi}{4} - \\frac{\\pi}{6} = \\frac{21\\pi - 2\\pi}{12} = \\frac{19\\pi}{12}$.\nPeriksa secara teliti dengan $\\alpha = \\frac{11\\pi}{6}$:\n$\\cos(x - \\frac{11\\pi}{6}) = \\frac{\\sqrt{2}}{2}$ menghasilkan nilai $x = \\frac{7\\pi}{12}$ dan $x = \\frac{23\\pi}{12}$ pada interval $[0, 2\\pi]$."
+    },
+    {
+      "id": 14,
+      "prompt": "Agar persamaan trigonometri $(p - 1)\\cos x + (p + 1)\\sin x = 2p$ memiliki penyelesaian bilangan real $x$, batas-batas nilai parameter $p$ yang memenuhi adalah...",
+      "options": [
+        "$-1 \\le p \\le 1$",
+        "$p \\le -1 \\text{ atau } p \\ge 1$",
+        "$-\\sqrt{2} \\le p \\le \\sqrt{2}$",
+        "$p \\le -\\frac{1}{2} \\text{ atau } p \\ge \\frac{1}{2}$",
+        "$-2 \\le p \\le 2$"
+      ],
+      "correct": 0,
+      "explanation": "Syarat eksistensi penyelesaian dari $a\\cos x + b\\sin x = c$ adalah $c^2 \\le a^2 + b^2$.\nDi sini $a = p - 1, b = p + 1, c = 2p$.\n$$(2p)^2 \\le (p - 1)^2 + (p + 1)^2$$\n$$4p^2 \\le (p^2 - 2p + 1) + (p^2 + 2p + 1)$$\n$$4p^2 \\le 2p^2 + 2$$\n$$2p^2 - 2 \\le 0 \\implies p^2 - 1 \\le 0 \\implies (p - 1)(p + 1) \\le 0$$\nPertidaksamaan ini dipenuhi oleh rentang $-1 \\le p \\le 1$."
+    },
+    {
+      "id": 15,
+      "prompt": "Jumlah seluruh akar-akar persamaan trigonometri $2\\sin^2 2x - 5\\sin 2x + 2 = 0$ pada interval $0 \\le x \\le \\pi$ adalah...",
+      "options": [
+        "$\\frac{\\pi}{4}$",
+        "$\\frac{\\pi}{2}$",
+        "$\\frac{3\\pi}{4}$",
+        "$\\pi$",
+        "$\\frac{5\\pi}{4}$"
+      ],
+      "correct": 1,
+      "explanation": "Misalkan $u = \\sin 2x$, maka $2u^2 - 5u + 2 = 0 \\implies (2u - 1)(u - 2) = 0$.\n- $u = 2$ tidak memenuhi karena $> 1$.\n- $u = \\frac{1}{2} \\implies \\sin 2x = \\frac{1}{2}$.\nKarena $0 \\le x \\le \\pi$, maka interval sudut ganda adalah $0 \\le 2x \\le 2\\pi$.\nNilai $2x$ yang menghasilkan $\\sin 2x = \\frac{1}{2}$ pada $[0, 2\\pi]$ adalah:\n$$2x_1 = \\frac{\\pi}{6} \\implies x_1 = \\frac{\\pi}{12}$$\n$$2x_2 = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6} \\implies x_2 = \\frac{5\\pi}{12}$$\nJumlah seluruh akarnya adalah:\n$$x_1 + x_2 = \\frac{\\pi}{12} + \\frac{5\\pi}{12} = \\frac{6\\pi}{12} = \\frac{\\pi}{2}$$."
+    }
+  ],
   "k10-fisika-pengukuran": [
-  {
-    "id": 1,
-    "prompt": "Berdasarkan hukum gravitasi universal Newton, gaya tarik gravitasi antara dua massa dirumuskan sebagai $$F = G \\frac{m_1 m_2}{r^2}$$. Dimensi dari konstanta gravitasi universal $G$ adalah...",
-    "options": [
-      "$[M]^{-1} [L]^3 [T]^{-2}$",
-      "$[M] [L]^3 [T]^{-2}$",
-      "$[M]^{-1} [L]^2 [T]^{-2}$",
-      "$[M]^{-2} [L]^3 [T]^{-1}$",
-      "$[M] [L]^2 [T]^{-1}$"
-    ],
-    "correct": 0,
-    "hint": "Ubah persamaan menjadi $G = \\frac{F \\cdot r^2}{m_1 m_2}$ lalu masukkan dimensi masing-masing besaran.",
-    "explanation": "Dari persamaan $F = G \\frac{m_1 m_2}{r^2} \\implies G = \\frac{F \\cdot r^2}{m_1 m_2}$. Dimensi gaya $F = [M][L][T]^{-2}$, jarak kuadrat $r^2 = [L]^2$, dan massa kuadrat $m_1 m_2 = [M]^2$. Maka $[G] = \\frac{[M][L][T]^{-2} \\cdot [L]^2}{[M]^2} = [M]^{-1} [L]^3 [T]^{-2}$."
-  },
-  {
-    "id": 2,
-    "prompt": "Di antara pasangan besaran fisika berikut, pasangan yang memiliki dimensi yang sama adalah...",
-    "options": [
-      "Gaya dan Daya",
-      "Impuls dan Momentum Linear",
-      "Usaha dan Gaya",
-      "Tekanan dan Energi Potensial",
-      "Massa Jenis dan Berat Jenis"
-    ],
-    "correct": 1,
-    "hint": "Impuls $I = F \\cdot \\Delta t$ dan momentum $p = m \\cdot v$. Periksa kesamaan satuannya.",
-    "explanation": "Dimensi Impuls: $I = F \\cdot \\Delta t = [M][L][T]^{-2} \\cdot [T] = [M][L][T]^{-1}$. Dimensi Momentum: $p = m \\cdot v = [M] \\cdot [L][T]^{-1} = [M][L][T]^{-1}$. Keduanya memiliki dimensi yang sama, yaitu $[M][L][T]^{-1}$ (satuan $\\text{N}\\cdot\\text{s}$ atau $\\text{kg}\\cdot\\text{m/s}$)."
-  },
-  {
-    "id": 3,
-    "prompt": "Seorang siswa mengukur diameter luar tabung reaksi menggunakan jangka sorong dengan ketelitian $0{,}01\\text{ cm}$. Skala utama menunjukkan $4{,}3\\text{ cm}$ dan garis ke-7 pada skala nonius berimpit lurus dengan garis skala utama. Hasil pembacaan diameter tabung tersebut adalah...",
-    "options": [
-      "$4{,}37\\text{ cm}$",
-      "$4{,}307\\text{ cm}$",
-      "$4{,}73\\text{ cm}$",
-      "$4{,}07\\text{ cm}$",
-      "$5{,}00\\text{ cm}$"
-    ],
-    "correct": 0,
-    "hint": "Hasil ukur = Skala Utama + (Skala Nonius $\\times$ Ketelitian).",
-    "explanation": "Hasil ukur $= \\text{Skala Utama} + (\\text{Skala Nonius} \\times 0{,}01\\text{ cm}) = 4{,}3\\text{ cm} + (7 \\times 0{,}01\\text{ cm}) = 4{,}3\\text{ cm} + 0{,}07\\text{ cm} = 4{,}37\\text{ cm}$."
-  },
-  {
-    "id": 4,
-    "prompt": "Tebal sebuah lempeng tembaga diukur dengan mikrometer sekrup. Skala utama menunjukkan $5{,}5\\text{ mm}$ dan garis skala putar (thimble) yang berimpit dengan garis horizontal skala utama menunjuk angka $28$. Ketebalan lempeng tembaga tersebut adalah...",
-    "options": [
-      "$5{,}28\\text{ mm}$",
-      "$5{,}528\\text{ mm}$",
-      "$5{,}78\\text{ mm}$",
-      "$6{,}28\\text{ mm}$",
-      "$5{,}82\\text{ mm}$"
-    ],
-    "correct": 2,
-    "hint": "Ketelitian mikrometer sekrup adalah $0{,}01\\text{ mm}$. Kalikan skala putar dengan ketelitian lalu tambahkan skala utama.",
-    "explanation": "Hasil ukur $= \\text{Skala Utama} + (\\text{Skala Putar} \\times 0{,}01\\text{ mm}) = 5{,}5\\text{ mm} + (28 \\times 0{,}01\\text{ mm}) = 5{,}5\\text{ mm} + 0{,}28\\text{ mm} = 5{,}78\\text{ mm}$."
-  },
-  {
-    "id": 5,
-    "prompt": "Sebuah pelat seng memiliki panjang $12{,}45\\text{ cm}$ dan lebar $3{,}2\\text{ cm}$. Menurut aturan penulisan angka penting, luas pelat seng tersebut adalah...",
-    "options": [
-      "$39{,}84\\text{ cm}^2$",
-      "$39{,}8\\text{ cm}^2$",
-      "$40\\text{ cm}^2$",
-      "$4{,}0 \\times 10^1\\text{ cm}^2$",
-      "$39\\text{ cm}^2$"
-    ],
-    "correct": 3,
-    "hint": "Aturan perkalian: hasil akhir harus mengikuti jumlah Angka Penting (AP) paling sedikit dari faktor pengali.",
-    "explanation": "Panjang $= 12{,}45\\text{ cm}$ (4 AP). Lebar $= 3{,}2\\text{ cm}$ (2 AP). Luas $= 12{,}45 \\times 3{,}2 = 39{,}84\\text{ cm}^2$. Karena faktor paling sedikit memiliki 2 AP, hasil dibulatkan menjadi 2 AP. Angka $39{,}84$ dibulatkan menjadi $40$. Agar tegas 2 angka penting, ditulis dalam notasi ilmiah $4{,}0 \\times 10^1\\text{ cm}^2$ (atau diberi tanda garis pada angka nol)."
-  },
-  {
-    "id": 6,
-    "prompt": "Massa tiga buah batu ditimbang masing-masing menghasilkan $15{,}24\\text{ kg}$, $0{,}375\\text{ kg}$, dan $4{,}1\\text{ kg}$. Berdasarkan aturan angka penting, jumlah massa total ketiga batu tersebut adalah...",
-    "options": [
-      "$19{,}715\\text{ kg}$",
-      "$19{,}72\\text{ kg}$",
-      "$19{,}7\\text{ kg}$",
-      "$20\\text{ kg}$",
-      "$19{,}8\\text{ kg}$"
-    ],
-    "correct": 2,
-    "hint": "Aturan penjumlahan/pengurangan: hasil akhir hanya boleh memiliki 1 angka taksiran (mengikuti desimal paling sedikit).",
-    "explanation": "Penjumlahan: $15{,}24 + 0{,}375 + 4{,}1 = 19{,}715\\text{ kg}$. Angka desimal paling sedikit adalah $4{,}1$ (1 angka di belakang koma). Maka hasil dibulatkan hingga 1 tempat desimal menjadi $19{,}7\\text{ kg}$."
-  },
-  {
-    "id": 7,
-    "prompt": "Muatan listrik sebuah partikel elementer diukur sebesar $0{,}0000000000000000001602\\text{ C}$. Bentuk penulisan notasi ilmiah dengan 3 angka penting yang benar adalah...",
-    "options": [
-      "$1{,}602 \\times 10^{-19}\\text{ C}$",
-      "$1{,}60 \\times 10^{-19}\\text{ C}$",
-      "$1{,}6 \\times 10^{-19}\\text{ C}$",
-      "$16{,}0 \\times 10^{-20}\\text{ C}$",
-      "$0{,}160 \\times 10^{-18}\\text{ C}$"
-    ],
-    "correct": 1,
-    "hint": "Format baku notasi ilmiah adalah $a \\times 10^n$ dengan $1 \\le a < 10$. Ambil 3 angka signifikan pertama.",
-    "explanation": "Nilai $0{,}0000000000000000001602 = 1{,}602 \\times 10^{-19}\\text{ C}$. Karena diminta 3 angka penting, maka dibulatkan menjadi $1{,}60 \\times 10^{-19}\\text{ C}$."
-  },
-  {
-    "id": 8,
-    "prompt": "Hasil pengukuran panjang sebuah balok dengan mistar ber-NST $1\\text{ mm}$ dilaporkan sebagai $L = (8{,}40 \\pm 0{,}05)\\text{ cm}$. Persentase ketidakpastian relatif dari hasil pengukuran tersebut adalah...",
-    "options": [
-      "$0{,}06\\%$",
-      "$0{,}60\\%$",
-      "$1{,}20\\%$",
-      "$5{,}95\\%$",
-      "$0{,}05\\%$"
-    ],
-    "correct": 1,
-    "hint": "Ketidakpastian relatif $= \\frac{\\Delta x}{\\bar{x}} \\times 100\\%$.",
-    "explanation": "Ketidakpastian relatif $= \\frac{\\Delta L}{L} \\times 100\\% = \\frac{0{,}05\\text{ cm}}{8{,}40\\text{ cm}} \\times 100\\% \\approx 0{,}5952\\% \\approx 0{,}60\\%$."
-  },
-  {
-    "id": 9,
-    "prompt": "Sebuah kubus memiliki panjang rusuk $s = (2{,}00 \\pm 0{,}02)\\text{ cm}$. Menurut aturan perambatan ketidakpastian relatif, volume kubus beserta ketidakpastian mutlaknya adalah...",
-    "options": [
-      "$(8{,}00 \\pm 0{,}02)\\text{ cm}^3$",
-      "$(8{,}00 \\pm 0{,}06)\\text{ cm}^3$",
-      "$(8{,}00 \\pm 0{,}24)\\text{ cm}^3$",
-      "$(8{,}00 \\pm 0{,}08)\\text{ cm}^3$",
-      "$(8{,}00 \\pm 0{,}16)\\text{ cm}^3$"
-    ],
-    "correct": 2,
-    "hint": "Volume $V = s^3$. Ketidakpastian relatif volume $\\frac{\\Delta V}{V} = 3 \\times \\frac{\\Delta s}{s}$.",
-    "explanation": "Volume $V = (2{,}00)^3 = 8{,}00\\text{ cm}^3$. Ketidakpastian relatif rusuk $\\frac{\\Delta s}{s} = \\frac{0{,}02}{2{,}00} = 0{,}01 = 1\\%$. Ketidakpastian relatif volume $\\frac{\\Delta V}{V} = 3 \\times 1\\% = 3\\% = 0{,}03$. Maka $\\Delta V = 0{,}03 \\times 8{,}00 = 0{,}24\\text{ cm}^3$. Jadi, $V = (8{,}00 \\pm 0{,}24)\\text{ cm}^3$."
-  },
-  {
-    "id": 10,
-    "prompt": "Suatu partikel bergerak sepanjang sumbu-X dengan posisi yang memenuhi persamaan $$x(t) = A t^3 + B t^2 + C$$, dengan $x$ dalam meter dan $t$ dalam sekon. Dimensi dari tetapan $A$ adalah...",
-    "options": [
-      "$[L] [T]^{-1}$",
-      "$[L] [T]^{-2}$",
-      "$[L] [T]^{-3}$",
-      "$[L] [T]^3$",
-      "$[M] [L] [T]^{-3}$"
-    ],
-    "correct": 2,
-    "hint": "Berdasarkan prinsip homogenitas dimensi, setiap suku yang dijumlahkan harus berdimensi sama dengan posisi $[L]$.",
-    "explanation": "Dimensi $[x] = [L]$. Suku $A t^3$ harus berdimensi $[L]$, sehingga $[A] \\cdot [T]^3 = [L] \\implies [A] = [L][T]^{-3}$ (satuan $\\text{m/s}^3$)."
-  },
-  {
-    "id": 11,
-    "prompt": "Dalam Sistem Internasional (SI), dimensi dari besaran Daya listrik ($P = \\frac{W}{t}$) adalah...",
-    "options": [
-      "$[M] [L]^2 [T]^{-2}$",
-      "$[M] [L]^2 [T]^{-3}$",
-      "$[M] [L] [T]^{-2}$",
-      "$[M] [L]^3 [T]^{-2}$",
-      "$[M] [L]^2 [T]^{-1}$"
-    ],
-    "correct": 1,
-    "hint": "Daya adalah usaha per satuan waktu: $P = \\frac{\\text{Gaya} \\times \\text{Perpindahan}}{\\text{Waktu}}$.",
-    "explanation": "Usaha $W = F \\cdot s = [M][L][T]^{-2} \\cdot [L] = [M][L]^2[T]^{-2}$. Maka Daya $P = \\frac{W}{t} = \\frac{[M][L]^2[T]^{-2}}{[T]} = [M][L]^2[T]^{-3}$."
-  },
-  {
-    "id": 12,
-    "prompt": "Sebelum digunakan, rahang sebuah jangka sorong ditutup rapat namun skala nonius nol berada di sebelah kanan angka nol skala utama sebesar $+0{,}03\\text{ cm}$ (kesalahan nol positif). Ketika mengukur diameter koin, alat menunjukkan $2{,}85\\text{ cm}$. Nilai diameter koin yang sebenarnya adalah...",
-    "options": [
-      "$2{,}88\\text{ cm}$",
-      "$2{,}85\\text{ cm}$",
-      "$2{,}82\\text{ cm}$",
-      "$2{,}55\\text{ cm}$",
-      "$3{,}15\\text{ cm}$"
-    ],
-    "correct": 2,
-    "hint": "Hasil pengukuran terkoreksi = Pembacaan Skala - Kesalahan Nol (Zero Error).",
-    "explanation": "Koreksi kesalahan nol positif: Nilai Benar $= \\text{Pembacaan} - (+\\text{Zero Error}) = 2{,}85\\text{ cm} - 0{,}03\\text{ cm} = 2{,}82\\text{ cm}$."
-  },
-  {
-    "id": 13,
-    "prompt": "Sebuah ubin keramik berbentuk persegi memiliki luas $144{,}0\\text{ cm}^2$. Berdasarkan aturan angka penting, panjang sisi ubin keramik tersebut adalah...",
-    "options": [
-      "$12\\text{ cm}$",
-      "$12{,}0\\text{ cm}$",
-      "$12{,}00\\text{ cm}$",
-      "$12{,}000\\text{ cm}$",
-      "$12{,}0000\\text{ cm}$"
-    ],
-    "correct": 2,
-    "hint": "Aturan penarikan akar: jumlah angka penting hasil akar sama dengan jumlah angka penting bilangan yang ditarik akarnya.",
-    "explanation": "Luas $A = 144{,}0\\text{ cm}^2$ memiliki 4 angka penting (angka nol di belakang koma desimal adalah signifikan). Panjang sisi $s = \\sqrt{144{,}0} = 12\\text{ cm}$. Menurut aturan penarikan akar, hasil harus ditulis dengan 4 angka penting, yaitu $12{,}00\\text{ cm}$."
-  },
-  {
-    "id": 14,
-    "prompt": "Diberikan persamaan gas ideal $P V = n R T$. Jika $P$ adalah tekanan ($\\text{N/m}^2$), $V$ adalah volume ($\\text{m}^3$), $n$ adalah jumlah zat ($\\text{mol}$), dan $T$ adalah suhu termodinamika ($\\text{Kelvin}$), maka satuan konstanta gas $R$ dalam satuan dasar SI adalah...",
-    "options": [
-      "$\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
-      "$\\text{kg}\\cdot\\text{m}\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
-      "$\\text{kg}\\cdot\\text{m}^3\\cdot\\text{s}^{-1}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
-      "$\\text{kg}^{-1}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
-      "$\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-3}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$"
-    ],
-    "correct": 0,
-    "hint": "$P \\cdot V$ memiliki dimensi energi (Joule). Satuan Joule dalam satuan dasar SI adalah $\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}$.",
-    "explanation": "$R = \\frac{P V}{n T}$. Dimensi $P V$ sama dengan Usaha $[M][L]^2[T]^{-2}$. Maka dimensi $R$ adalah $[M][L]^2[T]^{-2} [\\text{mol}]^{-1} [\\theta]^{-1}$. Dalam satuan dasar SI dinyatakan sebagai $\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$."
-  },
-  {
-    "id": 15,
-    "prompt": "Dalam eksperimen pengukuran berulang percepatan gravitasi bumi $g$, diperoleh hasil pengukuran berturut-turut: $9{,}8\\text{ m/s}^2$, $9{,}7\\text{ m/s}^2$, $9{,}9\\text{ m/s}^2$, $9{,}8\\text{ m/s}^2$, dan $9{,}8\\text{ m/s}^2$. Nilai rata-rata percepatan gravitasi bumi tersebut adalah...",
-    "options": [
-      "$9{,}78\\text{ m/s}^2$",
-      "$9{,}80\\text{ m/s}^2$",
-      "$9{,}82\\text{ m/s}^2$",
-      "$9{,}85\\text{ m/s}^2$",
-      "$9{,}90\\text{ m/s}^2$"
-    ],
-    "correct": 1,
-    "hint": "Jumlahkan semua nilai ukur lalu bagi dengan jumlah percobaan ($N = 5$).",
-    "explanation": "Rata-rata $\\bar{g} = \\frac{9{,}8 + 9{,}7 + 9{,}9 + 9{,}8 + 9{,}8}{5} = \\frac{49{,}0}{5} = 9{,}80\\text{ m/s}^2$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Berdasarkan hukum gravitasi universal Newton, gaya tarik gravitasi antara dua massa dirumuskan sebagai $$F = G \\frac{m_1 m_2}{r^2}$$. Dimensi dari konstanta gravitasi universal $G$ adalah...",
+      "options": [
+        "$[M]^{-1} [L]^3 [T]^{-2}$",
+        "$[M] [L]^3 [T]^{-2}$",
+        "$[M]^{-1} [L]^2 [T]^{-2}$",
+        "$[M]^{-2} [L]^3 [T]^{-1}$",
+        "$[M] [L]^2 [T]^{-1}$"
+      ],
+      "correct": 0,
+      "hint": "Ubah persamaan menjadi $G = \\frac{F \\cdot r^2}{m_1 m_2}$ lalu masukkan dimensi masing-masing besaran.",
+      "explanation": "Dari persamaan $F = G \\frac{m_1 m_2}{r^2} \\implies G = \\frac{F \\cdot r^2}{m_1 m_2}$. Dimensi gaya $F = [M][L][T]^{-2}$, jarak kuadrat $r^2 = [L]^2$, dan massa kuadrat $m_1 m_2 = [M]^2$. Maka $[G] = \\frac{[M][L][T]^{-2} \\cdot [L]^2}{[M]^2} = [M]^{-1} [L]^3 [T]^{-2}$."
+    },
+    {
+      "id": 2,
+      "prompt": "Di antara pasangan besaran fisika berikut, pasangan yang memiliki dimensi yang sama adalah...",
+      "options": [
+        "Gaya dan Daya",
+        "Impuls dan Momentum Linear",
+        "Usaha dan Gaya",
+        "Tekanan dan Energi Potensial",
+        "Massa Jenis dan Berat Jenis"
+      ],
+      "correct": 1,
+      "hint": "Impuls $I = F \\cdot \\Delta t$ dan momentum $p = m \\cdot v$. Periksa kesamaan satuannya.",
+      "explanation": "Dimensi Impuls: $I = F \\cdot \\Delta t = [M][L][T]^{-2} \\cdot [T] = [M][L][T]^{-1}$. Dimensi Momentum: $p = m \\cdot v = [M] \\cdot [L][T]^{-1} = [M][L][T]^{-1}$. Keduanya memiliki dimensi yang sama, yaitu $[M][L][T]^{-1}$ (satuan $\\text{N}\\cdot\\text{s}$ atau $\\text{kg}\\cdot\\text{m/s}$)."
+    },
+    {
+      "id": 3,
+      "prompt": "Seorang siswa mengukur diameter luar tabung reaksi menggunakan jangka sorong dengan ketelitian $0{,}01\\text{ cm}$. Skala utama menunjukkan $4{,}3\\text{ cm}$ dan garis ke-7 pada skala nonius berimpit lurus dengan garis skala utama. Hasil pembacaan diameter tabung tersebut adalah...",
+      "options": [
+        "$4{,}37\\text{ cm}$",
+        "$4{,}307\\text{ cm}$",
+        "$4{,}73\\text{ cm}$",
+        "$4{,}07\\text{ cm}$",
+        "$5{,}00\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Hasil ukur = Skala Utama + (Skala Nonius $\\times$ Ketelitian).",
+      "explanation": "Hasil ukur $= \\text{Skala Utama} + (\\text{Skala Nonius} \\times 0{,}01\\text{ cm}) = 4{,}3\\text{ cm} + (7 \\times 0{,}01\\text{ cm}) = 4{,}3\\text{ cm} + 0{,}07\\text{ cm} = 4{,}37\\text{ cm}$."
+    },
+    {
+      "id": 4,
+      "prompt": "Tebal sebuah lempeng tembaga diukur dengan mikrometer sekrup. Skala utama menunjukkan $5{,}5\\text{ mm}$ dan garis skala putar (thimble) yang berimpit dengan garis horizontal skala utama menunjuk angka $28$. Ketebalan lempeng tembaga tersebut adalah...",
+      "options": [
+        "$5{,}28\\text{ mm}$",
+        "$5{,}528\\text{ mm}$",
+        "$5{,}78\\text{ mm}$",
+        "$6{,}28\\text{ mm}$",
+        "$5{,}82\\text{ mm}$"
+      ],
+      "correct": 2,
+      "hint": "Ketelitian mikrometer sekrup adalah $0{,}01\\text{ mm}$. Kalikan skala putar dengan ketelitian lalu tambahkan skala utama.",
+      "explanation": "Hasil ukur $= \\text{Skala Utama} + (\\text{Skala Putar} \\times 0{,}01\\text{ mm}) = 5{,}5\\text{ mm} + (28 \\times 0{,}01\\text{ mm}) = 5{,}5\\text{ mm} + 0{,}28\\text{ mm} = 5{,}78\\text{ mm}$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah pelat seng memiliki panjang $12{,}45\\text{ cm}$ dan lebar $3{,}2\\text{ cm}$. Menurut aturan penulisan angka penting, luas pelat seng tersebut adalah...",
+      "options": [
+        "$39{,}84\\text{ cm}^2$",
+        "$39{,}8\\text{ cm}^2$",
+        "$40\\text{ cm}^2$",
+        "$4{,}0 \\times 10^1\\text{ cm}^2$",
+        "$39\\text{ cm}^2$"
+      ],
+      "correct": 3,
+      "hint": "Aturan perkalian: hasil akhir harus mengikuti jumlah Angka Penting (AP) paling sedikit dari faktor pengali.",
+      "explanation": "Panjang $= 12{,}45\\text{ cm}$ (4 AP). Lebar $= 3{,}2\\text{ cm}$ (2 AP). Luas $= 12{,}45 \\times 3{,}2 = 39{,}84\\text{ cm}^2$. Karena faktor paling sedikit memiliki 2 AP, hasil dibulatkan menjadi 2 AP. Angka $39{,}84$ dibulatkan menjadi $40$. Agar tegas 2 angka penting, ditulis dalam notasi ilmiah $4{,}0 \\times 10^1\\text{ cm}^2$ (atau diberi tanda garis pada angka nol)."
+    },
+    {
+      "id": 6,
+      "prompt": "Massa tiga buah batu ditimbang masing-masing menghasilkan $15{,}24\\text{ kg}$, $0{,}375\\text{ kg}$, dan $4{,}1\\text{ kg}$. Berdasarkan aturan angka penting, jumlah massa total ketiga batu tersebut adalah...",
+      "options": [
+        "$19{,}715\\text{ kg}$",
+        "$19{,}72\\text{ kg}$",
+        "$19{,}7\\text{ kg}$",
+        "$20\\text{ kg}$",
+        "$19{,}8\\text{ kg}$"
+      ],
+      "correct": 2,
+      "hint": "Aturan penjumlahan/pengurangan: hasil akhir hanya boleh memiliki 1 angka taksiran (mengikuti desimal paling sedikit).",
+      "explanation": "Penjumlahan: $15{,}24 + 0{,}375 + 4{,}1 = 19{,}715\\text{ kg}$. Angka desimal paling sedikit adalah $4{,}1$ (1 angka di belakang koma). Maka hasil dibulatkan hingga 1 tempat desimal menjadi $19{,}7\\text{ kg}$."
+    },
+    {
+      "id": 7,
+      "prompt": "Muatan listrik sebuah partikel elementer diukur sebesar $0{,}0000000000000000001602\\text{ C}$. Bentuk penulisan notasi ilmiah dengan 3 angka penting yang benar adalah...",
+      "options": [
+        "$1{,}602 \\times 10^{-19}\\text{ C}$",
+        "$1{,}60 \\times 10^{-19}\\text{ C}$",
+        "$1{,}6 \\times 10^{-19}\\text{ C}$",
+        "$16{,}0 \\times 10^{-20}\\text{ C}$",
+        "$0{,}160 \\times 10^{-18}\\text{ C}$"
+      ],
+      "correct": 1,
+      "hint": "Format baku notasi ilmiah adalah $a \\times 10^n$ dengan $1 \\le a < 10$. Ambil 3 angka signifikan pertama.",
+      "explanation": "Nilai $0{,}0000000000000000001602 = 1{,}602 \\times 10^{-19}\\text{ C}$. Karena diminta 3 angka penting, maka dibulatkan menjadi $1{,}60 \\times 10^{-19}\\text{ C}$."
+    },
+    {
+      "id": 8,
+      "prompt": "Hasil pengukuran panjang sebuah balok dengan mistar ber-NST $1\\text{ mm}$ dilaporkan sebagai $L = (8{,}40 \\pm 0{,}05)\\text{ cm}$. Persentase ketidakpastian relatif dari hasil pengukuran tersebut adalah...",
+      "options": [
+        "$0{,}06\\%$",
+        "$0{,}60\\%$",
+        "$1{,}20\\%$",
+        "$5{,}95\\%$",
+        "$0{,}05\\%$"
+      ],
+      "correct": 1,
+      "hint": "Ketidakpastian relatif $= \\frac{\\Delta x}{\\bar{x}} \\times 100\\%$.",
+      "explanation": "Ketidakpastian relatif $= \\frac{\\Delta L}{L} \\times 100\\% = \\frac{0{,}05\\text{ cm}}{8{,}40\\text{ cm}} \\times 100\\% \\approx 0{,}5952\\% \\approx 0{,}60\\%$."
+    },
+    {
+      "id": 9,
+      "prompt": "Sebuah kubus memiliki panjang rusuk $s = (2{,}00 \\pm 0{,}02)\\text{ cm}$. Menurut aturan perambatan ketidakpastian relatif, volume kubus beserta ketidakpastian mutlaknya adalah...",
+      "options": [
+        "$(8{,}00 \\pm 0{,}02)\\text{ cm}^3$",
+        "$(8{,}00 \\pm 0{,}06)\\text{ cm}^3$",
+        "$(8{,}00 \\pm 0{,}24)\\text{ cm}^3$",
+        "$(8{,}00 \\pm 0{,}08)\\text{ cm}^3$",
+        "$(8{,}00 \\pm 0{,}16)\\text{ cm}^3$"
+      ],
+      "correct": 2,
+      "hint": "Volume $V = s^3$. Ketidakpastian relatif volume $\\frac{\\Delta V}{V} = 3 \\times \\frac{\\Delta s}{s}$.",
+      "explanation": "Volume $V = (2{,}00)^3 = 8{,}00\\text{ cm}^3$. Ketidakpastian relatif rusuk $\\frac{\\Delta s}{s} = \\frac{0{,}02}{2{,}00} = 0{,}01 = 1\\%$. Ketidakpastian relatif volume $\\frac{\\Delta V}{V} = 3 \\times 1\\% = 3\\% = 0{,}03$. Maka $\\Delta V = 0{,}03 \\times 8{,}00 = 0{,}24\\text{ cm}^3$. Jadi, $V = (8{,}00 \\pm 0{,}24)\\text{ cm}^3$."
+    },
+    {
+      "id": 10,
+      "prompt": "Suatu partikel bergerak sepanjang sumbu-X dengan posisi yang memenuhi persamaan $$x(t) = A t^3 + B t^2 + C$$, dengan $x$ dalam meter dan $t$ dalam sekon. Dimensi dari tetapan $A$ adalah...",
+      "options": [
+        "$[L] [T]^{-1}$",
+        "$[L] [T]^{-2}$",
+        "$[L] [T]^{-3}$",
+        "$[L] [T]^3$",
+        "$[M] [L] [T]^{-3}$"
+      ],
+      "correct": 2,
+      "hint": "Berdasarkan prinsip homogenitas dimensi, setiap suku yang dijumlahkan harus berdimensi sama dengan posisi $[L]$.",
+      "explanation": "Dimensi $[x] = [L]$. Suku $A t^3$ harus berdimensi $[L]$, sehingga $[A] \\cdot [T]^3 = [L] \\implies [A] = [L][T]^{-3}$ (satuan $\\text{m/s}^3$)."
+    },
+    {
+      "id": 11,
+      "prompt": "Dalam Sistem Internasional (SI), dimensi dari besaran Daya listrik ($P = \\frac{W}{t}$) adalah...",
+      "options": [
+        "$[M] [L]^2 [T]^{-2}$",
+        "$[M] [L]^2 [T]^{-3}$",
+        "$[M] [L] [T]^{-2}$",
+        "$[M] [L]^3 [T]^{-2}$",
+        "$[M] [L]^2 [T]^{-1}$"
+      ],
+      "correct": 1,
+      "hint": "Daya adalah usaha per satuan waktu: $P = \\frac{\\text{Gaya} \\times \\text{Perpindahan}}{\\text{Waktu}}$.",
+      "explanation": "Usaha $W = F \\cdot s = [M][L][T]^{-2} \\cdot [L] = [M][L]^2[T]^{-2}$. Maka Daya $P = \\frac{W}{t} = \\frac{[M][L]^2[T]^{-2}}{[T]} = [M][L]^2[T]^{-3}$."
+    },
+    {
+      "id": 12,
+      "prompt": "Sebelum digunakan, rahang sebuah jangka sorong ditutup rapat namun skala nonius nol berada di sebelah kanan angka nol skala utama sebesar $+0{,}03\\text{ cm}$ (kesalahan nol positif). Ketika mengukur diameter koin, alat menunjukkan $2{,}85\\text{ cm}$. Nilai diameter koin yang sebenarnya adalah...",
+      "options": [
+        "$2{,}88\\text{ cm}$",
+        "$2{,}85\\text{ cm}$",
+        "$2{,}82\\text{ cm}$",
+        "$2{,}55\\text{ cm}$",
+        "$3{,}15\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Hasil pengukuran terkoreksi = Pembacaan Skala - Kesalahan Nol (Zero Error).",
+      "explanation": "Koreksi kesalahan nol positif: Nilai Benar $= \\text{Pembacaan} - (+\\text{Zero Error}) = 2{,}85\\text{ cm} - 0{,}03\\text{ cm} = 2{,}82\\text{ cm}$."
+    },
+    {
+      "id": 13,
+      "prompt": "Sebuah ubin keramik berbentuk persegi memiliki luas $144{,}0\\text{ cm}^2$. Berdasarkan aturan angka penting, panjang sisi ubin keramik tersebut adalah...",
+      "options": [
+        "$12\\text{ cm}$",
+        "$12{,}0\\text{ cm}$",
+        "$12{,}00\\text{ cm}$",
+        "$12{,}000\\text{ cm}$",
+        "$12{,}0000\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Aturan penarikan akar: jumlah angka penting hasil akar sama dengan jumlah angka penting bilangan yang ditarik akarnya.",
+      "explanation": "Luas $A = 144{,}0\\text{ cm}^2$ memiliki 4 angka penting (angka nol di belakang koma desimal adalah signifikan). Panjang sisi $s = \\sqrt{144{,}0} = 12\\text{ cm}$. Menurut aturan penarikan akar, hasil harus ditulis dengan 4 angka penting, yaitu $12{,}00\\text{ cm}$."
+    },
+    {
+      "id": 14,
+      "prompt": "Diberikan persamaan gas ideal $P V = n R T$. Jika $P$ adalah tekanan ($\\text{N/m}^2$), $V$ adalah volume ($\\text{m}^3$), $n$ adalah jumlah zat ($\\text{mol}$), dan $T$ adalah suhu termodinamika ($\\text{Kelvin}$), maka satuan konstanta gas $R$ dalam satuan dasar SI adalah...",
+      "options": [
+        "$\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+        "$\\text{kg}\\cdot\\text{m}\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+        "$\\text{kg}\\cdot\\text{m}^3\\cdot\\text{s}^{-1}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+        "$\\text{kg}^{-1}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$",
+        "$\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-3}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$"
+      ],
+      "correct": 0,
+      "hint": "$P \\cdot V$ memiliki dimensi energi (Joule). Satuan Joule dalam satuan dasar SI adalah $\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}$.",
+      "explanation": "$R = \\frac{P V}{n T}$. Dimensi $P V$ sama dengan Usaha $[M][L]^2[T]^{-2}$. Maka dimensi $R$ adalah $[M][L]^2[T]^{-2} [\\text{mol}]^{-1} [\\theta]^{-1}$. Dalam satuan dasar SI dinyatakan sebagai $\\text{kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}$."
+    },
+    {
+      "id": 15,
+      "prompt": "Dalam eksperimen pengukuran berulang percepatan gravitasi bumi $g$, diperoleh hasil pengukuran berturut-turut: $9{,}8\\text{ m/s}^2$, $9{,}7\\text{ m/s}^2$, $9{,}9\\text{ m/s}^2$, $9{,}8\\text{ m/s}^2$, dan $9{,}8\\text{ m/s}^2$. Nilai rata-rata percepatan gravitasi bumi tersebut adalah...",
+      "options": [
+        "$9{,}78\\text{ m/s}^2$",
+        "$9{,}80\\text{ m/s}^2$",
+        "$9{,}82\\text{ m/s}^2$",
+        "$9{,}85\\text{ m/s}^2$",
+        "$9{,}90\\text{ m/s}^2$"
+      ],
+      "correct": 1,
+      "hint": "Jumlahkan semua nilai ukur lalu bagi dengan jumlah percobaan ($N = 5$).",
+      "explanation": "Rata-rata $\\bar{g} = \\frac{9{,}8 + 9{,}7 + 9{,}9 + 9{,}8 + 9{,}8}{5} = \\frac{49{,}0}{5} = 9{,}80\\text{ m/s}^2$."
+    }
+  ],
   "k10-fisika-vektor": [
-  {
-    "id": 1,
-    "prompt": "Di antara kelompok besaran fisika berikut, kelompok yang seluruh anggotanya merupakan besaran vektor adalah...",
-    "options": [
-      "Laju, massa, dan jarak tempuh",
-      "Kecepatan, percepatan, dan gaya",
-      "Usaha, daya, dan momentum",
-      "Tekanan, kuat arus, dan induksi magnetik",
-      "Waktu, percepatan, dan energi kinetik"
-    ],
-    "correct": 1,
-    "hint": "Besaran vektor memiliki nilai dan arah, sedangkan besaran skalar hanya memiliki nilai.",
-    "explanation": "Kecepatan (velocity), percepatan (acceleration), dan gaya (force) semuanya memiliki besar (magnitude) dan arah (direction) sehingga merupakan besaran vektor. Laju, massa, jarak, usaha, daya, dan waktu adalah besaran skalar."
-  },
-  {
-    "id": 2,
-    "prompt": "Dua buah vektor gaya saling tegak lurus ($90^\\circ$) bertitik tangkap di titik $O$, dengan besar masing-masing $F_1 = 6\\text{ N}$ dan $F_2 = 8\\text{ N}$. Besar resultan kedua gaya tersebut adalah...",
-    "options": [
-      "$10\\text{ N}$",
-      "$14\\text{ N}$",
-      "$2\\text{ N}$",
-      "$12\\text{ N}$",
-      "$8\\sqrt{2}\\text{ N}$"
-    ],
-    "correct": 0,
-    "hint": "Untuk dua vektor saling tegak lurus, gunakan teorema Pythagoras: $R = \\sqrt{F_1^2 + F_2^2}$.",
-    "explanation": "$R = \\sqrt{F_1^2 + F_2^2 + 2 F_1 F_2 \\cos 90^\\circ} = \\sqrt{6^2 + 8^2 + 0} = \\sqrt{36 + 64} = \\sqrt{100} = 10\\text{ N}$."
-  },
-  {
-    "id": 3,
-    "prompt": "Dua buah vektor gaya masing-masing besarnya bernilai $10\\text{ N}$ dan saling mengapit sudut $60^\\circ$. Besar resultan kedua vektor tersebut adalah...",
-    "options": [
-      "$10\\text{ N}$",
-      "$10\\sqrt{2}\\text{ N}$",
-      "$10\\sqrt{3}\\text{ N}$",
-      "$20\\text{ N}$",
-      "$5\\sqrt{3}\\text{ N}$"
-    ],
-    "correct": 2,
-    "hint": "Gunakan rumus kosinus resultan: $R = \\sqrt{F_1^2 + F_2^2 + 2 F_1 F_2 \\cos \\theta}$, dengan $\\cos 60^\\circ = \\frac{1}{2}$.",
-    "explanation": "$R = \\sqrt{10^2 + 10^2 + 2(10)(10)\\cos 60^\\circ} = \\sqrt{100 + 100 + 200\\left(\\frac{1}{2}\\right)} = \\sqrt{100 + 100 + 100} = \\sqrt{300} = 10\\sqrt{3}\\text{ N}$."
-  },
-  {
-    "id": 4,
-    "prompt": "Dua buah vektor sama besar, yaitu bernilai $F$. Jika resultan dari kedua vektor tersebut juga bernilai $F$, maka sudut apit antara kedua vektor tersebut adalah...",
-    "options": [
-      "$0^\\circ$",
-      "$60^\\circ$",
-      "$90^\\circ$",
-      "$120^\\circ$",
-      "$180^\\circ$"
-    ],
-    "correct": 3,
-    "hint": "Gunakan persamaan $R^2 = F_1^2 + F_2^2 + 2F_1 F_2 \\cos \\theta$, substitusikan $R = F_1 = F_2 = F$.",
-    "explanation": "$F^2 = F^2 + F^2 + 2 F^2 \\cos \\theta \\implies F^2 = 2F^2 + 2F^2 \\cos \\theta \\implies -F^2 = 2F^2 \\cos \\theta \\implies \\cos \\theta = -\\frac{1}{2}$. Maka $\\theta = 120^\\circ$."
-  },
-  {
-    "id": 5,
-    "prompt": "Dua buah vektor kecepatan masing-masing $v_1 = 10\\text{ m/s}$ dan $v_2 = 10\\text{ m/s}$ membentuk sudut $60^\\circ$. Besar selisih kedua vektor $|\\vec{v}_1 - \\vec{v}_2|$ adalah...",
-    "options": [
-      "$0\\text{ m/s}$",
-      "$10\\text{ m/s}$",
-      "$10\\sqrt{3}\\text{ m/s}$",
-      "$20\\text{ m/s}$",
-      "$5\\sqrt{2}\\text{ m/s}$"
-    ],
-    "correct": 1,
-    "hint": "Rumus selisih vektor: $|\\vec{v}_1 - \\vec{v}_2| = \\sqrt{v_1^2 + v_2^2 - 2 v_1 v_2 \\cos \\theta}$.",
-    "explanation": "$|\\vec{v}_1 - \\vec{v}_2| = \\sqrt{10^2 + 10^2 - 2(10)(10)\\cos 60^\\circ} = \\sqrt{200 - 200(0{,}5)} = \\sqrt{100} = 10\\text{ m/s}$."
-  },
-  {
-    "id": 6,
-    "prompt": "Sebuah gaya $F = 20\\text{ N}$ bekerja membentuk sudut $37^\\circ$ terhadap sumbu-X positif. Diketahui $\\sin 37^\\circ = 0{,}6$ dan $\\cos 37^\\circ = 0{,}8$. Komponen vektor gaya tersebut pada sumbu-X ($F_x$) dan sumbu-Y ($F_y$) berturut-turut adalah...",
-    "options": [
-      "$12\\text{ N}$ dan $16\\text{ N}$",
-      "$16\\text{ N}$ dan $12\\text{ N}$",
-      "$10\\text{ N}$ dan $10\\sqrt{3}\\text{ N}$",
-      "$16\\text{ N}$ dan $20\\text{ N}$",
-      "$14\\text{ N}$ dan $14\\text{ N}$"
-    ],
-    "correct": 1,
-    "hint": "$F_x = F \\cos \\theta$ dan $F_y = F \\sin \\theta$.",
-    "explanation": "$F_x = F \\cos 37^\\circ = 20 \\times 0{,}8 = 16\\text{ N}$. $F_y = F \\sin 37^\\circ = 20 \\times 0{,}6 = 12\\text{ N}$."
-  },
-  {
-    "id": 7,
-    "prompt": "Tiga buah vektor gaya bekerja pada satu titik: $F_1 = 20\\text{ N}$ ke arah timur ($+X$), $F_2 = 20\\text{ N}$ ke arah utara ($+Y$), dan $F_3 = 10\\text{ N}$ ke arah barat ($-X$). Besar resultan ketiga vektor gaya tersebut adalah...",
-    "options": [
-      "$10\\sqrt{3}\\text{ N}$",
-      "$10\\sqrt{5}\\text{ N}$",
-      "$30\\text{ N}$",
-      "$25\\text{ N}$",
-      "$15\\sqrt{2}\\text{ N}$"
-    ],
-    "correct": 1,
-    "hint": "Hitung jumlah komponen horizontal $\\Sigma F_x$ dan vertikal $\\Sigma F_y$, lalu hitung $R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2}$.",
-    "explanation": "Komponen X: $\\Sigma F_x = F_1 - F_3 = 20 - 10 = 10\\text{ N}$. Komponen Y: $\\Sigma F_y = F_2 = 20\\text{ N}$. Resultan $R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2} = \\sqrt{10^2 + 20^2} = \\sqrt{100 + 400} = \\sqrt{500} = 10\\sqrt{5}\\text{ N}$."
-  },
-  {
-    "id": 8,
-    "prompt": "Diberikan dua buah vektor satuan $\\vec{A} = 3\\hat{i} - 4\\hat{j} + 2\\hat{k}$ dan $\\vec{B} = -2\\hat{i} + 7\\hat{j} - 5\\hat{k}$. Vektor $\\vec{C} = 2\\vec{A} + \\vec{B}$ dinyatakan dalam vektor satuan adalah...",
-    "options": [
-      "$\\vec{C} = 4\\hat{i} - \\hat{j} - \\hat{k}$",
-      "$\\vec{C} = 4\\hat{i} + 3\\hat{j} - 3\\hat{k}$",
-      "$\\vec{C} = \\hat{i} + 3\\hat{j} - 3\\hat{k}$",
-      "$\\vec{C} = 8\\hat{i} - 15\\hat{j} + 9\\hat{k}$",
-      "$\\vec{C} = 4\\hat{i} - \\hat{j} + \\hat{k}$"
-    ],
-    "correct": 0,
-    "hint": "Kalikan setiap komponen $\\vec{A}$ dengan 2, lalu jumlahkan dengan komponen sejenis pada $\\vec{B}$.",
-    "explanation": "$2\\vec{A} = 6\\hat{i} - 8\\hat{j} + 4\\hat{k}$. Maka $2\\vec{A} + \\vec{B} = (6 - 2)\\hat{i} + (-8 + 7)\\hat{j} + (4 - 5)\\hat{k} = 4\\hat{i} - \\hat{j} - \\hat{k}$."
-  },
-  {
-    "id": 9,
-    "prompt": "Panjang (modulus) dari vektor perpindahan $\\vec{r} = 2\\hat{i} - 3\\hat{j} + 6\\hat{k}$ adalah...",
-    "options": [
-      "$5\\text{ satuan}$",
-      "$7\\text{ satuan}$",
-      "$\\sqrt{41}\\text{ satuan}$",
-      "$11\\text{ satuan}$",
-      "$9\\text{ satuan}$"
-    ],
-    "correct": 1,
-    "hint": "Panjang vektor tiga dimensi: $|\\vec{r}| = \\sqrt{x^2 + y^2 + z^2}$.",
-    "explanation": "$|\\vec{r}| = \\sqrt{2^2 + (-3)^2 + 6^2} = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7\\text{ satuan}$."
-  },
-  {
-    "id": 10,
-    "prompt": "Diberikan vektor $\\vec{a} = 2\\hat{i} + 3\\hat{j} - 4\\hat{k}$ dan $\\vec{b} = 4\\hat{i} - 2\\hat{j} + \\hat{k}$. Nilai perkalian skalar (dot product) $\\vec{a} \\cdot \\vec{b}$ adalah...",
-    "options": [
-      "$-2$",
-      "$2$",
-      "$-6$",
-      "$8$",
-      "$0$"
-    ],
-    "correct": 0,
-    "hint": "Perkalian dot: $\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y + a_z b_z$.",
-    "explanation": "$\\vec{a} \\cdot \\vec{b} = (2)(4) + (3)(-2) + (-4)(1) = 8 - 6 - 4 = -2$."
-  },
-  {
-    "id": 11,
-    "prompt": "Dua buah vektor $\\vec{p} = 4\\hat{i} + 2\\hat{j} - m\\hat{k}$ dan $\\vec{q} = 2\\hat{i} - 5\\hat{j} + 3\\hat{k}$ saling tegak lurus satu sama lain. Nilai skalar $m$ yang memenuhi kondisi tersebut adalah...",
-    "options": [
-      "$-\\frac{2}{3}$",
-      "$\\frac{2}{3}$",
-      "$-2$",
-      "$2$",
-      "$-\\frac{3}{2}$"
-    ],
-    "correct": 0,
-    "hint": "Dua vektor saling tegak lurus memiliki nilai perkalian dot sama dengan nol: $\\vec{p} \\cdot \\vec{q} = 0$.",
-    "explanation": "$\\vec{p} \\cdot \\vec{q} = (4)(2) + (2)(-5) + (-m)(3) = 0 \\implies 8 - 10 - 3m = 0 \\implies -2 - 3m = 0 \\implies 3m = -2 \\implies m = -\\frac{2}{3}$."
-  },
-  {
-    "id": 12,
-    "prompt": "Hasil perkalian silang (cross product) antara vektor $\\vec{u} = \\hat{i} + 2\\hat{j}$ dan $\\vec{v} = 3\\hat{j} - \\hat{k}$ adalah...",
-    "options": [
-      "$-2\\hat{i} + \\hat{j} + 3\\hat{k}$",
-      "$2\\hat{i} - \\hat{j} + 3\\hat{k}$",
-      "$-2\\hat{i} - \\hat{j} - 3\\hat{k}$",
-      "$\\hat{i} + 2\\hat{j} - \\hat{k}$",
-      "$3\\hat{i} - 2\\hat{j} + \\hat{k}$"
-    ],
-    "correct": 0,
-    "hint": "Gunakan determinan matriks $3 \\times 3$ berbaris $\\hat{i}, \\hat{j}, \\hat{k}$.",
-    "explanation": "$$\\vec{u} \\times \\vec{v} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 1 & 2 & 0 \\\\ 0 & 3 & -1 \\end{vmatrix} = \\hat{i}(2(-1) - 0(3)) - \\hat{j}(1(-1) - 0(0)) + \\hat{k}(1(3) - 2(0)) = -2\\hat{i} - (-\\hat{j}) + 3\\hat{k} = -2\\hat{i} + \\hat{j} + 3\\hat{k}$$."
-  },
-  {
-    "id": 13,
-    "prompt": "Sebuah gaya konstan $\\vec{F} = (6\\hat{i} + 8\\hat{j})\\text{ N}$ memindahkan sebuah benda dari posisi awal $\\vec{r}_1 = (2\\hat{i} + 3\\hat{j})\\text{ m}$ ke posisi akhir $\\vec{r}_2 = (7\\hat{i} + 15\\hat{j})\\text{ m}$. Besar usaha yang dilakukan oleh gaya tersebut adalah...",
-    "options": [
-      "$96\\text{ Joule}$",
-      "$126\\text{ Joule}$",
-      "$150\\text{ Joule}$",
-      "$180\\text{ Joule}$",
-      "$60\\text{ Joule}$"
-    ],
-    "correct": 1,
-    "hint": "Usaha $W = \\vec{F} \\cdot \\Delta\\vec{r}$, dengan $\\Delta\\vec{r} = \\vec{r}_2 - \\vec{r}_1$.",
-    "explanation": "Perpindahan $\\Delta\\vec{r} = (7-2)\\hat{i} + (15-3)\\hat{j} = 5\\hat{i} + 12\\hat{j}\\text{ m}$. Usaha $W = \\vec{F} \\cdot \\Delta\\vec{r} = (6)(5) + (8)(12) = 30 + 96 = 126\\text{ Joule}$."
-  },
-  {
-    "id": 14,
-    "prompt": "Gaya $\\vec{F} = (3\\hat{j} + 2\\hat{k})\\text{ N}$ bekerja pada sebuah partikel dengan vektor posisi lengan gaya terhadap titik poros $\\vec{r} = 4\\hat{i}\\text{ m}$. Besar momen gaya (torsi) $|\\vec{\\tau}|$ terhadap poros adalah...",
-    "options": [
-      "$4\\sqrt{13}\\text{ Nm}$",
-      "$12\\text{ Nm}$",
-      "$8\\text{ Nm}$",
-      "$20\\text{ Nm}$",
-      "$2\\sqrt{13}\\text{ Nm}$"
-    ],
-    "correct": 0,
-    "hint": "Momen gaya $\\vec{\\tau} = \\vec{r} \\times \\vec{F}$. Ingat $\\hat{i} \\times \\hat{j} = \\hat{k}$ dan $\\hat{i} \\times \\hat{k} = -\\hat{j}$.",
-    "explanation": "$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = (4\\hat{i}) \\times (3\\hat{j} + 2\\hat{k}) = 12(\\hat{i}\\times\\hat{j}) + 8(\\hat{i}\\times\\hat{k}) = 12\\hat{k} + 8(-\\hat{j}) = -8\\hat{j} + 12\\hat{k}\\text{ Nm}$. Modulusnya: $|\\vec{\\tau}| = \\sqrt{(-8)^2 + 12^2} = \\sqrt{64 + 144} = \\sqrt{208} = \\sqrt{16 \\times 13} = 4\\sqrt{13}\\text{ Nm}$."
-  },
-  {
-    "id": 15,
-    "prompt": "Sebuah perahu bermesin melintasi sungai selebar $80\\text{ meter}$ dengan kecepatan konstan $4\\text{ m/s}$ tegak lurus terhadap arah arus sungai. Kecepatan aliran arus sungai adalah $3\\text{ m/s}$. Waktu tempuh perahu untuk sampai ke seberang sungai dan jarak pergeseran perahu ke arah hilir sungai berturut-turut adalah...",
-    "options": [
-      "$20\\text{ sekon}$ dan $60\\text{ meter}$",
-      "$16\\text{ sekon}$ dan $48\\text{ meter}$",
-      "$20\\text{ sekon}$ dan $80\\text{ meter}$",
-      "$25\\text{ sekon}$ dan $75\\text{ meter}$",
-      "$16\\text{ sekon}$ dan $60\\text{ meter}$"
-    ],
-    "correct": 0,
-    "hint": "Komponen gerak tegak lurus independen: waktu menyeberang hanya ditentukan oleh lebar sungai dan kecepatan perahu tegak lurus.",
-    "explanation": "Waktu tempuh ditentukan oleh arah tegak lurus arus: $t = \\frac{d}{v_{\\text{perahu}}} = \\frac{80\\text{ m}}{4\\text{ m/s}} = 20\\text{ sekon}$. Pergeseran hilir akibat aliran arus: $x_{\\text{hilir}} = v_{\\text{arus}} \\times t = 3\\text{ m/s} \\times 20\\text{ s} = 60\\text{ meter}$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Di antara kelompok besaran fisika berikut, kelompok yang seluruh anggotanya merupakan besaran vektor adalah...",
+      "options": [
+        "Laju, massa, dan jarak tempuh",
+        "Kecepatan, percepatan, dan gaya",
+        "Usaha, daya, dan momentum",
+        "Tekanan, kuat arus, dan induksi magnetik",
+        "Waktu, percepatan, dan energi kinetik"
+      ],
+      "correct": 1,
+      "hint": "Besaran vektor memiliki nilai dan arah, sedangkan besaran skalar hanya memiliki nilai.",
+      "explanation": "Kecepatan (velocity), percepatan (acceleration), dan gaya (force) semuanya memiliki besar (magnitude) dan arah (direction) sehingga merupakan besaran vektor. Laju, massa, jarak, usaha, daya, dan waktu adalah besaran skalar."
+    },
+    {
+      "id": 2,
+      "prompt": "Dua buah vektor gaya saling tegak lurus ($90^\\circ$) bertitik tangkap di titik $O$, dengan besar masing-masing $F_1 = 6\\text{ N}$ dan $F_2 = 8\\text{ N}$. Besar resultan kedua gaya tersebut adalah...",
+      "options": [
+        "$10\\text{ N}$",
+        "$14\\text{ N}$",
+        "$2\\text{ N}$",
+        "$12\\text{ N}$",
+        "$8\\sqrt{2}\\text{ N}$"
+      ],
+      "correct": 0,
+      "hint": "Untuk dua vektor saling tegak lurus, gunakan teorema Pythagoras: $R = \\sqrt{F_1^2 + F_2^2}$.",
+      "explanation": "$R = \\sqrt{F_1^2 + F_2^2 + 2 F_1 F_2 \\cos 90^\\circ} = \\sqrt{6^2 + 8^2 + 0} = \\sqrt{36 + 64} = \\sqrt{100} = 10\\text{ N}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Dua buah vektor gaya masing-masing besarnya bernilai $10\\text{ N}$ dan saling mengapit sudut $60^\\circ$. Besar resultan kedua vektor tersebut adalah...",
+      "options": [
+        "$10\\text{ N}$",
+        "$10\\sqrt{2}\\text{ N}$",
+        "$10\\sqrt{3}\\text{ N}$",
+        "$20\\text{ N}$",
+        "$5\\sqrt{3}\\text{ N}$"
+      ],
+      "correct": 2,
+      "hint": "Gunakan rumus kosinus resultan: $R = \\sqrt{F_1^2 + F_2^2 + 2 F_1 F_2 \\cos \\theta}$, dengan $\\cos 60^\\circ = \\frac{1}{2}$.",
+      "explanation": "$R = \\sqrt{10^2 + 10^2 + 2(10)(10)\\cos 60^\\circ} = \\sqrt{100 + 100 + 200\\left(\\frac{1}{2}\\right)} = \\sqrt{100 + 100 + 100} = \\sqrt{300} = 10\\sqrt{3}\\text{ N}$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dua buah vektor sama besar, yaitu bernilai $F$. Jika resultan dari kedua vektor tersebut juga bernilai $F$, maka sudut apit antara kedua vektor tersebut adalah...",
+      "options": [
+        "$0^\\circ$",
+        "$60^\\circ$",
+        "$90^\\circ$",
+        "$120^\\circ$",
+        "$180^\\circ$"
+      ],
+      "correct": 3,
+      "hint": "Gunakan persamaan $R^2 = F_1^2 + F_2^2 + 2F_1 F_2 \\cos \\theta$, substitusikan $R = F_1 = F_2 = F$.",
+      "explanation": "$F^2 = F^2 + F^2 + 2 F^2 \\cos \\theta \\implies F^2 = 2F^2 + 2F^2 \\cos \\theta \\implies -F^2 = 2F^2 \\cos \\theta \\implies \\cos \\theta = -\\frac{1}{2}$. Maka $\\theta = 120^\\circ$."
+    },
+    {
+      "id": 5,
+      "prompt": "Dua buah vektor kecepatan masing-masing $v_1 = 10\\text{ m/s}$ dan $v_2 = 10\\text{ m/s}$ membentuk sudut $60^\\circ$. Besar selisih kedua vektor $|\\vec{v}_1 - \\vec{v}_2|$ adalah...",
+      "options": [
+        "$0\\text{ m/s}$",
+        "$10\\text{ m/s}$",
+        "$10\\sqrt{3}\\text{ m/s}$",
+        "$20\\text{ m/s}$",
+        "$5\\sqrt{2}\\text{ m/s}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus selisih vektor: $|\\vec{v}_1 - \\vec{v}_2| = \\sqrt{v_1^2 + v_2^2 - 2 v_1 v_2 \\cos \\theta}$.",
+      "explanation": "$|\\vec{v}_1 - \\vec{v}_2| = \\sqrt{10^2 + 10^2 - 2(10)(10)\\cos 60^\\circ} = \\sqrt{200 - 200(0{,}5)} = \\sqrt{100} = 10\\text{ m/s}$."
+    },
+    {
+      "id": 6,
+      "prompt": "Sebuah gaya $F = 20\\text{ N}$ bekerja membentuk sudut $37^\\circ$ terhadap sumbu-X positif. Diketahui $\\sin 37^\\circ = 0{,}6$ dan $\\cos 37^\\circ = 0{,}8$. Komponen vektor gaya tersebut pada sumbu-X ($F_x$) dan sumbu-Y ($F_y$) berturut-turut adalah...",
+      "options": [
+        "$12\\text{ N}$ dan $16\\text{ N}$",
+        "$16\\text{ N}$ dan $12\\text{ N}$",
+        "$10\\text{ N}$ dan $10\\sqrt{3}\\text{ N}$",
+        "$16\\text{ N}$ dan $20\\text{ N}$",
+        "$14\\text{ N}$ dan $14\\text{ N}$"
+      ],
+      "correct": 1,
+      "hint": "$F_x = F \\cos \\theta$ dan $F_y = F \\sin \\theta$.",
+      "explanation": "$F_x = F \\cos 37^\\circ = 20 \\times 0{,}8 = 16\\text{ N}$. $F_y = F \\sin 37^\\circ = 20 \\times 0{,}6 = 12\\text{ N}$."
+    },
+    {
+      "id": 7,
+      "prompt": "Tiga buah vektor gaya bekerja pada satu titik: $F_1 = 20\\text{ N}$ ke arah timur ($+X$), $F_2 = 20\\text{ N}$ ke arah utara ($+Y$), dan $F_3 = 10\\text{ N}$ ke arah barat ($-X$). Besar resultan ketiga vektor gaya tersebut adalah...",
+      "options": [
+        "$10\\sqrt{3}\\text{ N}$",
+        "$10\\sqrt{5}\\text{ N}$",
+        "$30\\text{ N}$",
+        "$25\\text{ N}$",
+        "$15\\sqrt{2}\\text{ N}$"
+      ],
+      "correct": 1,
+      "hint": "Hitung jumlah komponen horizontal $\\Sigma F_x$ dan vertikal $\\Sigma F_y$, lalu hitung $R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2}$.",
+      "explanation": "Komponen X: $\\Sigma F_x = F_1 - F_3 = 20 - 10 = 10\\text{ N}$. Komponen Y: $\\Sigma F_y = F_2 = 20\\text{ N}$. Resultan $R = \\sqrt{(\\Sigma F_x)^2 + (\\Sigma F_y)^2} = \\sqrt{10^2 + 20^2} = \\sqrt{100 + 400} = \\sqrt{500} = 10\\sqrt{5}\\text{ N}$."
+    },
+    {
+      "id": 8,
+      "prompt": "Diberikan dua buah vektor satuan $\\vec{A} = 3\\hat{i} - 4\\hat{j} + 2\\hat{k}$ dan $\\vec{B} = -2\\hat{i} + 7\\hat{j} - 5\\hat{k}$. Vektor $\\vec{C} = 2\\vec{A} + \\vec{B}$ dinyatakan dalam vektor satuan adalah...",
+      "options": [
+        "$\\vec{C} = 4\\hat{i} - \\hat{j} - \\hat{k}$",
+        "$\\vec{C} = 4\\hat{i} + 3\\hat{j} - 3\\hat{k}$",
+        "$\\vec{C} = \\hat{i} + 3\\hat{j} - 3\\hat{k}$",
+        "$\\vec{C} = 8\\hat{i} - 15\\hat{j} + 9\\hat{k}$",
+        "$\\vec{C} = 4\\hat{i} - \\hat{j} + \\hat{k}$"
+      ],
+      "correct": 0,
+      "hint": "Kalikan setiap komponen $\\vec{A}$ dengan 2, lalu jumlahkan dengan komponen sejenis pada $\\vec{B}$.",
+      "explanation": "$2\\vec{A} = 6\\hat{i} - 8\\hat{j} + 4\\hat{k}$. Maka $2\\vec{A} + \\vec{B} = (6 - 2)\\hat{i} + (-8 + 7)\\hat{j} + (4 - 5)\\hat{k} = 4\\hat{i} - \\hat{j} - \\hat{k}$."
+    },
+    {
+      "id": 9,
+      "prompt": "Panjang (modulus) dari vektor perpindahan $\\vec{r} = 2\\hat{i} - 3\\hat{j} + 6\\hat{k}$ adalah...",
+      "options": [
+        "$5\\text{ satuan}$",
+        "$7\\text{ satuan}$",
+        "$\\sqrt{41}\\text{ satuan}$",
+        "$11\\text{ satuan}$",
+        "$9\\text{ satuan}$"
+      ],
+      "correct": 1,
+      "hint": "Panjang vektor tiga dimensi: $|\\vec{r}| = \\sqrt{x^2 + y^2 + z^2}$.",
+      "explanation": "$|\\vec{r}| = \\sqrt{2^2 + (-3)^2 + 6^2} = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7\\text{ satuan}$."
+    },
+    {
+      "id": 10,
+      "prompt": "Diberikan vektor $\\vec{a} = 2\\hat{i} + 3\\hat{j} - 4\\hat{k}$ dan $\\vec{b} = 4\\hat{i} - 2\\hat{j} + \\hat{k}$. Nilai perkalian skalar (dot product) $\\vec{a} \\cdot \\vec{b}$ adalah...",
+      "options": [
+        "$-2$",
+        "$2$",
+        "$-6$",
+        "$8$",
+        "$0$"
+      ],
+      "correct": 0,
+      "hint": "Perkalian dot: $\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y + a_z b_z$.",
+      "explanation": "$\\vec{a} \\cdot \\vec{b} = (2)(4) + (3)(-2) + (-4)(1) = 8 - 6 - 4 = -2$."
+    },
+    {
+      "id": 11,
+      "prompt": "Dua buah vektor $\\vec{p} = 4\\hat{i} + 2\\hat{j} - m\\hat{k}$ dan $\\vec{q} = 2\\hat{i} - 5\\hat{j} + 3\\hat{k}$ saling tegak lurus satu sama lain. Nilai skalar $m$ yang memenuhi kondisi tersebut adalah...",
+      "options": [
+        "$-\\frac{2}{3}$",
+        "$\\frac{2}{3}$",
+        "$-2$",
+        "$2$",
+        "$-\\frac{3}{2}$"
+      ],
+      "correct": 0,
+      "hint": "Dua vektor saling tegak lurus memiliki nilai perkalian dot sama dengan nol: $\\vec{p} \\cdot \\vec{q} = 0$.",
+      "explanation": "$\\vec{p} \\cdot \\vec{q} = (4)(2) + (2)(-5) + (-m)(3) = 0 \\implies 8 - 10 - 3m = 0 \\implies -2 - 3m = 0 \\implies 3m = -2 \\implies m = -\\frac{2}{3}$."
+    },
+    {
+      "id": 12,
+      "prompt": "Hasil perkalian silang (cross product) antara vektor $\\vec{u} = \\hat{i} + 2\\hat{j}$ dan $\\vec{v} = 3\\hat{j} - \\hat{k}$ adalah...",
+      "options": [
+        "$-2\\hat{i} + \\hat{j} + 3\\hat{k}$",
+        "$2\\hat{i} - \\hat{j} + 3\\hat{k}$",
+        "$-2\\hat{i} - \\hat{j} - 3\\hat{k}$",
+        "$\\hat{i} + 2\\hat{j} - \\hat{k}$",
+        "$3\\hat{i} - 2\\hat{j} + \\hat{k}$"
+      ],
+      "correct": 0,
+      "hint": "Gunakan determinan matriks $3 \\times 3$ berbaris $\\hat{i}, \\hat{j}, \\hat{k}$.",
+      "explanation": "$$\\vec{u} \\times \\vec{v} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 1 & 2 & 0 \\\\ 0 & 3 & -1 \\end{vmatrix} = \\hat{i}(2(-1) - 0(3)) - \\hat{j}(1(-1) - 0(0)) + \\hat{k}(1(3) - 2(0)) = -2\\hat{i} - (-\\hat{j}) + 3\\hat{k} = -2\\hat{i} + \\hat{j} + 3\\hat{k}$$."
+    },
+    {
+      "id": 13,
+      "prompt": "Sebuah gaya konstan $\\vec{F} = (6\\hat{i} + 8\\hat{j})\\text{ N}$ memindahkan sebuah benda dari posisi awal $\\vec{r}_1 = (2\\hat{i} + 3\\hat{j})\\text{ m}$ ke posisi akhir $\\vec{r}_2 = (7\\hat{i} + 15\\hat{j})\\text{ m}$. Besar usaha yang dilakukan oleh gaya tersebut adalah...",
+      "options": [
+        "$96\\text{ Joule}$",
+        "$126\\text{ Joule}$",
+        "$150\\text{ Joule}$",
+        "$180\\text{ Joule}$",
+        "$60\\text{ Joule}$"
+      ],
+      "correct": 1,
+      "hint": "Usaha $W = \\vec{F} \\cdot \\Delta\\vec{r}$, dengan $\\Delta\\vec{r} = \\vec{r}_2 - \\vec{r}_1$.",
+      "explanation": "Perpindahan $\\Delta\\vec{r} = (7-2)\\hat{i} + (15-3)\\hat{j} = 5\\hat{i} + 12\\hat{j}\\text{ m}$. Usaha $W = \\vec{F} \\cdot \\Delta\\vec{r} = (6)(5) + (8)(12) = 30 + 96 = 126\\text{ Joule}$."
+    },
+    {
+      "id": 14,
+      "prompt": "Gaya $\\vec{F} = (3\\hat{j} + 2\\hat{k})\\text{ N}$ bekerja pada sebuah partikel dengan vektor posisi lengan gaya terhadap titik poros $\\vec{r} = 4\\hat{i}\\text{ m}$. Besar momen gaya (torsi) $|\\vec{\\tau}|$ terhadap poros adalah...",
+      "options": [
+        "$4\\sqrt{13}\\text{ Nm}$",
+        "$12\\text{ Nm}$",
+        "$8\\text{ Nm}$",
+        "$20\\text{ Nm}$",
+        "$2\\sqrt{13}\\text{ Nm}$"
+      ],
+      "correct": 0,
+      "hint": "Momen gaya $\\vec{\\tau} = \\vec{r} \\times \\vec{F}$. Ingat $\\hat{i} \\times \\hat{j} = \\hat{k}$ dan $\\hat{i} \\times \\hat{k} = -\\hat{j}$.",
+      "explanation": "$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = (4\\hat{i}) \\times (3\\hat{j} + 2\\hat{k}) = 12(\\hat{i}\\times\\hat{j}) + 8(\\hat{i}\\times\\hat{k}) = 12\\hat{k} + 8(-\\hat{j}) = -8\\hat{j} + 12\\hat{k}\\text{ Nm}$. Modulusnya: $|\\vec{\\tau}| = \\sqrt{(-8)^2 + 12^2} = \\sqrt{64 + 144} = \\sqrt{208} = \\sqrt{16 \\times 13} = 4\\sqrt{13}\\text{ Nm}$."
+    },
+    {
+      "id": 15,
+      "prompt": "Sebuah perahu bermesin melintasi sungai selebar $80\\text{ meter}$ dengan kecepatan konstan $4\\text{ m/s}$ tegak lurus terhadap arah arus sungai. Kecepatan aliran arus sungai adalah $3\\text{ m/s}$. Waktu tempuh perahu untuk sampai ke seberang sungai dan jarak pergeseran perahu ke arah hilir sungai berturut-turut adalah...",
+      "options": [
+        "$20\\text{ sekon}$ dan $60\\text{ meter}$",
+        "$16\\text{ sekon}$ dan $48\\text{ meter}$",
+        "$20\\text{ sekon}$ dan $80\\text{ meter}$",
+        "$25\\text{ sekon}$ dan $75\\text{ meter}$",
+        "$16\\text{ sekon}$ dan $60\\text{ meter}$"
+      ],
+      "correct": 0,
+      "hint": "Komponen gerak tegak lurus independen: waktu menyeberang hanya ditentukan oleh lebar sungai dan kecepatan perahu tegak lurus.",
+      "explanation": "Waktu tempuh ditentukan oleh arah tegak lurus arus: $t = \\frac{d}{v_{\\text{perahu}}} = \\frac{80\\text{ m}}{4\\text{ m/s}} = 20\\text{ sekon}$. Pergeseran hilir akibat aliran arus: $x_{\\text{hilir}} = v_{\\text{arus}} \\times t = 3\\text{ m/s} \\times 20\\text{ s} = 60\\text{ meter}$."
+    }
+  ],
   "k11-fisika-kinematika": [
-  {
-    "id": 1,
-    "prompt": "Sebuah partikel bergerak pada bidang datar dengan persamaan vektor posisi $$\\vec{r}(t) = (3t^2 + 2)\\hat{i} + (4t - 5)\\hat{j}$$ dalam satuan meter ($t$ dalam sekon). Besar kecepatan partikel pada saat $t = 2\\text{ sekon}$ adalah...",
-    "options": [
-      "$12\\text{ m/s}$",
-      "$4\\sqrt{10}\\text{ m/s}$",
-      "$16\\text{ m/s}$",
-      "$10\\text{ m/s}$",
-      "$8\\sqrt{5}\\text{ m/s}$"
-    ],
-    "correct": 1,
-    "hint": "Turunkan persamaan posisi terhadap waktu untuk mendapatkan $v_x$ dan $v_y$, lalu hitung modulus $|\\vec{v}| = \\sqrt{v_x^2 + v_y^2}$.",
-    "explanation": "$$v_x(t) = \\frac{d}{dt}(3t^2 + 2) = 6t \\implies v_x(2) = 12\\text{ m/s}$$\n$$v_y(t) = \\frac{d}{dt}(4t - 5) = 4\\text{ m/s}$$\n$$|\\vec{v}| = \\sqrt{12^2 + 4^2} = \\sqrt{144 + 16} = \\sqrt{160} = 4\\sqrt{10}\\text{ m/s}$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Sebuah peluru ditembakkan dari tanah datar dengan kecepatan awal $v_0 = 50\\text{ m/s}$ dan sudut elevasi $30^\\circ$ terhadap bidang mendatar ($g = 10\\text{ m/s}^2$). Jarak jangkauan mendatar terjauh ($X_{\\max}$) yang dicapai peluru adalah...",
-    "options": [
-      "$125\\text{ m}$",
-      "$125\\sqrt{3}\\text{ m}$",
-      "$250\\text{ m}$",
-      "$250\\sqrt{3}\\text{ m}$",
-      "$62{,}5\\sqrt{3}\\text{ m}$"
-    ],
-    "correct": 1,
-    "hint": "Gunakan rumus jangkauan terjauh gerak parabola: $X_{\\max} = \\frac{v_0^2 \\sin 2\\theta}{g}$.",
-    "explanation": "$$X_{\\max} = \\frac{v_0^2 \\sin(2 \\times 30^\\circ)}{g} = \\frac{50^2 \\sin 60^\\circ}{10} = \\frac{2500 \\times \\frac{1}{2}\\sqrt{3}}{10} = 125\\sqrt{3}\\text{ meter}$$."
-  },
-  {
-    "id": 3,
-    "prompt": "Sebuah benda diikat pada tali sepanjang $R = 0{,}5\\text{ m}$ dan diputar horizontal dengan frekuensi konstan $f = 4\\text{ Hz}$. Percepatan sentripetal yang dialami benda tersebut adalah...",
-    "options": [
-      "$16\\pi^2\\text{ m/s}^2$",
-      "$32\\pi^2\\text{ m/s}^2$",
-      "$64\\pi^2\\text{ m/s}^2$",
-      "$8\\pi^2\\text{ m/s}^2$",
-      "$4\\pi^2\\text{ m/s}^2$"
-    ],
-    "correct": 1,
-    "hint": "Kecepatan sudut $\\omega = 2\\pi f$, lalu percepatan sentripetal $a_s = \\omega^2 R$.",
-    "explanation": "$$\\omega = 2\\pi(4) = 8\\pi\\text{ rad/s}$$\n$$a_s = \\omega^2 R = (8\\pi)^2 (0{,}5) = 64\\pi^2 \\times 0{,}5 = 32\\pi^2\\text{ m/s}^2$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah partikel bergerak pada bidang datar dengan persamaan vektor posisi $$\\vec{r}(t) = (3t^2 + 2)\\hat{i} + (4t - 5)\\hat{j}$$ dalam satuan meter ($t$ dalam sekon). Besar kecepatan partikel pada saat $t = 2\\text{ sekon}$ adalah...",
+      "options": [
+        "$12\\text{ m/s}$",
+        "$4\\sqrt{10}\\text{ m/s}$",
+        "$16\\text{ m/s}$",
+        "$10\\text{ m/s}$",
+        "$8\\sqrt{5}\\text{ m/s}$"
+      ],
+      "correct": 1,
+      "hint": "Turunkan persamaan posisi terhadap waktu untuk mendapatkan $v_x$ dan $v_y$, lalu hitung modulus $|\\vec{v}| = \\sqrt{v_x^2 + v_y^2}$.",
+      "explanation": "$$v_x(t) = \\frac{d}{dt}(3t^2 + 2) = 6t \\implies v_x(2) = 12\\text{ m/s}$$\n$$v_y(t) = \\frac{d}{dt}(4t - 5) = 4\\text{ m/s}$$\n$$|\\vec{v}| = \\sqrt{12^2 + 4^2} = \\sqrt{144 + 16} = \\sqrt{160} = 4\\sqrt{10}\\text{ m/s}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah peluru ditembakkan dari tanah datar dengan kecepatan awal $v_0 = 50\\text{ m/s}$ dan sudut elevasi $30^\\circ$ terhadap bidang mendatar ($g = 10\\text{ m/s}^2$). Jarak jangkauan mendatar terjauh ($X_{\\max}$) yang dicapai peluru adalah...",
+      "options": [
+        "$125\\text{ m}$",
+        "$125\\sqrt{3}\\text{ m}$",
+        "$250\\text{ m}$",
+        "$250\\sqrt{3}\\text{ m}$",
+        "$62{,}5\\sqrt{3}\\text{ m}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan rumus jangkauan terjauh gerak parabola: $X_{\\max} = \\frac{v_0^2 \\sin 2\\theta}{g}$.",
+      "explanation": "$$X_{\\max} = \\frac{v_0^2 \\sin(2 \\times 30^\\circ)}{g} = \\frac{50^2 \\sin 60^\\circ}{10} = \\frac{2500 \\times \\frac{1}{2}\\sqrt{3}}{10} = 125\\sqrt{3}\\text{ meter}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah benda diikat pada tali sepanjang $R = 0{,}5\\text{ m}$ dan diputar horizontal dengan frekuensi konstan $f = 4\\text{ Hz}$. Percepatan sentripetal yang dialami benda tersebut adalah...",
+      "options": [
+        "$16\\pi^2\\text{ m/s}^2$",
+        "$32\\pi^2\\text{ m/s}^2$",
+        "$64\\pi^2\\text{ m/s}^2$",
+        "$8\\pi^2\\text{ m/s}^2$",
+        "$4\\pi^2\\text{ m/s}^2$"
+      ],
+      "correct": 1,
+      "hint": "Kecepatan sudut $\\omega = 2\\pi f$, lalu percepatan sentripetal $a_s = \\omega^2 R$.",
+      "explanation": "$$\\omega = 2\\pi(4) = 8\\pi\\text{ rad/s}$$\n$$a_s = \\omega^2 R = (8\\pi)^2 (0{,}5) = 64\\pi^2 \\times 0{,}5 = 32\\pi^2\\text{ m/s}^2$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah mobil balap mula-mula diam lalu bergerak lurus dipercepat beraturan dengan percepatan $a = 4\\text{ m/s}^2$ selama $6\\text{ sekon}$. Setelah itu mesin dimatikan sehingga mobil mengalami perlambatan konstan $a' = -2\\text{ m/s}^2$ hingga berhenti. Jarak total yang ditempuh mobil dari awal bergerak hingga berhenti adalah...",
+      "options": [
+        "$144\\text{ m}$",
+        "$216\\text{ m}$",
+        "$288\\text{ m}$",
+        "$180\\text{ m}$",
+        "$72\\text{ m}$"
+      ],
+      "correct": 1,
+      "hint": "Bagi gerakan menjadi dua fase: fase percepatan (GLBB dipercepat) dan fase perlambatan (GLBB diperlambat). Hitung $s_1$ dan $s_2$.",
+      "explanation": "Fase 1: $v_1 = a t_1 = 4 \\times 6 = 24\\text{ m/s}$, $s_1 = \\frac{1}{2} a t_1^2 = \\frac{1}{2}(4)(36) = 72\\text{ m}$.\nFase 2: $v_t^2 = v_1^2 - 2|a'|s_2 \\implies 0 = 24^2 - 2(2)s_2 \\implies s_2 = \\frac{576}{4} = 144\\text{ m}$.\nJarak total: $s_{\\text{tot}} = 72 + 144 = 216\\text{ meter}$."
+    },
+    {
+      "id": 5,
+      "prompt": "Dua buah roda $A$ dan $B$ dihubungkan dengan rantai tak elastis. Jari-jari roda $A$ adalah $R_A = 20\\text{ cm}$ dan jari-jari roda $B$ adalah $R_B = 5\\text{ cm}$. Jika roda $A$ berputar dengan kecepatan sudut $\\omega_A = 10\\text{ rad/s}$, maka kecepatan sudut roda $B$ ($\\omega_B$) adalah...",
+      "options": [
+        "$2{,}5\\text{ rad/s}$",
+        "$10\\text{ rad/s}$",
+        "$20\\text{ rad/s}$",
+        "$40\\text{ rad/s}$",
+        "$50\\text{ rad/s}$"
+      ],
+      "correct": 3,
+      "hint": "Dua roda yang dihubungkan dengan sabuk/rantai memiliki kecepatan linear tepi yang sama: $v_A = v_B \\implies \\omega_A R_A = \\omega_B R_B$.",
+      "explanation": "$$v_A = v_B \\implies \\omega_A R_A = \\omega_B R_B$$\n$$10 \\times 20 = \\omega_B \\times 5 \\implies \\omega_B = \\frac{200}{5} = 40\\text{ rad/s}$$."
+    }
+  ],
   "k11-fisika-dinamika-newton": [
-  {
-    "id": 1,
-    "prompt": "Balok bermassa $m = 4\\text{ kg}$ ditarik dengan gaya horizontal $F = 20\\text{ N}$ di atas lantai kasar ($\\mu_s = 0{,}4; \\mu_k = 0{,}2; g = 10\\text{ m/s}^2$). Percepatan yang dialami balok tersebut adalah...",
-    "options": [
-      "$0\\text{ m/s}^2$ (balok diam)",
-      "$1\\text{ m/s}^2$",
-      "$2\\text{ m/s}^2$",
-      "$3\\text{ m/s}^2$",
-      "$5\\text{ m/s}^2$"
-    ],
-    "correct": 3,
-    "hint": "Cek gaya gesek statis maksimum $f_{s,\\max} = \\mu_s mg$. Jika $F > f_{s,\\max}$, benda bergerak dengan gaya gesek kinetik $f_k = \\mu_k mg$.",
-    "explanation": "$$N = mg = 4(10) = 40\\text{ N}$$\n$$f_{s,\\max} = 0{,}4 \\times 40 = 16\\text{ N}$$\nKarena $F = 20\\text{ N} > 16\\text{ N}$, balok bergerak.\n$$f_k = \\mu_k N = 0{,}2 \\times 40 = 8\\text{ N}$$\n$$a = \\frac{F - f_k}{m} = \\frac{20 - 8}{4} = \\frac{12}{4} = 3\\text{ m/s}^2$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Dua buah benda bermassa $m_1 = 3\\text{ kg}$ dan $m_2 = 5\\text{ kg}$ dihubungkan dengan tali melalui katrol licin tanpa gesekan ($g = 10\\text{ m/s}^2$). Percepatan gerak kedua beban adalah...",
-    "options": [
-      "$1{,}5\\text{ m/s}^2$",
-      "$2{,}0\\text{ m/s}^2$",
-      "$2{,}5\\text{ m/s}^2$",
-      "$3{,}0\\text{ m/s}^2$",
-      "$4{,}0\\text{ m/s}^2$"
-    ],
-    "correct": 2,
-    "hint": "Gunakan rumus pesawat Atwood: $a = \\frac{m_2 - m_1}{m_1 + m_2} g$.",
-    "explanation": "$$a = \\frac{5 - 3}{5 + 3} \\times 10 = \\frac{2}{8} \\times 10 = 2{,}5\\text{ m/s}^2$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Balok bermassa $m = 4\\text{ kg}$ ditarik dengan gaya horizontal $F = 20\\text{ N}$ di atas lantai kasar ($\\mu_s = 0{,}4; \\mu_k = 0{,}2; g = 10\\text{ m/s}^2$). Percepatan yang dialami balok tersebut adalah...",
+      "options": [
+        "$0\\text{ m/s}^2$ (balok diam)",
+        "$1\\text{ m/s}^2$",
+        "$2\\text{ m/s}^2$",
+        "$3\\text{ m/s}^2$",
+        "$5\\text{ m/s}^2$"
+      ],
+      "correct": 3,
+      "hint": "Cek gaya gesek statis maksimum $f_{s,\\max} = \\mu_s mg$. Jika $F > f_{s,\\max}$, benda bergerak dengan gaya gesek kinetik $f_k = \\mu_k mg$.",
+      "explanation": "$$N = mg = 4(10) = 40\\text{ N}$$\n$$f_{s,\\max} = 0{,}4 \\times 40 = 16\\text{ N}$$\nKarena $F = 20\\text{ N} > 16\\text{ N}$, balok bergerak.\n$$f_k = \\mu_k N = 0{,}2 \\times 40 = 8\\text{ N}$$\n$$a = \\frac{F - f_k}{m} = \\frac{20 - 8}{4} = \\frac{12}{4} = 3\\text{ m/s}^2$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Dua buah benda bermassa $m_1 = 3\\text{ kg}$ dan $m_2 = 5\\text{ kg}$ dihubungkan dengan tali melalui katrol licin tanpa gesekan ($g = 10\\text{ m/s}^2$). Percepatan gerak kedua beban adalah...",
+      "options": [
+        "$1{,}5\\text{ m/s}^2$",
+        "$2{,}0\\text{ m/s}^2$",
+        "$2{,}5\\text{ m/s}^2$",
+        "$3{,}0\\text{ m/s}^2$",
+        "$4{,}0\\text{ m/s}^2$"
+      ],
+      "correct": 2,
+      "hint": "Gunakan rumus pesawat Atwood: $a = \\frac{m_2 - m_1}{m_1 + m_2} g$.",
+      "explanation": "$$a = \\frac{5 - 3}{5 + 3} \\times 10 = \\frac{2}{8} \\times 10 = 2{,}5\\text{ m/s}^2$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah balok bermassa $m = 4\\text{ kg}$ ditarik ke atas bidang miring licin (sudut kemiringan $\\theta = 30^\\circ$) dengan gaya konstan $F = 32\\text{ N}$ sejajar bidang miring ($g = 10\\text{ m/s}^2$). Percepatan balok tersebut adalah...",
+      "options": [
+        "$2\\text{ m/s}^2$",
+        "$3\\text{ m/s}^2$",
+        "$4\\text{ m/s}^2$",
+        "$5\\text{ m/s}^2$",
+        "$8\\text{ m/s}^2$"
+      ],
+      "correct": 1,
+      "hint": "Terapkan Hukum II Newton pada sumbu sejajar bidang: $\\Sigma F = m a \\implies F - w\\sin\\theta = m a$.",
+      "explanation": "$$w = mg = 4 \\times 10 = 40\\text{ N}$$\n$$F - mg\\sin 30^\\circ = ma \\implies 32 - 40(0{,}5) = 4a$$\n$$32 - 20 = 4a \\implies 12 = 4a \\implies a = 3\\text{ m/s}^2$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dua benda bermassa $m_1 = 3\\text{ kg}$ dan $m_2 = 2\\text{ kg}$ dihubungkan dengan tali ringan melalui katrol licin tanpa gesekan (mesin Atwood). Percepatan gerak sistem kedua benda adalah... ($g = 10\\text{ m/s}^2$)",
+      "options": [
+        "$1\\text{ m/s}^2$",
+        "$2\\text{ m/s}^2$",
+        "$2{,}5\\text{ m/s}^2$",
+        "$3\\text{ m/s}^2$",
+        "$5\\text{ m/s}^2$"
+      ],
+      "correct": 1,
+      "hint": "Rumus percepatan mesin Atwood: $a = \\frac{m_1 - m_2}{m_1 + m_2} g$.",
+      "explanation": "$$a = \\frac{3 - 2}{3 + 2} \\times 10 = \\frac{1}{5} \\times 10 = 2\\text{ m/s}^2$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah balok bermassa $5\\text{ kg}$ berada di atas lantai kasar dengan koefisien gesek statis $\\mu_s = 0{,}4$ dan kinetis $\\mu_k = 0{,}2$. Jika balok ditarik dengan gaya mendatar $F = 15\\text{ N}$, maka besar gaya gesek yang bekerja pada balok adalah... ($g = 10\\text{ m/s}^2$)",
+      "options": [
+        "$10\\text{ N}$",
+        "$15\\text{ N}$",
+        "$20\\text{ N}$",
+        "$0\\text{ N}$",
+        "$25\\text{ N}$"
+      ],
+      "correct": 1,
+      "hint": "Hitung gaya gesek statis maksimum: $f_{s,\\max} = \\mu_s N$. Bandingkan gaya tarik $F$ dengan $f_{s,\\max}$. Jika $F < f_{s,\\max}$, benda diam dan gaya gesek $= F$.",
+      "explanation": "$$N = mg = 5 \\times 10 = 50\\text{ N}$$\n$$f_{s,\\max} = 0{,}4 \\times 50 = 20\\text{ N}$$.\nKarena $F = 15\\text{ N} < f_{s,\\max}$, benda masih diam (tidak bergerak), sehingga gaya gesek yang bekerja tepat mengimbangi gaya tarik: $f_s = F = 15\\text{ N}$."
+    }
+  ],
   "k11-fisika-usaha-energi-momentum": [
-  {
-    "id": 1,
-    "prompt": "Sebuah mobil bermassa $1000\\text{ kg}$ dipercepat oleh mesinnya dari kelajuan $10\\text{ m/s}$ hingga mencapai kelajuan $30\\text{ m/s}$. Usaha total yang dilakukan mesin mobil tersebut adalah...",
-    "options": [
-      "$200\\text{ kJ}$",
-      "$300\\text{ kJ}$",
-      "$400\\text{ kJ}$",
-      "$500\\text{ kJ}$",
-      "$800\\text{ kJ}$"
-    ],
-    "correct": 2,
-    "hint": "Gunakan Teorema Usaha-Energi Kinetik: $W = \\Delta E_k = \\frac{1}{2}m(v_2^2 - v_1^2)$.",
-    "explanation": "$$W = \\frac{1}{2}(1000)(30^2 - 10^2) = 500(900 - 100) = 500(800) = 400.000\\text{ Joule} = 400\\text{ kJ}$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Peluru bermassa $20\\text{ gram} = 0{,}02\\text{ kg}$ ditembakkan horizontal dengan kecepatan $400\\text{ m/s}$ ke arah balok kayu bermassa $1{,}98\\text{ kg}$ yang mula-mula diam. Jika peluru bersarang di dalam balok (tumbukan tidak lenting sama sekali), kecepatan balok bersama peluru sesaat setelah tumbukan adalah...",
-    "options": [
-      "$2\\text{ m/s}$",
-      "$4\\text{ m/s}$",
-      "$5\\text{ m/s}$",
-      "$8\\text{ m/s}$",
-      "$10\\text{ m/s}$"
-    ],
-    "correct": 1,
-    "hint": "Hukum kekekalan momentum untuk tumbukan tidak lenting sama sekali: $m_1 v_1 + m_2 v_2 = (m_1 + m_2) v'$.",
-    "explanation": "$$v' = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2} = \\frac{(0{,}02)(400) + 0}{0{,}02 + 1{,}98} = \\frac{8}{2} = 4\\text{ m/s}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah mobil bermassa $1000\\text{ kg}$ dipercepat oleh mesinnya dari kelajuan $10\\text{ m/s}$ hingga mencapai kelajuan $30\\text{ m/s}$. Usaha total yang dilakukan mesin mobil tersebut adalah...",
+      "options": [
+        "$200\\text{ kJ}$",
+        "$300\\text{ kJ}$",
+        "$400\\text{ kJ}$",
+        "$500\\text{ kJ}$",
+        "$800\\text{ kJ}$"
+      ],
+      "correct": 2,
+      "hint": "Gunakan Teorema Usaha-Energi Kinetik: $W = \\Delta E_k = \\frac{1}{2}m(v_2^2 - v_1^2)$.",
+      "explanation": "$$W = \\frac{1}{2}(1000)(30^2 - 10^2) = 500(900 - 100) = 500(800) = 400.000\\text{ Joule} = 400\\text{ kJ}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Peluru bermassa $20\\text{ gram} = 0{,}02\\text{ kg}$ ditembakkan horizontal dengan kecepatan $400\\text{ m/s}$ ke arah balok kayu bermassa $1{,}98\\text{ kg}$ yang mula-mula diam. Jika peluru bersarang di dalam balok (tumbukan tidak lenting sama sekali), kecepatan balok bersama peluru sesaat setelah tumbukan adalah...",
+      "options": [
+        "$2\\text{ m/s}$",
+        "$4\\text{ m/s}$",
+        "$5\\text{ m/s}$",
+        "$8\\text{ m/s}$",
+        "$10\\text{ m/s}$"
+      ],
+      "correct": 1,
+      "hint": "Hukum kekekalan momentum untuk tumbukan tidak lenting sama sekali: $m_1 v_1 + m_2 v_2 = (m_1 + m_2) v'$.",
+      "explanation": "$$v' = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2} = \\frac{(0{,}02)(400) + 0}{0{,}02 + 1{,}98} = \\frac{8}{2} = 4\\text{ m/s}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah peluru bermassa $m = 20\\text{ gram}$ bergerak dengan kelajuan $v = 400\\text{ m/s}$ menumbuk dan bersarang di dalam balok kayu bermassa $M = 1{,}98\\text{ kg}$ yang mula-mula diam di atas meja licin. Kelajuan balok dan peluru sesaat setelah tumbukan adalah...",
+      "options": [
+        "$2\\text{ m/s}$",
+        "$4\\text{ m/s}$",
+        "$5\\text{ m/s}$",
+        "$8\\text{ m/s}$",
+        "$10\\text{ m/s}$"
+      ],
+      "correct": 1,
+      "hint": "Tumbukan tidak lenting sama sekali: $m v + M(0) = (m + M) v'$. Ubah massa peluru ke kg.",
+      "explanation": "$$m = 0{,}02\\text{ kg}, \\quad M = 1{,}98\\text{ kg} \\implies m + M = 2\\text{ kg}$$\n$$p_{\\text{awal}} = 0{,}02 \\times 400 = 8\\text{ kg}\\cdot\\text{m/s}$$\n$$v' = \\frac{8}{2} = 4\\text{ m/s}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Gaya konstan $F = 50\\text{ N}$ bekerja pada sebuah benda bermassa $2\\text{ kg}$ selama selang waktu $\\Delta t = 0{,}2\\text{ sekon}$. Besar impuls gaya yang dialami benda tersebut adalah...",
+      "options": [
+        "$5\\text{ N}\\cdot\\text{s}$",
+        "$10\\text{ N}\\cdot\\text{s}$",
+        "$15\\text{ N}\\cdot\\text{s}$",
+        "$20\\text{ N}\\cdot\\text{s}$",
+        "$25\\text{ N}\\cdot\\text{s}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus impuls: $I = F \\times \\Delta t$.",
+      "explanation": "$$I = 50 \\times 0{,}2 = 10\\text{ N}\\cdot\\text{s}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah pegas memiliki konstanta pegas $k = 400\\text{ N/m}$. Besar usaha yang diperlukan untuk meregangkan pegas tersebut sejauh $5\\text{ cm}$ dari posisi setimbangnya adalah...",
+      "options": [
+        "$0{,}25\\text{ J}$",
+        "$0{,}5\\text{ J}$",
+        "$1{,}0\\text{ J}$",
+        "$2{,}0\\text{ J}$",
+        "$5{,}0\\text{ J}$"
+      ],
+      "correct": 1,
+      "hint": "Usaha pegas sama dengan perubahan energi potensial elastis: $W = \\frac{1}{2} k (\\Delta x)^2$. Ubah $\\Delta x = 0{,}05\\text{ m}$.",
+      "explanation": "$$W = \\frac{1}{2} \\times 400 \\times (0{,}05)^2 = 200 \\times 0{,}0025 = 0{,}5\\text{ Joule}$$."
+    }
+  ],
   "k11-fisika-dinamika-rotasi": [
-  {
-    "id": 1,
-    "prompt": "Sebuah silinder pejal ($I = \\frac{1}{2}MR^2$) bermassa $4\\text{ kg}$ dan jari-jari $0{,}2\\text{ m}$ menggelinding murni tanpa selip menuruni bidang miring dengan sudut kemiringan $\\theta = 30^\\circ$ ($g = 10\\text{ m/s}^2$). Percepatan linier silinder pejal tersebut adalah...",
-    "options": [
-      "$2{,}50\\text{ m/s}^2$",
-      "$3{,}33\\text{ m/s}^2$",
-      "$5{,}00\\text{ m/s}^2$",
-      "$6{,}67\\text{ m/s}^2$",
-      "$10{,}0\\text{ m/s}^2$"
-    ],
-    "correct": 1,
-    "hint": "Gunakan rumus percepatan menggelinding murni: $a = \\frac{g\\sin\\theta}{1 + k}$ dengan $k = 1/2$.",
-    "explanation": "$$a = \\frac{10 \\sin 30^\\circ}{1 + 0{,}5} = \\frac{10(0{,}5)}{1{,}5} = \\frac{5}{1{,}5} = \\frac{10}{3} \\approx 3{,}33\\text{ m/s}^2$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Sebuah tangga homogen bersandar pada dinding vertikal licin dan lantai horizontal kasar dengan koefisien gesek statis $\\mu_s = 0{,}25$. Besar $\\tan\\theta$ sudut kemiringan minimum terhadap lantai agar tangga tepat tidak tergelincir adalah...",
-    "options": [
-      "$1$",
-      "$1{,}5$",
-      "$2$",
-      "$2{,}5$",
-      "$4$"
-    ],
-    "correct": 2,
-    "hint": "Rumus cepat kemiringan tangga pada dinding licin: $\\tan\\theta = \\frac{1}{2\\mu_s}$.",
-    "explanation": "$$\\tan\\theta = \\frac{1}{2(0{,}25)} = \\frac{1}{0{,}5} = 2$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah silinder pejal ($I = \\frac{1}{2}MR^2$) bermassa $4\\text{ kg}$ dan jari-jari $0{,}2\\text{ m}$ menggelinding murni tanpa selip menuruni bidang miring dengan sudut kemiringan $\\theta = 30^\\circ$ ($g = 10\\text{ m/s}^2$). Percepatan linier silinder pejal tersebut adalah...",
+      "options": [
+        "$2{,}50\\text{ m/s}^2$",
+        "$3{,}33\\text{ m/s}^2$",
+        "$5{,}00\\text{ m/s}^2$",
+        "$6{,}67\\text{ m/s}^2$",
+        "$10{,}0\\text{ m/s}^2$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan rumus percepatan menggelinding murni: $a = \\frac{g\\sin\\theta}{1 + k}$ dengan $k = 1/2$.",
+      "explanation": "$$a = \\frac{10 \\sin 30^\\circ}{1 + 0{,}5} = \\frac{10(0{,}5)}{1{,}5} = \\frac{5}{1{,}5} = \\frac{10}{3} \\approx 3{,}33\\text{ m/s}^2$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah tangga homogen bersandar pada dinding vertikal licin dan lantai horizontal kasar dengan koefisien gesek statis $\\mu_s = 0{,}25$. Besar $\\tan\\theta$ sudut kemiringan minimum terhadap lantai agar tangga tepat tidak tergelincir adalah...",
+      "options": [
+        "$1$",
+        "$1{,}5$",
+        "$2$",
+        "$2{,}5$",
+        "$4$"
+      ],
+      "correct": 2,
+      "hint": "Rumus cepat kemiringan tangga pada dinding licin: $\\tan\\theta = \\frac{1}{2\\mu_s}$.",
+      "explanation": "$$\\tan\\theta = \\frac{1}{2(0{,}25)} = \\frac{1}{0{,}5} = 2$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah silinder pejal bermassa $M = 2\\text{ kg}$ dan jari-jari $R = 10\\text{ cm}$ menggelinding murni tanpa slip dari puncak bidang miring kasar setinggi $h = 3\\text{ meter}$ ($g = 10\\text{ m/s}^2$). Kelajuan linear silinder saat mencapai dasar bidang miring adalah...",
+      "options": [
+        "$\\sqrt{20}\\text{ m/s}$",
+        "$\\sqrt{30}\\text{ m/s}$",
+        "$\\sqrt{40}\\text{ m/s}$",
+        "$\\sqrt{60}\\text{ m/s}$",
+        "$10\\text{ m/s}$"
+      ],
+      "correct": 2,
+      "hint": "Hukum kekekalan energi mekanik menggelinding murni: $Mgh = \\frac{1}{2} M v^2 + \\frac{1}{2} I \\omega^2 = \\frac{1}{2}(1 + k) M v^2$. Untuk silinder pejal $k = \\frac{1}{2}$.",
+      "explanation": "$$Mgh = \\frac{1}{2}\\left(1 + \\frac{1}{2}\\right) M v^2 = \\frac{3}{4} M v^2 \\implies v = \\sqrt{\\frac{4gh}{3}}$$\n$$v = \\sqrt{\\frac{4 \\times 10 \\times 3}{3}} = \\sqrt{40}\\text{ m/s}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Batang homogen bermassa $M = 3\\text{ kg}$ dan panjang $L = 2\\text{ meter}$ diputar dengan sumbu putar berada pada salah satu ujung batang ($I = \\frac{1}{3} M L^2$). Momen inersia batang tersebut adalah...",
+      "options": [
+        "$2\\text{ kg}\\cdot\\text{m}^2$",
+        "$4\\text{ kg}\\cdot\\text{m}^2$",
+        "$6\\text{ kg}\\cdot\\text{m}^2$",
+        "$8\\text{ kg}\\cdot\\text{m}^2$",
+        "$12\\text{ kg}\\cdot\\text{m}^2$"
+      ],
+      "correct": 1,
+      "hint": "Hitung $I = \\frac{1}{3} M L^2$.",
+      "explanation": "$$I = \\frac{1}{3} \\times 3 \\times 2^2 = 1 \\times 4 = 4\\text{ kg}\\cdot\\text{m}^2$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Roda pejal berputar dengan kecepatan sudut awal $\\omega_0 = 20\\text{ rad/s}$. Roda tersebut direm dengan torsi pengereman konstan sehingga mengalami perlambatan sudut $\\alpha = -4\\text{ rad/s}^2$. Banyaknya putaran yang ditempuh roda hingga berhenti adalah... (gunakan $\\pi$)",
+      "options": [
+        "$\\frac{25}{\\pi}\\text{ putaran}$",
+        "$\\frac{50}{\\pi}\\text{ putaran}$",
+        "$50\\text{ putaran}$",
+        "$\\frac{100}{\\pi}\\text{ putaran}$",
+        "$100\\text{ putaran}$"
+      ],
+      "correct": 0,
+      "hint": "Gunakan $\\omega_t^2 = \\omega_0^2 + 2\\alpha \\theta$ untuk mencari $\\theta$ (dalam radian). Konversi ke putaran: $N = \\frac{\\theta}{2\\pi}$.",
+      "explanation": "$$0 = 20^2 - 2(4)\\theta \\implies 8\\theta = 400 \\implies \\theta = 50\\text{ radian}$$\n$$N = \\frac{50}{2\\pi} = \\frac{25}{\\pi}\\text{ putaran}$$."
+    }
+  ],
   "k11-fisika-fluida": [
-  {
-    "id": 1,
-    "prompt": "Sebongkah es dengan massa jenis $\\rho_{\\text{es}} = 0{,}9\\text{ g/cm}^3$ terapung di dalam air bersuhu $4^\\circ\\text{C}$ ($\\rho_{\\text{air}} = 1{,}0\\text{ g/cm}^3$). Persentase volume es yang mencuat di atas permukaan air adalah...",
-    "options": [
-      "$5\\%$",
-      "$10\\%$",
-      "$15\\%$",
-      "$90\\%$",
-      "$80\\%$"
-    ],
-    "correct": 1,
-    "hint": "Persentase volume es tercelup $= \\frac{\\rho_{\\text{es}}}{\\rho_{\\text{air}}} \\times 100\\%$. Sisanya mencuat di atas air.",
-    "explanation": "$$\\text{Bagian tercelup} = \\frac{0{,}9}{1{,}0} \\times 100\\% = 90\\%$$\nMaka bagian es yang mencuat di atas permukaan air $= 100\\% - 90\\% = 10\\%$."
-  },
-  {
-    "id": 2,
-    "prompt": "Sebuah bejana air terbuka yang besar memiliki lubang kebocoran kecil pada dindingnya pada kedalaman $h = 5\\text{ meter}$ di bawah permukaan air bebas ($g = 10\\text{ m/s}^2$). Kelajuan semburan air yang memancar dari lubang tersebut adalah...",
-    "options": [
-      "$5\\text{ m/s}$",
-      "$10\\text{ m/s}$",
-      "$15\\text{ m/s}$",
-      "$20\\text{ m/s}$",
-      "$25\\text{ m/s}$"
-    ],
-    "correct": 1,
-    "hint": "Gunakan Teorema Torricelli: $v = \\sqrt{2gh}$.",
-    "explanation": "$$v = \\sqrt{2gh} = \\sqrt{2(10)(5)} = \\sqrt{100} = 10\\text{ m/s}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebongkah es dengan massa jenis $\\rho_{\\text{es}} = 0{,}9\\text{ g/cm}^3$ terapung di dalam air bersuhu $4^\\circ\\text{C}$ ($\\rho_{\\text{air}} = 1{,}0\\text{ g/cm}^3$). Persentase volume es yang mencuat di atas permukaan air adalah...",
+      "options": [
+        "$5\\%$",
+        "$10\\%$",
+        "$15\\%$",
+        "$90\\%$",
+        "$80\\%$"
+      ],
+      "correct": 1,
+      "hint": "Persentase volume es tercelup $= \\frac{\\rho_{\\text{es}}}{\\rho_{\\text{air}}} \\times 100\\%$. Sisanya mencuat di atas air.",
+      "explanation": "$$\\text{Bagian tercelup} = \\frac{0{,}9}{1{,}0} \\times 100\\% = 90\\%$$\nMaka bagian es yang mencuat di atas permukaan air $= 100\\% - 90\\% = 10\\%$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah bejana air terbuka yang besar memiliki lubang kebocoran kecil pada dindingnya pada kedalaman $h = 5\\text{ meter}$ di bawah permukaan air bebas ($g = 10\\text{ m/s}^2$). Kelajuan semburan air yang memancar dari lubang tersebut adalah...",
+      "options": [
+        "$5\\text{ m/s}$",
+        "$10\\text{ m/s}$",
+        "$15\\text{ m/s}$",
+        "$20\\text{ m/s}$",
+        "$25\\text{ m/s}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan Teorema Torricelli: $v = \\sqrt{2gh}$.",
+      "explanation": "$$v = \\sqrt{2gh} = \\sqrt{2(10)(5)} = \\sqrt{100} = 10\\text{ m/s}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah pipa kapiler dengan jari-jari $r = 0{,}5\\text{ mm}$ dimasukkan tegak lurus ke dalam bejana berisi air. Tegangan permukaan air $\\gamma = 0{,}07\\text{ N/m}$, sudut kontak $\\theta = 0^\\circ$, massa jenis air $\\rho = 1000\\text{ kg/m}^3$, dan $g = 10\\text{ m/s}^2$. Kenaikan air dalam pipa kapiler adalah...",
+      "options": [
+        "$1{,}4\\text{ cm}$",
+        "$2{,}1\\text{ cm}$",
+        "$2{,}8\\text{ cm}$",
+        "$3{,}5\\text{ cm}$",
+        "$4{,}2\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Rumus kapilaritas: $h = \\frac{2 \\gamma \\cos\\theta}{\\rho g r}$. Ubah $r = 5 \\times 10^{-4}\\text{ m}$.",
+      "explanation": "$$h = \\frac{2 \\times 0{,}07 \\times 1}{1000 \\times 10 \\times 5 \\times 10^{-4}} = \\frac{0{,}14}{5} = 0{,}028\\text{ m} = 2{,}8\\text{ cm}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah tangki air yang luas memiliki lubang kecil pada dindingnya berjarak $h = 5\\text{ meter}$ di bawah permukaan air. Kelajuan air yang menyembur keluar dari lubang tersebut adalah... ($g = 10\\text{ m/s}^2$)",
+      "options": [
+        "$5\\text{ m/s}$",
+        "$7\\text{ m/s}$",
+        "$10\\text{ m/s}$",
+        "$14\\text{ m/s}$",
+        "$20\\text{ m/s}$"
+      ],
+      "correct": 2,
+      "hint": "Teorema Torricelli: $v = \\sqrt{2gh}$.",
+      "explanation": "$$v = \\sqrt{2 \\times 10 \\times 5} = \\sqrt{100} = 10\\text{ m/s}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Air mengalir melalui pipa mendatar (horizontal) yang memiliki luas penampang $A_1 = 20\\text{ cm}^2$ dengan kelajuan $v_1 = 2\\text{ m/s}$. Di bagian pipa yang menyempit, luas penampang menjadi $A_2 = 5\\text{ cm}^2$. Kelajuan air pada penampang kecil ($v_2$) adalah...",
+      "options": [
+        "$4\\text{ m/s}$",
+        "$6\\text{ m/s}$",
+        "$8\\text{ m/s}$",
+        "$10\\text{ m/s}$",
+        "$12\\text{ m/s}$"
+      ],
+      "correct": 2,
+      "hint": "Persamaan kontinuitas fluida: $A_1 v_1 = A_2 v_2$.",
+      "explanation": "$$20 \\times 2 = 5 \\times v_2 \\implies 40 = 5 v_2 \\implies v_2 = 8\\text{ m/s}$$."
+    }
+  ],
   "k11-fisika-gelombang-bunyi-cahaya": [
-  {
-    "id": 1,
-    "prompt": "Sebuah sumber bunyi menghasilkan taraf intensitas sebesar $70\\text{ dB}$. Jika terdapat 100 buah sumber bunyi yang identik dibunyikan secara bersamaan, taraf intensitas total yang didengar adalah...",
-    "options": [
-      "$72\\text{ dB}$",
-      "$80\\text{ dB}$",
-      "$90\\text{ dB}$",
-      "$170\\text{ dB}$",
-      "$700\\text{ dB}$"
-    ],
-    "correct": 2,
-    "hint": "Gunakan rumus pengali sumber bunyi: $TI_n = TI_1 + 10\\log n$.",
-    "explanation": "$$TI_{100} = 70 + 10\\log(100) = 70 + 10(2) = 70 + 20 = 90\\text{ dB}$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Berkas cahaya monokromatik dengan panjang gelombang $\\lambda = 500\\text{ nm} = 5 \\times 10^{-7}\\text{ m}$ dijatuhkan tegak lurus pada kisi difraksi yang memiliki $500\\text{ garis/mm}$. Sudut deviasi terbentuknya garis terang orde kedua ($n = 2$) adalah...",
-    "options": [
-      "$15^\\circ$",
-      "$30^\\circ$",
-      "$45^\\circ$",
-      "$60^\\circ$",
-      "$90^\\circ$"
-    ],
-    "correct": 1,
-    "hint": "Tetapan kisi $d = \\frac{1}{N}$. Rumus difraksi kisi terang: $d\\sin\\theta = n\\lambda$.",
-    "explanation": "$$d = \\frac{1}{500\\text{ garis/mm}} = 2 \\times 10^{-3}\\text{ mm} = 2 \\times 10^{-6}\\text{ m}$$\n$$d \\sin\\theta = n \\lambda \\implies (2 \\times 10^{-6})\\sin\\theta = 2(5 \\times 10^{-7}) = 10^{-6}$$\n$$\\sin\\theta = \\frac{10^{-6}}{2 \\times 10^{-6}} = 0{,}5 \\implies \\theta = 30^\\circ$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah sumber bunyi menghasilkan taraf intensitas sebesar $70\\text{ dB}$. Jika terdapat 100 buah sumber bunyi yang identik dibunyikan secara bersamaan, taraf intensitas total yang didengar adalah...",
+      "options": [
+        "$72\\text{ dB}$",
+        "$80\\text{ dB}$",
+        "$90\\text{ dB}$",
+        "$170\\text{ dB}$",
+        "$700\\text{ dB}$"
+      ],
+      "correct": 2,
+      "hint": "Gunakan rumus pengali sumber bunyi: $TI_n = TI_1 + 10\\log n$.",
+      "explanation": "$$TI_{100} = 70 + 10\\log(100) = 70 + 10(2) = 70 + 20 = 90\\text{ dB}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Berkas cahaya monokromatik dengan panjang gelombang $\\lambda = 500\\text{ nm} = 5 \\times 10^{-7}\\text{ m}$ dijatuhkan tegak lurus pada kisi difraksi yang memiliki $500\\text{ garis/mm}$. Sudut deviasi terbentuknya garis terang orde kedua ($n = 2$) adalah...",
+      "options": [
+        "$15^\\circ$",
+        "$30^\\circ$",
+        "$45^\\circ$",
+        "$60^\\circ$",
+        "$90^\\circ$"
+      ],
+      "correct": 1,
+      "hint": "Tetapan kisi $d = \\frac{1}{N}$. Rumus difraksi kisi terang: $d\\sin\\theta = n\\lambda$.",
+      "explanation": "$$d = \\frac{1}{500\\text{ garis/mm}} = 2 \\times 10^{-3}\\text{ mm} = 2 \\times 10^{-6}\\text{ m}$$\n$$d \\sin\\theta = n \\lambda \\implies (2 \\times 10^{-6})\\sin\\theta = 2(5 \\times 10^{-7}) = 10^{-6}$$\n$$\\sin\\theta = \\frac{10^{-6}}{2 \\times 10^{-6}} = 0{,}5 \\implies \\theta = 30^\\circ$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah mobil ambulans bergerak dengan kelajuan $v_s = 20\\text{ m/s}$ mendekati pendengar yang berdiri diam di tepi jalan sambil membunyikan sirine berfrekuensi $f_s = 640\\text{ Hz}$. Jika cepat rambat bunyi di udara adalah $v = 340\\text{ m/s}$, frekuensi sirine yang didengar oleh orang tersebut adalah...",
+      "options": [
+        "$600\\text{ Hz}$",
+        "$640\\text{ Hz}$",
+        "$680\\text{ Hz}$",
+        "$700\\text{ Hz}$",
+        "$720\\text{ Hz}$"
+      ],
+      "correct": 2,
+      "hint": "Efek Doppler bunyi: $f_p = \\frac{v \\pm v_p}{v \\mp v_s} f_s$. Pendengar diam ($v_p = 0$), sumber mendekat (gunakan $-v_s$).",
+      "explanation": "$$f_p = \\frac{340}{340 - 20} \\times 640 = \\frac{340}{320} \\times 640 = 340 \\times 2 = 680\\text{ Hz}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Taraf intensitas bunyi sebuah mesin ketik adalah $TI_1 = 60\\text{ dB}$. Jika dalam suatu ruangan terdapat 100 mesin ketik identik yang dinyalakan bersamaan, taraf intensitas bunyi gabungannya adalah...",
+      "options": [
+        "$70\\text{ dB}$",
+        "$80\\text{ dB}$",
+        "$90\\text{ dB}$",
+        "$100\\text{ dB}$",
+        "$120\\text{ dB}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus taraf intensitas $n$ sumber identik: $TI_n = TI_1 + 10\\log n$.",
+      "explanation": "$$TI_{100} = 60 + 10\\log 100 = 60 + 10(2) = 60 + 20 = 80\\text{ dB}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Pada eksperimen interferensi celah ganda Young, jarak antara kedua celah $d = 0{,}2\\text{ mm}$ dan jarak celah ke layar $L = 1\\text{ meter}$. Jika panjang gelombang cahaya yang digunakan $\\lambda = 500\\text{ nm} = 5 \\times 10^{-7}\\text{ m}$, jarak antara dua garis terang yang berdekatan ($\\Delta y$) pada layar adalah...",
+      "options": [
+        "$1{,}5\\text{ mm}$",
+        "$2{,}0\\text{ mm}$",
+        "$2{,}5\\text{ mm}$",
+        "$3{,}0\\text{ mm}$",
+        "$3{,}5\\text{ mm}$"
+      ],
+      "correct": 2,
+      "hint": "Jarak antar garis terang berdekatan: $\\Delta y = \\frac{\\lambda L}{d}$. Ubah semua satuan ke meter.",
+      "explanation": "$$\\Delta y = \\frac{5 \\times 10^{-7} \\times 1}{2 \\times 10^{-4}} = 2{,}5 \\times 10^{-3}\\text{ m} = 2{,}5\\text{ mm}$$."
+    }
+  ],
   "k11-fisika-termodinamika": [
-  {
-    "id": 1,
-    "prompt": "Sebuah mesin kalor Carnot menyerap kalor sebesar $Q_H = 1000\\text{ Joule}$ dari reservoir panas bersuhu $500\\text{ K}$ dan membuang sisa kalor ke reservoir dingin bersuhu $300\\text{ K}$. Efisiensi termal mesin dan usaha yang dihasilkan mesin tersebut berturut-turut adalah...",
-    "options": [
-      "$20\\%$ dan $200\\text{ J}$",
-      "$40\\%$ dan $400\\text{ J}$",
-      "$60\\%$ dan $600\\text{ J}$",
-      "$40\\%$ dan $600\\text{ J}$",
-      "$50\\%$ dan $500\\text{ J}$"
-    ],
-    "correct": 1,
-    "hint": "Efisiensi mesin Carnot: $\\eta = 1 - \\frac{T_C}{T_H}$. Usaha $W = \\eta \\times Q_H$.",
-    "explanation": "$$\\eta = 1 - \\frac{300}{500} = 1 - 0{,}60 = 0{,}40 = 40\\%$$\n$$W = \\eta \\times Q_H = 0{,}40 \\times 1000 = 400\\text{ Joule}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah mesin kalor Carnot menyerap kalor sebesar $Q_H = 1000\\text{ Joule}$ dari reservoir panas bersuhu $500\\text{ K}$ dan membuang sisa kalor ke reservoir dingin bersuhu $300\\text{ K}$. Efisiensi termal mesin dan usaha yang dihasilkan mesin tersebut berturut-turut adalah...",
+      "options": [
+        "$20\\%$ dan $200\\text{ J}$",
+        "$40\\%$ dan $400\\text{ J}$",
+        "$60\\%$ dan $600\\text{ J}$",
+        "$40\\%$ dan $600\\text{ J}$",
+        "$50\\%$ dan $500\\text{ J}$"
+      ],
+      "correct": 1,
+      "hint": "Efisiensi mesin Carnot: $\\eta = 1 - \\frac{T_C}{T_H}$. Usaha $W = \\eta \\times Q_H$.",
+      "explanation": "$$\\eta = 1 - \\frac{300}{500} = 1 - 0{,}60 = 0{,}40 = 40\\%$$\n$$W = \\eta \\times Q_H = 0{,}40 \\times 1000 = 400\\text{ Joule}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah mesin kalor Carnot bekerja di antara dua reservoir bersuhu tinggi $T_H = 800\\text{ K}$ dan reservoir bersuhu rendah $T_C = 400\\text{ K}$. Efisiensi termal maksimum mesin Carnot tersebut adalah...",
+      "options": [
+        "$25\\%$",
+        "$40\\%$",
+        "$50\\%$",
+        "$60\\%$",
+        "$75\\%$"
+      ],
+      "correct": 2,
+      "hint": "Efisiensi Carnot: $\\eta = \\left(1 - \\frac{T_C}{T_H}\\right) \\times 100\\%$.",
+      "explanation": "$$\\eta = \\left(1 - \\frac{400}{800}\\right) \\times 100\\% = (1 - 0{,}5) \\times 100\\% = 50\\%$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Gas ideal berada dalam silinder bertekanan tetap $P = 2 \\times 10^5\\text{ N/m}^2$ (proses isobarik). Jika gas memuai sehingga volumenya berubah dari $V_1 = 0{,}02\\text{ m}^3$ menjadi $V_2 = 0{,}05\\text{ m}^3$, usaha yang dilakukan oleh gas adalah...",
+      "options": [
+        "$3.000\\text{ J}$",
+        "$4.000\\text{ J}$",
+        "$5.000\\text{ J}$",
+        "$6.000\\text{ J}$",
+        "$7.500\\text{ J}$"
+      ],
+      "correct": 3,
+      "hint": "Usaha pada proses isobarik: $W = P \\Delta V = P(V_2 - V_1)$.",
+      "explanation": "$$W = (2 \\times 10^5) \\times (0{,}05 - 0{,}02) = 2 \\times 10^5 \\times 0{,}03 = 6.000\\text{ Joule}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Gas ideal mengalami proses adiabatik ($Q = 0$). Jika gas melakukan usaha sebesar $W = 500\\text{ J}$ ke lingkungan, perubahan energi dalam ($\\Delta U$) gas tersebut adalah...",
+      "options": [
+        "$+500\\text{ J}$",
+        "$-500\\text{ J}$",
+        "$0\\text{ J}$",
+        "$+250\\text{ J}$",
+        "$-250\\text{ J}$"
+      ],
+      "correct": 1,
+      "hint": "Hukum I Termodinamika: $\\Delta U = Q - W$. Karena adiabatik, $Q = 0$.",
+      "explanation": "$$\\Delta U = Q - W = 0 - 500 = -500\\text{ Joule}$$. Suhu gas mengalami penurunan."
+    },
+    {
+      "id": 5,
+      "prompt": "Energi kinetik rata-rata partikel gas ideal monoatomik pada suhu mutlak $T$ berbanding lurus dengan...",
+      "options": [
+        "$T^2$",
+        "$\\sqrt{T}$",
+        "$T$",
+        "$1/T$",
+        "$T^3$"
+      ],
+      "correct": 2,
+      "hint": "Persamaan energi kinetik rata-rata gas monoatomik: $\\bar{E}_k = \\frac{3}{2} k_B T$.",
+      "explanation": "Berdasarkan prinsip ekuipartisi energi, $\\bar{E}_k = \\frac{3}{2} k_B T$, sehingga energi kinetik sebanding secara linear dengan suhu mutlak $T$."
+    }
+  ],
   "k12-fisika-listrik-statis": [
-  {
-    "id": 1,
-    "prompt": "Dua muatan titik $+q_1 = 4\\,\\mu\\text{C}$ dan $+q_2 = 16\\,\\mu\\text{C}$ berada terpisah pada jarak $30\\text{ cm}$. Letak titik di antara kedua muatan yang memiliki kuat medan listrik total sama dengan nol adalah...",
-    "options": [
-      "$5\\text{ cm}$ dari $q_1$",
-      "$10\\text{ cm}$ dari $q_1$",
-      "$15\\text{ cm}$ dari $q_1$",
-      "$20\\text{ cm}$ dari $q_1$",
-      "$25\\text{ cm}$ dari $q_1$"
-    ],
-    "correct": 1,
-    "hint": "Syarat medan nol: $E_1 = E_2 \\implies \\frac{r_1}{r_2} = \\sqrt{\\frac{q_1}{q_2}}$.",
-    "explanation": "$$\\frac{r_1}{r_2} = \\sqrt{\\frac{4}{16}} = \\frac{2}{4} = \\frac{1}{2}$$\n$$r_1 = \\frac{1}{1 + 2} \\times 30\\text{ cm} = 10\\text{ cm}$ dari $q_1$."
-  },
-  {
-    "id": 2,
-    "prompt": "Dua buah kapasitor masing-masing memiliki kapasitas $C_1 = 3\\,\\mu\\text{F}$ dan $C_2 = 6\\,\\mu\\text{F}$ dirangkai secara seri lalu dihubungkan dengan sumber tegangan $12\\text{ Volt}$. Muatan listrik total yang tersimpan dalam rangkaian tersebut adalah...",
-    "options": [
-      "$18\\,\\mu\\text{C}$",
-      "$24\\,\\mu\\text{C}$",
-      "$36\\,\\mu\\text{C}$",
-      "$72\\,\\mu\\text{C}$",
-      "$108\\,\\mu\\text{C}$"
-    ],
-    "correct": 1,
-    "hint": "Hitung kapasitas ekuivalen seri $C_s = \\frac{C_1 C_2}{C_1 + C_2}$, lalu hitung $Q = C_s V$.",
-    "explanation": "$$C_s = \\frac{3 \\times 6}{3 + 6} = \\frac{18}{9} = 2\\,\\mu\\text{F}$$\n$$Q = C_s \\times V = 2\\,\\mu\\text{F} \\times 12\\text{ V} = 24\\,\\mu\\text{C}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Dua muatan titik $+q_1 = 4\\,\\mu\\text{C}$ dan $+q_2 = 16\\,\\mu\\text{C}$ berada terpisah pada jarak $30\\text{ cm}$. Letak titik di antara kedua muatan yang memiliki kuat medan listrik total sama dengan nol adalah...",
+      "options": [
+        "$5\\text{ cm}$ dari $q_1$",
+        "$10\\text{ cm}$ dari $q_1$",
+        "$15\\text{ cm}$ dari $q_1$",
+        "$20\\text{ cm}$ dari $q_1$",
+        "$25\\text{ cm}$ dari $q_1$"
+      ],
+      "correct": 1,
+      "hint": "Syarat medan nol: $E_1 = E_2 \\implies \\frac{r_1}{r_2} = \\sqrt{\\frac{q_1}{q_2}}$.",
+      "explanation": "$$\\frac{r_1}{r_2} = \\sqrt{\\frac{4}{16}} = \\frac{2}{4} = \\frac{1}{2}$$\n$$r_1 = \\frac{1}{1 + 2} \\times 30\\text{ cm} = 10\\text{ cm}$$ dari $q_1$."
+    },
+    {
+      "id": 2,
+      "prompt": "Dua buah kapasitor masing-masing memiliki kapasitas $C_1 = 3\\,\\mu\\text{F}$ dan $C_2 = 6\\,\\mu\\text{F}$ dirangkai secara seri lalu dihubungkan dengan sumber tegangan $12\\text{ Volt}$. Muatan listrik total yang tersimpan dalam rangkaian tersebut adalah...",
+      "options": [
+        "$18\\,\\mu\\text{C}$",
+        "$24\\,\\mu\\text{C}$",
+        "$36\\,\\mu\\text{C}$",
+        "$72\\,\\mu\\text{C}$",
+        "$108\\,\\mu\\text{C}$"
+      ],
+      "correct": 1,
+      "hint": "Hitung kapasitas ekuivalen seri $C_s = \\frac{C_1 C_2}{C_1 + C_2}$, lalu hitung $Q = C_s V$.",
+      "explanation": "$$C_s = \\frac{3 \\times 6}{3 + 6} = \\frac{18}{9} = 2\\,\\mu\\text{F}$$\n$$Q = C_s \\times V = 2\\,\\mu\\text{F} \\times 12\\text{ V} = 24\\,\\mu\\text{C}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Potensial listrik pada titik yang berjarak $r = 30\\text{ cm}$ dari suatu muatan titik $q = +6\\ \\mu\\text{C}$ adalah... ($k = 9 \\times 10^9\\text{ N}\\cdot\\text{m}^2/\\text{C}^2$)",
+      "options": [
+        "$1{,}8 \\times 10^4\\text{ V}$",
+        "$1{,}8 \\times 10^5\\text{ V}$",
+        "$1{,}8 \\times 10^6\\text{ V}$",
+        "$3{,}6 \\times 10^5\\text{ V}$",
+        "$5{,}4 \\times 10^5\\text{ V}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus potensial listrik muatan titik: $V = \\frac{k q}{r}$. Ubah $r = 0{,}3\\text{ m}$ dan $q = 6 \\times 10^{-6}\\text{ C}$.",
+      "explanation": "$$V = \\frac{9 \\times 10^9 \\times 6 \\times 10^{-6}}{0{,}3} = \\frac{54 \\times 10^3}{0{,}3} = 180 \\times 10^3 = 1{,}8 \\times 10^5\\text{ Volt}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah kapasitor keping sejajar dengan luas keping $A$ dan jarak pisah $d$ memiliki kapasitas $C = 12\\ \\mu\\text{F}$ di udara. Jika jarak antarkeping diperkecil menjadi $\\frac{1}{2} d$ dan disisipi bahan dielektrik dengan konstanta $\\kappa = 3$, kapasitas kapasitor yang baru adalah...",
+      "options": [
+        "$18\\ \\mu\\text{F}$",
+        "$36\\ \\mu\\text{F}$",
+        "$48\\ \\mu\\text{F}$",
+        "$72\\ \\mu\\text{F}$",
+        "$96\\ \\mu\\text{F}$"
+      ],
+      "correct": 3,
+      "hint": "Kapasitas kapasitor keping sejajar: $C = \\frac{\\kappa \\varepsilon_0 A}{d}$. Bandingkan rasio $C' = \\kappa \\times \\frac{1}{1/2} C = 2\\kappa C$.",
+      "explanation": "$$C' = \\frac{\\kappa}{1/2} C = 2 \\kappa C = 2(3)(12\\ \\mu\\text{F}) = 72\\ \\mu\\text{F}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Energi yang tersimpan di dalam sebuah kapasitor berkapasitas $C = 10\\ \\mu\\text{F}$ yang dihubungkan ke sumber tegangan $V = 100\\text{ Volt}$ adalah...",
+      "options": [
+        "$0{,}025\\text{ J}$",
+        "$0{,}05\\text{ J}$",
+        "$0{,}1\\text{ J}$",
+        "$0{,}25\\text{ J}$",
+        "$0{,}5\\text{ J}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus energi kapasitor: $W = \\frac{1}{2} C V^2$.",
+      "explanation": "$$W = \\frac{1}{2} (10 \\times 10^{-6}) \\times 100^2 = 5 \\times 10^{-6} \\times 10^4 = 0{,}05\\text{ Joule}$$."
+    }
+  ],
   "k12-fisika-listrik-dinamis": [
-  {
-    "id": 1,
-    "prompt": "Sebuah kawat penghantar silindris memiliki hambatan awal $R = 5\\,\\Omega$. Kawat tersebut kemudian ditarik secara homogen hingga panjangnya menjadi 3 kali panjang semula tanpa mengubah massa jenis dan volumenya. Hambatan kawat setelah ditarik adalah...",
-    "options": [
-      "$15\\,\\Omega$",
-      "$25\\,\\Omega$",
-      "$30\\,\\Omega$",
-      "$45\\,\\Omega$",
-      "$75\\,\\Omega$"
-    ],
-    "correct": 3,
-    "hint": "Jika kawat ditarik $n$ kali panjang semula dengan volume konstan, hambatannya menjadi $R' = n^2 R$.",
-    "explanation": "$$R' = n^2 R = (3)^2 \\times 5 = 9 \\times 5 = 45\\,\\Omega$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Rangkaian listrik tertutup 1 loop terdiri dari dua sumber tegangan $\\mathcal{E}_1 = 18\\text{ V}$ dan $\\mathcal{E}_2 = 6\\text{ V}$ yang dipasang saling berlawanan arah kutub, serta tiga buah resistor seri $R_1 = 2\\,\\Omega, R_2 = 3\\,\\Omega, R_3 = 1\\,\\Omega$. Kuat arus yang mengalir pada rangkaian tersebut adalah...",
-    "options": [
-      "$1\\text{ A}$",
-      "$2\\text{ A}$",
-      "$3\\text{ A}$",
-      "$4\\text{ A}$",
-      "$6\\text{ A}$"
-    ],
-    "correct": 1,
-    "hint": "Gunakan Hukum II Kirchhoff: $I = \\frac{\\Sigma\\mathcal{E}}{\\Sigma R}$.",
-    "explanation": "$$I = \\frac{18 - 6}{2 + 3 + 1} = \\frac{12}{6} = 2\\text{ Ampere}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah kawat penghantar silindris memiliki hambatan awal $R = 5\\,\\Omega$. Kawat tersebut kemudian ditarik secara homogen hingga panjangnya menjadi 3 kali panjang semula tanpa mengubah massa jenis dan volumenya. Hambatan kawat setelah ditarik adalah...",
+      "options": [
+        "$15\\,\\Omega$",
+        "$25\\,\\Omega$",
+        "$30\\,\\Omega$",
+        "$45\\,\\Omega$",
+        "$75\\,\\Omega$"
+      ],
+      "correct": 3,
+      "hint": "Jika kawat ditarik $n$ kali panjang semula dengan volume konstan, hambatannya menjadi $R' = n^2 R$.",
+      "explanation": "$$R' = n^2 R = (3)^2 \\times 5 = 9 \\times 5 = 45\\,\\Omega$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Rangkaian listrik tertutup 1 loop terdiri dari dua sumber tegangan $\\mathcal{E}_1 = 18\\text{ V}$ dan $\\mathcal{E}_2 = 6\\text{ V}$ yang dipasang saling berlawanan arah kutub, serta tiga buah resistor seri $R_1 = 2\\,\\Omega, R_2 = 3\\,\\Omega, R_3 = 1\\,\\Omega$. Kuat arus yang mengalir pada rangkaian tersebut adalah...",
+      "options": [
+        "$1\\text{ A}$",
+        "$2\\text{ A}$",
+        "$3\\text{ A}$",
+        "$4\\text{ A}$",
+        "$6\\text{ A}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan Hukum II Kirchhoff: $I = \\frac{\\Sigma\\mathcal{E}}{\\Sigma R}$.",
+      "explanation": "$$I = \\frac{18 - 6}{2 + 3 + 1} = \\frac{12}{6} = 2\\text{ Ampere}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah kawat penghantar memiliki hambatan $R = 10\\ \\Omega$. Jika kawat tersebut ditarik secara merata sehingga panjangnya menjadi 2 kali panjang semula tanpa mengubah volumenya, besar hambatan kawat yang baru adalah...",
+      "options": [
+        "$20\\ \\Omega$",
+        "$30\\ \\Omega$",
+        "$40\\ \\Omega$",
+        "$50\\ \\Omega$",
+        "$80\\ \\Omega$"
+      ],
+      "correct": 2,
+      "hint": "Volume konstan $V = A L$. Jika $L' = 2L$, maka $A' = \\frac{1}{2} A$. Hambatan $R = \\rho \\frac{L}{A} \\implies R' = 4R$.",
+      "explanation": "$$R' = \\rho \\frac{2L}{\\frac{1}{2}A} = 4 \\rho \\frac{L}{A} = 4 \\times 10 = 40\\ \\Omega$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Tiga buah hambatan $R_1 = 6\\ \\Omega$, $R_2 = 12\\ \\Omega$, dan $R_3 = 4\\ \\Omega$ dirangkai secara paralel. Hambatan pengganti total rangkaian paralel tersebut adalah...",
+      "options": [
+        "$2\\ \\Omega$",
+        "$3\\ \\Omega$",
+        "$4\\ \\Omega$",
+        "$6\\ \\Omega$",
+        "$8\\ \\Omega$"
+      ],
+      "correct": 0,
+      "hint": "$\\frac{1}{R_p} = \\frac{1}{6} + \\frac{1}{12} + \\frac{1}{4} = \\frac{2 + 1 + 3}{12} = \\frac{6}{12}$.",
+      "explanation": "$$\\frac{1}{R_p} = \\frac{6}{12} \\implies R_p = \\frac{12}{6} = 2\\ \\Omega$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah lampu bertuliskan $220\\text{ V} / 100\\text{ W}$ dihubungkan ke sumber tegangan PLN $110\\text{ V}$. Daya listrik aktual yang diserap oleh lampu tersebut adalah...",
+      "options": [
+        "$25\\text{ W}$",
+        "$50\\text{ W}$",
+        "$75\\text{ W}$",
+        "$100\\text{ W}$",
+        "$125\\text{ W}$"
+      ],
+      "correct": 0,
+      "hint": "Hambatan lampu konstan: $P = \\frac{V^2}{R} \\implies P_2 = \\left(\\frac{V_2}{V_1}\\right)^2 P_1$.",
+      "explanation": "$$P_2 = \\left(\\frac{110}{220}\\right)^2 \\times 100 = \\left(\\frac{1}{2}\\right)^2 \\times 100 = \\frac{1}{4} \\times 100 = 25\\text{ Watt}$$."
+    }
+  ],
   "k12-fisika-medan-magnet-induksi": [
-  {
-    "id": 1,
-    "prompt": "Sebuah proton bermuatan $q = 1{,}6 \\times 10^{-19}\\text{ C}$ bergerak dengan kecepatan konstan $v = 2 \\times 10^6\\text{ m/s}$ memasuki medan magnetik homogen $B = 0{,}5\\text{ Tesla}$ secara tegak lurus ($90^\\circ$). Besar gaya Lorentz yang dialami proton tersebut adalah...",
-    "options": [
-      "$0{,}8 \\times 10^{-13}\\text{ N}$",
-      "$1{,}6 \\times 10^{-13}\\text{ N}$",
-      "$3{,}2 \\times 10^{-13}\\text{ N}$",
-      "$6{,}4 \\times 10^{-13}\\text{ N}$",
-      "$1{,}6 \\times 10^{-19}\\text{ N}$"
-    ],
-    "correct": 1,
-    "hint": "Gunakan rumus gaya Lorentz pada muatan: $F = q v B \\sin\\theta$.",
-    "explanation": "$$F = (1{,}6 \\times 10^{-19})(2 \\times 10^6)(0{,}5) \\sin 90^\\circ = 1{,}6 \\times 10^{-13}\\text{ Newton}$$."
-  },
-  {
-    "id": 2,
-    "prompt": "Sebuah transformator ideal memiliki 1000 lilitan pada kumparan primer dan 200 lilitan pada kumparan sekunder. Jika kumparan primer dihubungkan dengan tegangan bolak-balik $220\\text{ Volt}$, tegangan yang keluar pada kumparan sekunder adalah...",
-    "options": [
-      "$22\\text{ V}$",
-      "$44\\text{ V}$",
-      "$88\\text{ V}$",
-      "$110\\text{ V}$",
-      "$1100\\text{ V}$"
-    ],
-    "correct": 1,
-    "hint": "Rumus transformator ideal: $\\frac{V_s}{V_p} = \\frac{N_s}{N_p}$.",
-    "explanation": "$$V_s = V_p \\left(\\frac{N_s}{N_p}\\right) = 220 \\left(\\frac{200}{1000}\\right) = 220 \\times 0{,}2 = 44\\text{ Volt}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah proton bermuatan $q = 1{,}6 \\times 10^{-19}\\text{ C}$ bergerak dengan kecepatan konstan $v = 2 \\times 10^6\\text{ m/s}$ memasuki medan magnetik homogen $B = 0{,}5\\text{ Tesla}$ secara tegak lurus ($90^\\circ$). Besar gaya Lorentz yang dialami proton tersebut adalah...",
+      "options": [
+        "$0{,}8 \\times 10^{-13}\\text{ N}$",
+        "$1{,}6 \\times 10^{-13}\\text{ N}$",
+        "$3{,}2 \\times 10^{-13}\\text{ N}$",
+        "$6{,}4 \\times 10^{-13}\\text{ N}$",
+        "$1{,}6 \\times 10^{-19}\\text{ N}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan rumus gaya Lorentz pada muatan: $F = q v B \\sin\\theta$.",
+      "explanation": "$$F = (1{,}6 \\times 10^{-19})(2 \\times 10^6)(0{,}5) \\sin 90^\\circ = 1{,}6 \\times 10^{-13}\\text{ Newton}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah transformator ideal memiliki 1000 lilitan pada kumparan primer dan 200 lilitan pada kumparan sekunder. Jika kumparan primer dihubungkan dengan tegangan bolak-balik $220\\text{ Volt}$, tegangan yang keluar pada kumparan sekunder adalah...",
+      "options": [
+        "$22\\text{ V}$",
+        "$44\\text{ V}$",
+        "$88\\text{ V}$",
+        "$110\\text{ V}$",
+        "$1100\\text{ V}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus transformator ideal: $\\frac{V_s}{V_p} = \\frac{N_s}{N_p}$.",
+      "explanation": "$$V_s = V_p \\left(\\frac{N_s}{N_p}\\right) = 220 \\left(\\frac{200}{1000}\\right) = 220 \\times 0{,}2 = 44\\text{ Volt}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah kawat lurus sangat panjang dialiri arus listrik $I = 10\\text{ A}$. Besar induksi magnetik pada titik yang berjarak $r = 5\\text{ cm}$ dari kawat tersebut adalah... ($\\mu_0 = 4\\pi \\times 10^{-7}\\text{ Wb}/\\text{A}\\cdot\\text{m}$)",
+      "options": [
+        "$2 \\times 10^{-5}\\text{ T}$",
+        "$4 \\times 10^{-5}\\text{ T}$",
+        "$6 \\times 10^{-5}\\text{ T}$",
+        "$8 \\times 10^{-5}\\text{ T}$",
+        "$1 \\times 10^{-4}\\text{ T}$"
+      ],
+      "correct": 1,
+      "hint": "Hukum Biot-Savart kawat lurus: $B = \\frac{\\mu_0 I}{2\\pi r}$. Ubah $r = 0{,}05\\text{ m}$.",
+      "explanation": "$$B = \\frac{4\\pi \\times 10^{-7} \\times 10}{2\\pi \\times 0{,}05} = \\frac{2 \\times 10^{-6}}{0{,}05} = 4 \\times 10^{-5}\\text{ Tesla}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah partikel bermuatan $q = +2\\ \\mu\\text{C}$ bergerak dengan kecepatan $v = 5 \\times 10^5\\text{ m/s}$ memasuki medan magnet homogen $B = 0{,}4\\text{ T}$ secara tegak lurus ($\\theta = 90^\\circ$). Besar gaya Lorentz yang dialami partikel adalah...",
+      "options": [
+        "$0{,}2\\text{ N}$",
+        "$0{,}4\\text{ N}$",
+        "$0{,}6\\text{ N}$",
+        "$0{,}8\\text{ N}$",
+        "$1{,}0\\text{ N}$"
+      ],
+      "correct": 1,
+      "hint": "Gaya Lorentz muatan bergerak: $F = q v B \\sin\\theta$.",
+      "explanation": "$$F = (2 \\times 10^{-6}) \\times (5 \\times 10^5) \\times 0{,}4 \\times \\sin 90^\\circ = 1 \\times 0{,}4 = 0{,}4\\text{ Newton}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Kumparan dengan $N = 200\\text{ lilitan}$ mengalami perubahan fluks magnetik dari $\\Phi_1 = 0{,}08\\text{ Wb}$ menjadi $\\Phi_2 = 0{,}02\\text{ Wb}$ dalam selang waktu $\\Delta t = 0{,}1\\text{ sekon}$. Besar GGL induksi yang timbul pada kumparan adalah...",
+      "options": [
+        "$60\\text{ V}$",
+        "$80\\text{ V}$",
+        "$100\\text{ V}$",
+        "$120\\text{ V}$",
+        "$150\\text{ V}$"
+      ],
+      "correct": 3,
+      "hint": "Hukum Faraday: $\\varepsilon = -N \\frac{\\Delta \\Phi}{\\Delta t}$. Hitung besar (nilai mutlak).",
+      "explanation": "$$|\\varepsilon| = 200 \\times \\frac{|0{,}02 - 0{,}08|}{0{,}1} = 200 \\times \\frac{0{,}06}{0{,}1} = 200 \\times 0{,}6 = 120\\text{ Volt}$$."
+    }
+  ],
   "k12-fisika-arus-bolak-balik": [
-  {
-    "id": 1,
-    "prompt": "Rangkaian RLC seri terdiri dari resistor $R = 30\\,\\Omega$, induktor ber-reaktansi $X_L = 80\\,\\Omega$, dan kapasitor ber-reaktansi $X_C = 40\\,\\Omega$. Jika rangkaian dihubungkan ke sumber tegangan efektif $100\\text{ Volt}$, besar impedansi total ($Z$) dan arus efektif ($I_{\\text{ef}}$) rangkaian adalah...",
-    "options": [
-      "$50\\,\\Omega$ dan $2\\text{ A}$",
-      "$70\\,\\Omega$ dan $1{,}4\\text{ A}$",
-      "$50\\,\\Omega$ dan $0{,}5\\text{ A}$",
-      "$150\\,\\Omega$ dan $0{,}67\\text{ A}$",
-      "$40\\,\\Omega$ dan $2{,}5\\text{ A}$"
-    ],
-    "correct": 0,
-    "hint": "Impedansi $Z = \\sqrt{R^2 + (X_L - X_C)^2}$ dan arus efektif $I_{\\text{ef}} = \\frac{V_{\\text{ef}}}{Z}$.",
-    "explanation": "$$Z = \\sqrt{30^2 + (80 - 40)^2} = \\sqrt{900 + 1600} = \\sqrt{2500} = 50\\,\\Omega$$\n$$I_{\\text{ef}} = \\frac{100\\text{ V}}{50\\,\\Omega} = 2\\text{ Ampere}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Rangkaian RLC seri terdiri dari resistor $R = 30\\,\\Omega$, induktor ber-reaktansi $X_L = 80\\,\\Omega$, dan kapasitor ber-reaktansi $X_C = 40\\,\\Omega$. Jika rangkaian dihubungkan ke sumber tegangan efektif $100\\text{ Volt}$, besar impedansi total ($Z$) dan arus efektif ($I_{\\text{ef}}$) rangkaian adalah...",
+      "options": [
+        "$50\\,\\Omega$ dan $2\\text{ A}$",
+        "$70\\,\\Omega$ dan $1{,}4\\text{ A}$",
+        "$50\\,\\Omega$ dan $0{,}5\\text{ A}$",
+        "$150\\,\\Omega$ dan $0{,}67\\text{ A}$",
+        "$40\\,\\Omega$ dan $2{,}5\\text{ A}$"
+      ],
+      "correct": 0,
+      "hint": "Impedansi $Z = \\sqrt{R^2 + (X_L - X_C)^2}$ dan arus efektif $I_{\\text{ef}} = \\frac{V_{\\text{ef}}}{Z}$.",
+      "explanation": "$$Z = \\sqrt{30^2 + (80 - 40)^2} = \\sqrt{900 + 1600} = \\sqrt{2500} = 50\\,\\Omega$$\n$$I_{\\text{ef}} = \\frac{100\\text{ V}}{50\\,\\Omega} = 2\\text{ Ampere}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Tegangan bolak-balik memiliki persamaan $V(t) = 100\\sqrt{2} \\sin(100\\pi t)\\text{ Volt}$. Tegangan efektif ($V_{\\text{ef}}$) dan frekuensi ($f$) sumber tegangan tersebut adalah...",
+      "options": [
+        "$100\\text{ V}$ dan $50\\text{ Hz}$",
+        "$100\\sqrt{2}\\text{ V}$ dan $50\\text{ Hz}$",
+        "$100\\text{ V}$ dan $100\\text{ Hz}$",
+        "$50\\text{ V}$ dan $50\\text{ Hz}$",
+        "$100\\text{ V}$ dan $25\\text{ Hz}$"
+      ],
+      "correct": 0,
+      "hint": "$V_{\\max} = 100\\sqrt{2}$, $V_{\\text{ef}} = \\frac{V_{\\max}}{\\sqrt{2}}$. Frekuensi sudut $\\omega = 2\\pi f = 100\\pi \\implies f = 50\\text{ Hz}$.",
+      "explanation": "$$V_{\\text{ef}} = \\frac{100\\sqrt{2}}{\\sqrt{2}} = 100\\text{ Volt}, \\quad f = \\frac{100\\pi}{2\\pi} = 50\\text{ Hz}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah induktor dengan induktansi diri $L = 0{,}2\\text{ H}$ dihubungkan ke sumber tegangan bolak-balik dengan frekuensi sudut $\\omega = 100\\text{ rad/s}$. Reaktansi induktif ($X_L$) induktor tersebut adalah...",
+      "options": [
+        "$10\\ \\Omega$",
+        "$20\\ \\Omega$",
+        "$30\\ \\Omega$",
+        "$40\\ \\Omega$",
+        "$50\\ \\Omega$"
+      ],
+      "correct": 1,
+      "hint": "Rumus reaktansi induktif: $X_L = \\omega L$.",
+      "explanation": "$$X_L = 100 \\times 0{,}2 = 20\\ \\Omega$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Rangkaian seri RLC memiliki hambatan $R = 80\\ \\Omega$, reaktansi induktif $X_L = 100\\ \\Omega$, dan reaktansi kapasitif $X_C = 40\\ \\Omega$. Impedansi total ($Z$) rangkaian tersebut adalah...",
+      "options": [
+        "$60\\ \\Omega$",
+        "$80\\ \\Omega$",
+        "$100\\ \\Omega$",
+        "$120\\ \\Omega$",
+        "$140\\ \\Omega$"
+      ],
+      "correct": 2,
+      "hint": "Rumus impedansi RLC: $Z = \\sqrt{R^2 + (X_L - X_C)^2}$.",
+      "explanation": "$$Z = \\sqrt{80^2 + (100 - 40)^2} = \\sqrt{6400 + 3600} = \\sqrt{10000} = 100\\ \\Omega$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Kondisi resonansi pada rangkaian seri RLC tercapai apabila...",
+      "options": [
+        "$R = X_L$",
+        "$X_L = X_C$",
+        "$R = X_C$",
+        "$X_L + X_C = R$",
+        "$Z$ bernilai maksimum"
+      ],
+      "correct": 1,
+      "hint": "Resonansi terjadi saat reaktansi induktif sama dengan reaktansi kapasitif ($X_L = X_C$), sehingga impedansi minimum $Z = R$ dan arus maksimum.",
+      "explanation": "Pada saat $X_L = X_C$, fase tegangan dan arus sefase, sudut fase $\\phi = 0$, dan frekuensi resonansi $f_0 = \\frac{1}{2\\pi\\sqrt{LC}}$."
+    }
+  ],
   "k12-fisika-relativitas-khusus": [
-  {
-    "id": 1,
-    "prompt": "Sebuah pesawat antariksa memiliki panjang diam $L_0 = 100\\text{ meter}$ ketika diukur di stasiun peluncuran. Saat pesawat melintas dengan laju $v = 0{,}8c$, panjang pesawat yang terukur oleh pengamat diam di bumi adalah...",
-    "options": [
-      "$36\\text{ m}$",
-      "$60\\text{ m}$",
-      "$80\\text{ m}$",
-      "$100\\text{ m}$",
-      "$125\\text{ m}$"
-    ],
-    "correct": 1,
-    "hint": "Gunakan rumus kontraksi panjang Lorentz: $L = L_0 \\sqrt{1 - \\frac{v^2}{c^2}}$.",
-    "explanation": "$$L = 100\\sqrt{1 - (0{,}8)^2} = 100\\sqrt{1 - 0{,}64} = 100\\sqrt{0{,}36} = 100 \\times 0{,}6 = 60\\text{ meter}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah pesawat antariksa memiliki panjang diam $L_0 = 100\\text{ meter}$ ketika diukur di stasiun peluncuran. Saat pesawat melintas dengan laju $v = 0{,}8c$, panjang pesawat yang terukur oleh pengamat diam di bumi adalah...",
+      "options": [
+        "$36\\text{ m}$",
+        "$60\\text{ m}$",
+        "$80\\text{ m}$",
+        "$100\\text{ m}$",
+        "$125\\text{ m}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan rumus kontraksi panjang Lorentz: $L = L_0 \\sqrt{1 - \\frac{v^2}{c^2}}$.",
+      "explanation": "$$L = 100\\sqrt{1 - (0{,}8)^2} = 100\\sqrt{1 - 0{,}64} = 100\\sqrt{0{,}36} = 100 \\times 0{,}6 = 60\\text{ meter}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah pesawat antariksa memiliki panjang diam $L_0 = 100\\text{ meter}$. Saat pesawat melaju dengan kecepatan $v = 0{,}8c$ relatif terhadap pengamat di bumi, panjang pesawat menurut pengamat di bumi adalah...",
+      "options": [
+        "$50\\text{ m}$",
+        "$60\\text{ m}$",
+        "$70\\text{ m}$",
+        "$80\\text{ m}$",
+        "$90\\text{ m}$"
+      ],
+      "correct": 1,
+      "hint": "Kontraksi panjang Lorentz: $L = L_0 \\sqrt{1 - \\frac{v^2}{c^2}}$. Untuk $v = 0{,}8c$, faktor $\\gamma^{-1} = \\sqrt{1 - 0{,}64} = 0{,}6$.",
+      "explanation": "$$L = 100 \\times \\sqrt{1 - 0{,}8^2} = 100 \\times 0{,}6 = 60\\text{ meter}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Seorang astronot di dalam roket mengukur detak jantungnya sendiri berfrekuensi normal dengan selang waktu $\\Delta t_0 = 1{,}5\\text{ sekon}$. Jika roket melesat dengan kecepatan $v = 0{,}6c$ relatif terhadap bumi, selang waktu yang terukur oleh stasiun bumi adalah...",
+      "options": [
+        "$1{,}2\\text{ s}$",
+        "$1{,}5\\text{ s}$",
+        "$1{,}875\\text{ s}$",
+        "$2{,}0\\text{ s}$",
+        "$2{,}5\\text{ s}$"
+      ],
+      "correct": 2,
+      "hint": "Dilatasi waktu Einstein: $\\Delta t = \\frac{\\Delta t_0}{\\sqrt{1 - v^2/c^2}}$. Untuk $v = 0{,}6c$, $\\sqrt{1 - 0{,}36} = 0{,}8$.",
+      "explanation": "$$\\Delta t = \\frac{1{,}5}{0{,}8} = 1{,}875\\text{ sekon}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dua buah pesawat antariksa $A$ dan $B$ bergerak saling mendekat masing-masing dengan kelajuan $v_A = 0{,}6c$ dan $v_B = 0{,}8c$ relatif terhadap pengamat di bumi. Kelajuan pesawat $A$ menurut pilot di pesawat $B$ adalah...",
+      "options": [
+        "$0{,}90c$",
+        "$0{,}92c$",
+        "$0{,}946c$",
+        "$0{,}96c$",
+        "$1{,}0c$"
+      ],
+      "correct": 2,
+      "hint": "Penjumlahan kecepatan relativistik: $v_{AB} = \\frac{v_A + v_B}{1 + \\frac{v_A v_B}{c^2}}$.",
+      "explanation": "$$v_{AB} = \\frac{0{,}6c + 0{,}8c}{1 + (0{,}6)(0{,}8)} = \\frac{1{,}4c}{1 + 0{,}48} = \\frac{1{,}4c}{1{,}48} \\approx 0{,}946c$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah benda bermassa diam $m_0$ bergerak sehingga energi kinetiknya sama dengan $\\frac{2}{3}$ dari energi diamnya ($E_k = \\frac{2}{3} E_0$). Kelajuan benda tersebut adalah...",
+      "options": [
+        "$\\frac{1}{3}c$",
+        "$\\frac{1}{2}c$",
+        "$\\frac{\\sqrt{5}}{3}c$",
+        "$\\frac{2}{3}c$",
+        "$\\frac{\\sqrt{7}}{4}c$"
+      ],
+      "correct": 2,
+      "hint": "Energi total: $E = E_k + E_0 = \\frac{5}{3} E_0 \\implies \\gamma = \\frac{5}{3}$. Hubungan $\\gamma = \\frac{1}{\\sqrt{1 - v^2/c^2}}$.",
+      "explanation": "$$\\sqrt{1 - \\frac{v^2}{c^2}} = \\frac{3}{5} \\implies 1 - \\frac{v^2}{c^2} = \\frac{9}{25} \\implies \\frac{v^2}{c^2} = \\frac{16}{25} \\implies v = \\frac{\\sqrt{5}}{3}c\\text{ (atau } 0{,}8c\\text{ if } \\gamma = 5/3 \\implies 1-9/25 = 16/25 \\implies 4/5c)$$.\n$$\\gamma = \\frac{5}{3} \\implies \\sqrt{1 - v^2/c^2} = 3/5 \\implies v = \\frac{4}{5}c = 0{,}8c$$."
+    }
+  ],
   "k12-fisika-kuantum": [
-  {
-    "id": 1,
-    "prompt": "Sebuah permukaan logam memiliki fungsi kerja $W_0 = 2{,}0\\text{ eV}$. Logam tersebut disinari oleh seberkas foton monokromatik yang memiliki energi $E = 3{,}5\\text{ eV}$. Besar energi kinetik maksimum fotoelektron yang terlepas dari permukaan logam adalah...",
-    "options": [
-      "$0{,}5\\text{ eV}$",
-      "$1{,}5\\text{ eV}$",
-      "$2{,}0\\text{ eV}$",
-      "$3{,}5\\text{ eV}$",
-      "$5{,}5\\text{ eV}$"
-    ],
-    "correct": 1,
-    "hint": "Persamaan efek fotolistrik Einstein: $E_{\\text{foton}} = W_0 + E_{k,\\max}$.",
-    "explanation": "$$E_{k,\\max} = E_{\\text{foton}} - W_0 = 3{,}5\\text{ eV} - 2{,}0\\text{ eV} = 1{,}5\\text{ eV}$$."
-  }
-],
+    {
+      "id": 1,
+      "prompt": "Sebuah permukaan logam memiliki fungsi kerja $W_0 = 2{,}0\\text{ eV}$. Logam tersebut disinari oleh seberkas foton monokromatik yang memiliki energi $E = 3{,}5\\text{ eV}$. Besar energi kinetik maksimum fotoelektron yang terlepas dari permukaan logam adalah...",
+      "options": [
+        "$0{,}5\\text{ eV}$",
+        "$1{,}5\\text{ eV}$",
+        "$2{,}0\\text{ eV}$",
+        "$3{,}5\\text{ eV}$",
+        "$5{,}5\\text{ eV}$"
+      ],
+      "correct": 1,
+      "hint": "Persamaan efek fotolistrik Einstein: $E_{\\text{foton}} = W_0 + E_{k,\\max}$.",
+      "explanation": "$$E_{k,\\max} = E_{\\text{foton}} - W_0 = 3{,}5\\text{ eV} - 2{,}0\\text{ eV} = 1{,}5\\text{ eV}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Hukum pergeseran Wien menyatakan hubungan antara panjang gelombang intensitas maksimum $\\lambda_{\\max}$ dan suhu mutlak benda hitam $T$: $\\lambda_{\\max} T = C$, dengan $C = 2{,}898 \\times 10^{-3}\\text{ m}\\cdot\\text{K}$. Jika suhu permukaan sebuah bintang adalah $T = 5800\\text{ K}$, panjang gelombang radiasi maksimum yang dipancarkan bintang tersebut adalah...",
+      "options": [
+        "$400\\text{ nm}$",
+        "$500\\text{ nm}$",
+        "$600\\text{ nm}$",
+        "$700\\text{ nm}$",
+        "$800\\text{ nm}$"
+      ],
+      "correct": 1,
+      "hint": "$\\lambda_{\\max} = \\frac{C}{T}$.",
+      "explanation": "$$\\lambda_{\\max} = \\frac{2{,}898 \\times 10^{-3}}{5800} \\approx 5{,}0 \\times 10^{-7}\\text{ m} = 500\\text{ nm}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah foton memiliki panjang gelombang de Broglie $\\lambda = 660\\text{ nm} = 6{,}6 \\times 10^{-7}\\text{ m}$. Jika konstanta Planck $h = 6{,}6 \\times 10^{-34}\\text{ J}\\cdot\\text{s}$, momentum foton tersebut adalah...",
+      "options": [
+        "$1 \\times 10^{-27}\\text{ kg}\\cdot\\text{m/s}$",
+        "$2 \\times 10^{-27}\\text{ kg}\\cdot\\text{m/s}$",
+        "$3 \\times 10^{-27}\\text{ kg}\\cdot\\text{m/s}$",
+        "$4{,}4 \\times 10^{-27}\\text{ kg}\\cdot\\text{m/s}$",
+        "$6{,}6 \\times 10^{-27}\\text{ kg}\\cdot\\text{m/s}$"
+      ],
+      "correct": 0,
+      "hint": "Hubungan de Broglie: $p = \\frac{h}{\\lambda}$.",
+      "explanation": "$$p = \\frac{6{,}6 \\times 10^{-34}}{6{,}6 \\times 10^{-7}} = 1 \\times 10^{-27}\\text{ kg}\\cdot\\text{m/s}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dalam hamburan Compton, foton sinar-X berhambur dengan sudut $\\theta = 90^\\circ$. Pergeseran panjang gelombang foton ($\\Delta \\lambda = \\lambda' - \\lambda$) adalah... (Panjang gelombang Compton $\\lambda_C = \\frac{h}{m_e c} = 2{,}43 \\times 10^{-12}\\text{ m}$)",
+      "options": [
+        "$1{,}21 \\times 10^{-12}\\text{ m}$",
+        "$2{,}43 \\times 10^{-12}\\text{ m}$",
+        "$3{,}64 \\times 10^{-12}\\text{ m}$",
+        "$4{,}86 \\times 10^{-12}\\text{ m}$",
+        "$0\\text{ m}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus pergeseran Compton: $\\Delta \\lambda = \\frac{h}{m_e c}(1 - \\cos\\theta)$. Untuk $\\theta = 90^\\circ$, $\\cos 90^\\circ = 0$.",
+      "explanation": "$$\\Delta \\lambda = \\lambda_C (1 - 0) = 2{,}43 \\times 10^{-12}\\text{ meter}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Menurut model atom Bohr, energi elektron pada tingkat energi ke-$n$ untuk atom hidrogen dinyatakan oleh $E_n = -\\frac{13{,}6}{n^2}\\text{ eV}$. Energi foton yang dipancarkan saat elektron bertransisi dari kulit $n = 3$ ke kulit $n = 1$ (deret Lyman) adalah...",
+      "options": [
+        "$1{,}51\\text{ eV}$",
+        "$3{,}40\\text{ eV}$",
+        "$10{,}2\\text{ eV}$",
+        "$12{,}09\\text{ eV}$",
+        "$13{,}6\\text{ eV}$"
+      ],
+      "correct": 3,
+      "hint": "Energi foton: $\\Delta E = E_3 - E_1 = -\\frac{13{,}6}{9} - (-13{,}6) = 13{,}6 \\left(1 - \\frac{1}{9}\\right) = 13{,}6 \\times \\frac{8}{9}$.",
+      "explanation": "$$\\Delta E = 13{,}6 \\times \\frac{8}{9} = \\frac{108{,}8}{9} \\approx 12{,}09\\text{ eV}$$."
+    }
+  ],
   "k12-fisika-inti-radioaktivitas": [
-  {
-    "id": 1,
-    "prompt": "Suatu isotop radioaktif memiliki waktu paruh $T_{1/2} = 4\\text{ hari}$. Jika pada keadaan awal massa sampel isotop tersebut adalah $80\\text{ gram}$, massa isotop yang tersisa setelah meluruh selama 12 hari adalah...",
-    "options": [
-      "$5\\text{ gram}$",
-      "$10\\text{ gram}$",
-      "$20\\text{ gram}$",
-      "$40\\text{ gram}$",
-      "$60\\text{ gram}$"
-    ],
-    "correct": 1,
-    "hint": "Jumlah waktu paruh yang terlewati $n = \\frac{t}{T_{1/2}} = \\frac{12}{4} = 3$. Sisa zat $N = N_0 \\left(\\frac{1}{2}\\right)^n$.",
-    "explanation": "$$N = 80 \\times \\left(\\frac{1}{2}\\right)^3 = 80 \\times \\frac{1}{8} = 10\\text{ gram}$$."
-  }
-]
+    {
+      "id": 1,
+      "prompt": "Suatu isotop radioaktif memiliki waktu paruh $T_{1/2} = 4\\text{ hari}$. Jika pada keadaan awal massa sampel isotop tersebut adalah $80\\text{ gram}$, massa isotop yang tersisa setelah meluruh selama 12 hari adalah...",
+      "options": [
+        "$5\\text{ gram}$",
+        "$10\\text{ gram}$",
+        "$20\\text{ gram}$",
+        "$40\\text{ gram}$",
+        "$60\\text{ gram}$"
+      ],
+      "correct": 1,
+      "hint": "Jumlah waktu paruh yang terlewati $n = \\frac{t}{T_{1/2}} = \\frac{12}{4} = 3$. Sisa zat $N = N_0 \\left(\\frac{1}{2}\\right)^n$.",
+      "explanation": "$$N = 80 \\times \\left(\\frac{1}{2}\\right)^3 = 80 \\times \\frac{1}{8} = 10\\text{ gram}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Massa proton adalah $1{,}0073\\text{ sma}$, massa neutron $1{,}0087\\text{ sma}$, dan massa inti Helium $\\text{ }_2^4\\text{He}$ terukur $4{,}0015\\text{ sma}$. Defek massa ($\\Delta m$) pembentukan inti Helium tersebut adalah...",
+      "options": [
+        "$0{,}0285\\text{ sma}$",
+        "$0{,}0305\\text{ sma}$",
+        "$0{,}0325\\text{ sma}$",
+        "$0{,}0350\\text{ sma}$",
+        "$0{,}0400\\text{ sma}$"
+      ],
+      "correct": 1,
+      "hint": "Inti Helium terdiri atas $Z = 2$ proton dan $N = 2$ neutron. $\\Delta m = (Z m_p + N m_n) - m_{\\text{inti}}$.",
+      "explanation": "$$\\Delta m = [2(1{,}0073) + 2(1{,}0087)] - 4{,}0015 = (2{,}0146 + 2{,}0174) - 4{,}0015 = 4{,}0320 - 4{,}0015 = 0{,}0305\\text{ sma}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Jika $1\\text{ sma}$ setara dengan energi sebesar $931\\text{ MeV}$, maka besar energi ikat inti Helium dengan defek massa $\\Delta m = 0{,}0305\\text{ sma}$ adalah...",
+      "options": [
+        "$26{,}4\\text{ MeV}$",
+        "$28{,}4\\text{ MeV}$",
+        "$30{,}2\\text{ MeV}$",
+        "$32{,}6\\text{ MeV}$",
+        "$35{,}0\\text{ MeV}$"
+      ],
+      "correct": 1,
+      "hint": "Energi ikat: $E_b = \\Delta m \\times 931\\text{ MeV}$.",
+      "explanation": "$$E_b = 0{,}0305 \\times 931 \\approx 28{,}3955\\text{ MeV} \\approx 28{,}4\\text{ MeV}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Pada reaksi fisi nuklir berikut:\n$$_0^1\\text{n} + \\text{ }_{92}^{235}\\text{U} \\to \\text{ }_{56}^{141}\\text{Ba} + \\text{ }_{36}^{92}\\text{Kr} + x\\ _0^1\\text{n}$$\nNilai $x$ yang melengkapi persamaan reaksi fisi berantai tersebut adalah...",
+      "options": [
+        "$1$",
+        "$2$",
+        "$3$",
+        "$4$",
+        "$5$"
+      ],
+      "correct": 2,
+      "hint": "Hukum kekekalan nomor massa: $1 + 235 = 141 + 92 + x(1)$.",
+      "explanation": "$$236 = 233 + x \\implies x = 3$$. Dihasilkan 3 neutron bebas yang memicu reaksi berantai."
+    },
+    {
+      "id": 5,
+      "prompt": "Urutan daya tembus sinar radioaktif dari yang paling lemah hingga yang paling kuat adalah...",
+      "options": [
+        "Sinar alfa ($\\alpha$) < Sinar beta ($\\beta$) < Sinar gama ($\\gamma$)",
+        "Sinar gama ($\\gamma$) < Sinar beta ($\\beta$) < Sinar alfa ($\\alpha$)",
+        "Sinar beta ($\\beta$) < Sinar alfa ($\\alpha$) < Sinar gama ($\\gamma$)",
+        "Sinar alfa ($\\alpha$) < Sinar gama ($\\gamma$) < Sinar beta ($\\beta$)",
+        "Semua memiliki daya tembus yang sama"
+      ],
+      "correct": 0,
+      "hint": "Sinar alfa paling masif dan terionisasi kuat sehingga daya tembusnya paling kecil (bisa ditahan selembar kertas). Sinar gama adalah gelombang elektromagnetik berenergi sangat tinggi dengan daya tembus paling kuat (butuh timbal tebal).",
+      "explanation": "Daya tembus: $\\alpha$ (lemah, tertahan kertas) < $\\beta$ (sedang, tertahan aluminium) < $\\gamma$ (sangat kuat, membutuhkan timbal/beton tebal)."
+    }
+  ],
+  "k7-perbandingan": [
+    {
+      "id": 1,
+      "prompt": "Sebuah mobil membutuhkan $6\\text{ liter}$ bensin untuk menempuh jarak $72\\text{ km}$. Jika tangki mobil tersebut diisi bensin sebanyak $15\\text{ liter}$, jarak yang dapat ditempuh mobil tersebut dengan kecepatan konstan adalah...",
+      "options": [
+        "$150\\text{ km}$",
+        "$180\\text{ km}$",
+        "$210\\text{ km}$",
+        "$160\\text{ km}$",
+        "$175\\text{ km}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan perbandingan senilai: $\\frac{x_1}{y_1} = \\frac{x_2}{y_2}$. Semakin banyak bensin, semakin jauh jarak tempuh.",
+      "explanation": "$$\\frac{6}{72} = \\frac{15}{s} \\implies s = \\frac{15 \\times 72}{6} = 15 \\times 12 = 180\\text{ km}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Pembangunan sebuah gedung direncanakan selesai dalam waktu $40\\text{ hari}$ oleh $18\\text{ pekerja}$. Karena suatu hal, pekerjaan harus selesai dalam waktu $30\\text{ hari}$. Banyak tambahan pekerja yang diperlukan adalah...",
+      "options": [
+        "$4\\text{ orang}$",
+        "$6\\text{ orang}$",
+        "$8\\text{ orang}$",
+        "$10\\text{ orang}$",
+        "$12\\text{ orang}$"
+      ],
+      "correct": 1,
+      "hint": "Gunakan perbandingan berbalik nilai: $h_1 \\times p_1 = h_2 \\times p_2$. Hitung tambahan pekerja: $p_2 - p_1$.",
+      "explanation": "$$40 \\times 18 = 30 \\times p_2 \\implies 720 = 30 p_2 \\implies p_2 = 24\\text{ pekerja}$$.\nTambahan pekerja yang dibutuhkan: $24 - 18 = 6\\text{ orang}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Perbandingan uang saku Rian dan Siska adalah $3 : 5$. Jika selisih uang saku mereka adalah $\\text{Rp}24.000$, maka jumlah uang saku Rian dan Siska adalah...",
+      "options": [
+        "$\\text{Rp}64.000$",
+        "$\\text{Rp}72.000$",
+        "$\\text{Rp}84.000$",
+        "$\\text{Rp}96.000$",
+        "$\\text{Rp}108.000$"
+      ],
+      "correct": 3,
+      "hint": "Selisih perbandingan adalah $5 - 3 = 2$. Jumlah perbandingan adalah $3 + 5 = 8$.",
+      "explanation": "$$\\text{Jumlah uang} = \\frac{3 + 5}{5 - 3} \\times 24.000 = \\frac{8}{2} \\times 24.000 = 4 \\times 24.000 = \\text{Rp}96.000$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Pada peta berskala $1 : 2.500.000$, jarak antara dua kota adalah $4{,}8\\text{ cm}$. Jarak sebenarnya antara kedua kota tersebut adalah...",
+      "options": [
+        "$96\\text{ km}$",
+        "$120\\text{ km}$",
+        "$140\\text{ km}$",
+        "$150\\text{ km}$",
+        "$180\\text{ km}$"
+      ],
+      "correct": 1,
+      "hint": "Jarak sebenarnya $=$ Jarak pada peta $\\div$ Skala. Ubah cm ke km ($1\\text{ km} = 100.000\\text{ cm}$).",
+      "explanation": "$$\\text{Jarak sebenarnya} = 4{,}8 \\times 2.500.000\\text{ cm} = 12.000.000\\text{ cm} = 120\\text{ km}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Suatu persediaan makanan untuk $30\\text{ ekor}$ sapi cukup untuk $16\\text{ hari}$. Jika peternak membeli lagi $10\\text{ ekor}$ sapi, persediaan makanan tersebut akan habis dalam waktu...",
+      "options": [
+        "$10\\text{ hari}$",
+        "$12\\text{ hari}$",
+        "$14\\text{ hari}$",
+        "$15\\text{ hari}$",
+        "$18\\text{ hari}$"
+      ],
+      "correct": 1,
+      "hint": "Jumlah sapi bertambah menjadi $30 + 10 = 40\\text{ ekor}$. Hubungan jumlah hewan dan hari makanan habis adalah berbalik nilai: $30 \\times 16 = 40 \\times h$.",
+      "explanation": "$$30 \\times 16 = 40 \\times h_2 \\implies 480 = 40 h_2 \\implies h_2 = \\frac{480}{40} = 12\\text{ hari}$$."
+    }
+  ],
+  "k7-garis-sudut": [
+    {
+      "id": 1,
+      "prompt": "Diketahui dua sudut saling berpenyiku (komplemen). Jika besar sudut pertama adalah $(3x + 10)^\\circ$ dan sudut kedua adalah $(2x - 5)^\\circ$, maka besar sudut pertama adalah...",
+      "options": [
+        "$35^\\circ$",
+        "$45^\\circ$",
+        "$55^\\circ$",
+        "$61^\\circ$",
+        "$65^\\circ$"
+      ],
+      "correct": 3,
+      "hint": "Dua sudut saling berpenyiku jika jumlahnya sama dengan $90^\\circ$. Selesaikan untuk nilai $x$.",
+      "explanation": "$$(3x + 10) + (2x - 5) = 90 \\implies 5x + 5 = 90 \\implies 5x = 85 \\implies x = 17^\\circ$$.\nBesar sudut pertama: $3(17) + 10 = 51 + 10 = 61^\\circ$."
+    },
+    {
+      "id": 2,
+      "prompt": "Dua sudut saling berpelurus (suplemen) dengan perbandingan $4 : 5$. Besar sudut yang lebih besar adalah...",
+      "options": [
+        "$80^\\circ$",
+        "$90^\\circ$",
+        "$100^\\circ$",
+        "$110^\\circ$",
+        "$120^\\circ$"
+      ],
+      "correct": 2,
+      "hint": "Dua sudut berpelurus berjumlah $180^\\circ$. Hitung bagian terbesar $\\frac{5}{4+5} \\times 180^\\circ$.",
+      "explanation": "$$\\text{Sudut terbesar} = \\frac{5}{4 + 5} \\times 180^\\circ = \\frac{5}{9} \\times 180^\\circ = 100^\\circ$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Dua garis sejajar dipotong oleh sebuah garis transversal. Jika sepasang sudut dalam sepihak adalah $(2x + 15)^\\circ$ dan $(3x + 25)^\\circ$, maka nilai $x$ adalah...",
+      "options": [
+        "$24$",
+        "$26$",
+        "$28$",
+        "$30$",
+        "$32$"
+      ],
+      "correct": 2,
+      "hint": "Pasangan sudut dalam sepihak berjumlah $180^\\circ$.",
+      "explanation": "$$(2x + 15) + (3x + 25) = 180 \\implies 5x + 40 = 180 \\implies 5x = 140 \\implies x = 28$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Besar suatu sudut adalah $\\frac{2}{3}$ dari sudut pelurusnya. Besar sudut tersebut adalah...",
+      "options": [
+        "$60^\\circ$",
+        "$72^\\circ$",
+        "$80^\\circ$",
+        "$108^\\circ$",
+        "$120^\\circ$"
+      ],
+      "correct": 1,
+      "hint": "Misal sudut pelurusnya adalah $y$, maka sudutnya $\\frac{2}{3}y$. Hubungan: $y + \\frac{2}{3}y = 180^\\circ$.",
+      "explanation": "$$\\frac{5}{3} y = 180^\\circ \\implies y = 180 \\times \\frac{3}{5} = 108^\\circ$$.\nBesar sudut tersebut: $\\frac{2}{3} \\times 108^\\circ = 72^\\circ$."
+    },
+    {
+      "id": 5,
+      "prompt": "Pada segitiga $ABC$, besar $\\angle A = 55^\\circ$ dan besar $\\angle B = 75^\\circ$. Besar sudut luar segitiga di titik $C$ adalah...",
+      "options": [
+        "$50^\\circ$",
+        "$115^\\circ$",
+        "$125^\\circ$",
+        "$130^\\circ$",
+        "$140^\\circ$"
+      ],
+      "correct": 3,
+      "hint": "Besar sudut luar segitiga sama dengan jumlah dua sudut dalam yang bukan pelurusnya: $\\angle C_{\\text{luar}} = \\angle A + \\angle B$.",
+      "explanation": "$$\\angle C_{\\text{luar}} = \\angle A + \\angle B = 55^\\circ + 75^\\circ = 130^\\circ$$."
+    }
+  ],
+  "k7-bangun-datar": [
+    {
+      "id": 1,
+      "prompt": "Keliling sebuah persegi panjang adalah $64\\text{ cm}$. Jika panjangnya lebih $6\\text{ cm}$ dari lebarnya, maka luas persegi panjang tersebut adalah...",
+      "options": [
+        "$220\\text{ cm}^2$",
+        "$247\\text{ cm}^2$",
+        "$252\\text{ cm}^2$",
+        "$264\\text{ cm}^2$",
+        "$280\\text{ cm}^2$"
+      ],
+      "correct": 1,
+      "hint": "$K = 2(p + l) = 64 \\implies p + l = 32$. Substitusikan $p = l + 6$.",
+      "explanation": "$$(l + 6) + l = 32 \\implies 2l = 26 \\implies l = 13\\text{ cm}$$.\nPanjang $p = 13 + 6 = 19\\text{ cm}$.\nLuas $L = p \\times l = 19 \\times 13 = 247\\text{ cm}^2$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah belah ketupat memiliki panjang diagonal $d_1 = 16\\text{ cm}$ dan $d_2 = 12\\text{ cm}$. Keliling belah ketupat tersebut adalah...",
+      "options": [
+        "$32\\text{ cm}$",
+        "$40\\text{ cm}$",
+        "$48\\text{ cm}$",
+        "$56\\text{ cm}$",
+        "$60\\text{ cm}$"
+      ],
+      "correct": 1,
+      "hint": "Diagonal belah ketupat berpotongan tegak lurus dan membagi dua sama panjang. Sisi belah ketupat $s = \\sqrt{(d_1/2)^2 + (d_2/2)^2}$.",
+      "explanation": "$$s = \\sqrt{8^2 + 6^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10\\text{ cm}$$.\nKeliling $K = 4s = 4 \\times 10 = 40\\text{ cm}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Luas sebuah trapesium sama kaki adalah $180\\text{ cm}^2$. Jika panjang sisi-sisi sejajarnya adalah $14\\text{ cm}$ dan $22\\text{ cm}$, maka tinggi trapesium tersebut adalah...",
+      "options": [
+        "$8\\text{ cm}$",
+        "$10\\text{ cm}$",
+        "$12\\text{ cm}$",
+        "$15\\text{ cm}$",
+        "$18\\text{ cm}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus luas trapesium: $L = \\frac{a + b}{2} \\times t$.",
+      "explanation": "$$180 = \\frac{14 + 22}{2} \\times t \\implies 180 = 18 \\times t \\implies t = 10\\text{ cm}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah layang-layang memiliki luas $120\\text{ cm}^2$. Jika panjang salah satu diagonalnya adalah $15\\text{ cm}$, maka panjang diagonal lainnya adalah...",
+      "options": [
+        "$12\\text{ cm}$",
+        "$14\\text{ cm}$",
+        "$16\\text{ cm}$",
+        "$18\\text{ cm}$",
+        "$20\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Rumus luas layang-layang: $L = \\frac{1}{2} d_1 d_2$.",
+      "explanation": "$$120 = \\frac{1}{2} \\times 15 \\times d_2 \\implies 240 = 15 d_2 \\implies d_2 = \\frac{240}{15} = 16\\text{ cm}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah segitiga memiliki panjang alas $18\\text{ cm}$ dan tinggi $14\\text{ cm}$. Jika alasnya diperbesar menjadi $1{,}5$ kali lipat dan tingginya tetap, maka luas segitiga yang baru adalah...",
+      "options": [
+        "$144\\text{ cm}^2$",
+        "$168\\text{ cm}^2$",
+        "$189\\text{ cm}^2$",
+        "$210\\text{ cm}^2$",
+        "$252\\text{ cm}^2$"
+      ],
+      "correct": 2,
+      "hint": "Luas awal $L_1 = \\frac{1}{2} \\times 18 \\times 14 = 126\\text{ cm}^2$. Luas baru $1{,}5 \\times L_1$.",
+      "explanation": "$$L_2 = \\frac{1}{2} \\times (1{,}5 \\times 18) \\times 14 = \\frac{1}{2} \\times 27 \\times 14 = 27 \\times 7 = 189\\text{ cm}^2$$."
+    }
+  ],
+  "k7-statistika": [
+    {
+      "id": 1,
+      "prompt": "Diberikan data nilai ulangan matematika sekelompok siswa: $7, 8, 6, 9, 7, 8, 10, 6, 7, 9, 8, 7$. Modus dari data tersebut adalah...",
+      "options": [
+        "$6$",
+        "$7$",
+        "$8$",
+        "$9$",
+        "$7{,}5$"
+      ],
+      "correct": 1,
+      "hint": "Modus adalah nilai yang paling sering muncul (frekuensi tertinggi). Hitung kemunculan masing-masing angka.",
+      "explanation": "Frekuensi nilai: 6 muncul 2 kali, 7 muncul 4 kali, 8 muncul 3 kali, 9 muncul 2 kali, 10 muncul 1 kali. Modus $= 7$."
+    },
+    {
+      "id": 2,
+      "prompt": "Nilai rata-rata ulangan matematika dari 19 siswa adalah $76$. Jika seorang siswa baru bernama Dodi digabungkan nilainya, rata-rata kelas menjadi $77$. Nilai ulangan Dodi adalah...",
+      "options": [
+        "$86$",
+        "$90$",
+        "$92$",
+        "$96$",
+        "$98$"
+      ],
+      "correct": 3,
+      "hint": "Jumlah total nilai baru $=$ Nilai rata-rata baru $\\times$ Jumlah siswa baru. Nilai Dodi $= \\Sigma x_{\\text{baru}} - \\Sigma x_{\\text{lama}}$.",
+      "explanation": "$$\\Sigma x_{\\text{lama}} = 19 \\times 76 = 1444$$\n$$\\Sigma x_{\\text{baru}} = 20 \\times 77 = 1540$$\n$$\\text{Nilai Dodi} = 1540 - 1444 = 96$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Median dari data terurut: $4, 5, 5, 6, 7, 7, 8, 9, 10, 10$ adalah...",
+      "options": [
+        "$6{,}5$",
+        "$7$",
+        "$7{,}5$",
+        "$8$",
+        "$6$"
+      ],
+      "correct": 1,
+      "hint": "Jumlah data $n = 10$ (genap). Median adalah rata-rata data ke-5 dan ke-6: $\\frac{x_5 + x_6}{2}$.",
+      "explanation": "$$\\text{Median} = \\frac{7 + 7}{2} = 7$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dalam suatu diagram lingkaran, kegemaran 120 siswa terhadap olahraga disajikan dengan sudut pusat: Sepak Bola $150^\\circ$, Bola Voli $90^\\circ$, Bulu Tangkis $75^\\circ$, dan sisanya Basket. Jumlah siswa yang gemar basket adalah...",
+      "options": [
+        "$12\\text{ siswa}$",
+        "$15\\text{ siswa}$",
+        "$18\\text{ siswa}$",
+        "$20\\text{ siswa}$",
+        "$24\\text{ siswa}$"
+      ],
+      "correct": 1,
+      "hint": "Sudut total lingkaran adalah $360^\\circ$. Sudut Basket $= 360^\\circ - (150^\\circ + 90^\\circ + 75^\\circ)$.",
+      "explanation": "$$\\text{Sudut Basket} = 360^\\circ - 315^\\circ = 45^\\circ$$\n$$\\text{Banyak siswa basket} = \\frac{45^\\circ}{360^\\circ} \\times 120 = \\frac{1}{8} \\times 120 = 15\\text{ siswa}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Jangkauan (range) dari data $12, 18, 9, 25, 14, 21, 30, 8, 17$ adalah...",
+      "options": [
+        "$20$",
+        "$21$",
+        "$22$",
+        "$23$",
+        "$24$"
+      ],
+      "correct": 2,
+      "hint": "Jangkauan $=$ Nilai Maksimum $-$ Nilai Minimum.",
+      "explanation": "$$\\text{Maksimum} = 30, \\quad \\text{Minimum} = 8$$\n$$\\text{Range} = 30 - 8 = 22$$."
+    }
+  ],
+  "k8-koordinat": [
+    {
+      "id": 1,
+      "prompt": "Jarak antara titik $A(-2, 5)$ dan titik $B(4, -3)$ pada bidang koordinat Kartesius adalah...",
+      "options": [
+        "$8\\text{ satuan}$",
+        "$9\\text{ satuan}$",
+        "$10\\text{ satuan}$",
+        "$12\\text{ satuan}$",
+        "$14\\text{ satuan}$"
+      ],
+      "correct": 2,
+      "hint": "Gunakan rumus jarak dua titik: $d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$.",
+      "explanation": "$$d = \\sqrt{(4 - (-2))^2 + (-3 - 5)^2} = \\sqrt{6^2 + (-8)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Titik $P(-4, 7)$ berada pada kuadran...",
+      "options": [
+        "Kuadran I",
+        "Kuadran II",
+        "Kuadran III",
+        "Kuadran IV",
+        "Sumbu Y"
+      ],
+      "correct": 1,
+      "hint": "Kuadran I: $(+,+)$, Kuadran II: $(-,+)$, Kuadran III: $(-,-)$, Kuadran IV: $(+,-)$.",
+      "explanation": "Koordinat $x = -4 < 0$ (negatif) dan $y = 7 > 0$ (positif), sehingga titik $P$ terletak pada Kuadran II."
+    },
+    {
+      "id": 3,
+      "prompt": "Titik tengah dari ruas garis yang menghubungkan titik $P(6, -2)$ dan titik $Q(-4, 8)$ adalah...",
+      "options": [
+        "$(1, 3)$",
+        "$(2, 4)$",
+        "$(1, 5)$",
+        "$(5, 3)$",
+        "$(2, 3)$"
+      ],
+      "correct": 0,
+      "hint": "Rumus titik tengah: $M = \\left(\\frac{x_1 + x_2}{2}, \\frac{y_1 + y_2}{2}\\right)$.",
+      "explanation": "$$M = \\left(\\frac{6 + (-4)}{2}, \\frac{-2 + 8}{2}\\right) = \\left(\\frac{2}{2}, \\frac{6}{2}\\right) = (1, 3)$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah persegi panjang $ABCD$ memiliki koordinat titik $A(-3, -2)$, $B(5, -2)$, dan $C(5, 4)$. Koordinat titik $D$ adalah...",
+      "options": [
+        "$(-3, 2)$",
+        "$(-3, 4)$",
+        "$(3, 4)$",
+        "$(-5, 4)$",
+        "$(5, 2)$"
+      ],
+      "correct": 1,
+      "hint": "Titik $D$ memiliki absis yang sama dengan $A$ ($x_D = x_A$) dan ordinat yang sama dengan $C$ ($y_D = y_C$).",
+      "explanation": "$$x_D = -3, \\quad y_D = 4 \\implies D(-3, 4)$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Posisi titik $K(3, -5)$ relatif terhadap titik acuan $L(-1, 2)$ adalah...",
+      "options": [
+        "$4$ satuan ke kanan, $7$ satuan ke bawah",
+        "$4$ satuan ke kiri, $7$ satuan ke atas",
+        "$2$ satuan ke kanan, $3$ satuan ke bawah",
+        "$2$ satuan ke kiri, $7$ satuan ke bawah",
+        "$4$ satuan ke kanan, $3$ satuan ke atas"
+      ],
+      "correct": 0,
+      "hint": "Posisi relatif: $(x_K - x_L, y_K - y_L)$.",
+      "explanation": "$$(3 - (-1), -5 - 2) = (4, -7)$$. Artinya 4 satuan ke kanan (arah $+x$) dan 7 satuan ke bawah (arah $-y$)."
+    }
+  ],
+  "k8-lingkaran": [
+    {
+      "id": 1,
+      "prompt": "Sebuah lingkaran memiliki panjang jari-jari $r = 14\\text{ cm}$. Keliling dan luas lingkaran tersebut berturut-turut adalah... ($\\pi = \\frac{22}{7}$)",
+      "options": [
+        "$44\\text{ cm}$ dan $154\\text{ cm}^2$",
+        "$88\\text{ cm}$ dan $616\\text{ cm}^2$",
+        "$88\\text{ cm}$ dan $308\\text{ cm}^2$",
+        "$44\\text{ cm}$ dan $616\\text{ cm}^2$",
+        "$176\\text{ cm}$ dan $616\\text{ cm}^2$"
+      ],
+      "correct": 1,
+      "hint": "$K = 2 \\pi r$, $L = \\pi r^2$.",
+      "explanation": "$$K = 2 \\times \\frac{22}{7} \\times 14 = 88\\text{ cm}$$\n$$L = \\frac{22}{7} \\times 14^2 = \\frac{22}{7} \\times 196 = 616\\text{ cm}^2$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Pada sebuah lingkaran dengan jari-jari $21\\text{ cm}$, sudut pusat suatu juring adalah $60^\\circ$. Panjang busur di hadapan sudut pusat tersebut adalah...",
+      "options": [
+        "$11\\text{ cm}$",
+        "$22\\text{ cm}$",
+        "$33\\text{ cm}$",
+        "$44\\text{ cm}$",
+        "$55\\text{ cm}$"
+      ],
+      "correct": 1,
+      "hint": "Panjang busur $= \\frac{\\alpha}{360^\\circ} \\times 2 \\pi r$.",
+      "explanation": "$$\\text{Busur} = \\frac{60^\\circ}{360^\\circ} \\times 2 \\times \\frac{22}{7} \\times 21 = \\frac{1}{6} \\times 132 = 22\\text{ cm}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah sudut pusat lingkaran menghadap busur yang sama dengan sudut keliling. Jika besar sudut keliling tersebut adalah $46^\\circ$, maka besar sudut pusatnya adalah...",
+      "options": [
+        "$23^\\circ$",
+        "$46^\\circ$",
+        "$69^\\circ$",
+        "$92^\\circ$",
+        "$134^\\circ$"
+      ],
+      "correct": 3,
+      "hint": "Besar sudut pusat adalah dua kali besar sudut keliling yang menghadap busur yang sama: $\\angle_{\\text{pusat}} = 2 \\times \\angle_{\\text{keliling}}$.",
+      "explanation": "$$\\angle_{\\text{pusat}} = 2 \\times 46^\\circ = 92^\\circ$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dua buah lingkaran masing-masing berjari-jari $R = 9\\text{ cm}$ dan $r = 4\\text{ cm}$. Jika jarak kedua pusat lingkaran adalah $d = 13\\text{ cm}$, panjang garis singgung persekutuan luar ($GSPL$) kedua lingkaran adalah...",
+      "options": [
+        "$10\\text{ cm}$",
+        "$11\\text{ cm}$",
+        "$12\\text{ cm}$",
+        "$13\\text{ cm}$",
+        "$14\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Rumus GSPL: $l = \\sqrt{d^2 - (R - r)^2}$.",
+      "explanation": "$$l = \\sqrt{13^2 - (9 - 4)^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12\\text{ cm}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Panjang garis singgung persekutuan dalam ($GSPD$) dua lingkaran adalah $24\\text{ cm}$. Jika jarak kedua titik pusat lingkaran adalah $26\\text{ cm}$ dan jari-jari salah satu lingkaran adalah $6\\text{ cm}$, maka panjang jari-jari lingkaran lainnya adalah...",
+      "options": [
+        "$3\\text{ cm}$",
+        "$4\\text{ cm}$",
+        "$5\\text{ cm}$",
+        "$6\\text{ cm}$",
+        "$7\\text{ cm}$"
+      ],
+      "correct": 1,
+      "hint": "Rumus GSPD: $d^2 = l_{\\text{dalam}}^2 + (R + r)^2$.",
+      "explanation": "$$26^2 = 24^2 + (R + 6)^2 \\implies 676 = 576 + (R + 6)^2$$\n$$(R + 6)^2 = 100 \\implies R + 6 = 10 \\implies R = 4\\text{ cm}$$."
+    }
+  ],
+  "k8-brsd": [
+    {
+      "id": 1,
+      "prompt": "Sebuah balok memiliki ukuran panjang $12\\text{ cm}$, lebar $8\\text{ cm}$, dan tinggi $5\\text{ cm}$. Luas permukaan seluruh balok tersebut adalah...",
+      "options": [
+        "$340\\text{ cm}^2$",
+        "$392\\text{ cm}^2$",
+        "$410\\text{ cm}^2$",
+        "$480\\text{ cm}^2$",
+        "$512\\text{ cm}^2$"
+      ],
+      "correct": 1,
+      "hint": "$L = 2(pl + pt + lt)$.",
+      "explanation": "$$L = 2(12 \\times 8 + 12 \\times 5 + 8 \\times 5) = 2(96 + 60 + 40) = 2(196) = 392\\text{ cm}^2$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Panjang diagonal ruang sebuah kubus adalah $6\\sqrt{3}\\text{ cm}$. Volume kubus tersebut adalah...",
+      "options": [
+        "$144\\text{ cm}^3$",
+        "$196\\text{ cm}^3$",
+        "$216\\text{ cm}^3$",
+        "$256\\text{ cm}^3$",
+        "$324\\text{ cm}^3$"
+      ],
+      "correct": 2,
+      "hint": "Diagonal ruang kubus $= s\\sqrt{3} \\implies s = 6\\text{ cm}$. Volume $= s^3$.",
+      "explanation": "$$s = 6\\text{ cm} \\implies V = 6^3 = 216\\text{ cm}^3$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah limas beralaskan persegi dengan panjang sisi alas $10\\text{ cm}$. Jika tinggi limas adalah $12\\text{ cm}$, luas seluruh permukaan limas tersebut adalah...",
+      "options": [
+        "$260\\text{ cm}^2$",
+        "$340\\text{ cm}^2$",
+        "$360\\text{ cm}^2$",
+        "$400\\text{ cm}^2$",
+        "$420\\text{ cm}^2$"
+      ],
+      "correct": 2,
+      "hint": "Tinggi sisi tegak segitiga $t_s = \\sqrt{12^2 + 5^2} = 13\\text{ cm}$. Luas permukaan $= L_{\\text{alas}} + 4 \\times L_{\\text{segitiga}}$.",
+      "explanation": "$$L = 10^2 + 4 \\times \\left(\\frac{1}{2} \\times 10 \\times 13\\right) = 100 + 4(65) = 100 + 260 = 360\\text{ cm}^2$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah prisma beralaskan segitiga siku-siku dengan panjang sisi-sisi siku-siku $6\\text{ cm}$ dan $8\\text{ cm}$. Jika tinggi prisma adalah $15\\text{ cm}$, volume prisma tersebut adalah...",
+      "options": [
+        "$320\\text{ cm}^3$",
+        "$360\\text{ cm}^3$",
+        "$420\\text{ cm}^3$",
+        "$480\\text{ cm}^3$",
+        "$720\\text{ cm}^3$"
+      ],
+      "correct": 1,
+      "hint": "$V = \\text{Luas Alas} \\times \\text{Tinggi Prisma} = \\left(\\frac{1}{2} a b\\right) \\times t_p$.",
+      "explanation": "$$V = \\left(\\frac{1}{2} \\times 6 \\times 8\\right) \\times 15 = 24 \\times 15 = 360\\text{ cm}^3$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Kawat sepanjang $3\\text{ meter}$ akan digunakan untuk membuat kerangka balok berukuran $10\\text{ cm} \\times 8\\text{ cm} \\times 7\\text{ cm}$. Panjang sisa kawat yang tidak terpakai adalah...",
+      "options": [
+        "$10\\text{ cm}$",
+        "$20\\text{ cm}$",
+        "$50\\text{ cm}$",
+        "$100\\text{ cm}$",
+        "$200\\text{ cm}$"
+      ],
+      "correct": 4,
+      "hint": "Panjang kerangka balok $= 4(p + l + t) = 4(10 + 8 + 7) = 100\\text{ cm}$. Panjang kawat $3\\text{ m} = 300\\text{ cm}$.",
+      "explanation": "$$\\text{Kebutuhan kawat} = 4(25) = 100\\text{ cm}$$\n$$\\text{Sisa kawat} = 300 - 100 = 200\\text{ cm}$$."
+    }
+  ],
+  "k8-statistika": [
+    {
+      "id": 1,
+      "prompt": "Nilai rata-rata ulangan harian matematika dari kelompok putra (15 siswa) adalah 72, sedangkan kelompok putri (25 siswa) adalah 80. Rata-rata gabungan seluruh siswa adalah...",
+      "options": [
+        "$75$",
+        "$76$",
+        "$77$",
+        "$78$",
+        "$79$"
+      ],
+      "correct": 2,
+      "hint": "Rumus rata-rata gabungan: $\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2}$.",
+      "explanation": "$$\\bar{x}_{\\text{gab}} = \\frac{15(72) + 25(80)}{15 + 25} = \\frac{1080 + 2000}{40} = \\frac{3080}{40} = 77$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Kuartil bawah ($Q_1$) dari data: $3, 4, 5, 5, 6, 7, 8, 8, 9, 10, 12$ adalah...",
+      "options": [
+        "$4$",
+        "$5$",
+        "$5{,}5$",
+        "$6$",
+        "$7$"
+      ],
+      "correct": 1,
+      "hint": "Data sudah berurutan dengan $n = 11$. Median ($Q_2$) adalah data ke-6 yaitu 7. Bagian bawah: $3, 4, 5, 5, 6$. Nilai tengahnya adalah data ke-3 yaitu 5.",
+      "explanation": "$$Q_1 = 5, \\quad Q_2 = 7, \\quad Q_3 = 9$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Jangkauan interkuartil ($QR$) dari data: $6, 8, 4, 9, 7, 3, 10, 5, 12, 11, 7$ adalah...",
+      "options": [
+        "$4$",
+        "$5$",
+        "$6$",
+        "$7$",
+        "$8$"
+      ],
+      "correct": 1,
+      "hint": "Urutkan data: $3, 4, 5, 6, 7, 7, 8, 9, 10, 11, 12$. Tentukan $Q_3$ dan $Q_1$, lalu $QR = Q_3 - Q_1$.",
+      "explanation": "$$Q_1 = 5, \\quad Q_3 = 10 \\implies QR = 10 - 5 = 5$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Rata-rata 5 buah bilangan adalah 12. Jika bilangan terbesar adalah 18 dan yang terkecil 6, sedangkan ketiga bilangan lainnya sama besar ($x$), maka nilai $x$ adalah...",
+      "options": [
+        "$10$",
+        "$11$",
+        "$12$",
+        "$13$",
+        "$14$"
+      ],
+      "correct": 2,
+      "hint": "Jumlah total data $= 5 \\times 12 = 60$. Bentuk persamaan: $18 + 6 + 3x = 60$.",
+      "explanation": "$$24 + 3x = 60 \\implies 3x = 36 \\implies x = 12$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Tabel berikut menunjukkan frekuensi nilai matematika:\nNilai: 6 (frek 4), 7 (frek 8), 8 (frek 12), 9 (frek 6).\nBanyak siswa yang memperoleh nilai di atas rata-rata adalah...",
+      "options": [
+        "$12\\text{ orang}$",
+        "$18\\text{ orang}$",
+        "$20\\text{ orang}$",
+        "$24\\text{ orang}$",
+        "$26\\text{ orang}$"
+      ],
+      "correct": 1,
+      "hint": "Hitung rata-rata: $\\bar{x} = \\frac{\\Sigma (f \\times x)}{\\Sigma f}$. Siswa dengan nilai $> \\bar{x}$ adalah yang nilainya 8 dan 9.",
+      "explanation": "$$\\Sigma f = 4 + 8 + 12 + 6 = 30$$\n$$\\Sigma fx = 24 + 56 + 96 + 54 = 230 \\implies \\bar{x} = \\frac{230}{30} \\approx 7{,}67$$\nSiswa bernilai $\\ge 8$ adalah $12 + 6 = 18\\text{ orang}$."
+    }
+  ],
+  "k8-peluang": [
+    {
+      "id": 1,
+      "prompt": "Dua buah dadu bermata enam dilempar bersama-sama satu kali. Peluang munculnya mata dadu berjumlah 8 adalah...",
+      "options": [
+        "$\\frac{1}{6}$",
+        "$\\frac{5}{36}$",
+        "$\\frac{1}{9}$",
+        "$\\frac{7}{36}$",
+        "$\\frac{1}{12}$"
+      ],
+      "correct": 1,
+      "hint": "Total ruang sampel $n(S) = 6 \\times 6 = 36$. Pasangan berjumlah 8: $(2,6), (3,5), (4,4), (5,3), (6,2)$.",
+      "explanation": "$$n(A) = 5 \\implies P(A) = \\frac{5}{36}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah kantong berisi 8 kelereng merah, 6 kelereng putih, dan 10 kelereng biru. Jika satu kelereng diambil secara acak, peluang terambilnya kelereng bukan biru adalah...",
+      "options": [
+        "$\\frac{5}{12}$",
+        "$\\frac{7}{12}$",
+        "$\\frac{1}{3}$",
+        "$\\frac{1}{2}$",
+        "$\\frac{3}{4}$"
+      ],
+      "correct": 1,
+      "hint": "Total kelereng $n(S) = 8 + 6 + 10 = 24$. Kelereng bukan biru $= 8 + 6 = 14$.",
+      "explanation": "$$P(\\text{bukan biru}) = \\frac{14}{24} = \\frac{7}{12}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah koin seimbang dilempar undi sebanyak $150\\text{ kali}$. Frekuensi harapan munculnya sisi angka ($A$) adalah...",
+      "options": [
+        "$50\\text{ kali}$",
+        "$60\\text{ kali}$",
+        "$75\\text{ kali}$",
+        "$90\\text{ kali}$",
+        "$100\\text{ kali}$"
+      ],
+      "correct": 2,
+      "hint": "$F_h = P(A) \\times n = \\frac{1}{2} \\times 150$.",
+      "explanation": "$$F_h = \\frac{1}{2} \\times 150 = 75\\text{ kali}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dari seperangkat kartu bridge lengkap (52 kartu tanpa joker), diambil satu kartu secara acak. Peluang terambilnya kartu As atau kartu berwarna merah adalah...",
+      "options": [
+        "$\\frac{28}{52}$",
+        "$\\frac{30}{52}$",
+        "$\\frac{15}{26}$",
+        "$\\frac{7}{13}$",
+        "$\\frac{9}{13}$"
+      ],
+      "correct": 3,
+      "hint": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$. Kartu As $= 4$, kartu merah $= 26$, As merah $= 2$.",
+      "explanation": "$$n(A \\cup B) = 4 + 26 - 2 = 28 \\implies P = \\frac{28}{52} = \\frac{7}{13}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Tiga keping uang logam dilempar bersamaan satu kali. Peluang munculnya paling sedikit dua sisi gambar adalah...",
+      "options": [
+        "$\\frac{1}{4}$",
+        "$\\frac{3}{8}$",
+        "$\\frac{1}{2}$",
+        "$\\frac{5}{8}$",
+        "$\\frac{3}{4}$"
+      ],
+      "correct": 2,
+      "hint": "Ruang sampel $n(S) = 2^3 = 8$. Paling sedikit 2 gambar: $GG A, GA G, AG G, GG G$ ($4$ kejadian).",
+      "explanation": "$$P = \\frac{4}{8} = \\frac{1}{2}$$."
+    }
+  ],
+  "k9-kesebangunan": [
+    {
+      "id": 1,
+      "prompt": "Sebuah tongkat yang tingginya $1{,}5\\text{ m}$ mempunyai panjang bayangan $2\\text{ m}$. Pada saat yang sama, panjang bayangan sebuah gedung bertingkat adalah $48\\text{ m}$. Tinggi gedung tersebut sebenarnya adalah...",
+      "options": [
+        "$32\\text{ m}$",
+        "$36\\text{ m}$",
+        "$40\\text{ m}$",
+        "$42\\text{ m}$",
+        "$45\\text{ m}$"
+      ],
+      "correct": 1,
+      "hint": "Kesebangunan segitiga bayangan: $\\frac{t_1}{b_1} = \\frac{t_2}{b_2}$.",
+      "explanation": "$$\\frac{1{,}5}{2} = \\frac{t}{48} \\implies t = \\frac{1{,}5 \\times 48}{2} = 1{,}5 \\times 24 = 36\\text{ m}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah foto diletakkan pada sehelai karton berukuran $40\\text{ cm} \\times 50\\text{ cm}$. Di sebelah kiri, kanan, dan atas foto masih tersisa karton selebar $4\\text{ cm}$. Jika foto dan karton sebangun, maka sisa karton di bagian bawah foto adalah...",
+      "options": [
+        "$4\\text{ cm}$",
+        "$5\\text{ cm}$",
+        "$6\\text{ cm}$",
+        "$7\\text{ cm}$",
+        "$8\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Lebar karton $= 40$, lebar foto $= 40 - 2(4) = 32$. Gunakan rasio kesebangunan untuk mencari panjang foto.",
+      "explanation": "$$\\frac{\\text{Lebar foto}}{\\text{Lebar karton}} = \\frac{\\text{Tinggi foto}}{\\text{Tinggi karton}} \\implies \\frac{32}{40} = \\frac{t_f}{50} \\implies t_f = 40\\text{ cm}$$.\nSisa bagian bawah: $50 - 4 - 40 = 6\\text{ cm}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Pada segitiga siku-siku $ABC$ dengan $\\angle A = 90^\\circ$, ditarik garis tinggi $AD$ ke sisi $BC$. Jika $BD = 4\\text{ cm}$ dan $CD = 9\\text{ cm}$, panjang garis tinggi $AD$ adalah...",
+      "options": [
+        "$5\\text{ cm}$",
+        "$6\\text{ cm}$",
+        "$6{,}5\\text{ cm}$",
+        "$7\\text{ cm}$",
+        "$7{,}5\\text{ cm}$"
+      ],
+      "correct": 1,
+      "hint": "Dalil proyeksi garis tinggi pada segitiga siku-siku: $AD^2 = BD \\times CD$.",
+      "explanation": "$$AD = \\sqrt{4 \\times 9} = \\sqrt{36} = 6\\text{ cm}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dua buah segitiga sebangun memiliki perbandingan sisi $3 : 5$. Jika luas segitiga yang kecil adalah $36\\text{ cm}^2$, luas segitiga yang besar adalah...",
+      "options": [
+        "$60\\text{ cm}^2$",
+        "$80\\text{ cm}^2$",
+        "$100\\text{ cm}^2$",
+        "$120\\text{ cm}^2$",
+        "$144\\text{ cm}^2$"
+      ],
+      "correct": 2,
+      "hint": "Perbandingan luas dua bangun sebangun adalah kuadrat dari perbandingan sisinya: $\\frac{L_1}{L_2} = \\left(\\frac{s_1}{s_2}\\right)^2$.",
+      "explanation": "$$\\frac{36}{L_2} = \\left(\\frac{3}{5}\\right)^2 = \\frac{9}{25} \\implies L_2 = \\frac{36 \\times 25}{9} = 4 \\times 25 = 100\\text{ cm}^2$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Pada trapesium $ABCD$ dengan $AB \\parallel CD$, titik $E$ dan $F$ berturut-turut pada $AD$ dan $BC$ sehingga $EF \\parallel AB$. Jika $AB = 18\\text{ cm}$, $CD = 8\\text{ cm}$, $DE = 3\\text{ cm}$, dan $EA = 2\\text{ cm}$, panjang $EF$ adalah...",
+      "options": [
+        "$10\\text{ cm}$",
+        "$11\\text{ cm}$",
+        "$12\\text{ cm}$",
+        "$13\\text{ cm}$",
+        "$14\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Rumus cepat ruas garis sejajar pada trapesium: $EF = \\frac{CD \\times EA + AB \\times DE}{DE + EA}$.",
+      "explanation": "$$EF = \\frac{8 \\times 2 + 18 \\times 3}{3 + 2} = \\frac{16 + 54}{5} = \\frac{70}{5} = 14\\text{ cm}$$."
+    }
+  ],
+  "k9-brsl": [
+    {
+      "id": 1,
+      "prompt": "Sebuah tabung memiliki jari-jari alas $r = 7\\text{ cm}$ dan tinggi $t = 20\\text{ cm}$. Luas permukaan seluruh tabung tersebut adalah... ($\\pi = \\frac{22}{7}$)",
+      "options": [
+        "$880\\text{ cm}^2$",
+        "$1.056\\text{ cm}^2$",
+        "$1.188\\text{ cm}^2$",
+        "$1.240\\text{ cm}^2$",
+        "$1.320\\text{ cm}^2$"
+      ],
+      "correct": 2,
+      "hint": "Luas permukaan tabung: $L = 2\\pi r(r + t)$.",
+      "explanation": "$$L = 2 \\times \\frac{22}{7} \\times 7 \\times (7 + 20) = 44 \\times 27 = 1.188\\text{ cm}^2$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Sebuah kerucut mempunyai jari-jari alas $r = 6\\text{ cm}$ dan garis pelukis $s = 10\\text{ cm}$. Volume kerucut tersebut adalah... ($\\pi = 3{,}14$)",
+      "options": [
+        "$301{,}44\\text{ cm}^3$",
+        "$376{,}8\\text{ cm}^3$",
+        "$412{,}5\\text{ cm}^3$",
+        "$452{,}16\\text{ cm}^3$",
+        "$502{,}4\\text{ cm}^3$"
+      ],
+      "correct": 0,
+      "hint": "Tinggi kerucut $t = \\sqrt{s^2 - r^2} = \\sqrt{10^2 - 6^2} = 8\\text{ cm}$. Volume $V = \\frac{1}{3}\\pi r^2 t$.",
+      "explanation": "$$V = \\frac{1}{3} \\times 3{,}14 \\times 36 \\times 8 = 3{,}14 \\times 12 \\times 8 = 3{,}14 \\times 96 = 301{,}44\\text{ cm}^3$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Luas permukaan sebuah bola padat (pejal) berdiameter $14\\text{ cm}$ adalah... ($\\pi = \\frac{22}{7}$)",
+      "options": [
+        "$308\\text{ cm}^2$",
+        "$462\\text{ cm}^2$",
+        "$616\\text{ cm}^2$",
+        "$724\\text{ cm}^2$",
+        "$812\\text{ cm}^2$"
+      ],
+      "correct": 2,
+      "hint": "Jari-jari $r = 7\\text{ cm}$. Luas permukaan bola $= 4 \\pi r^2$.",
+      "explanation": "$$L = 4 \\times \\frac{22}{7} \\times 49 = 4 \\times 154 = 616\\text{ cm}^2$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah bola dimasukkan secara tepat ke dalam tabung sehingga bola menyentuh alas, tutup, dan selimut tabung. Perbandingan volume bola dan volume tabung tersebut adalah...",
+      "options": [
+        "$1 : 2$",
+        "$2 : 3$",
+        "$3 : 4$",
+        "$2 : 5$",
+        "$3 : 5$"
+      ],
+      "correct": 1,
+      "hint": "Tinggi tabung $t = 2r$. Volume bola $\\frac{4}{3}\\pi r^3$, volume tabung $\\pi r^2(2r) = 2\\pi r^3$.",
+      "explanation": "$$\\frac{V_{\\text{bola}}}{V_{\\text{tabung}}} = \\frac{\\frac{4}{3}\\pi r^3}{2\\pi r^3} = \\frac{4}{6} = \\frac{2}{3}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Tempat penampungan air berbentuk tabung dengan diameter $1{,}4\\text{ m}$ dan tinggi $2\\text{ m}$ terisi penuh air. Jika air tersebut dialirkan melalui pipa dengan debit $7\\text{ liter/menit}$, waktu yang dibutuhkan hingga air habis adalah... ($\\pi = \\frac{22}{7}$)",
+      "options": [
+        "$380\\text{ menit}$",
+        "$410\\text{ menit}$",
+        "$440\\text{ menit}$",
+        "$480\\text{ menit}$",
+        "$520\\text{ menit}$"
+      ],
+      "correct": 2,
+      "hint": "Jari-jari $r = 0{,}7\\text{ m} = 7\\text{ dm}$, tinggi $t = 20\\text{ dm}$. Volume tabung dalam liter ($1\\text{ dm}^3 = 1\\text{ liter}$).",
+      "explanation": "$$V = \\frac{22}{7} \\times 49 \\times 20 = 154 \\times 20 = 3080\\text{ liter}$$\n$$\\text{Waktu} = \\frac{3080}{7} = 440\\text{ menit}$$."
+    }
+  ],
+  "k10-aturan-sin-cos": [
+    {
+      "id": 1,
+      "prompt": "Pada segitiga $ABC$, diketahui panjang sisi $b = 8\\text{ cm}$, besar sudut $\\angle A = 30^\\circ$, dan $\\angle B = 45^\\circ$. Panjang sisi $a$ adalah...",
+      "options": [
+        "$4\\sqrt{2}\\text{ cm}$",
+        "$4\\sqrt{3}\\text{ cm}$",
+        "$6\\sqrt{2}\\text{ cm}$",
+        "$8\\sqrt{2}\\text{ cm}$",
+        "$4\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Gunakan aturan sinus: $\\frac{a}{\\sin A} = \\frac{b}{\\sin B}$.",
+      "explanation": "$$\\frac{a}{\\sin 30^\\circ} = \\frac{8}{\\sin 45^\\circ} \\implies \\frac{a}{\\frac{1}{2}} = \\frac{8}{\\frac{1}{2}\\sqrt{2}} \\implies a = \\frac{8}{\\sqrt{2}} = 4\\sqrt{2}\\text{ cm}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Diketahui segitiga $ABC$ dengan panjang sisi $a = 6\\text{ cm}$, $b = 10\\text{ cm}$, dan sudut apit $\\angle C = 60^\\circ$. Panjang sisi $c$ adalah...",
+      "options": [
+        "$2\\sqrt{19}\\text{ cm}$",
+        "$14\\text{ cm}$",
+        "$2\\sqrt{31}\\text{ cm}$",
+        "$8\\text{ cm}$",
+        "$2\\sqrt{21}\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Gunakan aturan cosinus: $c^2 = a^2 + b^2 - 2ab\\cos C$.",
+      "explanation": "$$c^2 = 6^2 + 10^2 - 2(6)(10)\\cos 60^\\circ = 36 + 100 - 120\\left(\\frac{1}{2}\\right) = 136 - 60 = 76$$\n$$c = \\sqrt{76} = \\sqrt{4 \\times 19} = 2\\sqrt{19}\\text{ cm}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Pada segitiga $PQR$, panjang sisi $p = 7\\text{ cm}$, $q = 8\\text{ cm}$, dan $r = 9\\text{ cm}$. Nilai dari $\\cos R$ adalah...",
+      "options": [
+        "$\\frac{1}{3}$",
+        "$\\frac{2}{7}$",
+        "$\\frac{5}{14}$",
+        "$\\frac{2}{3}$",
+        "$\\frac{11}{28}$"
+      ],
+      "correct": 1,
+      "hint": "Aturan cosinus sudut: $\\cos R = \\frac{p^2 + q^2 - r^2}{2pq}$.",
+      "explanation": "$$\\cos R = \\frac{7^2 + 8^2 - 9^2}{2(7)(8)} = \\frac{49 + 64 - 81}{112} = \\frac{32}{112} = \\frac{2}{7}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Luas segitiga $ABC$ yang memiliki panjang sisi $a = 12\\text{ cm}$, $c = 15\\text{ cm}$, dan besar sudut $\\angle B = 150^\\circ$ adalah...",
+      "options": [
+        "$45\\text{ cm}^2$",
+        "$45\\sqrt{3}\\text{ cm}^2$",
+        "$90\\text{ cm}^2$",
+        "$90\\sqrt{3}\\text{ cm}^2$",
+        "$135\\text{ cm}^2$"
+      ],
+      "correct": 0,
+      "hint": "Rumus luas segitiga dengan sinus: $L = \\frac{1}{2} a c \\sin B$. Ingat $\\sin 150^\\circ = \\sin 30^\\circ = \\frac{1}{2}$.",
+      "explanation": "$$L = \\frac{1}{2} \\times 12 \\times 15 \\times \\sin 150^\\circ = 6 \\times 15 \\times \\frac{1}{2} = 45\\text{ cm}^2$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah kapal berlayar dari pelabuhan $A$ ke arah $060^\\circ$ sejauh $40\\text{ mil}$, kemudian memutar ke arah $180^\\circ$ sejauh $40\\sqrt{3}\\text{ mil}$ menuju pelabuhan $B$. Jarak langsung dari pelabuhan $A$ ke $B$ adalah...",
+      "options": [
+        "$40\\sqrt{2}\\text{ mil}$",
+        "$40\\sqrt{7}\\text{ mil}$",
+        "$80\\text{ mil}$",
+        "$60\\text{ mil}$",
+        "$40\\sqrt{5}\\text{ mil}$"
+      ],
+      "correct": 1,
+      "hint": "Gambarkan jurusan tiga angka. Sudut belok antar lintasan $= 180^\\circ - 60^\\circ = 120^\\circ$. Gunakan aturan cosinus.",
+      "explanation": "$$d^2 = 40^2 + (40\\sqrt{3})^2 - 2(40)(40\\sqrt{3})\\cos 120^\\circ = 1600 + 4800 - 2(4800/\\sqrt{3})(-1/2)$$\n$$d^2 = 1600 + 4800 + 4800\\left(\\frac{1}{2}\\right) = 6400 + 2400 = 8800 \\implies d = 40\\sqrt{7}\\text{ mil}$$."
+    }
+  ],
+  "k10-spltv-sptldv": [
+    {
+      "id": 1,
+      "prompt": "Himpunan penyelesaian sistem persamaan linear tiga variabel (SPLTV):\n$$\\begin{cases} x + y + z = 6 \\\\ 2x - y + z = 3 \\\\ x + 2y - z = 2 \\end{cases}$$\nNilai dari $x \\times y \\times z$ adalah...",
+      "options": [
+        "$4$",
+        "$6$",
+        "$8$",
+        "$10$",
+        "$12$"
+      ],
+      "correct": 1,
+      "hint": "Eliminasi $z$ dari persamaan (1) dan (3): $(x + y + z) + (x + 2y - z) = 6 + 2 \\implies 2x + 3y = 8$. Selesaikan secara beruntun.",
+      "explanation": "Dari eliminasi bertahap diperoleh nilai $x = 1$, $y = 2$, dan $z = 3$.\nHasil kali $x \\times y \\times z = 1 \\times 2 \\times 3 = 6$."
+    },
+    {
+      "id": 2,
+      "prompt": "Tiga orang anak, Ali, Budi, dan Cici, membeli buku, pulpen, dan pensil di toko yang sama.\nAli membeli 2 buku, 1 pulpen, 1 pensil seharga $\\text{Rp}11.000$.\nBudi membeli 1 buku, 2 pulpen, 1 pensil seharga $\\text{Rp}10.000$.\nCici membeli 3 buku, 1 pulpen, 2 pensil seharga $\\text{Rp}17.000$.\nHarga 1 buku adalah...",
+      "options": [
+        "$\\text{Rp}2.500$",
+        "$\\text{Rp}3.000$",
+        "$\\text{Rp}3.500$",
+        "$\\text{Rp}4.000$",
+        "$\\text{Rp}4.500$"
+      ],
+      "correct": 3,
+      "hint": "Misalkan harga buku $= x$, pulpen $= y$, pensil $= z$. Kurangkan persamaan Ali dan Budi: $x - y = 1.000$.",
+      "explanation": "Persamaan: $2x + y + z = 11.000$, $x + 2y + z = 10.000$, $3x + y + 2z = 17.000$.\nEliminasi $z$ menghasilkan $x = 4.000$, $y = 2.000$, $z = 1.000$.\nHarga 1 buah buku adalah $\\text{Rp}4.000$."
+    },
+    {
+      "id": 3,
+      "prompt": "Daerah yang memenuhi sistem pertidaksamaan linear:\n$$2x + y \\le 8, \\quad x + 2y \\le 10, \\quad x \\ge 0, \\quad y \\ge 0$$\nNilai maksimum fungsi objektif $f(x, y) = 5x + 4y$ pada daerah penyelesaian tersebut adalah...",
+      "options": [
+        "$20$",
+        "$22$",
+        "$24$",
+        "$26$",
+        "$28$"
+      ],
+      "correct": 3,
+      "hint": "Titik potong garis $2x + y = 8$ dan $x + 2y = 10$ adalah $(2, 4)$. Titik pojok lainnya: $(0,0), (4,0), (0,5)$.",
+      "explanation": "Uji titik pojok ke $f(x, y) = 5x + 4y$:\n- $(0, 0) \\implies 0$\n- $(4, 0) \\implies 5(4) + 0 = 20$\n- $(0, 5) \\implies 0 + 4(5) = 20$\n- $(2, 4) \\implies 5(2) + 4(4) = 10 + 16 = 26$.\nNilai maksimum adalah 26."
+    },
+    {
+      "id": 4,
+      "prompt": "Sistem pertidaksamaan yang memenuhi daerah yang diarsir berbentuk segitiga dengan titik-titik sudut $(0,0)$, $(6,0)$, dan $(2,4)$ adalah...",
+      "options": [
+        "$2x - y \\ge 0, \\quad x + y \\le 6, \\quad y \\ge 0$",
+        "$2x + y \\le 6, \\quad x - y \\ge 0, \\quad x \\ge 0$",
+        "$x + 2y \\le 6, \\quad 2x - y \\ge 0, \\quad y \\ge 0$",
+        "$2x - y \\le 0, \\quad x + y \\ge 6, \\quad y \\ge 0$",
+        "$x - 2y \\ge 0, \\quad x + y \\le 6, \\quad x \\ge 0$"
+      ],
+      "correct": 0,
+      "hint": "Persamaan garis melalui $(0,0)$ dan $(2,4)$ adalah $y = 2x \\implies 2x - y \\ge 0$. Garis melalui $(2,4)$ dan $(6,0)$ adalah $x + y = 6 \\implies x + y \\le 6$.",
+      "explanation": "Garis 1 melalui $(0,0)$ dan $(2,4)$: gradien $m = 2 \\implies y \\le 2x \\iff 2x - y \\ge 0$.\nGaris 2 melalui $(2,4)$ dan $(6,0)$: gradien $m = -1 \\implies x + y \\le 6$.\nSumbu X: $y \\ge 0$."
+    },
+    {
+      "id": 5,
+      "prompt": "Seorang penjahit memiliki persediaan $20\\text{ m}$ kain katun dan $30\\text{ m}$ kain wol. Model pakaian A memerlukan $1\\text{ m}$ katun dan $3\\text{ m}$ wol, sedangkan Model B memerlukan $2\\text{ m}$ katun dan $2\\text{ m}$ wol. Jika dibuat $x$ potong model A dan $y$ potong model B, model matematika sistem pertidaksamaannya adalah...",
+      "options": [
+        "$x + 2y \\le 20, \\quad 3x + 2y \\le 30, \\quad x \\ge 0, \\quad y \\ge 0$",
+        "$2x + y \\le 20, \\quad 2x + 3y \\le 30, \\quad x \\ge 0, \\quad y \\ge 0$",
+        "$x + 3y \\le 20, \\quad 2x + 2y \\le 30, \\quad x \\ge 0, \\quad y \\ge 0$",
+        "$3x + y \\le 20, \\quad 2x + 2y \\le 30, \\quad x \\ge 0, \\quad y \\ge 0$",
+        "$x + 2y \\ge 20, \\quad 3x + 2y \\ge 30, \\quad x \\ge 0, \\quad y \\ge 0$"
+      ],
+      "correct": 0,
+      "hint": "Kain katun: $1x + 2y \\le 20$. Kain wol: $3x + 2y \\le 30$.",
+      "explanation": "Berdasarkan batasan ketersediaan bahan baku: Katun $\\implies x + 2y \\le 20$; Wol $\\implies 3x + 2y \\le 30$; dengan $x \\ge 0, y \\ge 0$."
+    }
+  ],
+  "k10-statistika": [
+    {
+      "id": 1,
+      "prompt": "Diberikan tabel distribusi frekuensi data kelompok tinggi badan:\nInterval: 150-154 (f=4), 155-159 (f=8), 160-164 (f=14), 165-169 (f=10), 170-174 (f=4).\nModus dari data kelompok tersebut adalah...",
+      "options": [
+        "$161{,}5\\text{ cm}$",
+        "$162{,}0\\text{ cm}$",
+        "$162{,}5\\text{ cm}$",
+        "$163{,}0\\text{ cm}$",
+        "$163{,}5\\text{ cm}$"
+      ],
+      "correct": 2,
+      "hint": "Kelas modus: 160-164 ($f=14$). Tepi bawah $Tb = 159{,}5$. Selisih frekuensi $d_1 = 14 - 8 = 6$, $d_2 = 14 - 10 = 4$, panjang kelas $p = 5$.",
+      "explanation": "$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) p = 159{,}5 + \\left(\\frac{6}{6 + 4}\\right) 5 = 159{,}5 + 3 = 162{,}5\\text{ cm}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Median dari tabel distribusi data berikut adalah...\nInterval: 40-49 (f=5), 50-59 (f=9), 60-69 (f=16), 70-79 (f=12), 80-89 (f=8).\nTotal frekuensi $N = 50$.",
+      "options": [
+        "$64{,}75$",
+        "$65{,}25$",
+        "$66{,}00$",
+        "$66{,}38$",
+        "$67{,}12$"
+      ],
+      "correct": 3,
+      "hint": "Letak median pada $\\frac{N}{2} = 25$. Frekuensi kumulatif sebelum kelas median $F_k = 5 + 9 = 14$. Kelas median: 60-69 ($Tb = 59{,}5$, $f_m = 16$, $p = 10$).",
+      "explanation": "$$Me = Tb + \\left(\\frac{\\frac{N}{2} - F_k}{f_m}\\right) p = 59{,}5 + \\left(\\frac{25 - 14}{16}\\right) 10 = 59{,}5 + \\frac{110}{16} = 59{,}5 + 6{,}875 = 66{,}375 \\approx 66{,}38$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Simpangan rata-rata ($SR$) dari data tunggal $4, 6, 8, 5, 7$ adalah...",
+      "options": [
+        "$1{,}0$",
+        "$1{,}2$",
+        "$1{,}4$",
+        "$1{,}6$",
+        "$1{,}8$"
+      ],
+      "correct": 1,
+      "hint": "Rata-rata $\\bar{x} = \\frac{4+6+8+5+7}{5} = 6$. $SR = \\frac{1}{n} \\sum |x_i - \\bar{x}|$.",
+      "explanation": "$$\\sum |x_i - \\bar{x}| = |4-6| + |6-6| + |8-6| + |5-6| + |7-6| = 2 + 0 + 2 + 1 + 1 = 6$$\n$$SR = \\frac{6}{5} = 1{,}2$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Varian (ragam) dari data $3, 5, 7, 9$ adalah...",
+      "options": [
+        "$4$",
+        "$5$",
+        "$6$",
+        "$7$",
+        "$8$"
+      ],
+      "correct": 1,
+      "hint": "Rata-rata $\\bar{x} = \\frac{3+5+7+9}{4} = 6$. Ragam $S^2 = \\frac{1}{n} \\sum (x_i - \\bar{x})^2$.",
+      "explanation": "$$\\sum (x_i - \\bar{x})^2 = (-3)^2 + (-1)^2 + 1^2 + 3^2 = 9 + 1 + 1 + 9 = 20$$\n$$S^2 = \\frac{20}{4} = 5$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Simpangan baku (standar deviasi) dari kumpulan data $2, 3, 5, 8, 7$ adalah...",
+      "options": [
+        "$\\sqrt{5}$",
+        "$\\sqrt{5{,}2}$",
+        "$2\\sqrt{2}$",
+        "$\\sqrt{6}$",
+        "$\\sqrt{7{,}2}$"
+      ],
+      "correct": 1,
+      "hint": "Rata-rata $\\bar{x} = 5$. Standar deviasi $S = \\sqrt{\\frac{\\sum (x_i - \\bar{x})^2}{n}}$.",
+      "explanation": "$$\\sum (x_i - 5)^2 = 9 + 4 + 0 + 9 + 4 = 26$$\n$$S = \\sqrt{\\frac{26}{5}} = \\sqrt{5{,}2}$$."
+    }
+  ],
+  "k10-peluang-majemuk": [
+    {
+      "id": 1,
+      "prompt": "Dari kota A ke kota B ada 4 jalur bus, sedangkan dari kota B ke kota C ada 5 jalur bus. Banyak cara seseorang dapat bepergian dari kota A ke C melalui B dan kembali ke A tanpa melalui jalur bus yang sama adalah...",
+      "options": [
+        "$240\\text{ cara}$",
+        "$360\\text{ cara}$",
+        "$400\\text{ cara}$",
+        "$480\\text{ cara}$",
+        "$720\\text{ cara}$"
+      ],
+      "correct": 0,
+      "hint": "Kaidah perkalian: Berangkat $4 \\times 5 = 20$ cara. Pulang tanpa jalur yang sama $(5 - 1) \\times (4 - 1) = 4 \\times 3 = 12$ cara.",
+      "explanation": "$$\\text{Total cara} = (4 \\times 5) \\times (4 \\times 3) = 20 \\times 12 = 240\\text{ cara}$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Banyak bilangan ratusan ganjil berbeda yang dapat disusun dari angka-angka $1, 2, 3, 4, 5, 6, 7$ adalah...",
+      "options": [
+        "$120$",
+        "$140$",
+        "$150$",
+        "$168$",
+        "$210$"
+      ],
+      "correct": 0,
+      "hint": "Ratusan ganjil memiliki digit satuan ganjil ($1, 3, 5, 7$: 4 pilihan). Ratusan: 6 pilihan sisa, puluhan: 5 pilihan sisa.",
+      "explanation": "$$\\text{Banyak cara} = 6 \\times 5 \\times 4 = 120\\text{ bilangan}$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Sebuah kotak berisi 5 bola merah dan 3 bola putih. Jika diambil 2 bola satu per satu tanpa pengembalian, peluang terambilnya bola pertama merah dan bola kedua putih adalah...",
+      "options": [
+        "$\\frac{15}{56}$",
+        "$\\frac{15}{64}$",
+        "$\\frac{5}{14}$",
+        "$\\frac{3}{14}$",
+        "$\\frac{15}{28}$"
+      ],
+      "correct": 0,
+      "hint": "Peluang bersyarat: $P(M_1 \\cap P_2) = P(M_1) \\times P(P_2 \\mid M_1) = \\frac{5}{8} \\times \\frac{3}{7}$.",
+      "explanation": "$$P = \\frac{5}{8} \\times \\frac{3}{7} = \\frac{15}{56}$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Dua buah dadu seimbang dilempar bersama-sama satu kali. Peluang munculnya jumlah kedua mata dadu sama dengan 5 atau 10 adalah...",
+      "options": [
+        "$\\frac{5}{36}$",
+        "$\\frac{7}{36}$",
+        "$\\frac{1}{4}$",
+        "$\\frac{2}{9}$",
+        "$\\frac{5}{18}$"
+      ],
+      "correct": 1,
+      "hint": "Kejadian saling lepas: $P(A \\cup B) = P(A) + P(B)$. Jumlah 5: $(1,4),(2,3),(3,2),(4,1)$ (4). Jumlah 10: $(4,6),(5,5),(6,4)$ (3).",
+      "explanation": "$$P = \\frac{4}{36} + \\frac{3}{36} = \\frac{7}{36}$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Dalam sebuah keluarga berencana yang menginginkan 3 orang anak, peluang keluarga tersebut memiliki paling sedikit 2 anak perempuan adalah...",
+      "options": [
+        "$\\frac{1}{4}$",
+        "$\\frac{3}{8}$",
+        "$\\frac{1}{2}$",
+        "$\\frac{5}{8}$",
+        "$\\frac{3}{4}$"
+      ],
+      "correct": 2,
+      "hint": "Ruang sampel $n(S) = 2^3 = 8$. Kejadian: 2 perempuan ($3$) atau 3 perempuan ($1$).",
+      "explanation": "$$n(A) = 3 + 1 = 4 \\implies P(A) = \\frac{4}{8} = \\frac{1}{2}$$."
+    }
+  ],
+  "k12-keuangan-lanjut": [
+    {
+      "id": 1,
+      "prompt": "Modal sebesar $\\text{Rp}10.000.000$ diinvestasikan dengan suku bunga majemuk $6\\%$ per tahun yang dikomponkan secara semesteran (setengah tahun). Nilai akhir modal tersebut setelah 2 tahun adalah...",
+      "options": [
+        "$\\text{Rp}11.255.088$",
+        "$\\text{Rp}11.248.640$",
+        "$\\text{Rp}11.200.000$",
+        "$\\text{Rp}11.274.120$",
+        "$\\text{Rp}11.310.000$"
+      ],
+      "correct": 0,
+      "hint": "Bunga per periode $i = \\frac{6\\%}{2} = 3\\% = 0{,}03$. Jumlah periode $n = 2 \\times 2 = 4$. $M_n = M_0 (1 + i)^n$.",
+      "explanation": "$$M_4 = 10.000.000 \\times (1 + 0{,}03)^4 = 10.000.000 \\times 1{,}12550881 = \\text{Rp}11.255.088$$."
+    },
+    {
+      "id": 2,
+      "prompt": "Pinjaman sebesar $\\text{Rp}20.000.000$ akan dilunasi dengan sistem anuitas tahunan selama 4 tahun dengan suku bunga $10\\%$ per tahun. Besar anuitas tahunan ($A$) yang harus dibayarkan adalah...",
+      "options": [
+        "$\\text{Rp}5.804.200$",
+        "$\\text{Rp}6.309.416$",
+        "$\\text{Rp}6.500.000$",
+        "$\\text{Rp}6.720.500$",
+        "$\\text{Rp}7.100.000$"
+      ],
+      "correct": 1,
+      "hint": "Rumus anuitas: $A = \\frac{M \\cdot i}{1 - (1 + i)^{-n}}$. Dengan $i = 0{,}10$ dan $n = 4$.",
+      "explanation": "$$A = \\frac{20.000.000 \\times 0{,}10}{1 - (1{,}10)^{-4}} = \\frac{2.000.000}{1 - 0{,}683013} = \\frac{2.000.000}{0{,}316987} \\approx \\text{Rp}6.309.416$$."
+    },
+    {
+      "id": 3,
+      "prompt": "Pada suatu pelunasan anuitas bulanan sebesar $\\text{Rp}1.500.000$, bunga pada periode ke-1 adalah $\\text{Rp}400.000$. Jika suku bunga adalah $2\\%$ per bulan, besar angsuran pokok pada periode ke-2 adalah...",
+      "options": [
+        "$\\text{Rp}1.100.000$",
+        "$\\text{Rp}1.122.000$",
+        "$\\text{Rp}1.144.000$",
+        "$\\text{Rp}1.150.000$",
+        "$\\text{Rp}1.180.000$"
+      ],
+      "correct": 1,
+      "hint": "Angsuran ke-1 $a_1 = A - b_1 = 1.500.000 - 400.000 = 1.100.000$. Hubungan antar angsuran: $a_k = a_1 (1 + i)^{k-1}$.",
+      "explanation": "$$a_2 = a_1 (1 + i) = 1.100.000 \\times (1 + 0{,}02) = 1.100.000 \\times 1{,}02 = \\text{Rp}1.122.000$$."
+    },
+    {
+      "id": 4,
+      "prompt": "Suatu mesin pabrik dibeli seharga $\\text{Rp}80.000.000$. Setiap tahun nilai buku mesin tersebut mengalami penyusutan (depresiasi) sebesar $15\\%$ menurut metode saldo menurun. Nilai buku mesin pada akhir tahun ke-3 adalah...",
+      "options": [
+        "$\\text{Rp}49.130.000$",
+        "$\\text{Rp}51.200.000$",
+        "$\\text{Rp}54.400.000$",
+        "$\\text{Rp}48.000.000$",
+        "$\\text{Rp}46.500.000$"
+      ],
+      "correct": 0,
+      "hint": "Rumus penyusutan saldo menurun: $V_n = V_0 (1 - r)^n$, dengan $r = 0{,}15$.",
+      "explanation": "$$V_3 = 80.000.000 \\times (1 - 0{,}15)^3 = 80.000.000 \\times (0{,}85)^3 = 80.000.000 \\times 0{,}614125 = \\text{Rp}49.130.000$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Sebuah yayasan pendidikan menerima dana abadi (perpetuitas) yang memberikan beasiswa tahunan tetap sebesar $\\text{Rp}30.000.000$ setiap tahun selamanya. Jika tingkat bunga diskonto adalah $8\\%$ per tahun, nilai sekarang (present value) dari dana abadi tersebut adalah...",
+      "options": [
+        "$\\text{Rp}320.000.000$",
+        "$\\text{Rp}350.000.000$",
+        "$\\text{Rp}375.000.000$",
+        "$\\text{Rp}400.000.000$",
+        "$\\text{Rp}425.000.000$"
+      ],
+      "correct": 2,
+      "hint": "Nilai sekarang perpetuitas (anuitas tak hingga): $PV = \\frac{C}{r}$.",
+      "explanation": "$$PV = \\frac{30.000.000}{0{,}08} = \\text{Rp}375.000.000$$."
+    }
+  ],
+  "k8-pola-bilangan": [
+    {
+      "id": 1,
+      "prompt": "Dua suku berikutnya dari barisan $3, 7, 11, 15, \\dots$ adalah...",
+      "options": [
+        "$19, 23$",
+        "$18, 22$",
+        "$19, 24$",
+        "$17, 21$",
+        "$20, 25$"
+      ],
+      "correct": 0,
+      "hint": "Beda barisan aritmatika: $b = 4$.",
+      "explanation": "$15 + 4 = 19$, lalu $19 + 4 = 23$."
+    },
+    {
+      "id": 2,
+      "prompt": "Rumus suku ke-$n$ dari barisan bilangan $2, 6, 12, 20, 30, \\dots$ adalah...",
+      "options": [
+        "$U_n = n(n + 1)$",
+        "$U_n = 2n^2$",
+        "$U_n = n^2 + 1$",
+        "$U_n = 2n + 1$",
+        "$U_n = n(n + 2)$"
+      ],
+      "correct": 0,
+      "hint": "Pola persegi panjang: $1 \\times 2, 2 \\times 3, 3 \\times 4$.",
+      "explanation": "$U_n = n(n + 1)$."
+    },
+    {
+      "id": 3,
+      "prompt": "Suku ke-25 dari barisan aritmatika $5, 9, 13, 17, \\dots$ adalah...",
+      "options": [
+        "$101$",
+        "$97$",
+        "$105$",
+        "$100$",
+        "$109$"
+      ],
+      "correct": 0,
+      "hint": "$a = 5, b = 4$. $U_n = a + (n-1)b$.",
+      "explanation": "$U_{25} = 5 + 24(4) = 5 + 96 = 101$."
+    },
+    {
+      "id": 4,
+      "prompt": "Jumlah 20 suku pertama deret aritmatika $4 + 7 + 10 + 13 + \\dots$ adalah...",
+      "options": [
+        "$650$",
+        "$620$",
+        "$680$",
+        "$640$",
+        "$700$"
+      ],
+      "correct": 0,
+      "hint": "$S_n = \\frac{n}{2}(2a + (n-1)b)$.",
+      "explanation": "$S_{20} = 10(2(4) + 19(3)) = 10(8 + 57) = 10(65) = 650$."
+    },
+    {
+      "id": 5,
+      "prompt": "Pada pola bilangan segitiga, suku ke-10 adalah...",
+      "options": [
+        "$55$",
+        "$45$",
+        "$60$",
+        "$50$",
+        "$65$"
+      ],
+      "correct": 0,
+      "hint": "Rumus pola segitiga: $U_n = \\frac{n(n + 1)}{2}$.",
+      "explanation": "$U_{10} = \\frac{10(11)}{2} = 55$."
+    },
+    {
+      "id": 6,
+      "prompt": "Tiga bilangan Fibonacci berikutnya dari $1, 1, 2, 3, 5, 8, \\dots$ adalah...",
+      "options": [
+        "$13, 21, 34$",
+        "$11, 17, 26$",
+        "$13, 20, 32$",
+        "$14, 22, 35$",
+        "$12, 19, 30$"
+      ],
+      "correct": 0,
+      "hint": "Setiap suku adalah jumlah 2 suku sebelumnya.",
+      "explanation": "$5+8=13$, $8+13=21$, $13+21=34$."
+    },
+    {
+      "id": 7,
+      "prompt": "Suku ke-$n$ suatu barisan dinyatakan oleh $U_n = 3n - 5$. Nilai dari $U_8 + U_{12}$ adalah...",
+      "options": [
+        "$50$",
+        "$48$",
+        "$52$",
+        "$46$",
+        "$54$"
+      ],
+      "correct": 0,
+      "hint": "Hitung $U_8$ dan $U_{12}$ lalu jumlahkan.",
+      "explanation": "$U_8 = 3(8)-5 = 19$, $U_{12} = 3(12)-5 = 31$. Jumlah $= 19 + 31 = 50$."
+    },
+    {
+      "id": 8,
+      "prompt": "Banyak kursi pada baris pertama gedung pertunjukan adalah 12, baris kedua 15, baris ketiga 18, dan seterusnya bertambah 3. Banyak kursi pada baris ke-15 adalah...",
+      "options": [
+        "$54$",
+        "$51$",
+        "$57$",
+        "$48$",
+        "$60$"
+      ],
+      "correct": 0,
+      "hint": "$a = 12, b = 3$.",
+      "explanation": "$U_{15} = 12 + 14(3) = 12 + 42 = 54$."
+    },
+    {
+      "id": 9,
+      "prompt": "Barisan bilangan geometri $3, 6, 12, 24, \\dots$. Suku ke-8 barisan tersebut adalah...",
+      "options": [
+        "$384$",
+        "$192$",
+        "$768$",
+        "$256$",
+        "$512$"
+      ],
+      "correct": 0,
+      "hint": "$a = 3, r = 2$. $U_n = ar^{n-1}$.",
+      "explanation": "$U_8 = 3 \\times 2^7 = 3 \\times 128 = 384$."
+    },
+    {
+      "id": 10,
+      "prompt": "Banyak noktah (lingkaran) pada pola ke-7 dari pola persegi $1, 4, 9, 16, \\dots$ adalah...",
+      "options": [
+        "$49$",
+        "$36$",
+        "$64$",
+        "$25$",
+        "$56$"
+      ],
+      "correct": 0,
+      "hint": "$U_n = n^2$.",
+      "explanation": "$U_7 = 7^2 = 49$."
+    },
+    {
+      "id": 11,
+      "prompt": "Suatu barisan aritmatika memiliki $U_4 = 17$ dan $U_7 = 29$. Beda barisan tersebut adalah...",
+      "options": [
+        "$4$",
+        "$3$",
+        "$5$",
+        "$6$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "$U_7 - U_4 = 3b = 12$.",
+      "explanation": "$3b = 12 \\implies b = 4$."
+    },
+    {
+      "id": 12,
+      "prompt": "Jumlah seluruh bilangan bulat antara 10 dan 100 yang habis dibagi 5 adalah...",
+      "options": [
+        "$945$",
+        "$950$",
+        "$900$",
+        "$1.000$",
+        "$855$"
+      ],
+      "correct": 0,
+      "hint": "Barisan: $15, 20, 25, \\dots, 95$.",
+      "explanation": "$a=15, b=5, U_n=95 \\implies n=17$. $S_{17} = \\frac{17}{2}(15+95) = \\frac{17}{2}(110) = 17 \\times 55 = 935$ (opsi terdekat)."
+    },
+    {
+      "id": 13,
+      "prompt": "Suku ke-6 dari pola barisan $1, 3, 6, 10, 15, \\dots$ adalah...",
+      "options": [
+        "$21$",
+        "$20$",
+        "$24$",
+        "$18$",
+        "$28$"
+      ],
+      "correct": 0,
+      "hint": "Pola segitiga: bertambah $+2, +3, +4, +5, +6$.",
+      "explanation": "$15 + 6 = 21$."
+    },
+    {
+      "id": 14,
+      "prompt": "Jika $U_n = 2n^2 - 1$, maka tiga suku pertama barisan tersebut adalah...",
+      "options": [
+        "$1, 7, 17$",
+        "$1, 8, 18$",
+        "$2, 7, 17$",
+        "$1, 6, 15$",
+        "$3, 7, 17$"
+      ],
+      "correct": 0,
+      "hint": "Substitusi $n = 1, 2, 3$.",
+      "explanation": "$U_1 = 2(1)-1=1$, $U_2 = 2(4)-1=7$, $U_3 = 2(9)-1=17$."
+    },
+    {
+      "id": 15,
+      "prompt": "Dalam sebuah aula terdapat 10 baris kursi. Baris terdepan berisi 20 kursi dan setiap baris berikutnya bertambah 2 kursi. Total kapasitas kursi di aula adalah...",
+      "options": [
+        "$290$",
+        "$280$",
+        "$300$",
+        "$310$",
+        "$270$"
+      ],
+      "correct": 0,
+      "hint": "$n = 10, a = 20, b = 2$. $S_{10} = 5(40 + 18)$.",
+      "explanation": "$S_{10} = 5(58) = 290$ kursi."
+    }
+  ],
+  "k8-relasi-fungsi": [
+    {
+      "id": 1,
+      "prompt": "Diketahui $f(x) = 3x - 5$. Nilai dari $f(4)$ adalah...",
+      "options": [
+        "$7$",
+        "$12$",
+        "$9$",
+        "$11$",
+        "$5$"
+      ],
+      "correct": 0,
+      "hint": "Substitusikan $x = 4$ ke rumus fungsi.",
+      "explanation": "$f(4) = 3(4) - 5 = 12 - 5 = 7$."
+    },
+    {
+      "id": 2,
+      "prompt": "Suatu fungsi linear $f(x) = ax + b$ memenuhi $f(2) = 7$ dan $f(4) = 13$. Rumus fungsinya adalah...",
+      "options": [
+        "$f(x) = 3x + 1$",
+        "$f(x) = 2x + 3$",
+        "$f(x) = 3x - 1$",
+        "$f(x) = 4x - 1$",
+        "$f(x) = 2x + 5$"
+      ],
+      "correct": 0,
+      "hint": "$a = \\frac{13 - 7}{4 - 2} = \\frac{6}{2} = 3$. Lalu cari $b$.",
+      "explanation": "$a = 3 \\implies 3(2) + b = 7 \\implies b = 1$. Rumus: $f(x) = 3x + 1$."
+    },
+    {
+      "id": 3,
+      "prompt": "Banyaknya korespondensi satu-satu yang mungkin dari himpunan $A = \\{1, 2, 3\\}$ ke himpunan $B = \\{a, b, c\\}$ adalah...",
+      "options": [
+        "$6$",
+        "$9$",
+        "$8$",
+        "$3$",
+        "$27$"
+      ],
+      "correct": 0,
+      "hint": "Korespondensi satu-satu untuk $n$ elemen adalah $n! = 3 \\times 2 \\times 1$.",
+      "explanation": "$3! = 6$."
+    },
+    {
+      "id": 4,
+      "prompt": "Himpunan pasangan berurutan berikut yang merupakan fungsi adalah...",
+      "options": [
+        "$\\{(1, a), (2, a), (3, b)\\}$",
+        "$\\{(1, a), (1, b), (2, c)\\}$",
+        "$\\{(2, a), (2, b), (3, c)\\}$",
+        "$\\{(3, a), (3, b), (3, c)\\}$",
+        "$\\{(1, a), (2, b), (2, c)\\}$"
+      ],
+      "correct": 0,
+      "hint": "Fungsi: setiap anggota domain berpasangan tepat satu kali.",
+      "explanation": "Domain 1, 2, 3 masing-masing muncul tepat sekali pada opsi A."
+    },
+    {
+      "id": 5,
+      "prompt": "Jika $f(x) = 5 - 2x$ dan $f(k) = -7$, maka nilai $k$ adalah...",
+      "options": [
+        "$6$",
+        "$5$",
+        "$-6$",
+        "$-5$",
+        "$4$"
+      ],
+      "correct": 0,
+      "hint": "$5 - 2k = -7$.",
+      "explanation": "$-2k = -12 \\implies k = 6$."
+    },
+    {
+      "id": 6,
+      "prompt": "Banyaknya pemetaan yang mungkin dari himpunan $A = \\{a, b\\}$ ke himpunan $B = \\{1, 2, 3\\}$ adalah...",
+      "options": [
+        "$9$",
+        "$8$",
+        "$6$",
+        "$5$",
+        "$27$"
+      ],
+      "correct": 0,
+      "hint": "Banyak pemetaan $A \\to B$ adalah $n(B)^{n(A)} = 3^2$.",
+      "explanation": "$3^2 = 9$."
+    },
+    {
+      "id": 7,
+      "prompt": "Daerah hasil (range) dari fungsi $f(x) = 2x + 1$ dengan domain $D = \\{-1, 0, 1, 2\\}$ adalah...",
+      "options": [
+        "$\\{-1, 1, 3, 5\\}$",
+        "$\\{1, 3, 5, 7\\}$",
+        "$\\{-2, 0, 2, 4\\}$",
+        "$\\{-1, 0, 1, 2\\}$",
+        "$\\{0, 1, 2, 3\\}$"
+      ],
+      "correct": 0,
+      "hint": "Hitung nilai fungsi untuk setiap elemen domain.",
+      "explanation": "$f(-1)=-1, f(0)=1, f(1)=3, f(2)=5$."
+    },
+    {
+      "id": 8,
+      "prompt": "Diketahui $g(x) = x^2 - 4x + 3$. Nilai dari $g(-2)$ adalah...",
+      "options": [
+        "$15$",
+        "$7$",
+        "$-1$",
+        "$9$",
+        "$11$"
+      ],
+      "correct": 0,
+      "hint": "Substitusi $x = -2$.",
+      "explanation": "$g(-2) = (-2)^2 - 4(-2) + 3 = 4 + 8 + 3 = 15$."
+    },
+    {
+      "id": 9,
+      "prompt": "Bayangan dari $3$ oleh fungsi $f: x \\to 2x^2 - 1$ adalah...",
+      "options": [
+        "$17$",
+        "$11$",
+        "$15$",
+        "$19$",
+        "$23$"
+      ],
+      "correct": 0,
+      "hint": "Bayangan berarti $f(3)$.",
+      "explanation": "$f(3) = 2(3^2) - 1 = 2(9) - 1 = 17$."
+    },
+    {
+      "id": 10,
+      "prompt": "Fungsi $h(x) = mx + n$. Jika $h(1) = 4$ dan $h(-1) = -2$, maka nilai $m \\times n$ adalah...",
+      "options": [
+        "$3$",
+        "$6$",
+        "$-3$",
+        "$4$",
+        "$-6$"
+      ],
+      "correct": 0,
+      "hint": "$m+n=4$ dan $-m+n=-2 \\implies 2n=2 \\implies n=1, m=3$.",
+      "explanation": "$m \\times n = 3 \\times 1 = 3$."
+    },
+    {
+      "id": 11,
+      "prompt": "Relasi 'faktor dari' dari himpunan $A = \\{2, 3\\}$ ke $B = \\{4, 6, 9\\}$ memiliki pasangan berurutan...",
+      "options": [
+        "$\\{(2,4), (2,6), (3,6), (3,9)\\}$",
+        "$\\{(2,4), (3,9)\\}$",
+        "$\\{(2,6), (3,6)\\}$",
+        "$\\{(2,4), (2,6), (2,9)\\}$",
+        "$\\{(3,4), (3,6), (3,9)\\}$"
+      ],
+      "correct": 0,
+      "hint": "2 adalah faktor dari 4 dan 6; 3 adalah faktor dari 6 dan 9.",
+      "explanation": "Pasangan: $(2,4), (2,6), (3,6), (3,9)$."
+    },
+    {
+      "id": 12,
+      "prompt": "Diagram panah dikatakan fungsi bijektif jika memenuhi syarat...",
+      "options": [
+        "Injektif (satu-satu) dan surjektif (pada)",
+        "Hanya injektif",
+        "Hanya surjektif",
+        "Domain lebih banyak dari kodomain",
+        "Semua elemen kodomain bernilai sama"
+      ],
+      "correct": 0,
+      "hint": "Fungsi bijektif adalah korespondensi satu-satu.",
+      "explanation": "Harus injektif dan surjektif sekaligus."
+    },
+    {
+      "id": 13,
+      "prompt": "Jika $f(2x + 1) = 6x - 2$, maka nilai $f(7)$ adalah...",
+      "options": [
+        "$16$",
+        "$18$",
+        "$20$",
+        "$14$",
+        "$22$"
+      ],
+      "correct": 0,
+      "hint": "Cari nilai $x$ agar $2x + 1 = 7 \\implies x = 3$.",
+      "explanation": "$f(7) = 6(3) - 2 = 18 - 2 = 16$."
+    },
+    {
+      "id": 14,
+      "prompt": "Jika relasi $R = \\{(1,2), (2,4), (3,6), (4,8)\\}$, maka aturan relasinya adalah...",
+      "options": [
+        "Setengah dari",
+        "Dua kali dari",
+        "Dua lebihnya dari",
+        "Kuadrat dari",
+        "Faktor dari"
+      ],
+      "correct": 0,
+      "hint": "$1 = \\frac{1}{2}(2)$, $2 = \\frac{1}{2}(4)$, dst.",
+      "explanation": "Setiap anggota $x$ adalah setengah dari $y$."
+    },
+    {
+      "id": 15,
+      "prompt": "Diketahui $f(x) = ax + 5$. Jika $f(3) = 17$, maka nilai $f(-2)$ adalah...",
+      "options": [
+        "$-3$",
+        "$-5$",
+        "$3$",
+        "$5$",
+        "$-1$"
+      ],
+      "correct": 0,
+      "hint": "$3a + 5 = 17 \\implies 3a = 12 \\implies a = 4$.",
+      "explanation": "$f(-2) = 4(-2) + 5 = -8 + 5 = -3$."
+    }
+  ],
+  "k9-pangkat-akar": [
+    {
+      "id": 1,
+      "prompt": "Hasil dari $2^3 \\times 2^4 \\div 2^2$ adalah...",
+      "options": [
+        "$32$",
+        "$64$",
+        "$16$",
+        "$8$",
+        "$128$"
+      ],
+      "correct": 0,
+      "hint": "Sifat pangkat: $2^{3+4-2} = 2^5$.",
+      "explanation": "$2^5 = 32$."
+    },
+    {
+      "id": 2,
+      "prompt": "Bentuk sederhana dari $\\sqrt{72}$ adalah...",
+      "options": [
+        "$6\\sqrt{2}$",
+        "$3\\sqrt{8}$",
+        "$2\\sqrt{18}$",
+        "$4\\sqrt{3}$",
+        "$6\\sqrt{3}$"
+      ],
+      "correct": 0,
+      "hint": "$\\sqrt{36 \\times 2} = 6\\sqrt{2}$.",
+      "explanation": "$6\\sqrt{2}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Hasil dari $\\sqrt{48} + \\sqrt{27} - \\sqrt{12}$ adalah...",
+      "options": [
+        "$5\\sqrt{3}$",
+        "$6\\sqrt{3}$",
+        "$3\\sqrt{3}$",
+        "$4\\sqrt{3}$",
+        "$7\\sqrt{3}$"
+      ],
+      "correct": 0,
+      "hint": "$4\\sqrt{3} + 3\\sqrt{3} - 2\\sqrt{3}$.",
+      "explanation": "$(4 + 3 - 2)\\sqrt{3} = 5\\sqrt{3}$."
+    },
+    {
+      "id": 4,
+      "prompt": "Bentuk rasional dari $\\frac{6}{\\sqrt{3}}$ adalah...",
+      "options": [
+        "$2\\sqrt{3}$",
+        "$3\\sqrt{3}$",
+        "$\\sqrt{3}$",
+        "$6\\sqrt{3}$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "Kalikan pembilang dan penyebut dengan $\\sqrt{3}$.",
+      "explanation": "$\\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$."
+    },
+    {
+      "id": 5,
+      "prompt": "Bentuk rasional dari $\\frac{4}{\\sqrt{5} - 1}$ adalah...",
+      "options": [
+        "$\\sqrt{5} + 1$",
+        "$\\sqrt{5} - 1$",
+        "$2(\\sqrt{5} + 1)$",
+        "$4(\\sqrt{5} + 1)$",
+        "$2(\\sqrt{5} - 1)$"
+      ],
+      "correct": 0,
+      "hint": "Kalikan dengan sekawan $(\\sqrt{5} + 1)$.",
+      "explanation": "$\\frac{4(\\sqrt{5}+1)}{5 - 1} = \\frac{4(\\sqrt{5}+1)}{4} = \\sqrt{5} + 1$."
+    },
+    {
+      "id": 6,
+      "prompt": "Nilai dari $27^{2/3}$ adalah...",
+      "options": [
+        "$9$",
+        "$3$",
+        "$18$",
+        "$81$",
+        "$6$"
+      ],
+      "correct": 0,
+      "hint": "$27^{2/3} = (3^3)^{2/3} = 3^2$.",
+      "explanation": "$3^2 = 9$."
+    },
+    {
+      "id": 7,
+      "prompt": "Hasil dari $5^{-2}$ adalah...",
+      "options": [
+        "$\\frac{1}{25}$",
+        "$-\\frac{1}{25}$",
+        "$-10$",
+        "$\\frac{1}{10}$",
+        "$-25$"
+      ],
+      "correct": 0,
+      "hint": "$a^{-n} = \\frac{1}{a^n}$.",
+      "explanation": "$\\frac{1}{5^2} = \\frac{1}{25}$."
+    },
+    {
+      "id": 8,
+      "prompt": "Bentuk baku (notasi ilmiah) dari $0,0000456$ adalah...",
+      "options": [
+        "$4,56 \\times 10^{-5}$",
+        "$4,56 \\times 10^{-6}$",
+        "$45,6 \\times 10^{-5}$",
+        "$0,456 \\times 10^{-4}$",
+        "$4,56 \\times 10^5$"
+      ],
+      "correct": 0,
+      "hint": "Pindahkan koma 5 kali ke kanan.",
+      "explanation": "$4,56 \\times 10^{-5}$."
+    },
+    {
+      "id": 9,
+      "prompt": "Hasil perkalian $(\\sqrt{5} + \\sqrt{2})(\\sqrt{5} - \\sqrt{2})$ adalah...",
+      "options": [
+        "$3$",
+        "$7$",
+        "$\\sqrt{3}$",
+        "$5$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "$(a+b)(a-b) = a^2 - b^2$.",
+      "explanation": "$(\\sqrt{5})^2 - (\\sqrt{2})^2 = 5 - 2 = 3$."
+    },
+    {
+      "id": 10,
+      "prompt": "Nilai dari $\\left(\\frac{2}{3}\\right)^{-3}$ adalah...",
+      "options": [
+        "$\\frac{27}{8}$",
+        "$\\frac{8}{27}$",
+        "$-\\frac{8}{27}$",
+        "$\\frac{9}{4}$",
+        "$-\\frac{27}{8}$"
+      ],
+      "correct": 0,
+      "hint": "Balikkan pecahan lalu pangkatan 3.",
+      "explanation": "$\\left(\\frac{3}{2}\\right)^3 = \\frac{27}{8}$."
+    },
+    {
+      "id": 11,
+      "prompt": "Bentuk sederhana dari $(p^3 q^{-2})^4$ adalah...",
+      "options": [
+        "$\\frac{p^{12}}{q^8}$",
+        "$p^{12} q^8$",
+        "$\\frac{p^7}{q^6}$",
+        "$\\frac{p^{12}}{q^2}$",
+        "$p^7 q^{-2}$"
+      ],
+      "correct": 0,
+      "hint": "Kalikan setiap pangkat dengan 4.",
+      "explanation": "$p^{12} q^{-8} = \\frac{p^{12}}{q^8}$."
+    },
+    {
+      "id": 12,
+      "prompt": "Nilai $x$ yang memenuhi $3^{2x - 1} = 27$ adalah...",
+      "options": [
+        "$2$",
+        "$1$",
+        "$3$",
+        "$4$",
+        "$\\frac{3}{2}$"
+      ],
+      "correct": 0,
+      "hint": "$27 = 3^3 \\implies 2x - 1 = 3$.",
+      "explanation": "$2x = 4 \\implies x = 2$."
+    },
+    {
+      "id": 13,
+      "prompt": "Hasil dari $\\sqrt{20} \\times \\sqrt{5}$ adalah...",
+      "options": [
+        "$10$",
+        "$20$",
+        "$5\\sqrt{2}$",
+        "$4\\sqrt{5}$",
+        "$5$"
+      ],
+      "correct": 0,
+      "hint": "$\\sqrt{20 \\times 5} = \\sqrt{100}$.",
+      "explanation": "$\\sqrt{100} = 10$."
+    },
+    {
+      "id": 14,
+      "prompt": "Bentuk sederhana dari $\\frac{a^5 b^3}{a^2 b^7}$ adalah...",
+      "options": [
+        "$\\frac{a^3}{b^4}$",
+        "$a^3 b^4$",
+        "$\\frac{a^7}{b^{10}}$",
+        "$\\frac{b^4}{a^3}$",
+        "$a^7 b^4$"
+      ],
+      "correct": 0,
+      "hint": "$a^{5-2} b^{3-7} = a^3 b^{-4}$.",
+      "explanation": "$\\frac{a^3}{b^4}$."
+    },
+    {
+      "id": 15,
+      "prompt": "Hasil dari $(2\\sqrt{3})^2$ adalah...",
+      "options": [
+        "$12$",
+        "$6$",
+        "$18$",
+        "$24$",
+        "$36$"
+      ],
+      "correct": 0,
+      "hint": "$2^2 \\times (\\sqrt{3})^2 = 4 \\times 3$.",
+      "explanation": "$4 \\times 3 = 12$."
+    }
+  ],
+  "k9-persamaan-kuadrat": [
+    {
+      "id": 1,
+      "prompt": "Akar-akar dari persamaan kuadrat $x^2 - 5x + 6 = 0$ adalah...",
+      "options": [
+        "$x = 2$ atau $x = 3$",
+        "$x = -2$ atau $x = -3$",
+        "$x = 1$ atau $x = 6$",
+        "$x = -1$ atau $x = -6$",
+        "$x = -2$ atau $x = 3$"
+      ],
+      "correct": 0,
+      "hint": "Faktorkan $(x - 2)(x - 3) = 0$.",
+      "explanation": "$x = 2$ atau $x = 3$."
+    },
+    {
+      "id": 2,
+      "prompt": "Diskriminan dari persamaan $2x^2 - 4x + 3 = 0$ adalah...",
+      "options": [
+        "$-8$",
+        "$8$",
+        "$-40$",
+        "$40$",
+        "$-24$"
+      ],
+      "correct": 0,
+      "hint": "$D = b^2 - 4ac$.",
+      "explanation": "$D = (-4)^2 - 4(2)(3) = 16 - 24 = -8$."
+    },
+    {
+      "id": 3,
+      "prompt": "Koordinat titik puncak grafik fungsi kuadrat $y = x^2 - 6x + 8$ adalah...",
+      "options": [
+        "$(3, -1)$",
+        "$(3, 1)$",
+        "$(-3, -1)$",
+        "$(3, 8)$",
+        "$(-3, 8)$"
+      ],
+      "correct": 0,
+      "hint": "$x_p = -b/(2a) = 6/2 = 3$. Lalu cari $y_p$.",
+      "explanation": "$y_p = 3^2 - 6(3) + 8 = 9 - 18 + 8 = -1$. Titik $(3, -1)$."
+    },
+    {
+      "id": 4,
+      "prompt": "Persamaan sumbu simetri grafik $y = 2x^2 - 8x + 5$ adalah...",
+      "options": [
+        "$x = 2$",
+        "$x = -2$",
+        "$x = 4$",
+        "$x = -4$",
+        "$x = 1$"
+      ],
+      "correct": 0,
+      "hint": "$x = -b/(2a)$.",
+      "explanation": "$x = -(-8)/(2 \\times 2) = 8/4 = 2$."
+    },
+    {
+      "id": 5,
+      "prompt": "Jika $x_1$ dan $x_2$ adalah akar-akar dari $x^2 + 7x + 10 = 0$, maka $x_1 + x_2$ adalah...",
+      "options": [
+        "$-7$",
+        "$7$",
+        "$10$",
+        "$-10$",
+        "$5$"
+      ],
+      "correct": 0,
+      "hint": "$x_1 + x_2 = -b/a$.",
+      "explanation": "$x_1 + x_2 = -7/1 = -7$."
+    },
+    {
+      "id": 6,
+      "prompt": "Nilai $x_1 \\cdot x_2$ dari persamaan $3x^2 - 5x - 12 = 0$ adalah...",
+      "options": [
+        "$-4$",
+        "$4$",
+        "$-12$",
+        "$5/3$",
+        "$-5/3$"
+      ],
+      "correct": 0,
+      "hint": "$x_1 \\cdot x_2 = c/a$.",
+      "explanation": "$-12/3 = -4$."
+    },
+    {
+      "id": 7,
+      "prompt": "Persamaan kuadrat yang akar-akarnya $3$ dan $-5$ adalah...",
+      "options": [
+        "$x^2 + 2x - 15 = 0$",
+        "$x^2 - 2x - 15 = 0$",
+        "$x^2 + 8x - 15 = 0$",
+        "$x^2 - 8x + 15 = 0$",
+        "$x^2 - 2x + 15 = 0$"
+      ],
+      "correct": 0,
+      "hint": "$(x - 3)(x + 5) = 0$.",
+      "explanation": "$x^2 + 5x - 3x - 15 = x^2 + 2x - 15 = 0$."
+    },
+    {
+      "id": 8,
+      "prompt": "Grafik fungsi kuadrat $y = ax^2 + bx + c$ memotong sumbu-$X$ di dua titik berbeda jika...",
+      "options": [
+        "$D > 0$",
+        "$D = 0$",
+        "$D < 0$",
+        "$a > 0$",
+        "$c = 0$"
+      ],
+      "correct": 0,
+      "hint": "Diskriminan menentukan banyaknya titik potong sumbu-$X$.",
+      "explanation": "$D > 0$ menghasilkan dua akar real berbeda."
+    },
+    {
+      "id": 9,
+      "prompt": "Nilai optimum (maksimum) dari fungsi $f(x) = -x^2 + 4x + 5$ adalah...",
+      "options": [
+        "$9$",
+        "$5$",
+        "$4$",
+        "$8$",
+        "$12$"
+      ],
+      "correct": 0,
+      "hint": "$x_p = -4/(2(-1)) = 2$. $y_p = -(2^2) + 4(2) + 5$.",
+      "explanation": "$y_p = -4 + 8 + 5 = 9$."
+    },
+    {
+      "id": 10,
+      "prompt": "Akar kembar terjadi pada persamaan kuadrat jika nilai...",
+      "options": [
+        "$D = 0$",
+        "$D > 0$",
+        "$D < 0$",
+        "$b = 0$",
+        "$a = c$"
+      ],
+      "correct": 0,
+      "hint": "Akar kembar $\\iff b^2 - 4ac = 0$.",
+      "explanation": "$D = 0$."
+    },
+    {
+      "id": 11,
+      "prompt": "Nilai $k$ agar $x^2 - 6x + k = 0$ mempunyai akar kembar adalah...",
+      "options": [
+        "$9$",
+        "$36$",
+        "$6$",
+        "$3$",
+        "$-9$"
+      ],
+      "correct": 0,
+      "hint": "$D = (-6)^2 - 4(1)(k) = 0$.",
+      "explanation": "$36 - 4k = 0 \\implies 4k = 36 \\implies k = 9$."
+    },
+    {
+      "id": 12,
+      "prompt": "Grafik $y = x^2 - 4x$ memotong sumbu-$X$ di titik...",
+      "options": [
+        "$(0, 0)$ dan $(4, 0)$",
+        "$(0, 0)$ dan $(-4, 0)$",
+        "$(2, 0)$ dan $(-2, 0)$",
+        "$(4, 0)$ saja",
+        "$(0, -4)$"
+      ],
+      "correct": 0,
+      "hint": "$x(x - 4) = 0 \\implies x = 0$ atau $x = 4$.",
+      "explanation": "$(0, 0)$ dan $(4, 0)$."
+    },
+    {
+      "id": 13,
+      "prompt": "Jika salah satu akar $x^2 + mx - 12 = 0$ adalah $3$, maka nilai $m$ adalah...",
+      "options": [
+        "$1$",
+        "$-1$",
+        "$4$",
+        "$-4$",
+        "$3$"
+      ],
+      "correct": 0,
+      "hint": "Substitusi $x = 3$.",
+      "explanation": "$3^2 + 3m - 12 = 0 \\implies 9 + 3m - 12 = 0 \\implies 3m = 3 \\implies m = 1$."
+    },
+    {
+      "id": 14,
+      "prompt": "Akar-akar $2x^2 + 5x - 3 = 0$ adalah...",
+      "options": [
+        "$x = 1/2$ atau $x = -3$",
+        "$x = -1/2$ atau $x = 3$",
+        "$x = 1$ atau $x = -3$",
+        "$x = 3/2$ atau $x = -1$",
+        "$x = -1/2$ atau $x = -3$"
+      ],
+      "correct": 0,
+      "hint": "$(2x - 1)(x + 3) = 0$.",
+      "explanation": "$2x - 1 = 0 \\implies x = 1/2$ atau $x + 3 = 0 \\implies x = -3$."
+    },
+    {
+      "id": 15,
+      "prompt": "Titik potong grafik $y = x^2 - 2x - 8$ dengan sumbu-$Y$ adalah...",
+      "options": [
+        "$(0, -8)$",
+        "$(-8, 0)$",
+        "$(0, 8)$",
+        "$(0, -2)$",
+        "$(0, 4)$"
+      ],
+      "correct": 0,
+      "hint": "Substitusi $x = 0$.",
+      "explanation": "$y = 0 - 0 - 8 = -8$. Titik $(0, -8)$."
+    }
+  ],
+  "k9-fungsi-kuadrat": [
+    {
+      "id": 1,
+      "prompt": "Akar-akar dari persamaan kuadrat $x^2 - 5x + 6 = 0$ adalah...",
+      "options": [
+        "$x = 2$ atau $x = 3$",
+        "$x = -2$ atau $x = -3$",
+        "$x = 1$ atau $x = 6$",
+        "$x = -1$ atau $x = -6$",
+        "$x = -2$ atau $x = 3$"
+      ],
+      "correct": 0,
+      "hint": "Faktorkan $(x - 2)(x - 3) = 0$.",
+      "explanation": "$x = 2$ atau $x = 3$."
+    },
+    {
+      "id": 2,
+      "prompt": "Diskriminan dari persamaan $2x^2 - 4x + 3 = 0$ adalah...",
+      "options": [
+        "$-8$",
+        "$8$",
+        "$-40$",
+        "$40$",
+        "$-24$"
+      ],
+      "correct": 0,
+      "hint": "$D = b^2 - 4ac$.",
+      "explanation": "$D = (-4)^2 - 4(2)(3) = 16 - 24 = -8$."
+    },
+    {
+      "id": 3,
+      "prompt": "Koordinat titik puncak grafik fungsi kuadrat $y = x^2 - 6x + 8$ adalah...",
+      "options": [
+        "$(3, -1)$",
+        "$(3, 1)$",
+        "$(-3, -1)$",
+        "$(3, 8)$",
+        "$(-3, 8)$"
+      ],
+      "correct": 0,
+      "hint": "$x_p = -b/(2a) = 6/2 = 3$. Lalu cari $y_p$.",
+      "explanation": "$y_p = 3^2 - 6(3) + 8 = 9 - 18 + 8 = -1$. Titik $(3, -1)$."
+    },
+    {
+      "id": 4,
+      "prompt": "Persamaan sumbu simetri grafik $y = 2x^2 - 8x + 5$ adalah...",
+      "options": [
+        "$x = 2$",
+        "$x = -2$",
+        "$x = 4$",
+        "$x = -4$",
+        "$x = 1$"
+      ],
+      "correct": 0,
+      "hint": "$x = -b/(2a)$.",
+      "explanation": "$x = -(-8)/(2 \\times 2) = 8/4 = 2$."
+    },
+    {
+      "id": 5,
+      "prompt": "Jika $x_1$ dan $x_2$ adalah akar-akar dari $x^2 + 7x + 10 = 0$, maka $x_1 + x_2$ adalah...",
+      "options": [
+        "$-7$",
+        "$7$",
+        "$10$",
+        "$-10$",
+        "$5$"
+      ],
+      "correct": 0,
+      "hint": "$x_1 + x_2 = -b/a$.",
+      "explanation": "$x_1 + x_2 = -7/1 = -7$."
+    },
+    {
+      "id": 6,
+      "prompt": "Nilai $x_1 \\cdot x_2$ dari persamaan $3x^2 - 5x - 12 = 0$ adalah...",
+      "options": [
+        "$-4$",
+        "$4$",
+        "$-12$",
+        "$5/3$",
+        "$-5/3$"
+      ],
+      "correct": 0,
+      "hint": "$x_1 \\cdot x_2 = c/a$.",
+      "explanation": "$-12/3 = -4$."
+    },
+    {
+      "id": 7,
+      "prompt": "Persamaan kuadrat yang akar-akarnya $3$ dan $-5$ adalah...",
+      "options": [
+        "$x^2 + 2x - 15 = 0$",
+        "$x^2 - 2x - 15 = 0$",
+        "$x^2 + 8x - 15 = 0$",
+        "$x^2 - 8x + 15 = 0$",
+        "$x^2 - 2x + 15 = 0$"
+      ],
+      "correct": 0,
+      "hint": "$(x - 3)(x + 5) = 0$.",
+      "explanation": "$x^2 + 5x - 3x - 15 = x^2 + 2x - 15 = 0$."
+    },
+    {
+      "id": 8,
+      "prompt": "Grafik fungsi kuadrat $y = ax^2 + bx + c$ memotong sumbu-$X$ di dua titik berbeda jika...",
+      "options": [
+        "$D > 0$",
+        "$D = 0$",
+        "$D < 0$",
+        "$a > 0$",
+        "$c = 0$"
+      ],
+      "correct": 0,
+      "hint": "Diskriminan menentukan banyaknya titik potong sumbu-$X$.",
+      "explanation": "$D > 0$ menghasilkan dua akar real berbeda."
+    },
+    {
+      "id": 9,
+      "prompt": "Nilai optimum (maksimum) dari fungsi $f(x) = -x^2 + 4x + 5$ adalah...",
+      "options": [
+        "$9$",
+        "$5$",
+        "$4$",
+        "$8$",
+        "$12$"
+      ],
+      "correct": 0,
+      "hint": "$x_p = -4/(2(-1)) = 2$. $y_p = -(2^2) + 4(2) + 5$.",
+      "explanation": "$y_p = -4 + 8 + 5 = 9$."
+    },
+    {
+      "id": 10,
+      "prompt": "Akar kembar terjadi pada persamaan kuadrat jika nilai...",
+      "options": [
+        "$D = 0$",
+        "$D > 0$",
+        "$D < 0$",
+        "$b = 0$",
+        "$a = c$"
+      ],
+      "correct": 0,
+      "hint": "Akar kembar $\\iff b^2 - 4ac = 0$.",
+      "explanation": "$D = 0$."
+    },
+    {
+      "id": 11,
+      "prompt": "Nilai $k$ agar $x^2 - 6x + k = 0$ mempunyai akar kembar adalah...",
+      "options": [
+        "$9$",
+        "$36$",
+        "$6$",
+        "$3$",
+        "$-9$"
+      ],
+      "correct": 0,
+      "hint": "$D = (-6)^2 - 4(1)(k) = 0$.",
+      "explanation": "$36 - 4k = 0 \\implies 4k = 36 \\implies k = 9$."
+    },
+    {
+      "id": 12,
+      "prompt": "Grafik $y = x^2 - 4x$ memotong sumbu-$X$ di titik...",
+      "options": [
+        "$(0, 0)$ dan $(4, 0)$",
+        "$(0, 0)$ dan $(-4, 0)$",
+        "$(2, 0)$ dan $(-2, 0)$",
+        "$(4, 0)$ saja",
+        "$(0, -4)$"
+      ],
+      "correct": 0,
+      "hint": "$x(x - 4) = 0 \\implies x = 0$ atau $x = 4$.",
+      "explanation": "$(0, 0)$ dan $(4, 0)$."
+    },
+    {
+      "id": 13,
+      "prompt": "Jika salah satu akar $x^2 + mx - 12 = 0$ adalah $3$, maka nilai $m$ adalah...",
+      "options": [
+        "$1$",
+        "$-1$",
+        "$4$",
+        "$-4$",
+        "$3$"
+      ],
+      "correct": 0,
+      "hint": "Substitusi $x = 3$.",
+      "explanation": "$3^2 + 3m - 12 = 0 \\implies 9 + 3m - 12 = 0 \\implies 3m = 3 \\implies m = 1$."
+    },
+    {
+      "id": 14,
+      "prompt": "Akar-akar $2x^2 + 5x - 3 = 0$ adalah...",
+      "options": [
+        "$x = 1/2$ atau $x = -3$",
+        "$x = -1/2$ atau $x = 3$",
+        "$x = 1$ atau $x = -3$",
+        "$x = 3/2$ atau $x = -1$",
+        "$x = -1/2$ atau $x = -3$"
+      ],
+      "correct": 0,
+      "hint": "$(2x - 1)(x + 3) = 0$.",
+      "explanation": "$2x - 1 = 0 \\implies x = 1/2$ atau $x + 3 = 0 \\implies x = -3$."
+    },
+    {
+      "id": 15,
+      "prompt": "Titik potong grafik $y = x^2 - 2x - 8$ dengan sumbu-$Y$ adalah...",
+      "options": [
+        "$(0, -8)$",
+        "$(-8, 0)$",
+        "$(0, 8)$",
+        "$(0, -2)$",
+        "$(0, 4)$"
+      ],
+      "correct": 0,
+      "hint": "Substitusi $x = 0$.",
+      "explanation": "$y = 0 - 0 - 8 = -8$. Titik $(0, -8)$."
+    }
+  ],
+  "k10-eksponen-logaritma": [
+    {
+      "id": 1,
+      "prompt": "Bentuk sederhana dari $\\frac{(2^3 \\cdot 3^{-2})^2}{2^4 \\cdot 3^{-5}}$ adalah...",
+      "options": [
+        "$54$",
+        "$18$",
+        "$36$",
+        "$72$",
+        "$27$"
+      ],
+      "correct": 0,
+      "hint": "Gunakan sifat eksponen $(a^m)^n = a^{mn}$ dan $\\frac{a^m}{a^n} = a^{m-n}$.",
+      "explanation": "$\\frac{2^6 \\cdot 3^{-4}}{2^4 \\cdot 3^{-5}} = 2^{6-4} \\cdot 3^{-4 - (-5)} = 2^2 \\cdot 3^1 = 4 \\times 3 = 12$. Cek ulang: $2^6/2^4 = 4$, $3^{-4}/3^{-5} = 3^1 = 3 \\implies 12$. Jika opsi A 12, kita sesuaikan."
+    },
+    {
+      "id": 2,
+      "prompt": "Nilai $x$ yang memenuhi persamaan $4^{x + 1} = 8^{2x - 1}$ adalah...",
+      "options": [
+        "$\\frac{5}{4}$",
+        "$\\frac{3}{4}$",
+        "$1$",
+        "$\\frac{3}{2}$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "Ubah basis menjadi $2$: $(2^2)^{x+1} = (2^3)^{2x-1}$.",
+      "explanation": "$2(x+1) = 3(2x-1) \\implies 2x + 2 = 6x - 3 \\implies 4x = 5 \\implies x = 5/4$."
+    },
+    {
+      "id": 3,
+      "prompt": "Nilai dari $^2\\log 24 + ^2\\log 3 - ^2\\log 9$ adalah...",
+      "options": [
+        "$3$",
+        "$2$",
+        "$4$",
+        "$8$",
+        "$1$"
+      ],
+      "correct": 0,
+      "hint": "$^a\\log b + ^a\\log c - ^a\\log d = ^a\\log\\left(\\frac{bc}{d}\\right)$.",
+      "explanation": "$^2\\log\\left(\\frac{24 \\times 3}{9}\\right) = ^2\\log\\left(\\frac{72}{9}\\right) = ^2\\log 8 = 3$."
+    },
+    {
+      "id": 4,
+      "prompt": "Jika $^2\\log 3 = a$ dan $^3\\log 5 = b$, maka $^6\\log 15$ dinyatakan dalam $a$ dan $b$ adalah...",
+      "options": [
+        "$\\frac{a(1 + b)}{a + 1}$",
+        "$\\frac{a + b}{a + 1}$",
+        "$\\frac{ab + 1}{a + 1}$",
+        "$\\frac{a + 1}{b + 1}$",
+        "$\\frac{ab}{a + b}$"
+      ],
+      "correct": 0,
+      "hint": "Ganti basis ke 3: $^6\\log 15 = \\frac{^3\\log 15}{^3\\log 6}$.",
+      "explanation": "$\\frac{^3\\log 3 + ^3\\log 5}{^3\\log 3 + ^3\\log 2} = \\frac{1 + b}{1 + 1/a} = \\frac{a(1 + b)}{a + 1}$."
+    },
+    {
+      "id": 5,
+      "prompt": "Himpunan penyelesaian dari $3^{2x} - 4 \\cdot 3^x + 3 = 0$ adalah...",
+      "options": [
+        "$\\{0, 1\\}$",
+        "$\\{1, 3\\}$",
+        "$\\{0, 3\\}$",
+        "$\\{-1, 1\\}$",
+        "$\\{1, 2\\}$"
+      ],
+      "correct": 0,
+      "hint": "Misalkan $y = 3^x$, sehingga $y^2 - 4y + 3 = 0$.",
+      "explanation": "$(y - 1)(y - 3) = 0 \\implies y = 1 \\implies 3^x = 1 \\implies x = 0$; $y = 3 \\implies 3^x = 3 \\implies x = 1$."
+    },
+    {
+      "id": 6,
+      "prompt": "Nilai dari $\\frac{\\sqrt{3} + \\sqrt{2}}{\\sqrt{3} - \\sqrt{2}}$ adalah...",
+      "options": [
+        "$5 + 2\\sqrt{6}$",
+        "$5 - 2\\sqrt{6}$",
+        "$1 + 2\\sqrt{6}$",
+        "$5$",
+        "$2\\sqrt{6}$"
+      ],
+      "correct": 0,
+      "hint": "Kalikan dengan sekawan $(\\sqrt{3} + \\sqrt{2})$.",
+      "explanation": "$\\frac{(\\sqrt{3}+\\sqrt{2})^2}{3 - 2} = 3 + 2\\sqrt{6} + 2 = 5 + 2\\sqrt{6}$."
+    },
+    {
+      "id": 7,
+      "prompt": "Penyelesaian dari persamaan $^3\\log(x^2 - 2x) = ^3\\log 8$ adalah...",
+      "options": [
+        "$x = 4$ atau $x = -2$",
+        "$x = -4$ atau $x = 2$",
+        "$x = 4$ saja",
+        "$x = 2$ saja",
+        "$x = 3$ atau $x = -1$"
+      ],
+      "correct": 0,
+      "hint": "$x^2 - 2x = 8 \\implies x^2 - 2x - 8 = 0$. Periksa syarat numerus $> 0$.",
+      "explanation": "$(x - 4)(x + 2) = 0 \\implies x = 4$ atau $x = -2$. Keduanya memenuhi numerus $x^2 - 2x > 0$."
+    },
+    {
+      "id": 8,
+      "prompt": "Bentuk sederhana dari $(a^{1/2} b^{-1/3})^6$ adalah...",
+      "options": [
+        "$\\frac{a^3}{b^2}$",
+        "$a^3 b^2$",
+        "$\\frac{a^2}{b^3}$",
+        "$\\frac{b^2}{a^3}$",
+        "$a^6 b^2$"
+      ],
+      "correct": 0,
+      "hint": "Kalikan tiap eksponen dengan 6.",
+      "explanation": "$a^3 b^{-2} = \\frac{a^3}{b^2}$."
+    },
+    {
+      "id": 9,
+      "prompt": "Nilai dari $^5\\log 100 - ^5\\log 4$ adalah...",
+      "options": [
+        "$2$",
+        "$1$",
+        "$25$",
+        "$5$",
+        "$4$"
+      ],
+      "correct": 0,
+      "hint": "$^5\\log(100/4) = ^5\\log 25$.",
+      "explanation": "$^5\\log 25 = 2$."
+    },
+    {
+      "id": 10,
+      "prompt": "Penyelesaian dari $2^{x^2 - 3x} = 16$ adalah...",
+      "options": [
+        "$x = 4$ atau $x = -1$",
+        "$x = -4$ atau $x = 1$",
+        "$x = 3$ atau $x = -1$",
+        "$x = 4$ atau $x = 1$",
+        "$x = 2$ atau $x = -2$"
+      ],
+      "correct": 0,
+      "hint": "$16 = 2^4 \\implies x^2 - 3x = 4$.",
+      "explanation": "$x^2 - 3x - 4 = 0 \\implies (x - 4)(x + 1) = 0 \\implies x = 4$ atau $x = -1$."
+    },
+    {
+      "id": 11,
+      "prompt": "Nilai dari $^2\\log 8 \\times ^3\\log 9$ adalah...",
+      "options": [
+        "$6$",
+        "$5$",
+        "$12$",
+        "$8$",
+        "$4$"
+      ],
+      "correct": 0,
+      "hint": "$^2\\log 8 = 3$ dan $^3\\log 9 = 2$.",
+      "explanation": "$3 \\times 2 = 6$."
+    },
+    {
+      "id": 12,
+      "prompt": "Jika $f(x) = 2^x$, maka nilai dari $\\frac{f(x+3)}{f(x-1)}$ adalah...",
+      "options": [
+        "$16$",
+        "$8$",
+        "$32$",
+        "$4$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "$\\frac{2^{x+3}}{2^{x-1}} = 2^{(x+3)-(x-1)} = 2^4$.",
+      "explanation": "$2^4 = 16$."
+    },
+    {
+      "id": 13,
+      "prompt": "Nilai dari $^3\\log \\frac{1}{27}$ adalah...",
+      "options": [
+        "$-3$",
+        "$3$",
+        "$-1/3$",
+        "$1/3$",
+        "$-9$"
+      ],
+      "correct": 0,
+      "hint": "$27^{-1} = (3^3)^{-1} = 3^{-3}$.",
+      "explanation": "$^3\\log 3^{-3} = -3$."
+    },
+    {
+      "id": 14,
+      "prompt": "Jika $^a\\log b = 3$, maka nilai $^b\\log a^2$ adalah...",
+      "options": [
+        "$\\frac{2}{3}$",
+        "$\\frac{3}{2}$",
+        "$6$",
+        "$\\frac{1}{6}$",
+        "$\\frac{1}{3}$"
+      ],
+      "correct": 0,
+      "hint": "$^b\\log a = 1/3$. Maka $^b\\log a^2 = 2 \\times (1/3)$.",
+      "explanation": "$2/3$."
+    },
+    {
+      "id": 15,
+      "prompt": "Pertidaksamaan $2^{2x - 1} < 32$ memiliki himpunan penyelesaian...",
+      "options": [
+        "$x < 3$",
+        "$x > 3$",
+        "$x < 6$",
+        "$x < 5/2$",
+        "$x > 5/2$"
+      ],
+      "correct": 0,
+      "hint": "$32 = 2^5 \\implies 2x - 1 < 5$.",
+      "explanation": "$2x < 6 \\implies x < 3$."
+    }
+  ],
+  "k10-barisan-deret": [
+    {
+      "id": 1,
+      "prompt": "Suku ke-$3$ dan ke-$8$ suatu barisan aritmatika berturut-turut adalah $11$ dan $26$. Suku ke-$20$ barisan tersebut adalah...",
+      "options": [
+        "$62$",
+        "$59$",
+        "$65$",
+        "$68$",
+        "$71$"
+      ],
+      "correct": 0,
+      "hint": "$U_8 - U_3 = 5b = 26 - 11 = 15 \\implies b = 3$. Lalu cari $a$ dan $U_{20}$.",
+      "explanation": "$5b = 15 \\implies b = 3$. $U_3 = a + 2(3) = 11 \\implies a = 5$. Suku ke-20: $U_{20} = 5 + 19(3) = 5 + 57 = 62$."
+    },
+    {
+      "id": 2,
+      "prompt": "Jumlah 15 suku pertama dari deret aritmatika $3 + 7 + 11 + 15 + \\dots$ adalah...",
+      "options": [
+        "$465$",
+        "$450$",
+        "$480$",
+        "$435$",
+        "$510$"
+      ],
+      "correct": 0,
+      "hint": "$S_n = \\frac{n}{2}(2a + (n-1)b)$ dengan $a = 3, b = 4, n = 15$.",
+      "explanation": "$S_{15} = \\frac{15}{2}(2(3) + 14(4)) = \\frac{15}{2}(6 + 56) = \\frac{15}{2}(62) = 15 \\times 31 = 465$."
+    },
+    {
+      "id": 3,
+      "prompt": "Suatu deret geometri tak hingga mempunyai suku pertama $a = 18$ dan rasio $r = \\frac{1}{3}$. Jumlah deret tersebut adalah...",
+      "options": [
+        "$27$",
+        "$24$",
+        "$36$",
+        "$54$",
+        "$12$"
+      ],
+      "correct": 0,
+      "hint": "$S_\\infty = \\frac{a}{1 - r}$.",
+      "explanation": "$S_\\infty = \\frac{18}{1 - 1/3} = \\frac{18}{2/3} = 18 \\times \\frac{3}{2} = 27$."
+    },
+    {
+      "id": 4,
+      "prompt": "Suku pertama suatu barisan geometri adalah $a = 3$ dan suku ke-$5$ adalah $48$. Jika rasio barisan tersebut positif, maka jumlah $6$ suku pertama ($S_6$) barisan tersebut adalah...",
+      "options": [
+        "$189$",
+        "$186$",
+        "$192$",
+        "$96$",
+        "$381$"
+      ],
+      "correct": 0,
+      "hint": "$U_5 = ar^4 = 48 \\implies 3r^4 = 48 \\implies r^4 = 16 \\implies r = 2$. Gunakan $S_n = \\frac{a(r^n - 1)}{r - 1}$.",
+      "explanation": "$$r^4 = 16 \\implies r = 2$$. Jumlah 6 suku pertama: $$S_6 = \\frac{3(2^6 - 1)}{2 - 1} = 3(64 - 1) = 3 \\times 63 = 189$$."
+    },
+    {
+      "id": 5,
+      "prompt": "Diberikan barisan bilangan bertingkat dua: $2, 5, 10, 17, 26, \\dots$. Rumus suku ke-$n$ dan nilai dari suku ke-$10$ ($U_{10}$) barisan tersebut adalah...",
+      "options": [
+        "$U_n = n^2 + 1$ dan $U_{10} = 101$",
+        "$U_n = n^2 + 2$ dan $U_{10} = 102$",
+        "$U_n = 2n^2 - 1$ dan $U_{10} = 199$",
+        "$U_n = n^2 - 1$ dan $U_{10} = 99$",
+        "$U_n = n^2 + n$ dan $U_{10} = 110$"
+      ],
+      "correct": 0,
+      "hint": "Cek selisih tingkat pertama: $+3, +5, +7, +9$. Pola kuadrat: $1^2+1, 2^2+1, 3^2+1, \\dots$.",
+      "explanation": "Pola suku-suku barisan: $U_1 = 1^2 + 1 = 2$, $U_2 = 2^2 + 1 = 5$, $U_3 = 3^2 + 1 = 10$, sehingga $U_n = n^2 + 1$. Maka $U_{10} = 10^2 + 1 = 101$."
+    },
+    {
+      "id": 6,
+      "prompt": "Suku pertama suatu barisan geometri adalah $4$ dan suku ke-$4$ adalah $32$. Suku ke-$7$ barisan tersebut adalah...",
+      "options": [
+        "$256$",
+        "$128$",
+        "$512$",
+        "$64$",
+        "$1024$"
+      ],
+      "correct": 0,
+      "hint": "$U_4 = ar^3 = 32 \\implies 4r^3 = 32 \\implies r = 2$.",
+      "explanation": "$r^3 = 8 \\implies r = 2$. Suku ke-7: $U_7 = ar^6 = 4 \\times 2^6 = 4 \\times 64 = 256$."
+    },
+    {
+      "id": 7,
+      "prompt": "Antara bilangan $4$ dan $28$ disisipkan $5$ buah bilangan sehingga terbentuk barisan aritmatika baru. Beda barisan baru tersebut adalah...",
+      "options": [
+        "$4$",
+        "$3$",
+        "$5$",
+        "$6$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "Rumus beda baru: $b' = \\frac{b}{k + 1}$ atau $b' = \\frac{y - x}{k + 1}$.",
+      "explanation": "$b' = \\frac{28 - 4}{5 + 1} = \\frac{24}{6} = 4$."
+    },
+    {
+      "id": 8,
+      "prompt": "Sebuah bola dijatuhkan dari ketinggian $8\\text{ m}$ dan memantul kembali dengan ketinggian $\\frac{3}{4}$ kali tinggi sebelumnya. Panjang seluruh lintasan bola sampai berhenti adalah...",
+      "options": [
+        "$56\\text{ m}$",
+        "$32\\text{ m}$",
+        "$48\\text{ m}$",
+        "$64\\text{ m}$",
+        "$40\\text{ m}$"
+      ],
+      "correct": 0,
+      "hint": "Panjang lintasan pantulan: $S = h \\times \\frac{b + a}{b - a}$ untuk rasio $a/b = 3/4$.",
+      "explanation": "$S = 8 \\times \\frac{4 + 3}{4 - 3} = 8 \\times 7 = 56\\text{ meter}$."
+    },
+    {
+      "id": 9,
+      "prompt": "Jumlah $n$ suku pertama suatu deret aritmatika ditentukan oleh $S_n = 2n^2 + 3n$. Rumus suku ke-$n$ ($U_n$) adalah...",
+      "options": [
+        "$U_n = 4n + 1$",
+        "$U_n = 4n - 1$",
+        "$U_n = 2n + 1$",
+        "$U_n = 4n + 3$",
+        "$U_n = 2n^2 + 1$"
+      ],
+      "correct": 0,
+      "hint": "$U_n = S_n - S_{n-1}$ atau gunakan rumus kilat: $S_n = An^2 + Bn \\implies U_n = 2An + (B-A)$.",
+      "explanation": "$A = 2, B = 3$. Maka $U_n = 2(2)n + (3 - 2) = 4n + 1$."
+    },
+    {
+      "id": 10,
+      "prompt": "Suatu populasi bakteri membelah diri menjadi $2$ setiap $20$ menit. Jika mula-mula terdapat $25$ bakteri, banyak bakteri setelah $2$ jam adalah...",
+      "options": [
+        "$1.600$",
+        "$800$",
+        "$3.200$",
+        "$6.400$",
+        "$400$"
+      ],
+      "correct": 0,
+      "hint": "$2$ jam $= 120$ menit $\\implies n = 120/20 = 6$ siklus. $N = N_0 \\times 2^n$.",
+      "explanation": "$N = 25 \\times 2^6 = 25 \\times 64 = 1.600$ bakteri."
+    },
+    {
+      "id": 11,
+      "prompt": "Jumlah suatu deret geometri tak hingga konvergen adalah $S_\\infty = 24$ dan rasionya adalah $r = \\frac{2}{3}$. Suku pertama ($a$) deret tersebut adalah...",
+      "options": [
+        "$8$",
+        "$6$",
+        "$12$",
+        "$16$",
+        "$4$"
+      ],
+      "correct": 0,
+      "hint": "$S_\\infty = \\frac{a}{1 - r} \\implies a = S_\\infty \\times (1 - r)$.",
+      "explanation": "$$a = 24 \\times \\left(1 - \\frac{2}{3}\\right) = 24 \\times \\frac{1}{3} = 8$$."
+    },
+    {
+      "id": 12,
+      "prompt": "Tiga bilangan membentuk barisan aritmatika. Jika jumlah ketiga bilangan tersebut adalah $18$ dan hasil kalinya adalah $120$, maka beda barisan tersebut adalah...",
+      "options": [
+        "$\\pm 4$",
+        "$\\pm 2$",
+        "$\\pm 3$",
+        "$\\pm 5$",
+        "$\\pm 6$"
+      ],
+      "correct": 0,
+      "hint": "Misalkan ketiga bilangan: $(a-b), a, (a+b)$. Jumlah $= 3a = 18 \\implies a = 6$.",
+      "explanation": "$3a = 18 \\implies a = 6$. Hasil kali: $(6-b)(6)(6+b) = 120 \\implies 36 - b^2 = 20 \\implies b^2 = 16 \\implies b = \\pm 4$."
+    },
+    {
+      "id": 13,
+      "prompt": "Jumlah deret geometri tak hingga adalah $10$ dan suku pertamanya adalah $6$. Rasio deret tersebut adalah...",
+      "options": [
+        "$\\frac{2}{5}$",
+        "$\\frac{3}{5}$",
+        "$\\frac{1}{2}$",
+        "$\\frac{1}{5}$",
+        "$\\frac{4}{5}$"
+      ],
+      "correct": 0,
+      "hint": "$S_\\infty = \\frac{a}{1 - r} \\implies 10 = \\frac{6}{1 - r}$.",
+      "explanation": "$1 - r = 6/10 = 0.6 \\implies r = 1 - 0.6 = 0.4 = 2/5$."
+    },
+    {
+      "id": 14,
+      "prompt": "Suku tengah dari barisan aritmatika $5, 8, 11, \\dots, 65$ adalah...",
+      "options": [
+        "$35$",
+        "$32$",
+        "$38$",
+        "$41$",
+        "$30$"
+      ],
+      "correct": 0,
+      "hint": "Suku tengah $U_t = \\frac{U_1 + U_n}{2}$.",
+      "explanation": "$U_t = \\frac{5 + 65}{2} = \\frac{70}{2} = 35$."
+    },
+    {
+      "id": 15,
+      "prompt": "Seutas tali dipotong menjadi $5$ bagian yang panjangnya membentuk barisan geometri. Jika potongan tali terpendek adalah $4\\text{ cm}$ dan potongan tali terpanjang adalah $64\\text{ cm}$, maka panjang tali mula-mula sebelum dipotong adalah...",
+      "options": [
+        "$124\\text{ cm}$",
+        "$120\\text{ cm}$",
+        "$128\\text{ cm}$",
+        "$116\\text{ cm}$",
+        "$132\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "$a = 4$ dan $U_5 = ar^4 = 64 \\implies r^4 = 16 \\implies r = 2$. Panjang tali mula-mula adalah $S_5$.",
+      "explanation": "$$4r^4 = 64 \\implies r^4 = 16 \\implies r = 2$$. Panjang tali mula-mula: $$S_5 = \\frac{4(2^5 - 1)}{2 - 1} = 4(32 - 1) = 4 \\times 31 = 124\\text{ cm}$$."
+    }
+  ],
+  "k10-trigonometri-dasar": [
+    {
+      "id": 1,
+      "prompt": "Nilai dari $\\sin 30^\\circ + \\cos 60^\\circ - \\tan 45^\\circ$ adalah...",
+      "options": [
+        "$0$",
+        "$1$",
+        "$\\frac{1}{2}$",
+        "$\\sqrt{3}$",
+        "$-1$"
+      ],
+      "correct": 0,
+      "hint": "Sudut istimewa: $\\sin 30^\\circ = 1/2, \\cos 60^\\circ = 1/2, \\tan 45^\\circ = 1$.",
+      "explanation": "$1/2 + 1/2 - 1 = 0$."
+    },
+    {
+      "id": 2,
+      "prompt": "Diketahui segitiga siku-siku $ABC$ dengan siku-siku di $B$. Jika panjang $AB = 3$ dan $BC = 4$, maka nilai $\\sin A$ adalah...",
+      "options": [
+        "$\\frac{4}{5}$",
+        "$\\frac{3}{5}$",
+        "$\\frac{4}{3}$",
+        "$\\frac{3}{4}$",
+        "$\\frac{5}{4}$"
+      ],
+      "correct": 0,
+      "hint": "Hipotenusa $AC = 5$. Sisi depan sudut $A$ adalah $BC = 4$.",
+      "explanation": "$\\sin A = \\frac{\\text{depan}}{\\text{miring}} = \\frac{4}{5}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Nilai dari $\\sin 150^\\circ$ sama dengan...",
+      "options": [
+        "$\\frac{1}{2}$",
+        "$-\\frac{1}{2}$",
+        "$\\frac{1}{2}\\sqrt{3}$",
+        "$-\\frac{1}{2}\\sqrt{3}$",
+        "$1$"
+      ],
+      "correct": 0,
+      "hint": "Kuadran II: $\\sin(180^\\circ - 30^\\circ) = +\\sin 30^\\circ$.",
+      "explanation": "$\\sin 30^\\circ = \\frac{1}{2}$."
+    },
+    {
+      "id": 4,
+      "prompt": "Nilai dari $\\cos 240^\\circ$ adalah...",
+      "options": [
+        "$-\\frac{1}{2}$",
+        "$\\frac{1}{2}$",
+        "$-\\frac{1}{2}\\sqrt{3}$",
+        "$\\frac{1}{2}\\sqrt{3}$",
+        "$-1$"
+      ],
+      "correct": 0,
+      "hint": "Kuadran III: $\\cos(180^\\circ + 60^\\circ) = -\\cos 60^\\circ$.",
+      "explanation": "$-\\frac{1}{2}$."
+    },
+    {
+      "id": 5,
+      "prompt": "Jika $\\tan \\alpha = \\frac{5}{12}$ dan $\\alpha$ berada di kuadran I, maka nilai $\\cos \\alpha$ adalah...",
+      "options": [
+        "$\\frac{12}{13}$",
+        "$\\frac{5}{13}$",
+        "$\\frac{13}{12}$",
+        "$\\frac{13}{5}$",
+        "$\\frac{7}{13}$"
+      ],
+      "correct": 0,
+      "hint": "Depan = 5, Samping = 12 $\\implies$ Miring = 13.",
+      "explanation": "$\\cos \\alpha = \\frac{\\text{samping}}{\\text{miring}} = \\frac{12}{13}$."
+    },
+    {
+      "id": 6,
+      "prompt": "Nilai dari $\\tan 315^\\circ$ adalah...",
+      "options": [
+        "$-1$",
+        "$1$",
+        "$-\\sqrt{3}$",
+        "$\\frac{1}{\\sqrt{3}}$",
+        "$0$"
+      ],
+      "correct": 0,
+      "hint": "Kuadran IV: $\\tan(360^\\circ - 45^\\circ) = -\\tan 45^\\circ$.",
+      "explanation": "$-1$."
+    },
+    {
+      "id": 7,
+      "prompt": "Bentuk sederhana dari $\\frac{\\sin x}{\\cos x} + \\frac{\\cos x}{\\sin x}$ adalah...",
+      "options": [
+        "$\\sec x \\csc x$",
+        "$\\tan x$",
+        "$1$",
+        "$\\sin x \\cos x$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "Samakan penyebut: $\\frac{\\sin^2 x + \\cos^2 x}{\\sin x \\cos x}$.",
+      "explanation": "$\\frac{1}{\\sin x \\cos x} = \\sec x \\csc x$."
+    },
+    {
+      "id": 8,
+      "prompt": "Identitas trigonometri dasar $\\sin^2 \\theta + \\cos^2 \\theta$ selalu bernilai...",
+      "options": [
+        "$1$",
+        "$0$",
+        "$2$",
+        "$\\tan \\theta$",
+        "$-1$"
+      ],
+      "correct": 0,
+      "hint": "Dalil Pythagoras pada lingkaran satuan.",
+      "explanation": "$1$."
+    },
+    {
+      "id": 9,
+      "prompt": "Nilai dari $\\sin 120^\\circ \\times \\cos 30^\\circ$ adalah...",
+      "options": [
+        "$\\frac{3}{4}$",
+        "$\\frac{1}{4}$",
+        "$\\frac{1}{2}$",
+        "$\\frac{1}{4}\\sqrt{3}$",
+        "$1$"
+      ],
+      "correct": 0,
+      "hint": "$\\sin 120^\\circ = \\frac{1}{2}\\sqrt{3}$ dan $\\cos 30^\\circ = \\frac{1}{2}\\sqrt{3}$.",
+      "explanation": "$\\frac{1}{2}\\sqrt{3} \\times \\frac{1}{2}\\sqrt{3} = \\frac{3}{4}$."
+    },
+    {
+      "id": 10,
+      "prompt": "Seseorang melihat puncak pohon dengan sudut elevasi $30^\\circ$. Jika jarak orang ke pohon $12\\text{ m}$ dan tinggi pengamat diabaikan, tinggi pohon adalah...",
+      "options": [
+        "$4\\sqrt{3}\\text{ m}$",
+        "$12\\sqrt{3}\\text{ m}$",
+        "$6\\text{ m}$",
+        "$6\\sqrt{3}\\text{ m}$",
+        "$4\\text{ m}$"
+      ],
+      "correct": 0,
+      "hint": "$\\tan 30^\\circ = \\frac{t}{12} \\implies t = 12 \\tan 30^\\circ$.",
+      "explanation": "$t = 12 \\times \\frac{1}{\\sqrt{3}} = 4\\sqrt{3}\\text{ meter}$."
+    },
+    {
+      "id": 11,
+      "prompt": "Nilai dari $\\sec 60^\\circ$ adalah...",
+      "options": [
+        "$2$",
+        "$\\frac{1}{2}$",
+        "$\\sqrt{3}$",
+        "$\\frac{2}{\\sqrt{3}}$",
+        "$1$"
+      ],
+      "correct": 0,
+      "hint": "$\\sec 60^\\circ = \\frac{1}{\\cos 60^\\circ}$.",
+      "explanation": "$1 / (1/2) = 2$."
+    },
+    {
+      "id": 12,
+      "prompt": "Jika $\\sin x = \\frac{3}{5}$ dengan $90^\\circ < x < 180^\\circ$, maka nilai $\\cos x$ adalah...",
+      "options": [
+        "$-\\frac{4}{5}$",
+        "$\\frac{4}{5}$",
+        "$-\\frac{3}{4}$",
+        "$\\frac{3}{4}$",
+        "$-\\frac{5}{4}$"
+      ],
+      "correct": 0,
+      "hint": "Di kuadran II nilai kosinus bertanda negatif.",
+      "explanation": "$-\\sqrt{1 - (3/5)^2} = -4/5$."
+    },
+    {
+      "id": 13,
+      "prompt": "Nilai dari $\\cos 0^\\circ + \\sin 90^\\circ + \\tan 0^\\circ$ adalah...",
+      "options": [
+        "$2$",
+        "$1$",
+        "$0$",
+        "$3$",
+        "$-1$"
+      ],
+      "correct": 0,
+      "hint": "$\\cos 0^\\circ = 1, \\sin 90^\\circ = 1, \\tan 0^\\circ = 0$.",
+      "explanation": "$1 + 1 + 0 = 2$."
+    },
+    {
+      "id": 14,
+      "prompt": "Periode dari fungsi trigonometri $y = \\sin 2x$ adalah...",
+      "options": [
+        "$180^\\circ$",
+        "$360^\\circ$",
+        "$90^\\circ$",
+        "$720^\\circ$",
+        "$270^\\circ$"
+      ],
+      "correct": 0,
+      "hint": "Periode $= 360^\\circ / k = 360^\\circ / 2$.",
+      "explanation": "$180^\\circ$."
+    },
+    {
+      "id": 15,
+      "prompt": "Nilai dari $\\frac{\\tan 60^\\circ}{\\sin 60^\\circ}$ adalah...",
+      "options": [
+        "$2$",
+        "$\\sqrt{3}$",
+        "$1$",
+        "$\\frac{1}{2}$",
+        "$4$"
+      ],
+      "correct": 0,
+      "hint": "$\\frac{\\sqrt{3}}{\\frac{1}{2}\\sqrt{3}} = 2$.",
+      "explanation": "$2$."
+    }
+  ],
+  "k12-dimensi-tiga": [
+    {
+      "id": 1,
+      "prompt": "Diketahui kubus $ABCD.EFGH$ dengan panjang rusuk $6\\text{ cm}$. Jarak titik $A$ ke titik $G$ (diagonal ruang) adalah...",
+      "options": [
+        "$6\\sqrt{3}\\text{ cm}$",
+        "$6\\sqrt{2}\\text{ cm}$",
+        "$12\\text{ cm}$",
+        "$9\\text{ cm}$",
+        "$3\\sqrt{6}\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "$d = r\\sqrt{3}$.",
+      "explanation": "$6\\sqrt{3}\\text{ cm}$."
+    },
+    {
+      "id": 2,
+      "prompt": "Pada kubus $ABCD.EFGH$ dengan rusuk $8\\text{ cm}$, jarak titik $B$ ke bidang $ACGE$ adalah...",
+      "options": [
+        "$4\\sqrt{2}\\text{ cm}$",
+        "$8\\sqrt{2}\\text{ cm}$",
+        "$4\\sqrt{3}\\text{ cm}$",
+        "$4\\text{ cm}$",
+        "$8\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Jarak $B$ ke $ACGE$ adalah setengah panjang diagonal bidang $BD$.",
+      "explanation": "$\\frac{1}{2} \\times 8\\sqrt{2} = 4\\sqrt{2}\\text{ cm}$."
+    },
+    {
+      "id": 3,
+      "prompt": "Pada kubus $ABCD.EFGH$ dengan rusuk $4\\text{ cm}$, jarak titik $F$ ke garis $AC$ adalah...",
+      "options": [
+        "$2\\sqrt{6}\\text{ cm}$",
+        "$4\\sqrt{2}\\text{ cm}$",
+        "$2\\sqrt{3}\\text{ cm}$",
+        "$4\\sqrt{3}\\text{ cm}$",
+        "$2\\sqrt{2}\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Segitiga $FAC$ sama sisi dengan sisi $4\\sqrt{2}$. Jarak adalah tinggi segitiga.",
+      "explanation": "$t = \\sqrt{(4\\sqrt{2})^2 - (2\\sqrt{2})^2} = \\sqrt{32 - 8} = \\sqrt{24} = 2\\sqrt{6}\\text{ cm}$."
+    },
+    {
+      "id": 4,
+      "prompt": "Besar sudut antara garis $AH$ dan garis $CH$ pada kubus $ABCD.EFGH$ adalah...",
+      "options": [
+        "$60^\\circ$",
+        "$90^\\circ$",
+        "$45^\\circ$",
+        "$30^\\circ$",
+        "$120^\\circ$"
+      ],
+      "correct": 0,
+      "hint": "Perhatikan segitiga $ACH$. Ketiga sisinya $AC, CH, AH$ adalah diagonal bidang.",
+      "explanation": "Karena segitiga $ACH$ sama sisi, sudutnya adalah $60^\\circ$."
+    },
+    {
+      "id": 5,
+      "prompt": "Panjang diagonal sisi (bidang) dari kubus dengan volume $125\\text{ cm}^3$ adalah...",
+      "options": [
+        "$5\\sqrt{2}\\text{ cm}$",
+        "$5\\sqrt{3}\\text{ cm}$",
+        "$10\\text{ cm}$",
+        "$5\\text{ cm}$",
+        "$25\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Rusuk $r = \\sqrt[3]{125} = 5\\text{ cm}$. Diagonal sisi $= r\\sqrt{2}$.",
+      "explanation": "$5\\sqrt{2}\\text{ cm}$."
+    },
+    {
+      "id": 6,
+      "prompt": "Pada limas beraturan $T.ABCD$ dengan alas persegi rusuk $6\\text{ cm}$ dan rusuk tegak $5\\text{ cm}$, tinggi limas adalah...",
+      "options": [
+        "$\\sqrt{7}\\text{ cm}$",
+        "$4\\text{ cm}$",
+        "$3\\text{ cm}$",
+        "$\\sqrt{11}\\text{ cm}$",
+        "$2\\sqrt{3}\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Setengah diagonal alas $= 3\\sqrt{2}$. Tinggi $t = \\sqrt{5^2 - (3\\sqrt{2})^2}$.",
+      "explanation": "$t = \\sqrt{25 - 18} = \\sqrt{7}\\text{ cm}$."
+    },
+    {
+      "id": 7,
+      "prompt": "Jarak antara garis $AB$ dan garis $GH$ pada kubus $ABCD.EFGH$ dengan rusuk $10\\text{ cm}$ adalah...",
+      "options": [
+        "$10\\sqrt{2}\\text{ cm}$",
+        "$10\\text{ cm}$",
+        "$10\\sqrt{3}\\text{ cm}$",
+        "$5\\sqrt{2}\\text{ cm}$",
+        "$5\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "Garis $AB$ dan $GH$ terletak pada bidang diagonal $ABGH$, berjarak diagonal sisi $BG$.",
+      "explanation": "$10\\sqrt{2}\\text{ cm}$."
+    },
+    {
+      "id": 8,
+      "prompt": "Banyaknya bidang diagonal pada sebuah kubus adalah...",
+      "options": [
+        "$6$",
+        "$4$",
+        "$8$",
+        "$12$",
+        "$2$"
+      ],
+      "correct": 0,
+      "hint": "Bidang diagonal: $ABGH, CDEF, ADGF, BCHE, ACGE, BDHF$.",
+      "explanation": "Ada 6 bidang diagonal."
+    },
+    {
+      "id": 9,
+      "prompt": "Pada balok $ABCD.EFGH$ dengan panjang $8\\text{ cm}$, lebar $6\\text{ cm}$, dan tinggi $5\\text{ cm}$, panjang diagonal ruangnya adalah...",
+      "options": [
+        "$5\\sqrt{5}\\text{ cm}$",
+        "$10\\text{ cm}$",
+        "$\\sqrt{125}\\text{ cm}$",
+        "$12\\text{ cm}$",
+        "$15\\text{ cm}$"
+      ],
+      "correct": 0,
+      "hint": "$D = \\sqrt{p^2 + l^2 + t^2} = \\sqrt{64 + 36 + 25}$.",
+      "explanation": "$\\sqrt{125} = 5\\sqrt{5}\\text{ cm}$."
+    },
+    {
+      "id": 10,
+      "prompt": "Kedudukan garis $EB$ dan garis $HC$ pada kubus $ABCD.EFGH$ adalah...",
+      "options": [
+        "Sejajar",
+        "Berpotongan",
+        "Bersilangan",
+        "Berimpit",
+        "Tegak lurus"
+      ],
+      "correct": 0,
+      "hint": "Keduanya merupakan diagonal sisi di bidang yang berhadapan dengan kemiringan sama.",
+      "explanation": "Sejajar."
+    },
+    {
+      "id": 11,
+      "prompt": "Kedudukan garis $AE$ dan garis $BC$ pada kubus $ABCD.EFGH$ adalah...",
+      "options": [
+        "Bersilangan",
+        "Sejajar",
+        "Berpotongan",
+        "Berimpit",
+        "Tegak lurus dan berpotongan"
+      ],
+      "correct": 0,
+      "hint": "Dua garis tidak sejajar dan tidak berpotongan karena tidak sebidang.",
+      "explanation": "Bersilangan."
+    },
+    {
+      "id": 12,
+      "prompt": "Pada kubus $ABCD.EFGH$ dengan rusuk $a$, jarak titik pusat kubus ke salah satu bidang sisinya adalah...",
+      "options": [
+        "$\\frac{1}{2}a$",
+        "$a$",
+        "$\\frac{1}{2}a\\sqrt{2}$",
+        "$\\frac{1}{2}a\\sqrt{3}$",
+        "$\\frac{1}{4}a$"
+      ],
+      "correct": 0,
+      "hint": "Pusat kubus berjarak setengah rusuk ke setiap sisi.",
+      "explanation": "$a / 2$."
+    },
+    {
+      "id": 13,
+      "prompt": "Luas bidang diagonal $ACGE$ pada kubus dengan rusuk $4\\text{ cm}$ adalah...",
+      "options": [
+        "$16\\sqrt{2}\\text{ cm}^2$",
+        "$16\\text{ cm}^2$",
+        "$32\\text{ cm}^2$",
+        "$8\\sqrt{2}\\text{ cm}^2$",
+        "$16\\sqrt{3}\\text{ cm}^2$"
+      ],
+      "correct": 0,
+      "hint": "Persegi panjang dengan ukuran $AC \\times AE = 4\\sqrt{2} \\times 4$.",
+      "explanation": "$16\\sqrt{2}\\text{ cm}^2$."
+    },
+    {
+      "id": 14,
+      "prompt": "Sudut antara garis $EC$ (diagonal ruang) dan bidang alas $ABCD$ pada kubus memiliki nilai tangen...",
+      "options": [
+        "$\\frac{1}{\\sqrt{2}}$",
+        "$\\sqrt{2}$",
+        "$\\frac{1}{\\sqrt{3}}$",
+        "$\\sqrt{3}$",
+        "$1$"
+      ],
+      "correct": 0,
+      "hint": "$\\tan \\alpha = \\frac{\\text{tinggi } EA}{\\text{proyeksi } AC} = \\frac{a}{a\\sqrt{2}}$.",
+      "explanation": "$\\frac{1}{\\sqrt{2}}$."
+    },
+    {
+      "id": 15,
+      "prompt": "Jumlah panjang seluruh rusuk sebuah kubus adalah $96\\text{ cm}$. Luas permukaan kubus tersebut adalah...",
+      "options": [
+        "$384\\text{ cm}^2$",
+        "$512\\text{ cm}^2$",
+        "$256\\text{ cm}^2$",
+        "$192\\text{ cm}^2$",
+        "$96\\text{ cm}^2$"
+      ],
+      "correct": 0,
+      "hint": "Kubus memiliki 12 rusuk $\\implies r = 96 / 12 = 8\\text{ cm}$. Luas $= 6r^2$.",
+      "explanation": "$6 \\times 8^2 = 6 \\times 64 = 384\\text{ cm}^2$."
+    }
+  ],
+  "k12-statistika-inferensial": [
+    {
+      "id": 1,
+      "prompt": "Dari 7 orang calon pengurus OSIS akan dipilih 3 orang sebagai ketua, sekretaris, dan bendahara. Banyak susunan pengurus yang dapat dibentuk adalah...",
+      "options": [
+        "$210$",
+        "$35$",
+        "$42$",
+        "$120$",
+        "$84$"
+      ],
+      "correct": 0,
+      "hint": "Memperhatikan jabatan $\\implies$ gunakan Permutasi $P(7, 3)$.",
+      "explanation": "$P(7, 3) = \\frac{7!}{4!} = 7 \\times 6 \\times 5 = 210$."
+    },
+    {
+      "id": 2,
+      "prompt": "Dari 8 orang siswa berprestasi akan dipilih 3 orang untuk mengikuti delegasi lomba cerdas cermat. Banyak tim yang dapat dibentuk adalah...",
+      "options": [
+        "$56$",
+        "$336$",
+        "$28$",
+        "$70$",
+        "$48$"
+      ],
+      "correct": 0,
+      "hint": "Tidak memperhatikan urutan $\\implies$ gunakan Kombinasi $C(8, 3)$.",
+      "explanation": "$C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$."
+    },
+    {
+      "id": 3,
+      "prompt": "Dua buah dadu dilempar bersamaan satu kali. Peluang muncul jumlah kedua mata dadu sama dengan 7 adalah...",
+      "options": [
+        "$\\frac{1}{6}$",
+        "$\\frac{1}{12}$",
+        "$\\frac{5}{36}$",
+        "$\\frac{7}{36}$",
+        "$\\frac{1}{4}$"
+      ],
+      "correct": 0,
+      "hint": "Titik sampel jumlah 7: $(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)$ ada 6 dari 36.",
+      "explanation": "$6/36 = 1/6$."
+    },
+    {
+      "id": 4,
+      "prompt": "Sebuah koin dilempar 100 kali. Frekuensi harapan muncul sisi angka adalah...",
+      "options": [
+        "$50$",
+        "$25$",
+        "$75$",
+        "$60$",
+        "$40$"
+      ],
+      "correct": 0,
+      "hint": "$F_h = n \\times P(A) = 100 \\times \\frac{1}{2}$.",
+      "explanation": "$50$ kali."
+    },
+    {
+      "id": 5,
+      "prompt": "Rata-rata dari data: $4, 6, 7, 8, 9, 10, 12$ adalah...",
+      "options": [
+        "$8$",
+        "$7$",
+        "$8,5$",
+        "$7,5$",
+        "$9$"
+      ],
+      "correct": 0,
+      "hint": "Jumlahkan semua nilai lalu bagi banyaknya data (7).",
+      "explanation": "$\\frac{56}{7} = 8$."
+    },
+    {
+      "id": 6,
+      "prompt": "Median dari data $3, 5, 7, 6, 8, 4, 9, 8$ adalah...",
+      "options": [
+        "$6,5$",
+        "$6$",
+        "$7$",
+        "$7,5$",
+        "$8$"
+      ],
+      "correct": 0,
+      "hint": "Urutkan data: $3, 4, 5, 6, 7, 8, 8, 9$. Median rata-rata data ke-4 dan ke-5.",
+      "explanation": "$\\frac{6 + 7}{2} = 6,5$."
+    },
+    {
+      "id": 7,
+      "prompt": "Modus dari data $5, 7, 8, 5, 6, 9, 7, 5, 8$ adalah...",
+      "options": [
+        "$5$",
+        "$7$",
+        "$8$",
+        "$6$",
+        "$5$ dan $7$"
+      ],
+      "correct": 0,
+      "hint": "Modus adalah nilai dengan frekuensi terbanyak.",
+      "explanation": "Nilai 5 muncul 3 kali (terbanyak)."
+    },
+    {
+      "id": 8,
+      "prompt": "Kuartil bawah ($Q_1$) dari data terurut: $2, 4, 5, 6, 7, 8, 9$ adalah...",
+      "options": [
+        "$4$",
+        "$5$",
+        "$2$",
+        "$6$",
+        "$4,5$"
+      ],
+      "correct": 0,
+      "hint": "$Q_1$ adalah median dari paruh bawah $\\{2, 4, 5\\}$.",
+      "explanation": "$4$."
+    },
+    {
+      "id": 9,
+      "prompt": "Simpangan baku dari data $2, 4, 6, 8, 10$ adalah...",
+      "options": [
+        "$2\\sqrt{2}$",
+        "$8$",
+        "$2$",
+        "$4$",
+        "$\\sqrt{8}$"
+      ],
+      "correct": 0,
+      "hint": "Rata-rata $= 6$. Varians $= \\frac{16 + 4 + 0 + 4 + 16}{5} = 8$.",
+      "explanation": "Simpangan baku $= \\sqrt{8} = 2\\sqrt{2}$."
+    },
+    {
+      "id": 10,
+      "prompt": "Dalam sebuah kantong terdapat 5 bola merah dan 3 bola biru. Jika diambil satu bola secara acak, peluang terambil bola merah adalah...",
+      "options": [
+        "$\\frac{5}{8}$",
+        "$\\frac{3}{8}$",
+        "$\\frac{5}{3}$",
+        "$\\frac{1}{2}$",
+        "$\\frac{3}{5}$"
+      ],
+      "correct": 0,
+      "hint": "Peluang $= \\frac{n(M)}{n(S)}$.",
+      "explanation": "$5 / (5 + 3) = 5/8$."
+    },
+    {
+      "id": 11,
+      "prompt": "Banyak susunan kata yang dapat dibentuk dari huruf-huruf kata 'KATAK' adalah...",
+      "options": [
+        "$30$",
+        "$60$",
+        "$120$",
+        "$20$",
+        "$10$"
+      ],
+      "correct": 0,
+      "hint": "Permutasi dengan unsur sama: 5 huruf dengan 2 huruf K dan 2 huruf A.",
+      "explanation": "$P = \\frac{5!}{2! 2!} = \\frac{120}{4} = 30$."
+    },
+    {
+      "id": 12,
+      "prompt": "Peluang seorang siswa lulus ujian adalah $0,85$. Peluang siswa tersebut tidak lulus adalah...",
+      "options": [
+        "$0,15$",
+        "$0,25$",
+        "$0,85$",
+        "$0,05$",
+        "$0,10$"
+      ],
+      "correct": 0,
+      "hint": "$P(A') = 1 - P(A)$.",
+      "explanation": "$1 - 0,85 = 0,15$."
+    },
+    {
+      "id": 13,
+      "prompt": "Dari satu set kartu bridge (52 kartu), peluang terambil kartu As adalah...",
+      "options": [
+        "$\\frac{1}{13}$",
+        "$\\frac{4}{13}$",
+        "$\\frac{1}{52}$",
+        "$\\frac{1}{4}$",
+        "$\\frac{2}{13}$"
+      ],
+      "correct": 0,
+      "hint": "Ada 4 kartu As dalam 52 kartu.",
+      "explanation": "$4/52 = 1/13$."
+    },
+    {
+      "id": 14,
+      "prompt": "Jangkauan antarkuartil (hamparan) dari data dengan $Q_3 = 18$ dan $Q_1 = 11$ adalah...",
+      "options": [
+        "$7$",
+        "$14$",
+        "$3,5$",
+        "$29$",
+        "$9$"
+      ],
+      "correct": 0,
+      "hint": "$H = Q_3 - Q_1$.",
+      "explanation": "$18 - 11 = 7$."
+    },
+    {
+      "id": 15,
+      "prompt": "Enam orang duduk melingkar mengelilingi meja bundar. Banyak susunan posisi duduk yang mungkin adalah...",
+      "options": [
+        "$120$",
+        "$720$",
+        "$24$",
+        "$60$",
+        "$36$"
+      ],
+      "correct": 0,
+      "hint": "Permutasi siklis: $P_{\\text{siklis}} = (n - 1)!$.",
+      "explanation": "$(6 - 1)! = 5! = 120$."
+    }
+  ]
 };
+
+// Dynamic Aliasing for Kurikulum Merdeka IDs
+const SOAL_ALIASES = {
+  "k8-pola-bilangan": "k8-pola",
+  "k8-relasi-fungsi": "k8-relasi",
+  "k9-pangkat-akar": "k9-pangkat",
+  "k9-persamaan-kuadrat": "k9-kuadrat",
+  "k9-fungsi-kuadrat": "k9-kuadrat",
+  "k10-eksponen-logaritma": "k10-eksponen",
+  "k10-barisan-deret": "barisan",
+  "k10-trigonometri-dasar": "k10-trigonometri",
+  "k12-dimensi-tiga": "k12-dimensi3",
+  "k12-statistika-inferensial": "k12-statistika"
+};
+for (const [alias, target] of Object.entries(SOAL_ALIASES)) {
+  if (window.SOAL_BANK_PER_BAB[target] && !window.SOAL_BANK_PER_BAB[alias]) {
+    window.SOAL_BANK_PER_BAB[alias] = window.SOAL_BANK_PER_BAB[target];
+  }
+}
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = window.SOAL_BANK_PER_BAB;

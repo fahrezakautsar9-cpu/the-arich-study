@@ -713,7 +713,8 @@
     if (!resView) return;
 
     // Adjust width for better readability of diagnostics
-    resView.className = 'hidden max-w-2xl mx-auto w-full py-6 space-y-4';
+    const isHidden = resView.classList.contains('hidden');
+    resView.className = (isHidden ? 'hidden ' : '') + 'max-w-2xl mx-auto w-full py-6 space-y-4';
 
     // 1. Prominent Primary Review Button
     if (!document.getElementById('btn-open-exam-review')) {

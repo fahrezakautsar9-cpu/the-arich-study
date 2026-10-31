@@ -555,10 +555,22 @@
     }
 
     // Pick 3 focused questions for rapid spaced repetition
-    const missionQuestions = rawQuestions.slice(0, 3).map((q, idx) => ({
+    let missionQuestions = rawQuestions.slice(0, 3).map((q, idx) => ({
       ...q,
       dailyMissionIndex: idx + 1
     }));
+
+    // Safeguard: Ensure missionQuestions ALWAYS has at least 3 questions
+    if (missionQuestions.length < 3 && rawQuestions.length > 0) {
+      let padIdx = 0;
+      while (missionQuestions.length < 3) {
+        const cloneQ = { ...rawQuestions[padIdx % rawQuestions.length] };
+        cloneQ.id = (rawQuestions.length + missionQuestions.length + 1);
+        cloneQ.dailyMissionIndex = missionQuestions.length + 1;
+        missionQuestions.push(cloneQ);
+        padIdx++;
+      }
+    }
 
     targetChapter.questions = missionQuestions;
     targetChapter.isDailyMission = true;

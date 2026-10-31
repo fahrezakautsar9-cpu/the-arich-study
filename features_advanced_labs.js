@@ -1,3 +1,19 @@
+
+function formatLinearEqLatex(a, b, c) {
+  let termA = '';
+  if (a === 1) termA = 'x';
+  else if (a === -1) termA = '-x';
+  else if (a !== 0) termA = `${a}x`;
+
+  let termB = '';
+  if (b === 1) termB = termA ? '+ y' : 'y';
+  else if (b === -1) termB = '- y';
+  else if (b > 0) termB = termA ? `+ ${b}y` : `${b}y`;
+  else if (b < 0) termB = `- ${Math.abs(b)}y`;
+
+  const left = (termA + (termB ? ' ' + termB : '')).trim() || '0';
+  return `${left} = ${Number(c.toFixed(4))}`;
+}
 /**
  * ============================================================================
  * THE ARICH STUDY PLATFORM — ADVANCED INTERACTIVE LABS MODULE
@@ -1062,24 +1078,24 @@
             </div>
           </div>
 
-          <!-- Step 2: Elimination Method -->
-          <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-2.5">
+                    <!-- Step 2: Elimination Method -->
+          <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
             <span class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider block">Metode 1: Eliminasi & Substitusi</span>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Untuk mengeliminasi variabel $y$, kalikan persamaan (1) dengan pengali $b_2 = ${b2}$ dan persamaan (2) dengan $b_1 = ${b1}$:
+              Untuk mengeliminasi variabel $y$, kalikan persamaan (1) dengan koefisien $b_2 = ${b2}$ dan persamaan (2) dengan $b_1 = ${b1}$:
             </p>
-            <div class="p-2.5 bg-dark-950 rounded-lg text-xs font-mono text-slate-300 space-y-1">
-              <div>(1) &times; ${b2} &implies; ${a1 * b2}x + ${b1 * b2}y = ${c1 * b2}</div>
-              <div>(2) &times; ${b1} &implies; ${a2 * b1}x + ${b1 * b2}y = ${c2 * b1}</div>
-              <div class="border-t border-slate-700 pt-1 text-cyan-400">
-                Pengurangan: (${a1 * b2 - a2 * b1})x = ${c1 * b2 - c2 * b1} &implies; <strong>x = ${Number(solX.toFixed(4))}</strong>
+            <div class="p-3 bg-dark-950 rounded-xl border border-slate-800 text-xs text-slate-200 space-y-2">
+              <div>${renderKaTeX(`\\text{(1)} \\times (${b2}) \\implies ${formatLinearEqLatex(a1 * b2, b1 * b2, c1 * b2)}`, true)}</div>
+              <div>${renderKaTeX(`\\text{(2)} \\times (${b1}) \\implies ${formatLinearEqLatex(a2 * b1, b1 * b2, c2 * b1)}`, true)}</div>
+              <div class="border-t border-slate-700/80 pt-2 text-cyan-400 font-semibold">
+                ${renderKaTeX(`\\text{Eliminasi: } (${a1 * b2 - a2 * b1})x = ${c1 * b2 - c2 * b1} \\implies \\mathbf{x = ${Number(solX.toFixed(4))}}`, true)}
               </div>
             </div>
             <p class="text-xs text-slate-300">
-              Substitusikan nilai $x = ${Number(solX.toFixed(4))}$ ke persamaan (1):
+              Substitusikan nilai $x = ${Number(solX.toFixed(4))}$ kembali ke persamaan (1):
             </p>
-            <div class="p-2.5 bg-dark-950 rounded-lg text-xs font-mono text-slate-300">
-              ${a1}(${Number(solX.toFixed(4))}) + ${b1}y = ${c1} &implies; ${b1}y = ${c1 - a1 * solX} &implies; <strong>y = ${Number(solY.toFixed(4))}</strong>
+            <div class="p-3 bg-dark-950 rounded-xl border border-slate-800 text-xs text-slate-200">
+              ${renderKaTeX(`(${a1})(${Number(solX.toFixed(4))}) + (${b1})y = ${c1} \\implies (${b1})y = ${Number((c1 - a1 * solX).toFixed(4))} \\implies \\mathbf{y = ${Number(solY.toFixed(4))}}`, true)}
             </div>
           </div>
 
