@@ -547,3 +547,9 @@ window.UTBK_SOAL_BANK = [
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = window.UTBK_SOAL_BANK;
 }
+
+
+// Expose Penalaran Matematika if loaded
+if (typeof window.UTBK_PENALARAN_MATEMATIKA !== 'undefined') {
+  window.UTBK_SOAL_BANK_PM = window.UTBK_PENALARAN_MATEMATIKA;
+}

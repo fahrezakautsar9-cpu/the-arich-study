@@ -854,3 +854,55 @@ if (typeof window.KURMER_KELAS12_DATA !== 'undefined' && window.ALL_GRADES_DATA[
 if (typeof window.UTBK_SOAL_BANK !== 'undefined' && window.ALL_GRADES_DATA['11']) {
   window.ALL_GRADES_DATA['11'].questions = window.UTBK_SOAL_BANK;
 }
+
+
+// ============================================================================
+// BIND UTBK-SNBT PENALARAN MATEMATIKA (PM) MASTER CHAPTER
+// ============================================================================
+if (typeof window.UTBK_PENALARAN_MATEMATIKA !== 'undefined') {
+  const pmChapter = {
+    id: "utbk-penalaran-matematika",
+    number: "SNBT",
+    badge: "UTBK PM • Simulasi Resmi",
+    title: "Penalaran Matematika (PM) UTBK-SNBT 2026",
+    summary: "Simulasi Resmi HOTS BPPP Kemendikbudristek: 4 Domain (Bilangan, Aljabar, Geometri, Data & Peluang) & 3 Format Modern (PG, PG Kompleks Benar/Salah, Isian Singkat) lengkap dengan wacana stimulus dan trik kilat 30 detik.",
+    subject: "Matematika",
+    icon: "award",
+    questions: window.UTBK_PENALARAN_MATEMATIKA,
+    subtopics: [
+      {
+        title: "1. Domain Bilangan & Aritmetika Sosial",
+        concept: "Diskon bertingkat marketplace promo $d_{eq} = d_1 + d_2 - \\frac{d_1 d_2}{100}$, perbandingan berbalik nilai tenaga kerja dengan hari terhenti $\\Delta P = \\frac{\\text{hari libur} \\times P_0}{\\text{sisa waktu}}$, kurs valuta asing & biaya transfer remitansi, profit margin BEP $BEP = \\frac{FC}{MK}$, perbandingan efisiensi konsumsi armada, serta tabungan deposito bunga majemuk berpajak PPh final $20\\%$.",
+        quickTip: "⚡ Trik Diskon Ekuivalen: $d_{eq} = d_1 + d_2 - (d_1 \\times d_2 / 100)$. Jangan pernah menjumlahkan diskon bertingkat secara langsung!",
+        example: "Diskon $30\\% + 10\\% = 37\\%$. Pembeli membayar $63\\%$ dari harga awal."
+      },
+      {
+        title: "2. Domain Aljabar & Pemodelan Fungsi",
+        concept: "Skema tarif taksi online bertingkat piecewise linear dengan surge pricing multiplier, SPLDV sistem bundling perlengkapan sekolah, fungsi kuadrat laba maksimum $L(x) = R(x) - C(x)$ dengan titik puncak $x = -b/(2a)$, kapasitas tribun gedung bioskop deret aritmetika bertingkat, serta lintasan kuadrat drone logistik.",
+        quickTip: "⚡ Trik Laba Maksimum: Turunkan fungsi laba $L'(x) = 0$ untuk mendapatkan unit produksi optimal dalam 5 detik!",
+        example: "$L(x) = -4x^2 + 80x - 80 \\implies L'(x) = -8x + 80 = 0 \\implies x = 10$ lusin."
+      },
+      {
+        title: "3. Domain Pengukuran & Geometri",
+        concept: "Debit fluida pengisian tangki kombinasi 3 pipa $v_{\\text{net}} = v_1 + v_2 - v_3$, pengubinan granit aula pertemuan dengan toleransi waste factor $10\\%$, pengukuran klinometer dua sudut elevasi ($30^\\circ$ dan $60^\\circ$), kesebangunan bayangan lampu jalan $v_b = \\frac{h}{H-h} v_{\\text{orang}}$, serta kapasitas tangki silinder $V = \\pi r^2 h$.",
+        quickTip: "⚡ Trik Sudut Elevasi 30°-60°: Karena sudut segitiga puncak $60^\\circ - 30^\\circ = 30^\\circ$, segitiga adalah sama kaki! Sisi miring $PB = AB = 30\\text{ m}$.",
+        example: "Jarak $x = 30 \\cos 60^\\circ = 15\\text{ m}$, tinggi $h' = 30 \\sin 60^\\circ = 15\\sqrt{3}\\text{ m}$."
+      },
+      {
+        title: "4. Domain Data & Ketidakpastian",
+        concept: "Analisis tabel dan grafik pertumbuhan penjualan kuartalan, rata-rata gabungan tertimbang (weighted mean), kombinatorika tim delegasi dengan syarat kuota gender $C(n, r)$, peluang bersyarat Teorema Bayes kendali mutu chip cacat, serta sifat ketahanan ukuran dispersi pada transformasi data linier $y = ax + b$.",
+        quickTip: "⚡ Trik Transformasi Data: Ukuran pemusatan terkena kali dan tambah ($ax + b$), sedangkan ukuran penyebaran HANYA terkena kali ($|a| \\cdot R$) tanpa ditambah $b$!",
+        example: "Jangkauan awal 29, rumus $y = 1{,}1x + 5 \\implies$ Jangkauan baru $= 1{,}1 \\times 29 = 31{,}9$."
+      }
+    ]
+  };
+
+  ['11', '12'].forEach(gradeKey => {
+    if (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[gradeKey] && window.ALL_GRADES_DATA[gradeKey].chapters) {
+      const exists = window.ALL_GRADES_DATA[gradeKey].chapters.some(c => c.id === 'utbk-penalaran-matematika');
+      if (!exists) {
+        window.ALL_GRADES_DATA[gradeKey].chapters.push(pmChapter);
+      }
+    }
+  });
+}

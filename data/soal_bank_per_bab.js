@@ -10650,3 +10650,9 @@ for (const [alias, target] of Object.entries(SOAL_ALIASES)) {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = window.SOAL_BANK_PER_BAB;
 }
+
+
+// Bind UTBK-SNBT Penalaran Matematika
+if (typeof window.UTBK_PENALARAN_MATEMATIKA !== 'undefined') {
+  window.SOAL_BANK_PER_BAB["utbk-penalaran-matematika"] = window.UTBK_PENALARAN_MATEMATIKA;
+}
