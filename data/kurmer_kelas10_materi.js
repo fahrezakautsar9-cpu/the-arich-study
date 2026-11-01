@@ -1,5 +1,5 @@
 /**
- * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS 10 (FASE E)
+ * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS10
  * Data Modul Lengkap: Rangkuman Teori Terstruktur, Konsep & Intuisi Fisis Mendalam,
  * Waspada Miskonsepsi, Trik Kilat Sakti, dan Pembahasan Soal Terbimbing Multi-Level.
  * Disusun untuk Platform Pembelajaran Digital The Arich Study

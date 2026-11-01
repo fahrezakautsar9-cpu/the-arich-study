@@ -1,5 +1,5 @@
 /**
- * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS 11 (FASE F)
+ * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS11
  * Data Modul Lengkap: Rangkuman Teori Terstruktur, Konsep & Intuisi Fisis Mendalam,
  * Waspada Miskonsepsi, Trik Kilat Sakti, dan Pembahasan Soal Terbimbing Multi-Level.
  * Disusun untuk Platform Pembelajaran Digital The Arich Study
@@ -303,7 +303,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "$a_s$ mengubah ARAH gerak (ke pusat lingkaran), sedangkan $a_t$ mengubah LAJU putaran (menyinggung lingkaran). Percepatan total selalu dicari dengan phytagoras: $a_{tot} = \\sqrt{a_s^2 + a_t^2}$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah piringan hitam berjari-jari $R = 0{,}5\\text{ m}$ diputar dari keadaan diam dengan percepatan sudut konstan $\\alpha = 4\\text{ rad/s}^2$. Sebuah titik debu berada tepat di pinggir tepi terluar piringan.\n\nPada saat $t = 2\\text{ sekon}$:\na) Tentukan kecepatan sudut piringan ($\\omega_t$) dan sudut putar total yang telah ditempuh ($\\theta$).\nb) Hitung percepatan tangensial ($a_t$).\nc) Hitung percepatan sentripetal ($a_s$).\nd) Hitung besar percepatan total ($a_{tot}$) titik debu tersebut.\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Kecepatan Sudut dan Posisi Sudut**\nKarena dari keadaan diam, $\\omega_0 = 0$.\n$$\\omega_t = \\omega_0 + \\alpha t = 0 + (4)(2) = 8\\text{ rad/s}$$\n$$\\theta = \\omega_0 t + \\frac{1}{2}\\alpha t^2 = 0 + \\frac{1}{2}(4)(2^2) = 8\\text{ radian}$$\nJumlah putaran yang ditempuh: $n = \\frac{\\theta}{2\\pi} = \\frac{8}{2\\pi} \\approx 1{,}27\\text{ putaran}$.\n\n**Langkah 2: Menghitung Percepatan Tangensial**\n$$a_t = \\alpha R = 4 \\times 0{,}5 = 2\\text{ m/s}^2$$\n\n**Langkah 3: Menghitung Percepatan Sentripetal**\n$$a_s = \\omega_t^2 R = (8)^2 \\times 0{,}5 = 64 \\times 0{,}5 = 32\\text{ m/s}^2$$\n\n**Langkah 4: Menghitung Percepatan Total**\n$$a_{tot} = \\sqrt{a_t^2 + a_s^2} = \\sqrt{2^2 + 32^2} = \\sqrt{4 + 1024} = \\sqrt{1028} \\approx 32{,}06\\text{ m/s}^2$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k11-fisika-dinamika-newton",
@@ -336,7 +337,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "Tikungan licin miring: $\\tan\\theta = \\frac{v^2}{gR}$. Titik tertinggi gerak melingkar vertikal bertali memiliki kelajuan kritis minimum $v = \\sqrt{gR}$. Di titik terendah, tegangan tali paling besar: $T = \\frac{mv^2}{R} + mg$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah mobil bermassa $m = 1200\\text{ kg}$ melintasi tikungan jalan miring licin (tanpa gesekan) yang memiliki jari-jari kelengkungan $R = 40\\text{ meter}$. Kemiringan tikungan adalah $\\theta = 45^\\circ$. Gunakan $g = 10\\text{ m/s}^2$.\n\nTentukan:\na) Kelajuan ideal mobil ($v$) agar dapat menikung dengan aman tanpa tergelincir ke atas atau merosot ke bawah.\nb) Gaya normal yang dikerjakan permukaan aspal pada mobil saat melaju pada kelajuan ideal tersebut.\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Kelajuan Ideal Tikungan Miring**\nDiketahui $\\tan 45^\\circ = 1$, $R = 40\\text{ m}$, $g = 10\\text{ m/s}^2$.\n$$v = \\sqrt{g R \\tan\\theta} = \\sqrt{10 \\times 40 \\times \\tan 45^\\circ} = \\sqrt{400 \\times 1} = 20\\text{ m/s}$$\n*(Dalam km/jam: $20 \\times 3{,}6 = 72\\text{ km/jam}$).*\n\n**Langkah 2: Menghitung Gaya Normal**\nDari kesetimbangan sumbu vertikal:\n$$N \\cos\\theta = mg$$\n$$N \\cos 45^\\circ = 1200 \\times 10$$\n$$N \\left(\\frac{1}{2}\\sqrt{2}\\right) = 12000$$\n$$N = \\frac{12000}{\\frac{1}{2}\\sqrt{2}} = \\frac{24000}{\\sqrt{2}} = 12000\\sqrt{2} \\approx 16970\\text{ Newton}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k11-fisika-usaha-energi-momentum",
@@ -363,7 +365,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "Jika dua benda menempel jadi satu setelah tumbukan, gunakan rumus langsung: $v' = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}$. Pantulan bola dari lantai: $e = \\sqrt{h_2/h_1}$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah peluru bermassa $m_p = 20\\text{ gram} = 0{,}02\\text{ kg}$ ditembakkan secara horizontal dengan kecepatan $v_p = 400\\text{ m/s}$ ke arah balok kayu bermassa $M = 1{,}98\\text{ kg}$ yang awalnya diam di atas lantai licin tanpa gesekan. Peluru menancap di dalam balok dan keduanya meluncur bersama.\n\nTentukan:\na) Kelajuan bersama balok dan peluru tepat setelah tumbukan ($v'$).\nb) Energi kinetik sistem sebelum dan sesudah tumbukan.\nc) Persentase energi kinetik yang hilang terdisipasi menjadi panas dan deformasi kayu.\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menggunakan Hukum Kekekalan Momentum (Tumbukan Tak Lenting $e=0$)**\n$$m_p v_p + M v_b = (m_p + M) v'$$\n$$(0{,}02 \\times 400) + (1{,}98 \\times 0) = (0{,}02 + 1{,}98) v'$$\n$$8 + 0 = 2{,}00 \\times v' \\implies v' = \\frac{8}{2} = 4\\text{ m/s}$$\n\n**Langkah 2: Menghitung Energi Kinetik Awal dan Akhir**\nEnergi kinetik sebelum tumbukan (hanya peluru yang bergerak):\n$$EK_1 = \\frac{1}{2}m_p v_p^2 = \\frac{1}{2}(0{,}02)(400^2) = 0{,}01 \\times 160000 = 1600\\text{ Joule}$$\nEnergi kinetik setelah tumbukan (peluru + balok):\n$$EK_2 = \\frac{1}{2}(m_p + M)(v')^2 = \\frac{1}{2}(2{,}00)(4^2) = 1 \\times 16 = 16\\text{ Joule}$$\n\n**Langkah 3: Menghitung Energi yang Hilang**\n$$\\Delta EK = EK_1 - EK_2 = 1600 - 16 = 1584\\text{ Joule}$$\nPersentase energi yang terbuang:\n$$\\% \\text{hilang} = \\frac{1584}{1600} \\times 100\\% = 99\\%$$\n*(Hebat sekali: 99% energi mekanik peluru berubah menjadi panas dan meremukkan serat kayu!).*"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k11-fisika-dinamika-rotasi",
@@ -390,7 +393,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "Rumus kilat tangga bersandar pada dinding licin tepat akan tergelincir: $\\tan\\theta = \\frac{1}{2\\mu_s} \\implies \\mu_s = \\frac{1}{2\\tan\\theta}$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah tangga homogen dengan panjang $L = 5\\text{ m}$ dan massa $m = 12\\text{ kg}$ disandarkan pada dinding vertikal yang licin sempurna. Ujung bawah tangga bertumpu pada lantai mendatar kasar. Sudut kemiringan tangga terhadap lantai adalah $\\theta = 45^\\circ$ ($g = 10\\text{ m/s}^2$).\n\nTentukan:\na) Koefisien gesekan statis minimum ($\\mu_s$) antara ujung bawah tangga dan lantai agar tangga tidak tergelincir.\nb) Gaya normal dari dinding ($N_d$) dan gaya normal dari lantai ($N_l$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Gaya Normal dari Lantai**\nGaya vertikal yang bekerja: gaya normal lantai ke atas ($N_l$) dan gaya berat tangga ke bawah ($w = mg = 12 \\times 10 = 120\\text{ N}$).\n$$\\sum F_y = 0 \\implies N_l = w = 120\\text{ Newton}$$\n\n**Langkah 2: Menggunakan Syarat Torsi di Ujung Bawah Lantai (Poros $A$)**\nTitik poros di ujung bawah lantai ($A$): gaya normal lantai dan gaya gesek tidak menghasilkan torsi karena $r = 0$.\nTorsi searah jarum jam oleh berat tangga (bekerja di tengah batang $L/2$):\n$$\\tau_w = w \\cdot \\left(\\frac{L}{2} \\cos\\theta\\right) = 120 \\cdot \\frac{5}{2} \\cos 45^\\circ = 300 \\cos 45^\\circ$$\nTorsi berlawanan jarum jam oleh gaya normal dinding ($N_d$ bekerja di ujung atas $L$):\n$$\\tau_{N_d} = N_d \\cdot (L \\sin\\theta) = N_d \\cdot 5 \\sin 45^\\circ$$\nSyarat kesetimbangan rotasi: $\\sum \\tau_A = 0$:\n$$N_d \\cdot 5 \\sin 45^\\circ = 300 \\cos 45^\\circ$$\nKarena $\\sin 45^\\circ = \\cos 45^\\circ$:\n$$5 N_d = 300 \\implies N_d = 60\\text{ Newton}$$\n\n**Langkah 3: Menghitung Koefisien Gesekan Statis Minimum**\nKesetimbangan gaya horizontal: gaya gesek lantai menahan dorongan dinding:\n$$\\sum F_x = 0 \\implies f_s = N_d = 60\\text{ N}$$\nSaat tepat akan tergelincir, $f_s = \\mu_s N_l$:\n$$60 = \\mu_s \\times 120 \\implies \\mu_s = \\frac{60}{120} = 0{,}5$$\n*(Verifikasi Trik Kilat):* $\\mu_s = \\frac{1}{2\\tan 45^\\circ} = \\frac{1}{2(1)} = 0{,}5$ (Sangat cepat dan akurat!)."
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k11-fisika-fluida",
@@ -417,7 +421,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "Pipa mendatar ($h_1 = h_2$): Penampang mengecil $\\implies$ Kelajuan bertambah $\\implies$ Tekanan anjlok! Teorema Torricelli tangki bocor: $v = \\sqrt{2gh}$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nAir mengalir melalui pipa horizontal mendatar ($h_1 = h_2$) yang memiliki luas penampang utama $A_1 = 50\\text{ cm}^2 = 5 \\times 10^{-3}\\text{ m}^2$ dan penampang leher yang mengecil $A_2 = 10\\text{ cm}^2 = 1 \\times 10^{-3}\\text{ m}^2$. Kelajuan air di penampang utama adalah $v_1 = 2\\text{ m/s}$ dan tekanan terukurnya $P_1 = 2 \\times 10^5\\text{ Pa}$. Massa jenis air $\\rho = 1000\\text{ kg/m}^3$.\n\nTentukan:\na) Kelajuan air pada penampang kecil ($v_2$).\nb) Tekanan air pada penampang leher yang sempit tersebut ($P_2$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Kelajuan $v_2$ dengan Persamaan Kontinuitas**\n$$A_1 v_1 = A_2 v_2$$\n$$(5 \\times 10^{-3}) \\times 2 = (1 \\times 10^{-3}) \\times v_2$$\n$$v_2 = 5 \\times 2 = 10\\text{ m/s}$$\n\n**Langkah 2: Menghitung Tekanan $P_2$ dengan Persamaan Bernoulli**\nKarena pipa horizontal ($h_1 = h_2$), suku $\\rho gh$ saling menghilangkan:\n$$P_1 + \\frac{1}{2}\\rho v_1^2 = P_2 + \\frac{1}{2}\\rho v_2^2$$\n$$200000 + \\frac{1}{2}(1000)(2^2) = P_2 + \\frac{1}{2}(1000)(10^2)$$\n$$200000 + 500(4) = P_2 + 500(100)$$\n$$200000 + 2000 = P_2 + 50000$$\n$$202000 = P_2 + 50000 \\implies P_2 = 202000 - 50000 = 152000\\text{ Pa} = 1{,}52 \\times 10^5\\text{ Pa}$$\n*(Tekanan terbukti turun dari 200 kPa menjadi 152 kPa karena kelajuan melonjak naik!).*"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k11-fisika-gelombang-bunyi-cahaya",
@@ -444,7 +449,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "Jarak antar-pita terang berurutan celah ganda: $\\Delta y = \\frac{\\lambda L}{d}$. Untuk kisi difraksi berkonstanta $N\\text{ goresan/cm}$, hitung jarak celah: $d = \\frac{10^{-2}}{N}\\text{ m}$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nBerkas sinar laser monokromatik dengan panjang gelombang $\\lambda = 600\\text{ nm} = 6 \\times 10^{-7}\\text{ m}$ dijatuhkan tegak lurus pada kisi difraksi yang memiliki $400\\text{ garis/mm}$. Pola pita terang ditangkap pada layar yang diletakkan sejauh $L = 1{,}5\\text{ meter}$ di belakang kisi.\n\nTentukan:\na) Jarak antar-celah kisi ($d$) dalam satuan meter.\nb) Sudut difraksi orde pertama ($\\theta$).\nc) Jarak antara garis terang orde kedua ($m = 2$) dengan terang pusat di layar ($y_2$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Jarak Antar-Celah $d$**\n$$N = 400\\text{ garis/mm} = 400 \\times 10^3\\text{ garis/m} = 4 \\times 10^5\\text{ garis/m}$$\n$$d = \\frac{1}{N} = \\frac{1}{4 \\times 10^5} = 2{,}5 \\times 10^{-6}\\text{ meter}$$\n\n**Langkah 2: Menghitung Sudut Difraksi Orde Pertama ($m = 1$)**\n$$d \\sin\\theta = m \\lambda \\implies \\sin\\theta = \\frac{m \\lambda}{d}$$\n$$\\sin\\theta = \\frac{1 \\times (6 \\times 10^{-7})}{2{,}5 \\times 10^{-6}} = \\frac{6}{25} = 0{,}24$$\n$$\\theta = \\arcsin(0{,}24) \\approx 13{,}89^\\circ$$\n\n**Langkah 3: Menghitung Jarak Terang Orde Kedua ($m = 2$) di Layar**\nUntuk sudut yang relatif kecil, $\\sin\\theta \\approx \\tan\\theta = \\frac{y}{L}$:\n$$\\frac{d \\cdot y_2}{L} = m \\lambda \\implies y_2 = \\frac{m \\lambda L}{d}$$\n$$y_2 = \\frac{2 \\times (6 \\times 10^{-7}) \\times 1{,}5}{2{,}5 \\times 10^{-6}} = \\frac{18 \\times 10^{-7}}{2{,}5 \\times 10^{-6}} = 7{,}2 \\times 10^{-1}\\text{ m} = 0{,}72\\text{ m} = 72\\text{ cm}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k11-fisika-termodinamika",
@@ -471,7 +477,8 @@ const KURMER_KELAS11_DATA = [
         "quickTip": "Efisiensi Mesin Carnot: $\\eta = 1 - \\frac{T_C}{T_H}$. Selalu ubah suhu ke Kelvin dulu ($T_K = T_C + 273$) sebelum menghitung efisiensi!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah mesin kalor Carnot beroperasi di antara reservoir suhu tinggi $527^\\circ\\text{C}$ dan reservoir suhu rendah $127^\\circ\\text{C}$. Dalam satu siklus, mesin menyerap kalor sebesar $Q_H = 6000\\text{ Joule}$ dari reservoir panas.\n\nTentukan:\na) Efisiensi termal mesin Carnot tersebut.\nb) Besar usaha mekanik ($W$) yang dihasilkan mesin dalam satu siklus.\nc) Besar kalor yang dibuang ($Q_C$) ke reservoir dingin.\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Konversi Suhu ke Skala Kelvin**\n$$T_H = 527 + 273 = 800\\text{ K}$$\n$$T_C = 127 + 273 = 400\\text{ K}$$\n\n**Langkah 2: Menghitung Efisiensi Mesin Carnot**\n$$\\eta = 1 - \\frac{T_C}{T_H} = 1 - \\frac{400}{800} = 1 - 0{,}5 = 0{,}5 = 50\\%$$\n\n**Langkah 3: Menghitung Usaha Mekanik yang Dihasilkan ($W$)**\n$$W = \\eta \\times Q_H = 0{,}5 \\times 6000\\text{ J} = 3000\\text{ Joule}$$\n\n**Langkah 4: Menghitung Kalor yang Dibuang ke Reservoir Dingin ($Q_C$)**\n$$Q_C = Q_H - W = 6000 - 3000 = 3000\\text{ Joule}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   }
 ];
 

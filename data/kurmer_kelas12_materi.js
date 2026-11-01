@@ -1,5 +1,5 @@
 /**
- * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS 12 (FASE F & F LANJUT)
+ * KURIKULUM MERDEKA MATEMATIKA & FISIKA KELAS12
  * Data Modul Lengkap: Rangkuman Teori Terstruktur, Konsep & Intuisi Fisis Mendalam,
  * Waspada Miskonsepsi, Trik Kilat Sakti, dan Pembahasan Soal Terbimbing Multi-Level.
  * Disusun untuk Platform Pembelajaran Digital The Arich Study
@@ -169,7 +169,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Aturan rangkaian kapasitor KEBALIKAN dari resistor! Kapasitor Paralel dijumlah langsung ($C_p = C_1 + C_2$), sedangkan Kapasitor Seri dihitung dengan pecahan seper ($1/C_s = 1/C_1 + 1/C_2$).",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nDua kapasitor masing-masing memiliki kapasitas $C_1 = 3\\ \\mu\\text{F}$ dan $C_2 = 6\\ \\mu\\text{F}$. Keduanya dihubungkan secara seri ke sumber tegangan baterai $V = 12\\text{ Volt}$.\n\nTentukan:\na) Kapasitas total rangkaian seri ($C_s$).\nb) Muatan total yang tersimpan dalam rangkaian ($Q$).\nc) Beda potensial pada masing-masing kapasitor ($V_1$ dan $V_2$).\nd) Energi total yang tersimpan dalam sistem kapasitor.\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Kapasitas Ekivalen Seri**\n$$\\frac{1}{C_s} = \\frac{1}{C_1} + \\frac{1}{C_2} = \\frac{1}{3} + \\frac{1}{6} = \\frac{2 + 1}{6} = \\frac{3}{6} = \\frac{1}{2}$$\n$$C_s = 2\\ \\mu\\text{F} = 2 \\times 10^{-6}\\text{ Farad}$$\n\n**Langkah 2: Menghitung Muatan Total**\nPada rangkaian seri, muatan pada setiap kapasitor adalah sama dengan muatan total:\n$$Q_1 = Q_2 = Q_{tot} = C_s \\times V = (2\\ \\mu\\text{F}) \\times 12\\text{ V} = 24\\ \\mu\\text{C}$$\n\n**Langkah 3: Menghitung Beda Potensial Tiap Kapasitor**\n$$V_1 = \\frac{Q}{C_1} = \\frac{24\\ \\mu\\text{C}}{3\\ \\mu\\text{F}} = 8\\text{ Volt}$$\n$$V_2 = \\frac{Q}{C_2} = \\frac{24\\ \\mu\\text{C}}{6\\ \\mu\\text{F}} = 4\\text{ Volt}$$\n*(Cek: $V_1 + V_2 = 8 + 4 = 12\\text{ V}$, persis sama dengan tegangan sumber baterai!).*\n\n**Langkah 4: Menghitung Energi Total yang Tersimpan**\n$$W = \\frac{1}{2} C_s V^2 = \\frac{1}{2} (2 \\times 10^{-6}) (12^2) = 10^{-6} \\times 144 = 1{,}44 \\times 10^{-4}\\text{ Joule}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k12-fisika-listrik-dinamis",
@@ -196,7 +197,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Langkah Kirchhoff 2 Loop: 1) Tulis Hukum I di percabangan ($I_1 + I_2 = I_3$). 2) Buat persamaan Loop 1 dan Loop 2. 3) Selesaikan dengan metode eliminasi/substitusi!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nPerhatikan rangkaian satu loop berikut. Baterai $\\mathcal{E}_1 = 16\\text{ V}$ (hambatan dalam diabaikan), baterai $\\mathcal{E}_2 = 4\\text{ V}$, serta dua resistor $R_1 = 3\\ \\Omega$ dan $R_2 = 3\\ \\Omega$ dirangkai seri dalam satu loop tertutup. Arah kutub $\\mathcal{E}_1$ berlawanan dengan $\\mathcal{E}_2$ (saling berhadapan).\n\nTentukan:\na) Kuat arus listrik yang mengalir dalam loop ($I$).\nb) Beda potensial antara kedua ujung resistor $R_1$.\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menentukan Persamaan Loop Kirchhoff**\nPilih arah loop searah jarum jam mengikuti dorongan baterai yang lebih kuat ($\\mathcal{E}_1 = 16\\text{ V}$).\nMenyusuri loop searah jarum jam:\n- Keluar dari kutub positif $\\mathcal{E}_1 \\implies +\\mathcal{E}_1 = +16\\text{ V}$\n- Menabrak kutub positif $\\mathcal{E}_2$ $\\implies -\\mathcal{E}_2 = -4\\text{ V}$\nHukum II Kirchhoff:\n$$\\sum \\mathcal{E} + I \\sum R = 0$$\n$$(-\\mathcal{E}_1 + \\mathcal{E}_2) + I(R_1 + R_2) = 0$$\n$$(-16 + 4) + I(3 + 3) = 0$$\n$$-12 + 6I = 0 \\implies 6I = 12 \\implies I = 2\\text{ Ampere}$$\n\n**Langkah 2: Menghitung Beda Potensial Resistor $R_1$**\n$$V_{R1} = I \\times R_1 = 2\\text{ A} \\times 3\\ \\Omega = 6\\text{ Volt}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k12-fisika-medan-magnet-induksi",
@@ -223,7 +225,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Pada transformator: Tegangan SEBANDING dengan jumlah lilitan ($V \\propto N$), namun BERBANDING TERBALIK dengan arus ($I \\propto 1/V$). Trafo Step-Up menaikkan tegangan ($V_s > V_p$) namun menurunkan kuat arus!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah transformator memiliki efisiensi $\\eta = 80\\%$. Kumparan primer memiliki $N_p = 1000\\text{ lilitan}$ dan dihubungkan ke sumber tegangan AC $V_p = 220\\text{ Volt}$. Kumparan sekunder memiliki $N_s = 200\\text{ lilitan}$ dan menyalakan lampu bertuliskan $44\\text{ V}, 88\\text{ W}$.\n\nTentukan:\na) Tegangan keluaran pada kumparan sekunder ($V_s$).\nb) Kuat arus pada kumparan sekunder ($I_s$).\nc) Kuat arus yang ditarik kumparan primer dari sumber listrik PLN ($I_p$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Tegangan Sekunder $V_s$**\n$$\\frac{V_s}{V_p} = \\frac{N_s}{N_p} \\implies V_s = V_p \\left(\\frac{N_s}{N_p}\\right) = 220 \\times \\left(\\frac{200}{1000}\\right) = 220 \\times 0{,}2 = 44\\text{ Volt}$$\n*(Tegangan sekunder 44 V pas dengan spesifikasi lampu).*\n\n**Langkah 2: Menghitung Arus Sekunder $I_s$**\n$$P_s = V_s \\times I_s \\implies I_s = \\frac{P_s}{V_s} = \\frac{88\\text{ W}}{44\\text{ V}} = 2\\text{ Ampere}$$\n\n**Langkah 3: Menghitung Arus Primer Menggunakan Efisiensi Trafo**\n$$\\eta = \\frac{P_s}{P_p} \\times 100\\% \\implies 0{,}80 = \\frac{88}{P_p} \\implies P_p = \\frac{88}{0{,}8} = 110\\text{ Watt}$$\nDaya primer adalah $P_p = V_p \\times I_p$:\n$$110 = 220 \\times I_p \\implies I_p = \\frac{110}{220} = 0{,}5\\text{ Ampere}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k12-fisika-arus-bolak-balik",
@@ -244,7 +247,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Saat resonansi AC: $X_L = X_C$, impedansi minimum $Z = R$, arus maksimum, dan frekuensi resonansi adalah $f = \frac{1}{2\\pi\\sqrt{LC}}$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah rangkaian seri RLC terdiri dari resistor $R = 40\\ \\Omega$, induktor dengan reaktansi induktif $X_L = 100\\ \\Omega$, dan kapasitor dengan reaktansi kapasitif $X_C = 70\\ \\Omega$. Rangkaian dihubungkan ke sumber tegangan bolak-balik dengan tegangan efektif $V = 150\\text{ Volt}$.\n\nTentukan:\na) Impedansi total rangkaian ($Z$).\nb) Kuat arus efektif yang mengalir dalam rangkaian ($I$).\nc) Tegangan pada masing-masing komponen ($V_R, V_L, V_C$).\nd) Faktor daya rangkaian ($\\cos\\phi$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Impedansi Total $Z$**\n$$Z = \\sqrt{R^2 + (X_L - X_C)^2} = \\sqrt{40^2 + (100 - 70)^2} = \\sqrt{40^2 + 30^2} = \\sqrt{1600 + 900} = \\sqrt{2500} = 50\\ \\Omega$$\n\n**Langkah 2: Menghitung Arus Efektif**\n$$I = \\frac{V}{Z} = \\frac{150\\text{ V}}{50\\ \\Omega} = 3\\text{ Ampere}$$\n\n**Langkah 3: Menghitung Tegangan Tiap Komponen**\n$$V_R = I \\times R = 3 \\times 40 = 120\\text{ Volt}$$\n$$V_L = I \\times X_L = 3 \\times 100 = 300\\text{ Volt}$$\n$$V_C = I \\times X_C = 3 \\times 70 = 210\\text{ Volt}$$\n*(Verifikasi Tegangan Fasor):* $V = \\sqrt{120^2 + (300 - 210)^2} = \\sqrt{120^2 + 90^2} = \\sqrt{14400 + 8100} = \\sqrt{22500} = 150\\text{ V}$ (Tepat cocok!).\n\n**Langkah 4: Menghitung Faktor Daya**\n$$\\cos\\phi = \\frac{R}{Z} = \\frac{40}{50} = 0{,}8$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k12-fisika-relativitas-khusus",
@@ -271,7 +275,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Energi kinetik relativistik BUKAN $\\frac{1}{2}mv^2$! Rumusnya adalah $EK = E_{total} - E_0 = (\\gamma - 1)m_0 c^2$. Jika $E = 2E_0$, maka energi kinetiknya sama dengan energi diamnya ($EK = E_0$)!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah partikel bermassa diam $m_0$ dipercepat hingga memiliki energi kinetik yang besarnya sama dengan energi diamnya ($EK = E_0$).\n\nTentukan:\na) Energi total partikel tersebut dinyatakan dalam $E_0$.\nb) Kelajuan gerak partikel tersebut ($v$) dalam pecahan kelajuan cahaya $c$.\nc) Besar momentum relativistik partikel ($p$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menentukan Energi Total**\n$$E = E_0 + EK = E_0 + E_0 = 2 E_0$$\n\n**Langkah 2: Menghitung Kelajuan Partikel**\nKarena $E = \\gamma E_0$, maka $\\gamma = 2$:\n$$\\gamma = \\frac{1}{\\sqrt{1 - \\frac{v^2}{c^2}}} = 2 \\implies \\sqrt{1 - \\frac{v^2}{c^2}} = \\frac{1}{2}$$\nKuadratkan kedua ruas:\n$$1 - \\frac{v^2}{c^2} = \\frac{1}{4} \\implies \\frac{v^2}{c^2} = 1 - \\frac{1}{4} = \\frac{3}{4}$$\n$$v = \\sqrt{\\frac{3}{4}} c = \\frac{1}{2}\\sqrt{3} c \\approx 0{,}866 c$$\n\n**Langkah 3: Menghitung Momentum Relativistik**\nGunakan relasi $E^2 = (pc)^2 + E_0^2$:\n$$(2E_0)^2 = (pc)^2 + E_0^2$$\n$$4E_0^2 = (pc)^2 + E_0^2 \\implies (pc)^2 = 3E_0^2$$\n$$pc = \\sqrt{3} E_0 \\implies p = \\frac{\\sqrt{3} E_0}{c} = \\sqrt{3} m_0 c$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k12-fisika-kuantum",
@@ -298,7 +303,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Panjang gelombang De Broglie: $\\lambda = \\frac{h}{mv} = \\frac{h}{\\sqrt{2mEK}}$. Hamburan Compton: $\\Delta\\lambda = \\frac{h}{m_e c}(1 - \\cos\\theta)$. Pergeseran panjang gelombang HANYA bergantung pada sudut hamburan $\\theta$!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah elektron ($m = 9 \\times 10^{-31}\\text{ kg}$, $q = 1{,}6 \\times 10^{-19}\\text{ C}$) dipercepat dari keadaan diam melalui beda potensial tegangan listrik $V = 100\\text{ Volt}$. Gunakan konstanta Planck $h = 6{,}63 \\times 10^{-34}\\text{ J}\\cdot\\text{s}$.\n\nTentukan:\na) Energi kinetik yang diperoleh elektron dalam satuan Joule.\nb) Besar momentum elektron ($p$).\nc) Panjang gelombang de Broglie elektron tersebut ($\\lambda$).\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Energi Kinetik Elektron**\n$$EK = q \\cdot V = (1{,}6 \\times 10^{-19}\\text{ C}) \\times 100\\text{ V} = 1{,}6 \\times 10^{-17}\\text{ Joule}$$\n\n**Langkah 2: Menghitung Momentum Elektron**\n$$p = \\sqrt{2 m \\cdot EK} = \\sqrt{2 \\times (9 \\times 10^{-31}) \\times (1{,}6 \\times 10^{-17})}$$\n$$p = \\sqrt{28{,}8 \\times 10^{-48}} = \\sqrt{28{,}8} \\times 10^{-24} \\approx 5{,}37 \\times 10^{-24}\\text{ kg}\\cdot\\text{m/s}$$\n\n**Langkah 3: Menghitung Panjang Gelombang De Broglie**\n$$\\lambda = \\frac{h}{p} = \\frac{6{,}63 \\times 10^{-34}}{5{,}37 \\times 10^{-24}} \\approx 1{,}23 \\times 10^{-10}\\text{ meter} = 0{,}123\\text{ nm} = 1{,}23\\text{ \\AA}$$\n*(Panjang gelombang 0,123 nm ini berada pada orde jarak antar-atom dalam kristal, sehingga elektron dapat terdifraksi layaknya sinar-X!).*"
       }
-    ]
+    ],
+    "subject": "Fisika"
   },
   {
     "id": "k12-fisika-inti-radioaktivitas",
@@ -325,7 +331,8 @@ window.KURMER_KELAS12_DATA = [
         "quickTip": "Pada penyetaraan reaksi inti: Jumlah angka ATAS (massa $A$) sebelah kiri = sebelah kanan. Jumlah angka BAWAH (muatan $Z$) sebelah kiri = sebelah kanan!",
         "exampleProblem": "**Soal Latihan Terbimbing:**\nSebuah reaksi fusi termonuklir terjadi antara deuterium ($^2_1\\text{H}$) dan tritium ($^3_1\\text{H}$) menghasilkan partikel alfa ($^4_2\\text{He}$) dan satu neutron ($^1_0 n$):\n$$^2_1\\text{H} + \\, ^3_1\\text{H} \\longrightarrow \\, ^4_2\\text{He} + \\, ^1_0 n + Q$$\n\nDiketahui data massa partikel:\n- Massa $^2_1\\text{H} = 2{,}01410\\text{ sma}$\n- Massa $^3_1\\text{H} = 3{,}01605\\text{ sma}$\n- Massa $^4_2\\text{He} = 4{,}00260\\text{ sma}$\n- Massa $^1_0 n = 1{,}00866\\text{ sma}$\n- $1\\text{ sma} = 931{,}5\\text{ MeV}$\n\nTentukan energi ($Q$) yang dibebaskan dalam reaksi fusi tersebut!\n\n**Pembahasan Langkah demi Langkah:**\n\n**Langkah 1: Menghitung Massa Total Reaktan (Sebelum Reaksi)**\n$$m_{kiri} = m(^2_1\\text{H}) + m(^3_1\\text{H}) = 2{,}01410 + 3{,}01605 = 5{,}03015\\text{ sma}$$\n\n**Langkah 2: Menghitung Massa Total Produk (Sesudah Reaksi)**\n$$m_{kanan} = m(^4_2\\text{He}) + m(^1_0 n) = 4{,}00260 + 1{,}00866 = 5{,}01126\\text{ sma}$$\n\n**Langkah 3: Menghitung Selisih Massa ($\\Delta m$)**\n$$\\Delta m = m_{kiri} - m_{kanan} = 5{,}03015 - 5{,}01126 = 0{,}01889\\text{ sma}$$\n\n**Langkah 4: Menghitung Nilai Energi $Q$ yang Dibebaskan**\n$$Q = \\Delta m \\times 931{,}5\\text{ MeV} = 0{,}01889 \\times 931{,}5 \\approx 17{,}596\\text{ MeV} \\approx 17{,}6\\text{ MeV}$$"
       }
-    ]
+    ],
+    "subject": "Fisika"
   }
 ];
 

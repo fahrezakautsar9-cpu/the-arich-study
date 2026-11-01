@@ -4514,12 +4514,13 @@ function doPost(e) {
 
     function getSubjectFilterBarHTML(chapters) {
       if (!chapters) return '';
-      const hasPhysics = chapters.some(c => c.subject === 'Fisika');
+      const getSub = c => c.subject || (c.id && c.id.toLowerCase().includes('fisik') ? 'Fisika' : 'Matematika');
+      const hasPhysics = chapters.some(c => getSub(c) === 'Fisika');
       if (!hasPhysics) return '';
 
       const totalAll = chapters.length;
-      const totalMath = chapters.filter(c => (c.subject || 'Matematika') === 'Matematika').length;
-      const totalPhys = chapters.filter(c => c.subject === 'Fisika').length;
+      const totalMath = chapters.filter(c => getSub(c) === 'Matematika').length;
+      const totalPhys = chapters.filter(c => getSub(c) === 'Fisika').length;
 
       const activeAll = currentSubjectFilter === 'all';
       const activeMath = currentSubjectFilter === 'Matematika';
@@ -4565,13 +4566,14 @@ function doPost(e) {
       if (!container || !currentGradeData || !currentGradeData.chapters) return;
 
       const filterBar = getSubjectFilterBarHTML(currentGradeData.chapters);
+      const getSub = ch => ch.subject || (ch.id && ch.id.toLowerCase().includes('fisik') ? 'Fisika' : 'Matematika');
       const filtered = currentGradeData.chapters.filter(ch => {
         if (currentSubjectFilter === 'all') return true;
-        return (ch.subject || 'Matematika') === currentSubjectFilter;
+        return getSub(ch) === currentSubjectFilter;
       });
 
       const cardsHtml = filtered.map((ch, idx) => {
-        const isPhysics = ch.subject === 'Fisika';
+        const isPhysics = getSub(ch) === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
         const badgeText = isPhysics ? `Fisika • ${badge}` : `Matematika • ${badge}`;
         const badgeStyle = isPhysics ? 'text-sky-300 bg-sky-500/10 border-sky-500/25' : 'text-indigo-300 bg-indigo-500/10 border-indigo-500/25';
@@ -4603,13 +4605,14 @@ function doPost(e) {
       if (!container || !currentGradeData || !currentGradeData.chapters) return;
 
       const filterBar = getSubjectFilterBarHTML(currentGradeData.chapters);
+      const getSub = ch => ch.subject || (ch.id && ch.id.toLowerCase().includes('fisik') ? 'Fisika' : 'Matematika');
       const filtered = currentGradeData.chapters.filter(ch => {
         if (currentSubjectFilter === 'all') return true;
-        return (ch.subject || 'Matematika') === currentSubjectFilter;
+        return getSub(ch) === currentSubjectFilter;
       });
 
       const cardsHtml = filtered.map((ch, idx) => {
-        const isPhysics = ch.subject === 'Fisika';
+        const isPhysics = getSub(ch) === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
         const badgeText = isPhysics ? `Fisika • ${badge}` : `Matematika • ${badge}`;
         const badgeStyle = isPhysics ? 'text-sky-300 bg-sky-500/10 border-sky-500/25' : 'text-indigo-300 bg-indigo-500/10 border-indigo-500/25';
@@ -4882,13 +4885,14 @@ function doPost(e) {
       const myName = currentStudent ? currentStudent.name.toLowerCase() : '';
 
       const filterBar = getSubjectFilterBarHTML(currentGradeData.chapters);
+      const getSub = ch => ch.subject || (ch.id && ch.id.toLowerCase().includes('fisik') ? 'Fisika' : 'Matematika');
       const filtered = currentGradeData.chapters.filter(ch => {
         if (currentSubjectFilter === 'all') return true;
-        return (ch.subject || 'Matematika') === currentSubjectFilter;
+        return getSub(ch) === currentSubjectFilter;
       });
 
       const cardsHtml = filtered.map((ch, idx) => {
-        const isPhysics = ch.subject === 'Fisika';
+        const isPhysics = getSub(ch) === 'Fisika';
         const badge = ch.number ? `Bab ${ch.number}` : (ch.badge || `Bab 0${idx+1}`);
         const badgeText = isPhysics ? `Fisika • ${badge}` : `Matematika • ${badge}`;
         const badgeStyle = isPhysics ? 'text-sky-300 bg-sky-500/10 border-sky-500/25' : 'text-indigo-300 bg-indigo-500/10 border-indigo-500/25';
