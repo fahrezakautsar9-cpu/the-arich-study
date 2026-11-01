@@ -9,7 +9,8 @@
  * - Active CBT Exam Session (view-exam) & Review Session (view-exam-review)
  * - Active PM Exam Session (view-pm-exam) & Review Session (view-pm-review)
  * - Smart Error Bank Remedial Worksheets
- * - Clean A4 Vector PDF Generation via Window.print & Offline .HTML Export
+ * - Clean A4 Vector PDF Generation via Hidden Iframe (Zero Blank Pages)
+ * - Standalone Offline .HTML Export & Live Paper Preview
  * ============================================================================
  */
 
@@ -19,7 +20,7 @@
   // State
   const DownloaderState = {
     isOpen: false,
-    currentSource: null, // { type: 'chapter'|'pm'|'cbt'|'error_bank', id, title, subtitle, duration, questions, stimuli }
+    currentSource: null, // { type, id, title, subtitle, duration, questions, stimuli }
     config: {
       contentMode: 'soal_only', // 'soal_only' | 'soal_solution' | 'solution_only'
       columns: '2col', // '2col' | '1col'
@@ -34,9 +35,6 @@
   // 1. DATA ADAPTERS & NORMALIZERS
   // ============================================================================
 
-  /**
-   * Normalizes a chapter from Kurikulum Merdeka (SOAL_BANK_PER_BAB / currentGradeData)
-   */
   function normalizeChapterData(chapterId, optionalGrade) {
     let ch = null;
     let gradeData = window.currentGradeData;
@@ -49,7 +47,6 @@
       ch = gradeData.chapters.find(c => c.id === chapterId);
     }
 
-    // Fallback: search all grades
     if (!ch && window.ALL_GRADES_DATA) {
       for (const g of Object.keys(window.ALL_GRADES_DATA)) {
         const found = window.ALL_GRADES_DATA[g].chapters.find(c => c.id === chapterId);
@@ -61,7 +58,6 @@
       }
     }
 
-    // Resolve questions
     let qs = [];
     if (ch && ch.questions && ch.questions.length > 0) {
       qs = ch.questions;
@@ -102,9 +98,6 @@
     };
   }
 
-  /**
-   * Normalizes a UTBK PM Package (window.PM_PACKAGES)
-   */
   function normalizePMPackage(packageId = 'paket-1') {
     const pkgs = window.PM_PACKAGES || {};
     const pkg = pkgs[packageId] || pkgs['paket-1'];
@@ -146,9 +139,6 @@
     };
   }
 
-  /**
-   * Normalizes current active CBT exam
-   */
   function normalizeCurrentCBTExam() {
     const ch = window.currentExamChapter;
     const qs = window.activeQuestions || [];
@@ -185,9 +175,6 @@
     };
   }
 
-  /**
-   * Normalizes current active UTBK PM exam
-   */
   function normalizeCurrentPMExam() {
     if (window.featuresPMEngine && typeof window.featuresPMEngine.getState === 'function') {
       const state = window.featuresPMEngine.getState();
@@ -198,9 +185,6 @@
     return normalizePMPackage('paket-1');
   }
 
-  /**
-   * Normalizes Smart Error Bank mistakes
-   */
   function normalizeErrorBankData() {
     if (!window.TheArichErrorBank) return null;
     const mistakes = window.TheArichErrorBank.getMistakes() || [];
@@ -238,7 +222,7 @@
   }
 
   // ============================================================================
-  // 2. HTML & KATEX EXAM SHEET GENERATOR (PRINT READY)
+  // 2. DOCUMENT BODY HTML GENERATOR
   // ============================================================================
 
   function generateExamSheetHTML(source, config) {
@@ -251,7 +235,7 @@
 
     let html = '';
 
-    // A. Official Header (KOP SURAT RESMI)
+    // A. Official Header
     if (includeHeader) {
       html += `
         <div class="exam-print-kop">
@@ -310,7 +294,7 @@
       `;
     }
 
-    // B. General Instructions (Petunjuk Umum)
+    // B. General Instructions
     if (includeInstructions && contentMode !== 'solution_only') {
       html += `
         <div class="exam-print-instructions">
@@ -326,7 +310,7 @@
       `;
     }
 
-    // C. Questions Body (If contentMode includes questions)
+    // C. Questions Body
     if (contentMode === 'soal_only' || contentMode === 'soal_solution') {
       html += `<div class="exam-print-section-divider"><span>BAGIAN I: NASKAH SOAL UJIAN</span></div>`;
       html += `<div class="exam-print-questions-container ${isTwoCol ? 'exam-body-2col' : 'exam-body-1col'}">`;
@@ -334,7 +318,6 @@
       let currentStimulusId = null;
 
       source.questions.forEach((q, idx) => {
-        // If UTBK PM with a stimulus that hasn't been rendered yet
         if (q.stimulus && q.stimulus.id !== currentStimulusId) {
           currentStimulusId = q.stimulus.id;
           const stim = q.stimulus;
@@ -375,7 +358,6 @@
           `;
         }
 
-        // Render question card
         html += `
           <div class="exam-print-question-card" id="print-q-${q.number}">
             <div class="q-card-head">
@@ -384,12 +366,10 @@
             </div>
         `;
 
-        // Render options based on question type
         const isComplex = (q.type === 'complex' || q.type === 'complex_tf' || (q.statements && q.statements.length > 0));
         const isNumeric = (q.type === 'numeric' || q.type === 'numeric_input' || typeof q.correctNumeric !== 'undefined');
 
         if (isComplex && q.statements && q.statements.length > 0) {
-          // Complex Table (Benar / Salah)
           html += `
             <table class="exam-print-complex-table">
               <thead>
@@ -413,7 +393,6 @@
             </table>
           `;
         } else if (isNumeric) {
-          // Numeric Fill-in
           html += `
             <div class="exam-print-numeric-wrapper">
               <span class="numeric-label">Kotak Isian Jawaban Numerik:</span>
@@ -421,7 +400,6 @@
             </div>
           `;
         } else {
-          // Standard Single Choice (A, B, C, D, E)
           const optLetters = ['A', 'B', 'C', 'D', 'E'];
           html += `<div class="exam-print-options-list">`;
           (q.options || []).forEach((opt, oIdx) => {
@@ -436,13 +414,13 @@
           html += `</div>`;
         }
 
-        html += `</div>`; // end question-card
+        html += `</div>`;
       });
 
-      html += `</div>`; // end questions-container
+      html += `</div>`;
     }
 
-    // D. Printable Student Answer Sheet / LJK Kertas (Optional)
+    // D. Printable Student Answer Sheet (LJK)
     if (includeLJK && contentMode !== 'solution_only') {
       html += `
         <div class="exam-print-page-break"></div>
@@ -468,7 +446,7 @@
       `;
     }
 
-    // E. Answer Key Sheet & Detailed Step-by-Step Solutions (Optional)
+    // E. Solutions & Explanations
     if (contentMode === 'soal_solution' || contentMode === 'solution_only') {
       html += `
         <div class="exam-print-page-break"></div>
@@ -478,13 +456,11 @@
             <div class="sol-doc-subtitle">${source.title} • ${source.subtitle}</div>
           </div>
 
-          <!-- Quick Key Table for Fast Grading -->
           <div class="sol-quick-table-section">
             <div class="quick-table-title">TABEL KUNCI JAWABAN CEPAT:</div>
             ${renderQuickKeyTable(source.questions)}
           </div>
 
-          <!-- Step-by-step Detailed Solutions -->
           <div class="sol-detailed-list space-y-4">
             <div class="detailed-title">PEMBAHASAN RINCI LANGKAH DEMI LANGKAH:</div>
             ${source.questions.map((q, idx) => {
@@ -528,7 +504,7 @@
       `;
     }
 
-    // F. Scratchpad / Lembar Buram (Optional)
+    // F. Scratchpad
     if (includeScratchpad) {
       html += `
         <div class="exam-print-page-break"></div>
@@ -540,7 +516,7 @@
       `;
     }
 
-    // G. Running Footer
+    // G. Footer
     html += `
       <div class="exam-print-footer">
         <span>The Arich Study — Platform Pembelajaran & Asesmen Terstandar</span>
@@ -554,8 +530,6 @@
   function renderLJKGrid(questions) {
     const total = questions.length;
     let html = '<div class="ljk-columns-wrapper">';
-    
-    // Divide into 2 columns (e.g. 1-10, 11-20)
     const mid = Math.ceil(total / 2);
     const col1 = questions.slice(0, mid);
     const col2 = questions.slice(mid);
@@ -632,66 +606,13 @@
   }
 
   // ============================================================================
-  // 3. PRINT ENGINE & DOM INJECTION
+  // 3. FULL DOCUMENT HTML WITH INLINE STYLES (FOR IFRAME & OFFLINE)
   // ============================================================================
 
-  function triggerPrintExecution(source, config) {
-    let container = document.getElementById('the-arich-print-sheet');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'the-arich-print-sheet';
-      document.body.appendChild(container);
-    }
+  function buildFullPrintableDocumentHTML(source, config) {
+    const bodyContent = generateExamSheetHTML(source, config);
 
-    // Generate HTML
-    container.innerHTML = generateExamSheetHTML(source, config);
-
-    // Trigger KaTeX math rendering inside container
-    if (window.renderMathInElement) {
-      try {
-        window.renderMathInElement(container, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false,
-          strict: false
-        });
-      } catch (e) {
-        console.warn('[ExamDownloader] KaTeX render error:', e);
-      }
-    }
-
-    // Set printing class
-    document.body.classList.add('printing-exam');
-
-    // Trigger native browser print dialog
-    setTimeout(() => {
-      window.print();
-
-      // Cleanup
-      const cleanup = () => {
-        document.body.classList.remove('printing-exam');
-        window.removeEventListener('afterprint', cleanup);
-      };
-      window.addEventListener('afterprint', cleanup);
-
-      // Fallback cleanup
-      setTimeout(() => {
-        document.body.classList.remove('printing-exam');
-      }, 2000);
-    }, 250);
-  }
-
-  // ============================================================================
-  // 4. OFFLINE STANDALONE HTML EXPORTER
-  // ============================================================================
-
-  function exportStandaloneHTML(source, config) {
-    const bodyHtml = generateExamSheetHTML(source, config);
-    const cleanFileName = `Naskah_Soal_${(source.title || 'Ujian').replace(/[^a-zA-Z0-9]/g, '_')}.html`;
-
-    const fullDocument = `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -700,81 +621,67 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap">
   <style>
-    /* Injected Print & Document Styles */
-    @page { size: A4 portrait; margin: 12mm 14mm 14mm 14mm; }
+    @page {
+      size: A4 portrait;
+      margin: 12mm 14mm 14mm 14mm;
+    }
     html, body {
-      background: #ffffff;
-      color: #090d16;
+      background: #ffffff !important;
+      color: #090d16 !important;
       font-size: 10pt;
       line-height: 1.55;
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       margin: 0;
       padding: 0;
+      width: 100%;
     }
-    .offline-toolbar {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      background: #0f172a;
-      color: #ffffff;
-      padding: 10px 18px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: sans-serif;
-      font-size: 13px;
-      z-index: 99999;
-    }
-    .offline-toolbar button {
-      background: #4f46e5;
-      color: #ffffff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 13px;
-    }
-    .offline-toolbar button:hover { background: #4338ca; }
-    @media print {
-      .offline-toolbar { display: none !important; }
-    }
-    /* Core Exam Styles */
-    .exam-print-kop { border-bottom: 3px double #0f172a; padding-bottom: 10px; margin-bottom: 14px; }
+    * { box-sizing: border-box; }
+    
+    /* Kop Surat */
+    .exam-print-kop { border-bottom: 3px double #0f172a; padding-bottom: 8px; margin-bottom: 12px; page-break-inside: avoid; }
     .kop-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-    .kop-logo-title { font-size: 14pt; font-weight: 900; color: #3730a3; letter-spacing: 0.5px; }
-    .kop-logo-sub { font-size: 8.5pt; color: #475569; font-weight: 600; }
+    .kop-brand { flex: 1; }
+    .kop-logo-title { font-size: 15pt; font-weight: 900; color: #3730a3; letter-spacing: 0.5px; }
+    .kop-logo-sub { font-size: 8.5pt; color: #334155; font-weight: 700; }
     .kop-logo-curriculum { font-size: 8pt; color: #64748b; }
-    .kop-score-box { border: 1.5px solid #0f172a; border-radius: 6px; width: 110px; text-align: center; padding: 4px; }
-    .score-box-title { font-size: 7.5pt; font-weight: 800; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; }
-    .score-box-val { font-size: 14pt; font-weight: 900; height: 26px; }
+    .kop-score-box { border: 1.5px solid #0f172a; border-radius: 6px; width: 115px; text-align: center; padding: 4px; background: #ffffff; }
+    .score-box-title { font-size: 7.5pt; font-weight: 800; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; color: #0f172a; }
+    .score-box-val { font-size: 16pt; font-weight: 900; height: 26px; }
     .score-box-denom { font-size: 6.5pt; color: #64748b; }
-    .kop-doc-title { font-size: 11pt; font-weight: 800; text-align: center; background: #f1f5f9; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; padding: 4px; margin-bottom: 8px; letter-spacing: 0.5px; }
+    .kop-doc-title { font-size: 11pt; font-weight: 800; text-align: center; background: #f1f5f9; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; padding: 4px; margin-bottom: 8px; letter-spacing: 0.5px; color: #0f172a; }
     .kop-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; font-size: 8.5pt; }
     .meta-row { display: flex; justify-content: space-between; align-items: center; }
     .meta-label { color: #475569; min-width: 105px; font-weight: 600; }
     .meta-val { color: #0f172a; flex: 1; text-align: left; }
     .meta-line { flex: 1; color: #94a3b8; font-family: monospace; letter-spacing: 1px; }
-    .exam-print-instructions { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; margin-bottom: 14px; font-size: 8pt; page-break-inside: avoid; }
-    .instructions-title { font-weight: 800; margin-bottom: 4px; color: #0f172a; }
-    .instructions-list { margin: 0; padding-left: 18px; color: #334155; line-height: 1.45; }
-    .exam-print-section-divider { text-align: center; margin: 12px 0 16px; border-bottom: 1px solid #cbd5e1; line-height: 0.1em; }
-    .exam-print-section-divider span { background: #ffffff; padding: 0 10px; font-weight: 800; font-size: 8.5pt; color: #4338ca; letter-spacing: 1px; }
+
+    /* Instructions */
+    .exam-print-instructions { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 8pt; page-break-inside: avoid; }
+    .instructions-title { font-weight: 800; margin-bottom: 3px; color: #0f172a; }
+    .instructions-list { margin: 0; padding-left: 16px; color: #334155; line-height: 1.45; }
+
+    /* Divider */
+    .exam-print-section-divider { text-align: center; margin: 10px 0 14px; border-bottom: 1px solid #cbd5e1; line-height: 0.1em; page-break-inside: avoid; }
+    .exam-print-section-divider span { background: #ffffff; padding: 0 10px; font-weight: 800; font-size: 8.5pt; color: #3730a3; letter-spacing: 1px; }
+
+    /* Column Layouts */
     .exam-body-2col { column-count: 2; column-gap: 8mm; column-rule: 1px solid #e2e8f0; }
     .exam-body-1col { column-count: 1; }
+
+    /* Stimulus Card */
     .exam-print-stimulus-card { background: #f8fafc; border: 1.5px solid #334155; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; page-break-inside: avoid; break-inside: avoid; }
-    .stimulus-card-badge { display: inline-block; font-size: 7.5pt; font-weight: 800; background: #312e81; color: #ffffff; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px; }
+    .stimulus-card-badge { display: inline-block; font-size: 7pt; font-weight: 800; background: #312e81; color: #ffffff; padding: 2px 6px; border-radius: 3px; margin-bottom: 4px; }
     .stimulus-card-title { font-size: 9.5pt; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
     .stimulus-card-text { font-size: 8.5pt; color: #1e293b; line-height: 1.5; margin-bottom: 6px; }
-    .exam-print-stimulus-table { width: 100%; border-collapse: collapse; font-size: 8pt; margin: 6px 0; }
+    .exam-print-stimulus-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; margin: 6px 0; }
     .exam-print-stimulus-table th, .exam-print-stimulus-table td { border: 1px solid #94a3b8; padding: 4px 6px; text-align: left; }
-    .exam-print-stimulus-table th { background: #e2e8f0; font-weight: 800; }
-    .exam-print-formula-callout { background: #ffffff; border: 1px dashed #64748b; padding: 4px 8px; font-size: 8pt; border-radius: 4px; margin: 4px 0; }
+    .exam-print-stimulus-table th { background: #e2e8f0; font-weight: 800; color: #0f172a; }
+    .exam-print-formula-callout { background: #ffffff; border: 1px dashed #64748b; padding: 4px 8px; font-size: 8pt; border-radius: 4px; margin: 4px 0; color: #0f172a; }
+
+    /* Questions */
     .exam-print-question-card { margin-bottom: 12px; page-break-inside: avoid; break-inside: avoid; border-bottom: 1px dotted #cbd5e1; padding-bottom: 10px; }
     .q-card-head { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 6px; }
-    .q-card-num { font-weight: 800; font-size: 9pt; min-width: 20px; color: #0f172a; }
+    .q-card-num { font-weight: 800; font-size: 9.5pt; min-width: 20px; color: #0f172a; }
     .q-card-prompt { font-size: 9pt; color: #0f172a; line-height: 1.5; flex: 1; }
     .exam-print-options-list { margin-left: 20px; display: flex; flex-direction: column; gap: 4px; }
     .exam-print-opt-item { display: flex; align-items: flex-start; gap: 6px; font-size: 8.5pt; }
@@ -782,11 +689,15 @@
     .opt-text { flex: 1; color: #1e293b; }
     .exam-print-complex-table { width: calc(100% - 20px); margin-left: 20px; border-collapse: collapse; font-size: 8pt; margin-top: 6px; }
     .exam-print-complex-table th, .exam-print-complex-table td { border: 1px solid #94a3b8; padding: 4px 6px; }
-    .exam-print-complex-table th { background: #f1f5f9; font-weight: 800; }
+    .exam-print-complex-table th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
     .print-chk-circle { display: inline-block; width: 13px; height: 13px; border: 1.5px solid #475569; border-radius: 50%; }
     .exam-print-numeric-wrapper { margin-left: 20px; font-size: 8.5pt; margin-top: 6px; }
     .numeric-box-slot { font-weight: 800; color: #475569; letter-spacing: 2px; }
-    .exam-print-page-break { page-break-before: always; break-before: page; margin-top: 20px; }
+
+    /* Page Break */
+    .exam-print-page-break { page-break-before: always; break-before: page; margin-top: 16px; }
+
+    /* LJK */
     .exam-print-ljk-container { border: 2px solid #0f172a; border-radius: 8px; padding: 14px; page-break-inside: avoid; }
     .ljk-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 10px; }
     .ljk-title { font-size: 13pt; font-weight: 900; color: #0f172a; letter-spacing: 0.5px; }
@@ -797,16 +708,18 @@
     .ljk-columns-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .ljk-col { border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; }
     .ljk-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; border-bottom: 1px dotted #e2e8f0; font-size: 8.5pt; font-family: 'JetBrains Mono', monospace; }
-    .ljk-q-num { font-weight: 800; min-width: 25px; }
+    .ljk-q-num { font-weight: 800; min-width: 25px; color: #0f172a; }
+
+    /* Solutions */
     .exam-print-solutions-container { page-break-inside: avoid; }
     .sol-doc-header { border-bottom: 2px solid #3730a3; padding-bottom: 6px; margin-bottom: 14px; }
     .sol-doc-title { font-size: 13pt; font-weight: 900; color: #3730a3; }
     .sol-doc-subtitle { font-size: 8.5pt; color: #64748b; }
-    .sol-quick-table-section { margin-bottom: 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; }
+    .sol-quick-table-section { margin-bottom: 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; page-break-inside: avoid; }
     .quick-table-title { font-weight: 800; font-size: 8.5pt; margin-bottom: 6px; color: #0f172a; }
     .sol-quick-table { width: 100%; border-collapse: collapse; font-size: 8pt; }
     .sol-quick-table th, .sol-quick-table td { border: 1px solid #94a3b8; padding: 4px 6px; text-align: center; }
-    .sol-quick-table th { background: #e2e8f0; font-weight: 800; }
+    .sol-quick-table th { background: #e2e8f0; font-weight: 800; color: #0f172a; }
     .sol-item-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; margin-bottom: 10px; page-break-inside: avoid; }
     .sol-item-head { display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 6px; }
     .sol-item-num { font-weight: 800; font-size: 9pt; color: #3730a3; }
@@ -814,44 +727,106 @@
     .sol-item-body { font-size: 8.5pt; color: #1e293b; line-height: 1.5; }
     .sol-shortcut-box { background: #eff6ff; border-left: 3px solid #3b82f6; padding: 4px 8px; margin-top: 6px; font-size: 8pt; border-radius: 0 4px 4px 0; }
     .shortcut-tag { font-weight: 800; color: #1d4ed8; }
-    .scratchpad-title { font-size: 13pt; font-weight: 900; text-align: center; margin-bottom: 4px; }
-    .scratchpad-subtitle { font-size: 8.5pt; text-align: center; color: #64748b; margin-bottom: 20px; }
-    .scratchpad-grid-lines { height: 750px; border: 1px solid #cbd5e1; background-image: linear-gradient(#e2e8f0 1px, transparent 1px); background-size: 100% 24px; border-radius: 6px; }
-    .exam-print-footer { text-align: center; font-size: 7.5pt; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 20px; display: flex; justify-content: space-between; }
+
+    /* Scratchpad */
+    .scratchpad-title { font-size: 13pt; font-weight: 900; text-align: center; margin-bottom: 4px; color: #0f172a; }
+    .scratchpad-subtitle { font-size: 8.5pt; text-align: center; color: #64748b; margin-bottom: 16px; }
+    .scratchpad-grid-lines { height: 720px; border: 1px solid #cbd5e1; background-image: linear-gradient(#e2e8f0 1px, transparent 1px); background-size: 100% 24px; border-radius: 6px; }
+
+    /* Footer */
+    .exam-print-footer { text-align: center; font-size: 7.5pt; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 6px; margin-top: 16px; display: flex; justify-content: space-between; }
     .katex { font-size: 1.05em !important; color: #000000 !important; }
   </style>
 </head>
-<body style="padding: 16mm;">
-
-  <!-- Standalone Floating Toolbar -->
-  <div class="offline-toolbar">
-    <span>Dokumen Siap Cetak • <strong>The Arich Study</strong></span>
-    <button onclick="window.print()">🖨️ Cetak / Simpan PDF (A4)</button>
-  </div>
-
-  <div id="offline-print-wrapper">
-    ${bodyHtml}
+<body style="padding: 10mm 12mm;">
+  <div id="print-content-wrapper">
+    ${bodyContent}
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (window.renderMathInElement) {
-        renderMathInElement(document.getElementById('offline-print-wrapper'), {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false
-        });
-      }
-    });
+    if (window.renderMathInElement) {
+      renderMathInElement(document.getElementById('print-content-wrapper'), {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
   </script>
 </body>
 </html>`;
+  }
 
-    const blob = new Blob([fullDocument], { type: 'text/html;charset=utf-8' });
+  // ============================================================================
+  // 4. BULLETPROOF IFRAME PRINT ENGINE (ZERO BLANK PAGES)
+  // ============================================================================
+
+  function triggerPrintExecution(source, config) {
+    const fullHtml = buildFullPrintableDocumentHTML(source, config);
+
+    // Remove any previous print iframe
+    const oldIframe = document.getElementById('arich-print-iframe');
+    if (oldIframe) oldIframe.remove();
+
+    const iframe = document.createElement('iframe');
+    iframe.id = 'arich-print-iframe';
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(fullHtml);
+    doc.close();
+
+    const doPrint = () => {
+      try {
+        if (iframe.contentWindow.renderMathInElement) {
+          iframe.contentWindow.renderMathInElement(doc.body, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false }
+            ],
+            throwOnError: false
+          });
+        }
+      } catch (e) {
+        console.warn('Iframe KaTeX warning:', e);
+      }
+
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        setTimeout(() => {
+          if (iframe && iframe.parentNode) iframe.remove();
+        }, 30000);
+      }, 500);
+    };
+
+    if (doc.readyState === 'complete') {
+      doPrint();
+    } else {
+      iframe.onload = doPrint;
+    }
+  }
+
+  // ============================================================================
+  // 5. OFFLINE STANDALONE HTML EXPORTER
+  // ============================================================================
+
+  function exportStandaloneHTML(source, config) {
+    const fullHtml = buildFullPrintableDocumentHTML(source, config);
+    const cleanFileName = `Naskah_Soal_${(source.title || 'Ujian').replace(/[^a-zA-Z0-9]/g, '_')}.html`;
+
+    const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -865,7 +840,68 @@
   }
 
   // ============================================================================
-  // 5. MODAL UI CONTROLLER & PREVIEW
+  // 6. LIVE ON-SCREEN PAPER PREVIEW MODAL
+  // ============================================================================
+
+  function openPreviewModal() {
+    if (!DownloaderState.currentSource) return;
+    const cfg = readModalConfig();
+    const fullHtml = buildFullPrintableDocumentHTML(DownloaderState.currentSource, cfg);
+
+    const previewModalMarkup = `
+      <div id="modal-exam-live-preview" class="fixed inset-0 z-[130] flex flex-col bg-black/90 backdrop-blur-md animate-in fade-in">
+        <!-- Top Toolbar -->
+        <div class="h-14 bg-dark-900 border-b border-slate-800 px-4 flex items-center justify-between shrink-0">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-white truncate max-w-xs sm:max-w-md">Pratinjau Lembar A4: ${DownloaderState.currentSource.title}</h4>
+              <p class="text-[11px] text-slate-400">Pastikan seluruh format dan rumus matematika sudah tampil rapi sebelum dicetak.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="window.TheArichExamDownloader.triggerPrint()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/30 cursor-pointer">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span>Cetak / Simpan PDF</span>
+            </button>
+            <button onclick="document.getElementById('modal-exam-live-preview').remove()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-dark-800 transition">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Paper Body Container -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-8 flex justify-center bg-slate-950/80">
+          <div class="w-full max-w-4xl bg-white text-slate-900 shadow-2xl rounded-sm p-8 sm:p-12 overflow-x-hidden min-h-[900px]" id="preview-paper-sheet">
+            <!-- Injected via Iframe or innerHTML -->
+            ${generateExamSheetHTML(DownloaderState.currentSource, cfg)}
+          </div>
+        </div>
+      </div>
+    `;
+
+    const old = document.getElementById('modal-exam-live-preview');
+    if (old) old.remove();
+    document.body.insertAdjacentHTML('beforeend', previewModalMarkup);
+
+    const sheet = document.getElementById('preview-paper-sheet');
+    if (sheet && window.renderMathInElement) {
+      window.renderMathInElement(sheet, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  // ============================================================================
+  // 7. MODAL UI CONTROLLER & OPTIONS
   // ============================================================================
 
   function ensureModalExists() {
@@ -874,133 +910,140 @@
 
     const modalMarkup = `
       <div id="modal-exam-download" class="hidden fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
-        <div class="clean-card rounded-2xl max-w-xl w-full bg-dark-950/95 border border-slate-700/80 shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
+        <div class="clean-card rounded-2xl max-w-2xl w-full bg-dark-950 border border-slate-700/80 shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
           
           <!-- Modal Header -->
-          <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between shrink-0 bg-dark-900/60">
+          <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between shrink-0 bg-dark-900/80">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
-                <i data-lucide="printer" class="w-5 h-5"></i>
+              <div class="w-11 h-11 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
+                <i data-lucide="printer" class="w-6 h-6"></i>
               </div>
               <div class="min-w-0">
-                <h3 class="text-sm sm:text-base font-bold text-white truncate" id="med-title">
+                <h3 class="text-base sm:text-lg font-black text-white truncate" id="med-title">
                   Cetak & Unduh Naskah Soal (PDF)
                 </h3>
-                <p class="text-xs text-indigo-300 font-medium truncate" id="med-subtitle">
+                <p class="text-xs sm:text-sm text-indigo-300 font-medium truncate" id="med-subtitle">
                   Pilih konfigurasi naskah soal cetak standar A4
                 </p>
               </div>
             </div>
-            <button type="button" onclick="window.TheArichExamDownloader.closeModal()" class="w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition cursor-pointer">
+            <button type="button" onclick="window.TheArichExamDownloader.closeModal()" class="w-9 h-9 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition cursor-pointer">
               <i data-lucide="x" class="w-5 h-5"></i>
             </button>
           </div>
 
           <!-- Modal Body / Form Options -->
-          <div class="p-4 sm:p-5 overflow-y-auto space-y-4 text-xs">
+          <div class="p-5 sm:p-6 overflow-y-auto space-y-5 text-sm">
 
             <!-- Section 1: Content Mode -->
-            <div class="space-y-2">
-              <label class="block font-bold text-slate-200 uppercase tracking-wider text-[11px]">
+            <div class="space-y-2.5">
+              <label class="block font-black text-slate-100 uppercase tracking-wider text-xs">
                 1. Pilih Isi Dokumen Naskah:
               </label>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <label class="clean-card p-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/80 flex flex-col justify-between cursor-pointer group">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-white text-xs">Naskah Soal</span>
-                    <input type="radio" name="med-content-mode" value="soal_only" checked class="accent-indigo-500">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <label class="clean-card p-3.5 rounded-xl border border-slate-800 hover:border-slate-600 bg-slate-900/90 flex flex-col justify-between cursor-pointer group transition">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="font-extrabold text-white text-sm">Naskah Soal Saja</span>
+                    <input type="radio" name="med-content-mode" value="soal_only" checked class="w-4 h-4 accent-indigo-500">
                   </div>
-                  <span class="text-[11px] text-slate-400 leading-snug">Siap uji untuk siswa. Tanpa spoiler kunci jawaban.</span>
+                  <span class="text-xs text-slate-300 leading-relaxed">Siap uji untuk siswa. Tanpa spoiler kunci jawaban.</span>
                 </label>
 
-                <label class="clean-card p-3 rounded-xl border border-indigo-500/40 bg-indigo-950/20 hover:border-indigo-500 flex flex-col justify-between cursor-pointer group">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-indigo-200 text-xs">Soal + Kunci</span>
-                    <input type="radio" name="med-content-mode" value="soal_solution" class="accent-indigo-500">
+                <label class="clean-card p-3.5 rounded-xl border border-indigo-500/40 bg-indigo-950/20 hover:border-indigo-400 flex flex-col justify-between cursor-pointer group transition">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="font-extrabold text-indigo-200 text-sm">Soal + Kunci & Solusi</span>
+                    <input type="radio" name="med-content-mode" value="soal_solution" class="w-4 h-4 accent-indigo-500">
                   </div>
-                  <span class="text-[11px] text-slate-400 leading-snug">Naskah lengkap + pembahasan rinci KaTeX di halaman lampiran.</span>
+                  <span class="text-xs text-slate-300 leading-relaxed">Naskah lengkap + pembahasan KaTeX di halaman lampiran.</span>
                 </label>
 
-                <label class="clean-card p-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/80 flex flex-col justify-between cursor-pointer group">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-white text-xs">Kunci Saja</span>
-                    <input type="radio" name="med-content-mode" value="solution_only" class="accent-indigo-500">
+                <label class="clean-card p-3.5 rounded-xl border border-slate-800 hover:border-slate-600 bg-slate-900/90 flex flex-col justify-between cursor-pointer group transition">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="font-extrabold text-white text-sm">Kunci & Pembahasan</span>
+                    <input type="radio" name="med-content-mode" value="solution_only" class="w-4 h-4 accent-indigo-500">
                   </div>
-                  <span class="text-[11px] text-slate-400 leading-snug">Panduan pengajar & kunci jawaban cepat untuk koreksi.</span>
+                  <span class="text-xs text-slate-300 leading-relaxed">Panduan pengajar & kunci jawaban cepat untuk koreksi.</span>
                 </label>
               </div>
             </div>
 
             <!-- Section 2: Layout Column -->
-            <div class="space-y-2">
-              <label class="block font-bold text-slate-200 uppercase tracking-wider text-[11px]">
+            <div class="space-y-2.5">
+              <label class="block font-black text-slate-100 uppercase tracking-wider text-xs">
                 2. Format Tata Letak (Layout Halaman A4):
               </label>
-              <div class="grid grid-cols-2 gap-2">
-                <label class="clean-card p-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/80 flex items-center justify-between cursor-pointer">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <label class="clean-card p-3.5 rounded-xl border border-slate-800 hover:border-slate-600 bg-slate-900/90 flex items-center justify-between cursor-pointer transition">
                   <div>
-                    <div class="font-bold text-white text-xs">2 Kolom (Format Standar UTBK)</div>
-                    <div class="text-[11px] text-slate-400">Hemat 40% kertas, tata letak padat & rapi.</div>
+                    <div class="font-bold text-white text-sm">2 Kolom (Format Standar UTBK/UN)</div>
+                    <div class="text-xs text-slate-300 mt-0.5">Hemat 40% kertas, tata letak padat, profesional & rapi.</div>
                   </div>
-                  <input type="radio" name="med-columns" value="2col" checked class="accent-indigo-500 ml-2">
+                  <input type="radio" name="med-columns" value="2col" checked class="w-4 h-4 accent-indigo-500 ml-3">
                 </label>
 
-                <label class="clean-card p-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/80 flex items-center justify-between cursor-pointer">
+                <label class="clean-card p-3.5 rounded-xl border border-slate-800 hover:border-slate-600 bg-slate-900/90 flex items-center justify-between cursor-pointer transition">
                   <div>
-                    <div class="font-bold text-white text-xs">1 Kolom (Vertikal Luas)</div>
-                    <div class="text-[11px] text-slate-400">Format renggang dan lega untuk tulisan panjang.</div>
+                    <div class="font-bold text-white text-sm">1 Kolom (Vertikal Luas)</div>
+                    <div class="text-xs text-slate-300 mt-0.5">Format renggang dan lega untuk tulisan panjang.</div>
                   </div>
-                  <input type="radio" name="med-columns" value="1col" class="accent-indigo-500 ml-2">
+                  <input type="radio" name="med-columns" value="1col" class="w-4 h-4 accent-indigo-500 ml-3">
                 </label>
               </div>
             </div>
 
             <!-- Section 3: Extra Features -->
-            <div class="space-y-2">
-              <label class="block font-bold text-slate-200 uppercase tracking-wider text-[11px]">
+            <div class="space-y-2.5">
+              <label class="block font-black text-slate-100 uppercase tracking-wider text-xs">
                 3. Kelengkapan Tambahan:
               </label>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 cursor-pointer text-slate-300 hover:text-white">
-                  <input type="checkbox" id="med-chk-header" checked class="accent-indigo-500 rounded">
-                  <span>Kop Surat & Kolom Identitas Siswa</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer text-slate-200 hover:text-white transition">
+                  <input type="checkbox" id="med-chk-header" checked class="w-4 h-4 accent-indigo-500 rounded">
+                  <span class="text-xs font-semibold">Kop Surat & Kolom Identitas Siswa</span>
                 </label>
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 cursor-pointer text-slate-300 hover:text-white">
-                  <input type="checkbox" id="med-chk-instructions" checked class="accent-indigo-500 rounded">
-                  <span>Petunjuk Umum Pengerjaan Soal</span>
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer text-slate-200 hover:text-white transition">
+                  <input type="checkbox" id="med-chk-instructions" checked class="w-4 h-4 accent-indigo-500 rounded">
+                  <span class="text-xs font-semibold">Petunjuk Umum Pengerjaan Ujian</span>
                 </label>
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 cursor-pointer text-slate-300 hover:text-white">
-                  <input type="checkbox" id="med-chk-ljk" checked class="accent-indigo-500 rounded">
-                  <span>Lembar Jawaban Siswa (LJK Kertas)</span>
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer text-slate-200 hover:text-white transition">
+                  <input type="checkbox" id="med-chk-ljk" checked class="w-4 h-4 accent-indigo-500 rounded">
+                  <span class="text-xs font-semibold">Lembar Jawaban Siswa (LJK Kertas)</span>
                 </label>
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 cursor-pointer text-slate-300 hover:text-white">
-                  <input type="checkbox" id="med-chk-scratchpad" class="accent-indigo-500 rounded">
-                  <span>Lembar Buram / Coretan Hitung</span>
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer text-slate-200 hover:text-white transition">
+                  <input type="checkbox" id="med-chk-scratchpad" class="w-4 h-4 accent-indigo-500 rounded">
+                  <span class="text-xs font-semibold">Lembar Buram / Coretan Hitung</span>
                 </label>
               </div>
             </div>
 
-            <!-- Summary callout -->
-            <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/30 text-indigo-300 text-xs flex items-center gap-2.5">
-              <i data-lucide="info" class="w-4 h-4 shrink-0 text-indigo-400"></i>
-              <span>Dokumen siap cetak dengan formula matematika <strong>KaTeX murni</strong>. Di dialog print, pilih <em>"Destination: Save as PDF"</em> untuk menyimpan file PDF berkualitas tinggi.</span>
+            <!-- Guarantee Callout -->
+            <div class="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-200 text-xs sm:text-sm flex items-start gap-3">
+              <i data-lucide="check-circle" class="w-5 h-5 shrink-0 text-emerald-400 mt-0.5"></i>
+              <div class="leading-relaxed">
+                Naskah diproses dengan <strong>Clean Vector Printing Engine</strong> (anti-halaman kosong). Pada dialog cetak, pilih <em>"Destination: Save as PDF"</em> untuk mengunduh file PDF beresolusi tinggi.
+              </div>
             </div>
 
           </div>
 
           <!-- Modal Footer Actions -->
-          <div class="p-4 sm:p-5 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-dark-900/80">
-            <button type="button" onclick="window.TheArichExamDownloader.closeModal()" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition cursor-pointer">
+          <div class="p-4 sm:p-5 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 shrink-0 bg-dark-900/90">
+            <button type="button" onclick="window.TheArichExamDownloader.closeModal()" class="px-4 py-2.5 rounded-xl bg-dark-850 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs sm:text-sm font-semibold transition cursor-pointer">
               Tutup
             </button>
 
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="window.TheArichExamDownloader.triggerOfflineDownload()" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Unduh File HTML Mandiri untuk Dibuka Kapan Saja">
-                <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i>
-                <span class="hidden sm:inline">Unduh</span> File Offline (.html)
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" onclick="window.TheArichExamDownloader.openPreviewModal()" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Lihat Tampilan Dokumen di Layar">
+                <i data-lucide="eye" class="w-4 h-4 text-indigo-400"></i>
+                <span>Pratinjau Layar</span>
               </button>
 
-              <button type="button" onclick="window.TheArichExamDownloader.triggerPrint()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/30 cursor-pointer">
+              <button type="button" onclick="window.TheArichExamDownloader.triggerOfflineDownload()" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Simpan File HTML Mandiri">
+                <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i>
+                <span class="hidden sm:inline">Unduh</span> .HTML
+              </button>
+
+              <button type="button" onclick="window.TheArichExamDownloader.triggerPrint()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition shadow-lg shadow-indigo-600/30 cursor-pointer">
                 <i data-lucide="printer" class="w-4 h-4"></i>
                 <span>Cetak / Simpan PDF (A4)</span>
               </button>
@@ -1057,7 +1100,7 @@
   }
 
   // ============================================================================
-  // 6. PUBLIC INTERACTION METHODS
+  // 8. PUBLIC API METHODS
   // ============================================================================
 
   function openForChapter(chapterId, optionalGrade) {
@@ -1100,7 +1143,6 @@
   function openForCurrentExamReview() {
     const src = normalizeCurrentCBTExam();
     if (!src) return;
-    // Default to including solutions
     openModalWithSource(src);
     setTimeout(() => {
       const solRadio = document.querySelector('input[name="med-content-mode"][value="soal_solution"]');
@@ -1121,6 +1163,13 @@
     const src = normalizeCurrentPMExam();
     if (!src) return;
     openModalWithSource(src);
+  }
+
+  function openForCurrentPMStudy() {
+    const pkgId = (window.featuresPMEngine && window.featuresPMEngine.getStudyState)
+      ? window.featuresPMEngine.getStudyState().currentPackageId
+      : 'paket-1';
+    openForPMPackage(pkgId);
   }
 
   function openForCurrentPMReview() {
@@ -1146,6 +1195,8 @@
     if (!DownloaderState.currentSource) return;
     const cfg = readModalConfig();
     closeModal();
+    const livePrev = document.getElementById('modal-exam-live-preview');
+    if (livePrev) livePrev.remove();
     triggerPrintExecution(DownloaderState.currentSource, cfg);
   }
 
@@ -1155,7 +1206,6 @@
     exportStandaloneHTML(DownloaderState.currentSource, cfg);
   }
 
-  // Bulk Picker Modal: lets user choose any chapter or UTBK package to download
   function openBulkPicker() {
     const grades = window.ALL_GRADES_DATA || {};
     const pkgs = window.PM_PACKAGES || {};
@@ -1179,28 +1229,28 @@
 
     const promptHtml = `
       <div id="modal-bulk-exam-picker" class="fixed inset-0 z-[125] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="clean-card rounded-2xl max-w-md w-full bg-dark-950 p-5 border border-slate-700/80 space-y-4">
+        <div class="clean-card rounded-2xl max-w-lg w-full bg-dark-950 p-6 border border-slate-700/80 space-y-4">
           <div class="flex items-center justify-between">
-            <h4 class="font-bold text-white text-sm flex items-center gap-2">
-              <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
+            <h4 class="font-extrabold text-white text-base flex items-center gap-2">
+              <i data-lucide="printer" class="w-5 h-5 text-indigo-400"></i>
               Pilih Naskah Soal untuk Diunduh / Dicetak
             </h4>
             <button onclick="document.getElementById('modal-bulk-exam-picker').remove()" class="text-slate-400 hover:text-white">
-              <i data-lucide="x" class="w-4 h-4"></i>
+              <i data-lucide="x" class="w-5 h-5"></i>
             </button>
           </div>
-          <p class="text-xs text-slate-400">
-            Pilih bab dari kurikulum SMP/SMA atau salah satu dari 5 paket resmi UTBK-SNBT:
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Pilih bab materi kurikulum atau paket simulasi Penalaran Matematika yang ingin dicetak:
           </p>
           <div>
-            <select id="bulk-exam-select" class="w-full p-2.5 rounded-xl bg-dark-900 border border-slate-700 text-white text-xs">
+            <select id="bulk-exam-select" class="w-full p-3 rounded-xl bg-dark-900 border border-slate-700 text-white text-xs sm:text-sm font-medium">
               ${pmOptions}
               ${gradeOptions}
             </select>
           </div>
-          <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
-            <button onclick="document.getElementById('modal-bulk-exam-picker').remove()" class="px-3 py-1.5 rounded-lg bg-dark-850 text-slate-300 text-xs font-semibold">Batal</button>
-            <button onclick="window.TheArichExamDownloader.submitBulkPicker()" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold">Lanjutkan</button>
+          <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-800">
+            <button onclick="document.getElementById('modal-bulk-exam-picker').remove()" class="px-4 py-2 rounded-xl bg-dark-850 text-slate-300 text-xs sm:text-sm font-semibold hover:bg-slate-800 transition">Batal</button>
+            <button onclick="window.TheArichExamDownloader.submitBulkPicker()" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold shadow-md transition">Lanjutkan</button>
           </div>
         </div>
       </div>
@@ -1229,7 +1279,7 @@
   }
 
   // ============================================================================
-  // 7. PUBLIC REGISTRATION
+  // 9. PUBLIC REGISTRATION
   // ============================================================================
 
   window.TheArichExamDownloader = {
@@ -1239,14 +1289,17 @@
     openForCurrentExamReview,
     openForPMPackage,
     openForCurrentPM,
+    openForCurrentPMStudy,
     openForCurrentPMReview,
     openForErrorBank,
     openBulkPicker,
     submitBulkPicker,
+    openPreviewModal,
     triggerPrint,
     triggerOfflineDownload,
     closeModal,
     generateExamSheetHTML,
+    buildFullPrintableDocumentHTML,
     getState: () => DownloaderState
   };
 

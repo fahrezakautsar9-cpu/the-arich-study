@@ -886,7 +886,7 @@
     }
   }
 
-  function renderPackagePickerCards(containerId = 'pm-package-catalog-cards') {
+    function renderPackagePickerCards(containerId = 'pm-package-catalog-cards') {
     const container = document.getElementById(containerId);
     if (!container) return;
 
@@ -897,43 +897,47 @@
       const p = pkgs[k];
       if (!p) return '';
       const isCurrent = (PMState.currentPackageId === k);
+      const qCount = p.questions ? p.questions.length : 20;
+
       return `
-        <div class="clean-card rounded-2xl p-4 sm:p-5 border ${isCurrent ? 'border-indigo-500/60 bg-indigo-950/20 shadow-indigo-500/10 shadow-lg' : 'border-slate-800 bg-slate-900/90'} hover:border-slate-700 transition flex flex-col justify-between space-y-3.5">
-          <div class="space-y-2.5">
+        <div class="clean-card rounded-2xl p-5 border ${isCurrent ? 'border-indigo-500/60 bg-indigo-950/25 shadow-indigo-500/15 shadow-xl' : 'border-slate-800 bg-slate-900/90'} hover:border-slate-700 transition flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg ${isCurrent ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold' : 'bg-slate-800 text-slate-300 font-semibold'} text-xs tracking-wide">
+              <span class="px-3 py-1 rounded-lg ${isCurrent ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold' : 'bg-slate-800 text-slate-200 font-bold'} text-xs tracking-wide">
                 ${p.code}
               </span>
-              <span class="text-xs text-slate-400 font-mono flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
-                <span>${p.questions ? p.questions.length : 20} Soal • 42,5m</span>
+              <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>${qCount} Soal • 42,5m</span>
               </span>
             </div>
 
-            <h4 class="text-sm font-bold text-white leading-snug">
+            <h4 class="text-base font-extrabold text-white leading-snug">
               ${p.title}
             </h4>
-            <p class="text-xs text-slate-400 leading-relaxed line-clamp-3">
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
               ${p.description}
             </p>
 
             <div class="flex flex-wrap gap-1.5 pt-1">
-              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Bilangan</span>
-              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Aljabar</span>
-              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Geometri</span>
-              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Data & Peluang</span>
+              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Bilangan</span>
+              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Aljabar</span>
+              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Geometri</span>
+              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Data & Peluang</span>
             </div>
           </div>
 
-          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${k}') : null" class="p-2 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Cetak / Unduh Naskah Soal ${p.code} (PDF)">
+          <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${k}') : null" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Cetak / Unduh Naskah Soal ${p.code} (PDF)">
               <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
             </button>
-            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('drill', '${k}')" class="flex-1 py-2 px-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition text-center cursor-pointer">
-              Mode Drill
+            <button type="button" onclick="(window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : null); openPMStudyMode('${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Bedah Soal & Kunci (Mode Santai Tanpa Timer)">
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              <span>Bedah Soal</span>
             </button>
-            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('cat', '${k}')" class="flex-1 py-2 px-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/20 cursor-pointer">
-              Mulai CAT
+            <button type="button" onclick="(window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : null); startPMExam('cat', '${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+              <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+              <span>Mulai CAT</span>
             </button>
           </div>
         </div>
@@ -943,6 +947,442 @@
     container.innerHTML = html;
     if (window.lucide) window.lucide.createIcons();
   }
+
+  function renderPMPackageCatalog(filter = 'all') {
+    const container = document.getElementById('pm-dedicated-catalog-cards');
+    if (!container) return;
+
+    // Update filter buttons
+    const filterBtns = document.querySelectorAll('.pm-filter-btn');
+    filterBtns.forEach(b => {
+      b.className = 'pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition cursor-pointer';
+    });
+    const activeBtn = document.getElementById(`pm-filter-${filter}`);
+    if (activeBtn) {
+      activeBtn.className = 'pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition cursor-pointer';
+    }
+
+    const pkgs = window.PM_PACKAGES || {};
+    const allKeys = ['paket-1', 'paket-2', 'paket-3', 'paket-4', 'paket-5'];
+    const keysToRender = (filter === 'all') ? allKeys : (allKeys.includes(filter) ? [filter] : allKeys);
+
+    const html = keysToRender.map(k => {
+      const p = pkgs[k];
+      if (!p) return '';
+      const qCount = p.questions ? p.questions.length : 20;
+
+      return `
+        <div class="clean-card rounded-2xl p-6 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-5 shadow-lg group">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-xl bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-xs font-extrabold tracking-wide">
+                ${p.code}
+              </span>
+              <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>${qCount} Soal • 42,5m</span>
+              </span>
+            </div>
+
+            <h4 class="text-lg font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+              ${p.title}
+            </h4>
+
+            <p class="text-sm text-slate-200 leading-relaxed line-clamp-3">
+              ${p.description}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data & Peluang</span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between gap-2.5">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${k}') : null" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Cetak / Simpan Naskah PDF ${p.code}">
+              <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
+            </button>
+            <button type="button" onclick="openPMStudyMode('${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal (Tanpa Timer)">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+              <span>Bedah Soal</span>
+            </button>
+            <button type="button" onclick="startPMExam('cat', '${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/30 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT (42,5 Menit)">
+              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+              <span>Mulai CAT</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  // ============================================================================
+  // 6B. STUDY / BEDAH SOAL MODE (ZERO TIMER PRESSURE & FULL EXPLANATIONS)
+  // ============================================================================
+  const PMStudyState = {
+    currentPackageId: 'paket-1',
+    currentQuestionIndex: 0,
+    selectedOption: null,
+    typedNumeric: '',
+    checkedAnswer: false
+  };
+
+  function normalizeStudyOptions(q) {
+    if (!q || !q.options) return [];
+    return q.options.map((opt, idx) => {
+      const letter = String.fromCharCode(65 + idx);
+      const text = (typeof opt === 'string') ? opt : (opt.text || opt.label || '');
+      return {
+        key: letter,
+        index: idx,
+        text: text
+      };
+    });
+  }
+
+  function getStudyCorrectLetter(q) {
+    if (!q) return 'A';
+    if (typeof q.correct === 'number') {
+      return String.fromCharCode(65 + q.correct);
+    }
+    if (typeof q.correct === 'string') {
+      const trimmed = q.correct.trim().toUpperCase();
+      if (trimmed.length === 1 && trimmed >= 'A' && trimmed <= 'Z') return trimmed;
+      const parsed = parseInt(trimmed, 10);
+      if (!isNaN(parsed)) return String.fromCharCode(65 + parsed);
+      return trimmed;
+    }
+    return 'A';
+  }
+
+  function openPMStudyMode(packageId = 'paket-1', qIndex = 0) {
+    const pkgs = window.PM_PACKAGES || {};
+    if (!pkgs[packageId]) packageId = 'paket-1';
+    PMStudyState.currentPackageId = packageId;
+    PMStudyState.currentQuestionIndex = Math.max(0, parseInt(qIndex) || 0);
+    PMStudyState.selectedOption = null;
+    PMStudyState.typedNumeric = '';
+
+    if (typeof window.switchView === 'function') {
+      window.switchView('pm-study');
+    }
+
+    const pkgSel = document.getElementById('pm-study-pkg-select');
+    if (pkgSel) pkgSel.value = packageId;
+
+    renderPMStudyNavPills();
+    renderPMStudyQuestion(PMStudyState.currentQuestionIndex);
+  }
+
+  function changePMStudyPackage(packageId) {
+    openPMStudyMode(packageId, 0);
+  }
+
+  function renderPMStudyNavPills() {
+    const container = document.getElementById('pm-study-nav-pills');
+    if (!container) return;
+
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    const total = (pkg && pkg.questions) ? pkg.questions.length : 20;
+
+    let html = '';
+    for (let i = 0; i < total; i++) {
+      const isActive = (i === PMStudyState.currentQuestionIndex);
+      const activeClass = isActive 
+        ? 'bg-indigo-600 text-white font-extrabold ring-2 ring-indigo-400 ring-offset-2 ring-offset-dark-900 shadow-md scale-105' 
+        : 'bg-dark-950 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 font-semibold';
+      html += `
+        <button type="button" onclick="jumpToPMStudyQuestion(${i})" class="w-8 h-8 rounded-xl text-xs flex items-center justify-center shrink-0 transition cursor-pointer ${activeClass}">
+          ${i + 1}
+        </button>
+      `;
+    }
+    container.innerHTML = html;
+  }
+
+  function jumpToPMStudyQuestion(index) {
+    PMStudyState.currentQuestionIndex = index;
+    PMStudyState.selectedOption = null;
+    PMStudyState.typedNumeric = '';
+    renderPMStudyNavPills();
+    renderPMStudyQuestion(index);
+  }
+
+  function navigatePMStudyQuestion(delta) {
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    const total = (pkg && pkg.questions) ? pkg.questions.length : 20;
+    const newIdx = PMStudyState.currentQuestionIndex + delta;
+    if (newIdx >= 0 && newIdx < total) {
+      jumpToPMStudyQuestion(newIdx);
+    }
+  }
+
+  function renderPMStudyQuestion(index) {
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    if (!pkg || !pkg.questions || !pkg.questions[index]) return;
+
+    const q = pkg.questions[index];
+    const stimuliMap = {};
+    if (pkg.stimuli) {
+      pkg.stimuli.forEach(s => { stimuliMap[s.id] = s; });
+    }
+    const stimulus = q.stimulusId ? stimuliMap[q.stimulusId] : null;
+
+    // 1. Render Left Pane (Stimulus)
+    const stimBadge = document.getElementById('pm-study-stimulus-badge');
+    const stimDomain = document.getElementById('pm-study-domain-tag');
+    const stimTitle = document.getElementById('pm-study-stimulus-title');
+    const stimBody = document.getElementById('pm-study-stimulus-body');
+
+    if (stimulus) {
+      if (stimBadge) stimBadge.textContent = stimulus.badge || `Wacana No. ${q.number || (index + 1)}`;
+      if (stimDomain) stimDomain.textContent = stimulus.domain || q.domain || 'Penalaran Matematika';
+      if (stimTitle) stimTitle.textContent = stimulus.title || 'Wacana Kontekstual';
+      if (stimBody) stimBody.innerHTML = stimulus.contentHtml || '';
+    } else {
+      if (stimBadge) stimBadge.textContent = 'Soal Mandiri';
+      if (stimDomain) stimDomain.textContent = q.domain || 'Penalaran Matematika';
+      if (stimTitle) stimTitle.textContent = 'Konteks Soal';
+      if (stimBody) stimBody.innerHTML = '<p class="text-slate-400 italic">Soal ini berdiri sendiri tanpa teks wacana terpisah.</p>';
+    }
+
+    // 2. Render Right Pane (Question Header)
+    const qnumEl = document.getElementById('pm-study-qnum');
+    const qtypeEl = document.getElementById('pm-study-qtype');
+    const qdomainEl = document.getElementById('pm-study-qdomain');
+    const promptEl = document.getElementById('pm-study-prompt');
+    const footerNumEl = document.getElementById('pm-study-footer-num');
+    const btnPrev = document.getElementById('btn-pm-study-prev');
+    const btnNext = document.getElementById('btn-pm-study-next');
+
+    if (qnumEl) qnumEl.textContent = `Soal No. ${q.number || (index + 1)}`;
+    if (qtypeEl) {
+      if (q.type === 'complex_tf') qtypeEl.textContent = 'PG Kompleks (Benar/Salah)';
+      else if (q.type === 'numeric_input') qtypeEl.textContent = 'Isian Singkat Numerik';
+      else qtypeEl.textContent = 'Pilihan Ganda Tunggal';
+    }
+    if (qdomainEl) qdomainEl.textContent = `${q.domain || 'Penalaran Matematika'} ${q.subtopic ? '• ' + q.subtopic : ''}`;
+    if (promptEl) promptEl.innerHTML = q.prompt || q.question || '';
+    if (footerNumEl) footerNumEl.textContent = `${index + 1} / ${pkg.questions.length}`;
+
+    if (btnPrev) btnPrev.disabled = (index === 0);
+    if (btnNext) btnNext.disabled = (index === pkg.questions.length - 1);
+
+    // 3. Render Interactive Options
+    renderPMStudyOptions(q);
+
+    // 4. Render Official Answer Key
+    const keyTextEl = document.getElementById('pm-study-key-text');
+    if (keyTextEl) {
+      if (q.type === 'single_choice') {
+        const normalizedOpts = normalizeStudyOptions(q);
+        const correctLetter = getStudyCorrectLetter(q);
+        const correctOpt = normalizedOpts.find(o => o.key === correctLetter);
+        keyTextEl.innerHTML = `Pilihan <span class="text-emerald-400 font-extrabold text-base">${correctLetter}</span> ${correctOpt ? `&nbsp;—&nbsp; <span class="text-slate-100 font-medium">${correctOpt.text}</span>` : ''}`;
+      } else if (q.type === 'complex_tf') {
+        const statements = q.statements || [];
+        const summary = statements.map((st, sIdx) => `Pernyataan ${sIdx + 1}: <strong class="${st.isTrue ? 'text-emerald-400' : 'text-rose-400'}">${st.isTrue ? 'BENAR' : 'SALAH'}</strong>`).join(' • ');
+        keyTextEl.innerHTML = summary;
+      } else if (q.type === 'numeric_input') {
+        keyTextEl.innerHTML = `Jawaban Angka: <span class="text-emerald-400 font-mono font-extrabold text-lg">${q.correctNumeric}</span>`;
+      }
+    }
+
+    // 5. Render Step-by-Step KaTeX Solution
+    const solEl = document.getElementById('pm-study-solution-body');
+    if (solEl) {
+      solEl.innerHTML = q.explanation || '<p class="text-slate-400 italic">Pembahasan lengkap sedang disiapkan.</p>';
+    }
+
+    // 6. Render Arich Shortcut
+    const shortcutEl = document.getElementById('pm-study-shortcut-text');
+    if (shortcutEl) {
+      shortcutEl.textContent = q.tacticalShortcut || q.shortcut || "Tips: Gunakan teknik estimasi cerdas untuk mengeliminasi opsi yang tidak logis dalam waktu 30 detik.";
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+    triggerStudyLatex();
+  }
+
+  function triggerStudyLatex() {
+    if (!window.renderMathInElement) return;
+    try {
+      const root = document.getElementById('view-pm-study');
+      if (root) {
+        window.renderMathInElement(root, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    } catch (err) {
+      console.warn("KaTeX render error in study mode:", err);
+    }
+  }
+
+  function renderPMStudyOptions(q) {
+    const container = document.getElementById('pm-study-options-container');
+    if (!container) return;
+
+    if (q.type === 'single_choice') {
+      const userPick = PMStudyState.selectedOption;
+      const normalizedOpts = normalizeStudyOptions(q);
+      const correctLetter = getStudyCorrectLetter(q);
+      let html = '';
+
+      if (userPick) {
+        const isCorrect = (userPick === correctLetter);
+        html += `
+          <div class="p-3.5 rounded-xl ${isCorrect ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300' : 'bg-rose-500/15 border border-rose-500/30 text-rose-300'} text-xs font-semibold flex items-center justify-between mb-3 shadow-sm">
+            <div class="flex items-center gap-2">
+              <i data-lucide="${isCorrect ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i>
+              <span>${isCorrect ? 'Jawabanmu Tepat Sekali! Mantap 👍' : `Pilihanmu (${userPick}) belum tepat. Kunci yang benar adalah ${correctLetter}.`}</span>
+            </div>
+            <button type="button" onclick="resetPMStudySelection()" class="text-[11px] underline font-bold opacity-80 hover:opacity-100 cursor-pointer">Coba Ulang</button>
+          </div>
+        `;
+      }
+
+      html += normalizedOpts.map(opt => {
+        const isUserSelected = (userPick === opt.key);
+        const isCorrectKey = (opt.key === correctLetter);
+        let stateStyle = 'border-slate-800 bg-slate-900/80 hover:border-indigo-500/50 hover:bg-slate-800/80 text-slate-100';
+        let badgeStyle = 'bg-slate-800 text-slate-200 border border-slate-700';
+
+        if (userPick) {
+          if (isCorrectKey) {
+            stateStyle = 'border-emerald-500/80 bg-emerald-950/30 text-white shadow-emerald-500/10 shadow-md ring-1 ring-emerald-500/50';
+            badgeStyle = 'bg-emerald-600 text-white font-extrabold';
+          } else if (isUserSelected) {
+            stateStyle = 'border-rose-500/80 bg-rose-950/30 text-white ring-1 ring-rose-500/50';
+            badgeStyle = 'bg-rose-600 text-white font-extrabold';
+          }
+        }
+
+        return `
+          <div onclick="handlePMStudyOptionSelect('${opt.key}')" class="p-3.5 sm:p-4 rounded-xl border ${stateStyle} transition flex items-start gap-3.5 cursor-pointer group">
+            <span class="w-7 h-7 rounded-lg ${badgeStyle} text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+              ${opt.key}
+            </span>
+            <div class="flex-1 text-sm sm:text-base font-medium leading-relaxed">
+              ${opt.text}
+            </div>
+            ${userPick && isCorrectKey ? '<span class="text-xs font-bold text-emerald-400 shrink-0 self-center">✓ Kunci</span>' : ''}
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+    } else if (q.type === 'complex_tf') {
+      const statements = q.statements || [];
+      let html = `
+        <div class="rounded-xl border border-slate-800 overflow-hidden">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-dark-950 border-b border-slate-800 text-slate-400">
+              <tr>
+                <th class="p-3 font-semibold">Pernyataan Soal</th>
+                <th class="p-3 text-center w-28 font-semibold">Status Kunci</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 bg-slate-900/60">
+      `;
+
+      statements.forEach((st, sIdx) => {
+        const isTrue = !!st.isTrue;
+        html += `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="p-3 text-slate-100 leading-relaxed">
+              <span class="font-bold text-indigo-400 mr-1.5">${sIdx + 1}.</span>
+              ${st.statement || st.text || ''}
+            </td>
+            <td class="p-3 text-center">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${isTrue ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
+                ${isTrue ? 'BENAR' : 'SALAH'}
+              </span>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `
+            </tbody>
+          </table>
+        </div>
+      `;
+      container.innerHTML = html;
+    } else if (q.type === 'numeric_input') {
+      container.innerHTML = `
+        <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/70 space-y-3">
+          <label class="block text-xs font-bold text-slate-300">Uji Jawaban Isianmu Sendiri:</label>
+          <div class="flex items-center gap-2 max-w-sm">
+            <input type="number" id="input-pm-study-num" placeholder="Ketik angka..." class="flex-1 p-2.5 rounded-xl bg-dark-950 border border-slate-700 text-white font-mono font-bold text-sm focus:outline-none focus:border-indigo-500">
+            <button type="button" onclick="handlePMStudyNumericCheck()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer">Periksa</button>
+          </div>
+          <div id="pm-study-num-feedback" class="text-xs font-semibold mt-1"></div>
+        </div>
+      `;
+    }
+  }
+
+  function handlePMStudyOptionSelect(optKey) {
+    PMStudyState.selectedOption = optKey;
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    if (!pkg || !pkg.questions) return;
+    const q = pkg.questions[PMStudyState.currentQuestionIndex];
+    if (q) renderPMStudyOptions(q);
+    if (window.lucide) window.lucide.createIcons();
+    triggerStudyLatex();
+  }
+
+  function resetPMStudySelection() {
+    PMStudyState.selectedOption = null;
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    if (!pkg || !pkg.questions) return;
+    const q = pkg.questions[PMStudyState.currentQuestionIndex];
+    if (q) renderPMStudyOptions(q);
+    if (window.lucide) window.lucide.createIcons();
+    triggerStudyLatex();
+  }
+
+  function handlePMStudyNumericCheck() {
+    const input = document.getElementById('input-pm-study-num');
+    const fb = document.getElementById('pm-study-num-feedback');
+    if (!input || !fb) return;
+
+    const val = parseFloat(input.value);
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    const q = pkg.questions[PMStudyState.currentQuestionIndex];
+    const expected = parseFloat(q.correctNumeric);
+
+    if (isNaN(val)) {
+      fb.innerHTML = '<span class="text-amber-400">Silakan masukkan angka terlebih dahulu.</span>';
+      return;
+    }
+
+    if (Math.abs(val - expected) < 0.001) {
+      fb.innerHTML = '<span class="text-emerald-400 font-bold">✓ Tepat sekali! Jawabanmu cocok dengan kunci resmi (' + expected + ').</span>';
+    } else {
+      fb.innerHTML = '<span class="text-rose-400 font-bold">✗ Belum tepat. Angka yang kamu masukkan: ' + val + ', sedangkan kunci resminya adalah ' + expected + '.</span>';
+    }
+  }
+
+  function startPMExamFromStudy() {
+    startPMExam('cat', PMStudyState.currentPackageId);
+  }
+
 
   // 7. QUESTION & STIMULUS RENDERING
   // ============================================================================
@@ -1793,6 +2233,7 @@
     setTimeout(() => {
       renderPackagePickerCards('pm-package-catalog-cards');
       renderPackagePickerCards('pm-package-modal-list');
+      renderPMPackageCatalog();
     }, 100);
   }
 
@@ -1810,6 +2251,15 @@
     openPackagePicker,
     closePackagePicker,
     renderPackagePickerCards,
+    renderPMPackageCatalog,
+    openPMStudyMode,
+    changePMStudyPackage,
+    jumpToPMStudyQuestion,
+    navigatePMStudyQuestion,
+    handlePMStudyOptionSelect,
+    resetPMStudySelection,
+    handlePMStudyNumericCheck,
+    startPMExamFromStudy,
     renderQuestion,
     handleOptionSelect,
     toggleOptionEliminate,
@@ -1828,8 +2278,23 @@
     submitPMExam,
     filterReviewSheet,
     viewStudentScratchpad,
-    getState: () => PMState
+    getState: () => PMState,
+    getStudyState: () => PMStudyState
   };
+
+  // Expose root shortcuts
+  window.startPMExam = startPMExam;
+  window.openPMPackagePicker = openPackagePicker;
+  window.openPMStudyMode = openPMStudyMode;
+  window.filterPMPackages = renderPMPackageCatalog;
+  window.changePMStudyPackage = changePMStudyPackage;
+  window.jumpToPMStudyQuestion = jumpToPMStudyQuestion;
+  window.navigatePMStudyQuestion = navigatePMStudyQuestion;
+  window.handlePMStudyOptionSelect = handlePMStudyOptionSelect;
+  window.resetPMStudySelection = resetPMStudySelection;
+  window.handlePMStudyNumericCheck = handlePMStudyNumericCheck;
+  window.startPMExamFromStudy = startPMExamFromStudy;
+  window.renderPMPackageCatalog = renderPMPackageCatalog;
 
   // Expose root shortcut
   window.startPMExam = startPMExam;

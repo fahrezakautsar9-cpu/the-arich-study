@@ -104,10 +104,10 @@
   <script src="features_assessment.js?v=1793387777"></script>
   <script src="features_ui_pwa.js?v=1793387777"></script>
   <script src="features_exam_scratchpad.js"></script>
-  <script src="features_pm_engine.js?v=1793410000"></script>
+  <script src="features_pm_engine.js?v=1793555555"></script>
   <script src="features_smart_error_bank.js?v=1793410000"></script>
   <script src="features_advanced_labs.js"></script>
-  <script src="features_exam_downloader.js?v=1793470000"></script>
+  <script src="features_exam_downloader.js?v=1793555555"></script>
 
   <style>
     body {
@@ -270,12 +270,12 @@
         <span>Latihan Soal</span>
       </button>
 
-      <button onclick="window.featuresPMEngine ? window.featuresPMEngine.openPackagePicker() : (window.openPMPackagePicker ? window.openPMPackagePicker() : startPMExam('cat'))" id="sb-nav-pm-exam" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center justify-between transition group" title="Buka Katalog 5 Paket UTBK PM">
+      <button onclick="switchView('pm-catalog')" id="sb-nav-pm-exam" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center justify-between transition group" title="Buka Katalog Lengkap 5 Paket Penalaran Matematika (PM)">
         <div class="flex items-center gap-2.5">
           <i data-lucide="compass" class="w-4 h-4 text-indigo-400"></i>
           <span>Penalaran Matematika</span>
         </div>
-        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 group-hover:bg-indigo-500/30">5 Paket</span>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 group-hover:bg-indigo-500/30">5 Paket</span>
       </button>
 
       <button onclick="switchView('mathlab')" id="sb-nav-mathlab" class="sb-nav-item w-full px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-dark-850 flex items-center gap-2.5 transition">
@@ -674,16 +674,20 @@
               </div>
 
               <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
-                <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('paket-1') : null" class="px-3 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Cetak / Unduh Naskah Soal PM UTBK (PDF)">
+                <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('paket-1') : null" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Cetak / Unduh Naskah Soal PM UTBK (PDF)">
                   <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
-                  <span class="hidden sm:inline">Cetak PDF</span>
+                  <span>Cetak PDF</span>
                 </button>
-                <button type="button" onclick="window.featuresPMEngine ? window.featuresPMEngine.openPackagePicker() : (window.openPMPackagePicker ? window.openPMPackagePicker() : null)" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+                <button type="button" onclick="switchView('pm-catalog')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Buka Katalog Lengkap 5 Paket PM">
                   <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
-                  <span>Pilih Paket Soal</span>
+                  <span>Lihat 5 Paket Soal</span>
+                </button>
+                <button type="button" onclick="openPMStudyMode('paket-1')" class="px-3.5 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Bedah Soal & Kunci Paket A (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-4 h-4"></i>
+                  <span>Bedah Soal</span>
                 </button>
                 <button type="button" onclick="window.featuresPMEngine ? window.featuresPMEngine.startPMExam('cat', 'paket-1') : (window.startPMExam ? window.startPMExam('cat', 'paket-1') : null)" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/30 cursor-pointer">
-                  <span>Mulai Paket A (CAT 42,5m)</span>
+                  <span>Mulai CAT (42,5m)</span>
                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -2463,7 +2467,249 @@
         </div>
       </div>
 
-    </main>
+    
+      <!-- ==================================================== -->
+      <!-- VIEW: KATALOG UTBK PENALARAN MATEMATIKA (PM) DEDICATED -->
+      <!-- ==================================================== -->
+      <div id="view-pm-catalog" class="hidden space-y-6">
+        <!-- Hero Header -->
+        <div class="clean-card rounded-2xl p-6 sm:p-7 border border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 via-dark-900 to-dark-950 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <div class="space-y-2.5 max-w-2xl">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-indigo-400"></i>
+                  <span>STANDAR RESMI BP3 / SNPMB</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                  5 Paket • 100 Soal HOTS
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                  KaTeX Lengkap
+                </span>
+              </div>
+
+              <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Simulasi &amp; Bedah Soal Penalaran Matematika (PM)
+              </h2>
+
+              <p class="text-sm text-slate-200 leading-relaxed">
+                Kuasai materi UTBK-SNBT dengan bank soal otentik. Pilih <strong>Mode Bedah Soal (Santai, tanpa timer, kunci jawaban terbuka &amp; pembahasan langkah demi langkah)</strong> atau <strong>Mode Simulasi CAT (Waktu 42,5 menit, skor IRT, split-screen wacana kontekstual)</strong>.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+              <button onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openBulkPicker() : null" class="px-4 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-2 transition shadow-sm cursor-pointer" title="Cetak Naskah Soal & Kunci (PDF)">
+                <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
+                <span>Cetak / Unduh PDF</span>
+              </button>
+              <button onclick="openPMStudyMode('paket-1')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-emerald-600/30 cursor-pointer">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span>Bedah Soal Paket A</span>
+              </button>
+              <button onclick="startPMExam('cat', 'paket-1')" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-indigo-600/30 cursor-pointer">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                <span>Mulai CAT (42,5m)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter tabs & Package Grid -->
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2" id="pm-package-filter-tabs">
+              <button onclick="filterPMPackages('all')" id="pm-filter-all" class="pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition">
+                Semua Paket (5)
+              </button>
+              <button onclick="filterPMPackages('paket-1')" id="pm-filter-paket-1" class="pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition">
+                Paket A (20 Soal)
+              </button>
+              <button onclick="filterPMPackages('paket-2')" id="pm-filter-paket-2" class="pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition">
+                Paket B (20 Soal)
+              </button>
+              <button onclick="filterPMPackages('paket-3')" id="pm-filter-paket-3" class="pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition">
+                Paket C (20 Soal)
+              </button>
+              <button onclick="filterPMPackages('paket-4')" id="pm-filter-paket-4" class="pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition">
+                Paket D (20 Soal)
+              </button>
+              <button onclick="filterPMPackages('paket-5')" id="pm-filter-paket-5" class="pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition">
+                Paket E (20 Soal)
+              </button>
+            </div>
+
+            <div class="text-xs text-slate-400 font-medium">
+              4 Wacana per Paket • Split-Screen • KaTeX
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="pm-dedicated-catalog-cards">
+            <!-- Injected via features_pm_engine.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- VIEW: BEDAH SOAL & KUNCI PEMBAHASAN UTBK PM (STUDY)   -->
+      <!-- ==================================================== -->
+      <div id="view-pm-study" class="hidden flex-1 flex flex-col space-y-4 pb-12">
+        <!-- Top Toolbar -->
+        <header class="clean-card rounded-2xl px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-xs border border-slate-800/90 bg-dark-900/95 sticky top-16 z-30 shadow-md">
+          <div class="flex items-center gap-2.5">
+            <button onclick="switchView('pm-catalog')" class="px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700/80 text-slate-200 hover:text-white font-semibold flex items-center gap-1.5 transition cursor-pointer">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              <span>Katalog PM</span>
+            </button>
+            
+            <select id="pm-study-pkg-select" onchange="changePMStudyPackage(this.value)" class="px-3 py-1.5 rounded-xl bg-dark-950 border border-slate-700 text-white font-bold text-xs cursor-pointer focus:outline-none focus:border-indigo-500">
+              <option value="paket-1">Paket A (PM-01) - 20 Soal</option>
+              <option value="paket-2">Paket B (PM-02) - 20 Soal</option>
+              <option value="paket-3">Paket C (PM-03) - 20 Soal</option>
+              <option value="paket-4">Paket D (PM-04) - 20 Soal</option>
+              <option value="paket-5">Paket E (PM-05) - 20 Soal</option>
+            </select>
+
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px] hidden sm:inline">
+              Mode Santai (Tanpa Timer)
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForCurrentPMStudy() : null" class="px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 hover:text-white font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Cetak Naskah Soal & Kunci Paket Ini">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+            <button type="button" onclick="startPMExamFromStudy()" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center gap-1.5 transition shadow-md shadow-indigo-600/30 cursor-pointer" title="Mulai Ujian CAT Resmi dengan Timer 42,5 Menit">
+              <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+              <span>Coba Mode CAT</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Question 1..20 Quick Navigation Strip -->
+        <div class="clean-card rounded-2xl p-3 border border-slate-800/90 overflow-x-auto">
+          <div class="flex items-center justify-between gap-3 text-xs mb-2">
+            <span class="font-bold text-white flex items-center gap-1.5">
+              <i data-lucide="list" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Navigasi Cepat 20 Soal:</span>
+            </span>
+            <span class="text-slate-400 text-[11px]">Klik nomor soal untuk langsung berpindah soal & pembahasannya</span>
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="pm-study-nav-pills">
+            <!-- 20 pills generated via JS -->
+          </div>
+        </div>
+
+        <!-- Split View: Stimulus (Left) and Question + Solution (Right) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 min-h-[500px]">
+          <!-- Left: Wacana Stimulus -->
+          <div class="lg:col-span-5 clean-card rounded-2xl p-5 sm:p-6 border border-slate-800 flex flex-col justify-between space-y-4 max-h-[82vh] overflow-y-auto">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                <span class="text-xs font-bold text-indigo-300 px-2.5 py-0.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20" id="pm-study-stimulus-badge">
+                  Wacana Soal
+                </span>
+                <span class="text-xs text-slate-400 font-mono" id="pm-study-domain-tag">Domain Materi</span>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold text-white leading-snug" id="pm-study-stimulus-title">
+                Judul Wacana
+              </h3>
+              <div class="text-sm sm:text-base text-slate-200 leading-relaxed font-normal space-y-3 overflow-x-auto" id="pm-study-stimulus-body">
+                <!-- Stimulus content -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Question, Interactive Tester, Answer Key & Full KaTeX Derivation -->
+          <div class="lg:col-span-7 clean-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-5 max-h-[82vh] overflow-y-auto">
+            <!-- Question Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 rounded-xl bg-indigo-600 text-white font-extrabold text-xs" id="pm-study-qnum">
+                  Soal No. 1
+                </span>
+                <span class="px-2.5 py-0.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-semibold" id="pm-study-qtype">
+                  Pilihan Ganda
+                </span>
+              </div>
+              <span class="text-xs text-slate-400 font-mono" id="pm-study-qdomain">
+                Aljabar &amp; Fungsi
+              </span>
+            </div>
+
+            <!-- Question Prompt -->
+            <div class="text-base sm:text-lg font-bold text-white leading-relaxed" id="pm-study-prompt">
+              <!-- Prompt text -->
+            </div>
+
+            <!-- Options Interactive Area (Allows clicking to test self) -->
+            <div class="space-y-2.5" id="pm-study-options-container">
+              <!-- Interactive options -->
+            </div>
+
+            <!-- Instant Feedback / Reveal Card -->
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/40 space-y-3" id="pm-study-key-card">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block">Kunci Jawaban Resmi</span>
+                    <span class="text-base font-extrabold text-white" id="pm-study-key-text">B</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+                  Standar BP3
+                </span>
+              </div>
+            </div>
+
+            <!-- Step by Step KaTeX Solution -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-dark-950 border border-slate-800 space-y-3">
+              <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm border-b border-slate-800/80 pb-2">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>Langkah Pembahasan Matematis Lengkap (KaTeX):</span>
+              </div>
+              <div class="text-sm sm:text-base text-slate-200 leading-relaxed space-y-2.5" id="pm-study-solution-body">
+                <!-- KaTeX derivation steps -->
+              </div>
+            </div>
+
+            <!-- Arich Shortcut Card -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-950/30 to-dark-900 border border-amber-500/30 space-y-2">
+              <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                <span>Arich Shortcut &amp; Trik Cepat UTBK:</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium" id="pm-study-shortcut-text">
+                Shortcut text
+              </p>
+            </div>
+
+            <!-- Bottom Question Navigation -->
+            <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+              <button onclick="navigatePMStudyQuestion(-1)" id="btn-pm-study-prev" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 hover:text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                <span>Soal Sebelumnya</span>
+              </button>
+              <span class="text-xs text-slate-400 font-mono" id="pm-study-footer-num">
+                1 / 20
+              </span>
+              <button onclick="navigatePMStudyQuestion(1)" id="btn-pm-study-next" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-md shadow-indigo-600/30 cursor-pointer">
+                <span>Soal Selanjutnya</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</main>
 
   </div>
 
@@ -2600,6 +2846,49 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  
+  <!-- ======================================================== -->
+  <!-- MODAL: PEMILIHAN PAKET UTBK PM (5 PAKET LENGKAP)         -->
+  <!-- ======================================================== -->
+  <div id="modal-pm-packages" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="clean-card rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col p-5 sm:p-6 shadow-2xl border-indigo-500/40 space-y-4 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <span>Pilih Paket Penalaran Matematika (PM)</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">100 Soal HOTS</span>
+            </h3>
+            <p class="text-xs text-slate-300">Tersedia 5 Paket Simulasi resmi standar SNPMB BP3. Pilih mode Bedah Soal atau Simulasi CAT.</p>
+          </div>
+        </div>
+        <button onclick="window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : document.getElementById('modal-pm-packages').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-dark-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Grid of 5 Packages) -->
+      <div class="flex-1 overflow-y-auto space-y-3 pr-1" id="pm-package-modal-list">
+        <!-- Rendered via renderPackagePickerCards -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-between shrink-0">
+        <button onclick="switchView('pm-catalog'); (window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : document.getElementById('modal-pm-packages').classList.add('hidden'))" class="px-3.5 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5">
+          <i data-lucide="grid" class="w-4 h-4 text-indigo-400"></i>
+          <span>Buka di Halaman Penuh</span>
+        </button>
+        <button onclick="window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : document.getElementById('modal-pm-packages').classList.add('hidden')" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold">
+          Tutup
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3444,7 +3733,7 @@ function doPost(e) {
         toggleMobileSidebar();
       }
 
-      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'exam-review', 'history', 'teacher-dashboard', 'mathlab', 'cheatsheet', 'pm-exam', 'pm-review', 'error-bank'];
+      const views = ['student-gate', 'dashboard', 'materi-catalog', 'materi-detail', 'exam-catalog', 'exam', 'exam-result', 'exam-review', 'history', 'teacher-dashboard', 'mathlab', 'cheatsheet', 'pm-exam', 'pm-review', 'error-bank', 'pm-catalog', 'pm-study'];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
@@ -3456,7 +3745,7 @@ function doPost(e) {
       });
       let activeNavId = `sb-nav-${viewName}`;
       if (viewName === 'exam-catalog' || viewName === 'exam' || viewName === 'exam-review') activeNavId = 'sb-nav-exam';
-      else if (viewName === 'pm-exam' || viewName === 'pm-review') activeNavId = 'sb-nav-pm-exam';
+      else if (viewName === 'pm-catalog' || viewName === 'pm-study' || viewName === 'pm-exam' || viewName === 'pm-review') activeNavId = 'sb-nav-pm-exam';
       else if (viewName === 'error-bank') activeNavId = 'sb-nav-error-bank';
       const navBtn = document.getElementById(activeNavId);
       if (navBtn) {
@@ -3508,6 +3797,13 @@ function doPost(e) {
       } else if (viewName === 'error-bank') {
         document.getElementById('top-bar-title').textContent = 'Buku Catatan Salah';
         if (window.TheArichErrorBank) window.TheArichErrorBank.renderErrorBankView();
+      } else if (viewName === 'pm-catalog') {
+        document.getElementById('top-bar-title').textContent = 'Katalog UTBK Penalaran Matematika';
+        if (window.featuresPMEngine && window.featuresPMEngine.renderPMPackageCatalog) {
+          window.featuresPMEngine.renderPMPackageCatalog();
+        }
+      } else if (viewName === 'pm-study') {
+        document.getElementById('top-bar-title').textContent = 'Bedah Soal & Kunci Pembahasan PM';
       }
 
       lucide.createIcons();
@@ -3923,6 +4219,9 @@ function doPost(e) {
     }
 
     function renderExamCatalog() {
+      if (window.featuresPMEngine && window.featuresPMEngine.renderPackagePickerCards) {
+        window.featuresPMEngine.renderPackagePickerCards('pm-package-catalog-cards');
+      }
       const container = document.getElementById('exam-catalog-grid');
       const badgeEl = document.getElementById('exam-catalog-grade-badge');
       const statsEl = document.getElementById('exam-catalog-total-stats');
@@ -4863,7 +5162,10 @@ function doPost(e) {
           document.getElementById('view-exam'),
           document.getElementById('view-materi-detail'),
           document.getElementById('view-cheatsheet'),
-          document.getElementById('matrix-result-content')
+          document.getElementById('matrix-result-content'),
+          document.getElementById('view-pm-study'),
+          document.getElementById('view-pm-exam'),
+          document.getElementById('view-pm-catalog')
         ];
         targets = candidates.filter(c => c && !c.classList.contains('hidden'));
         if (targets.length === 0) {
