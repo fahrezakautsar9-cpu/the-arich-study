@@ -266,6 +266,10 @@
                 <i data-lucide="layers" class="w-3 h-3 text-indigo-400"></i>
                 <span class="hidden sm:inline">Pilih Paket</span>
               </button>
+              <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForCurrentPM() : null" class="px-2 py-0.5 rounded-md bg-dark-950 hover:bg-slate-800 border border-slate-700/70 text-slate-300 hover:text-white text-[10px] font-semibold flex items-center gap-1 transition" title="Cetak / Unduh Naskah Soal Paket Ini (PDF)">
+                <i data-lucide="printer" class="w-3 h-3 text-indigo-400"></i>
+                <span class="hidden sm:inline">Cetak PDF</span>
+              </button>
             </div>
             <span class="text-slate-600 hidden sm:inline">•</span>
             <span class="text-slate-400 font-mono text-[11px]" id="pm-stat-answered">0/20 Terjawab</span>
@@ -634,7 +638,11 @@
             </button>
           </div>
 
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForCurrentPMReview() : null" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer" title="Cetak Naskah Soal & Pembahasan (PDF)">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Unduh Soal & Pembahasan (PDF)</span>
+            </button>
             <button onclick="window.featuresPMEngine.openPackagePicker()" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
               <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i>
               <span>Pilih Paket Lain</span>
@@ -917,11 +925,14 @@
             </div>
           </div>
 
-          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2.5">
-            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('drill', '${k}')" class="flex-1 py-2 px-3 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition text-center cursor-pointer">
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${k}') : null" class="p-2 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Cetak / Unduh Naskah Soal ${p.code} (PDF)">
+              <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
+            </button>
+            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('drill', '${k}')" class="flex-1 py-2 px-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition text-center cursor-pointer">
               Mode Drill
             </button>
-            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('cat', '${k}')" class="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/20 cursor-pointer">
+            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('cat', '${k}')" class="flex-1 py-2 px-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/20 cursor-pointer">
               Mulai CAT
             </button>
           </div>

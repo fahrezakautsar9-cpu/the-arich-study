@@ -107,6 +107,7 @@
   <script src="features_pm_engine.js?v=1793410000"></script>
   <script src="features_smart_error_bank.js?v=1793410000"></script>
   <script src="features_advanced_labs.js"></script>
+  <script src="features_exam_downloader.js?v=1793470000"></script>
 
   <style>
     body {
@@ -609,12 +610,18 @@
               </span>
               <h4 class="text-sm font-bold text-white">Sudah Paham Konsep Bab Ini?</h4>
             </div>
-            <p class="text-xs text-slate-300">Uji kemampuanmu dengan 15 latihan soal terstandar lengkap dengan kunci & pembahasan.</p>
+            <p class="text-xs text-slate-300">Uji kemampuanmu dengan latihan soal terstandar lengkap dengan kunci & pembahasan.</p>
           </div>
-          <button id="btn-materi-start-exam" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shrink-0 shadow-lg shadow-indigo-600/30 transition">
-            <i data-lucide="play" class="w-3.5 h-3.5"></i>
-            <span>Mulai 15 Latihan Soal</span>
-          </button>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForCurrentMateri() : null" class="w-full sm:w-auto px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 shrink-0 transition cursor-pointer" title="Cetak Naskah Soal Bab Ini (PDF)">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Unduh Soal PDF</span>
+            </button>
+            <button id="btn-materi-start-exam" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shrink-0 shadow-lg shadow-indigo-600/30 transition">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Mulai Latihan Soal</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -636,6 +643,10 @@
             </p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openBulkPicker() : null" class="px-3 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700/80 text-slate-200 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Cetak / Unduh Naskah Soal Pilihan (PDF)">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Unduh Soal PDF</span>
+            </button>
             <span class="px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-800 text-xs text-slate-300 font-mono" id="exam-catalog-total-stats">
               6 Bab • 90 Soal
             </span>
@@ -663,6 +674,10 @@
               </div>
 
               <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+                <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('paket-1') : null" class="px-3 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Cetak / Unduh Naskah Soal PM UTBK (PDF)">
+                  <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
+                  <span class="hidden sm:inline">Cetak PDF</span>
+                </button>
                 <button type="button" onclick="window.featuresPMEngine ? window.featuresPMEngine.openPackagePicker() : (window.openPMPackagePicker ? window.openPMPackagePicker() : null)" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
                   <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
                   <span>Pilih Paket Soal</span>
@@ -706,6 +721,10 @@
           </div>
 
           <div class="flex items-center space-x-2">
+            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForCurrentExam() : null" class="px-2.5 py-1 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white text-[11px] font-semibold flex items-center gap-1 transition" title="Cetak / Unduh Naskah Soal Bab Ini (PDF)">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span class="hidden sm:inline">Cetak Soal</span>
+            </button>
             <div class="flex items-center space-x-1 font-mono font-bold text-amber-400 px-2.5 py-1 rounded bg-dark-900 border border-slate-800">
               <i data-lucide="clock" class="w-3.5 h-3.5"></i>
               <span id="exam-timer">30:00</span>
@@ -1002,7 +1021,7 @@
                 <i data-lucide="minus" class="w-3.5 h-3.5"></i> <span class="val font-mono">0</span> Kosong
               </span>
             </div>
-            <button onclick="printExamReview()" class="review-action-btn ml-auto inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 text-xs font-bold transition cursor-pointer">
+            <button onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForCurrentExamReview() : printExamReview()" class="review-action-btn ml-auto inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 text-xs font-bold transition cursor-pointer">
               <i data-lucide="printer" class="w-4 h-4"></i>
               <span class="hidden sm:inline">Cetak Lembar Review</span>
             </button>
@@ -1099,7 +1118,7 @@
                 <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-400 group-hover:text-rose-400 transition"></i>
                 <span>Sinkron Cloud Akun</span>
               </button>
-              <button onclick="window.TheArichErrorBank ? window.TheArichErrorBank.printWorksheet() : window.print()" class="px-3.5 py-2 rounded-xl bg-dark-900 hover:bg-dark-850 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition cursor-pointer" title="Cetak Lembar Remedial">
+              <button onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForErrorBank() : (window.TheArichErrorBank ? window.TheArichErrorBank.printWorksheet() : window.print())" class="px-3.5 py-2 rounded-xl bg-dark-900 hover:bg-dark-850 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition cursor-pointer" title="Cetak Lembar Remedial">
                 <i data-lucide="printer" class="w-3.5 h-3.5 text-slate-400"></i>
                 <span>Cetak Lembar Remedial</span>
               </button>
@@ -3786,6 +3805,8 @@ function doPost(e) {
 
       const ch = sourceGradeData.chapters.find(c => c.id === chapterId);
       if (!ch) return;
+      window.currentDetailChapter = ch;
+      window.currentDetailGrade = targetGrade;
 
       // Handle Cross-Grade Banner
       const cgBanner = document.getElementById('cross-grade-notice-banner');
@@ -3964,12 +3985,15 @@ function doPost(e) {
                 <span>•</span>
                 <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 ${iconColor}"></i> 30 Menit</span>
               </div>
-              <div class="flex items-center gap-2 pt-3 border-t border-slate-800/80">
-                <button onclick="openChapterDetail('${ch.id}')" class="flex-1 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/70 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1 transition">
-                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Baca Materi
+              <div class="grid grid-cols-3 gap-1.5 pt-3 border-t border-slate-800/80">
+                <button onclick="openChapterDetail('${ch.id}')" class="py-2 px-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/70 text-slate-300 hover:text-white text-[11px] font-semibold flex items-center justify-center gap-1 transition" title="Baca Rangkuman Materi">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Materi
                 </button>
-                <button onclick="startChapterExam('${ch.id}')" class="flex-1 py-2 rounded-xl ${startBtnClass} text-xs font-semibold flex items-center justify-center gap-1 transition">
-                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i> Mulai Latihan
+                <button onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForChapter('${ch.id}') : downloadExamPDF('${ch.id}')" class="py-2 px-1.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-[11px] font-semibold flex items-center justify-center gap-1 transition group" title="Cetak / Unduh Naskah Soal (PDF)">
+                  <i data-lucide="printer" class="w-3.5 h-3.5 text-indigo-400 group-hover:scale-110 transition-transform"></i> Unduh PDF
+                </button>
+                <button onclick="startChapterExam('${ch.id}')" class="py-2 px-1.5 rounded-xl ${startBtnClass} text-[11px] font-semibold flex items-center justify-center gap-1 transition" title="Mulai Simulasi CBT">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i> Latihan
                 </button>
               </div>
             </div>

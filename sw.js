@@ -3,7 +3,7 @@
  * High-performance offline caching for core app shell, local curricula, and CDN dependencies.
  */
 
-const CACHE_NAME = 'the-arich-study-v1.3.0';
+const CACHE_NAME = 'the-arich-study-v1.4.0';
 const CDN_CACHE_NAME = 'the-arich-study-cdn-v1';
 
 // Static Shell & Curricula to pre-cache immediately
@@ -11,9 +11,12 @@ const PRECACHE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './print.css',
+  './theme.css',
   './features_ui_pwa.js',
   './features_pm_engine.js',
   './features_smart_error_bank.js',
+  './features_exam_downloader.js',
   './icons/icon-192.svg',
   './icons/icon-512.svg',
   './icons/icon-maskable.svg',
