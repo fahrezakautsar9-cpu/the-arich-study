@@ -15,6 +15,23 @@
   margin: 8mm;
 }
 
+/* ========================================================================== */
+/* SCREEN VIEW: STRICTLY HIDE PRINT CONTAINERS ON SCREEN                     */
+/* ========================================================================== */
+#the-arich-print-sheet,
+.the-arich-print-sheet,
+#arich-print-iframe {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
 @media print {
   /* 1. Global Reset for Clean Paper Printing */
   html, body {

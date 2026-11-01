@@ -3,7 +3,7 @@
  * High-performance offline caching for core app shell, local curricula, and CDN dependencies.
  */
 
-const CACHE_NAME = 'the-arich-study-v1.5.0';
+const CACHE_NAME = 'the-arich-study-v1.6.0';
 const CDN_CACHE_NAME = 'the-arich-study-cdn-v1';
 
 // Static Shell & Curricula to pre-cache immediately
@@ -181,34 +181,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // C. Local App Files & Curricula (Stale-While-Revalidate)
+  // C. Local App Files & Curricula (Network-First to always deliver freshest updates)
   if (url.origin === self.location.origin) {
     event.respondWith(
       (async () => {
         const cache = await caches.open(CACHE_NAME);
         
-        // Strip query params like ?v=1793288294 for matching if not exact
-        const cached = (await cache.match(req)) || (await cache.match(url.pathname));
-        
-        const fetchPromise = fetch(req).then(async (netRes) => {
+        try {
+          const netRes = await fetch(req);
           if (netRes && netRes.ok) {
             await cache.put(req, netRes.clone());
-            // Also store under clean pathname
-            await cache.put(url.pathname, netRes.clone());
+            return netRes;
           }
-          return netRes;
-        }).catch(() => null);
-
-        // If we have cached version, return it immediately for instant loads
-        if (cached) {
-          return cached;
+        } catch (err) {
+          // Offline or network error: fallback to cache
         }
 
-        // Otherwise wait for network
-        const netRes = await fetchPromise;
-        if (netRes) return netRes;
+        const cached = await cache.match(req) || await cache.match(url.pathname);
+        if (cached) return cached;
 
-        // If completely offline and not found
         return new Response('Aset offline tidak ditemukan.', { status: 404 });
       })()
     );

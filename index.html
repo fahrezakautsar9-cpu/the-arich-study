@@ -674,10 +674,7 @@
               </div>
 
               <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
-                <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('paket-1') : null" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Cetak / Unduh Naskah Soal PM UTBK (PDF)">
-                  <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
-                  <span>Cetak PDF</span>
-                </button>
+                <button type="button" onclick="openPDFDownloadsModal()" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Unduh PDF Resmi UTBK PM"><i data-lucide="file-down" class="w-4 h-4 text-indigo-400"></i><span>Unduh PDF</span></button>
                 <button type="button" onclick="switchView('pm-catalog')" class="px-3.5 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer" title="Buka Katalog Lengkap 5 Paket PM">
                   <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
                   <span>Lihat 5 Paket Soal</span>
@@ -696,7 +693,226 @@
 
           <!-- 5 Package Cards Interactive Grid in Catalog -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5" id="pm-package-catalog-cards">
-            <!-- Injected via features_pm_engine.js -->
+
+            <!-- Paket A (PM-01) -->
+            <div class="pm-pkg-card pm-pkg-paket-1 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket A (PM-01)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket A — Standar BPPP Inti
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Tarif Listrik Progresif, Desain Wadah Kemasan Silinder, Titik Impas (BEP) Armada Logistik, Efikasi Vaksinasi, dan Kecepatan Saluran Irigasi.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_A_Naskah_Soal.pdf" download="PM_UTBK_Paket_A_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-1')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-1')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket B (PM-02) -->
+            <div class="pm-pkg-card pm-pkg-paket-2 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket B (PM-02)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket B — Infrastruktur, Energi & Finansial
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Efisiensi PLTS Atap, Desain Kubah Geodesik, Skema Kredit KUR UMKM, Laju Aliran Venturi, dan Uji Klinis Terapi Imunologi.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_B_Naskah_Soal.pdf" download="PM_UTBK_Paket_B_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-2')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-2')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket C (PM-03) -->
+            <div class="pm-pkg-card pm-pkg-paket-3 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket C (PM-03)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket C — Smart Mobility, Industri & Ekologi
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Radar Kecepatan ETLE Jalan Tol, Waduk Retensi Banjir, Pemrograman Linear Daur Ulang, IHK Inflasi Pangan, dan Quality Control Semikonduktor.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_C_Naskah_Soal.pdf" download="PM_UTBK_Paket_C_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-3')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-3')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket D (PM-04) -->
+            <div class="pm-pkg-card pm-pkg-paket-4 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket D (PM-04)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket D — Agrikultur Presisi & Rekayasa Material
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Drone Sensor NDVI Lahan Padi, Kekuatan Tarik Komposit Serat Bambu, Neraca Perdagangan & Kurs Valas, Pola Sebaran Satwa Endemik, dan Kapasitas Baterai EV.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_D_Naskah_Soal.pdf" download="PM_UTBK_Paket_D_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-4')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-4')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket E (PM-05) -->
+            <div class="pm-pkg-card pm-pkg-paket-5 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket E (PM-05)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket E — Tata Kota, Logistik Maritim & Epidemiologi
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Rute Kapal Tol Laut Nusantara, Desain Atap Stadion Membran Tensile, Manajemen Risiko Portofolio Saham, Model SIR Persebaran Demam Berdarah, dan Efisiensi Turbin PLTA.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_E_Naskah_Soal.pdf" download="PM_UTBK_Paket_E_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-5')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-5')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -2501,10 +2717,7 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-              <button onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openBulkPicker() : null" class="px-4 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-2 transition shadow-sm cursor-pointer" title="Cetak Naskah Soal & Kunci (PDF)">
-                <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
-                <span>Cetak / Unduh PDF</span>
-              </button>
+              <button onclick="openPDFDownloadsModal()" class="px-4 py-2.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-2 transition shadow-sm cursor-pointer" title="Cetak Naskah Soal & Kunci (PDF)"><i data-lucide="file-down" class="w-4 h-4 text-indigo-400"></i><span>Unduh PDF Resmi</span></button>
               <button onclick="openPMStudyMode('paket-1')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-emerald-600/30 cursor-pointer">
                 <i data-lucide="book-open" class="w-4 h-4"></i>
                 <span>Bedah Soal Paket A</span>
@@ -2548,7 +2761,226 @@
 
           <!-- Cards Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="pm-dedicated-catalog-cards">
-            <!-- Injected via features_pm_engine.js -->
+
+            <!-- Paket A (PM-01) -->
+            <div class="pm-pkg-card pm-pkg-paket-1 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket A (PM-01)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket A — Standar BPPP Inti
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Tarif Listrik Progresif, Desain Wadah Kemasan Silinder, Titik Impas (BEP) Armada Logistik, Efikasi Vaksinasi, dan Kecepatan Saluran Irigasi.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_A_Naskah_Soal.pdf" download="PM_UTBK_Paket_A_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-1')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-1')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket B (PM-02) -->
+            <div class="pm-pkg-card pm-pkg-paket-2 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket B (PM-02)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket B — Infrastruktur, Energi & Finansial
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Efisiensi PLTS Atap, Desain Kubah Geodesik, Skema Kredit KUR UMKM, Laju Aliran Venturi, dan Uji Klinis Terapi Imunologi.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_B_Naskah_Soal.pdf" download="PM_UTBK_Paket_B_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-2')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-2')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket C (PM-03) -->
+            <div class="pm-pkg-card pm-pkg-paket-3 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket C (PM-03)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket C — Smart Mobility, Industri & Ekologi
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Radar Kecepatan ETLE Jalan Tol, Waduk Retensi Banjir, Pemrograman Linear Daur Ulang, IHK Inflasi Pangan, dan Quality Control Semikonduktor.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_C_Naskah_Soal.pdf" download="PM_UTBK_Paket_C_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-3')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-3')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket D (PM-04) -->
+            <div class="pm-pkg-card pm-pkg-paket-4 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket D (PM-04)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket D — Agrikultur Presisi & Rekayasa Material
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Drone Sensor NDVI Lahan Padi, Kekuatan Tarik Komposit Serat Bambu, Neraca Perdagangan & Kurs Valas, Pola Sebaran Satwa Endemik, dan Kapasitas Baterai EV.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_D_Naskah_Soal.pdf" download="PM_UTBK_Paket_D_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-4')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-4')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Paket E (PM-05) -->
+            <div class="pm-pkg-card pm-pkg-paket-5 clean-card rounded-2xl p-5 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-4 shadow-lg group">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold tracking-wide">
+                    Paket E (PM-05)
+                  </span>
+                  <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>20 Soal • 42,5m</span>
+                  </span>
+                </div>
+
+                <h4 class="text-base font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
+                  Paket E — Tata Kota, Logistik Maritim & Epidemiologi
+                </h4>
+
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
+                  Rute Kapal Tol Laut Nusantara, Desain Atap Stadion Membran Tensile, Manajemen Risiko Portofolio Saham, Model SIR Persebaran Demam Berdarah, dan Efisiensi Turbin PLTA.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
+                  <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data &amp; Peluang</span>
+                </div>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <a href="downloads/PM_UTBK_Paket_E_Naskah_Soal.pdf" download="PM_UTBK_Paket_E_Naskah_Soal.pdf" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Unduh File PDF Naskah Soal Siswa (Tanpa Kunci)">
+                  <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i>
+                </a>
+                <button type="button" onclick="openPMStudyMode('paket-5')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal &amp; Kunci (Tanpa Timer)">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>Bedah Soal</span>
+                </button>
+                <button type="button" onclick="startPMExam('cat', 'paket-5')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Mulai CAT</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2889,6 +3321,189 @@
           Tutup
         </button>
       </div>
+    </div>
+  </div>
+
+  
+  <!-- ======================================================== -->
+  <!-- MODAL: PUSAT DOWNLOAD PDF RESMI UTBK PM (ANTI-BLANK)      -->
+  <!-- ======================================================== -->
+  <div id="modal-direct-pdf-downloads" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="clean-card rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col p-5 sm:p-7 shadow-2xl border-indigo-500/40 space-y-5 overflow-hidden my-auto">
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center">
+            <i data-lucide="file-down" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <span>Pusat Unduhan Berkas PDF Resmi UTBK PM</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">10 Berkas PDF Siap</span>
+            </h3>
+            <p class="text-xs text-slate-300">Berkas PDF vektor A4 beresolusi tinggi. Siap cetak langsung tanpa takut halaman kosong.</p>
+          </div>
+        </div>
+        <button type="button" onclick="document.getElementById('modal-direct-pdf-downloads').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-dark-800 transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Body Sections -->
+      <div class="flex-1 overflow-y-auto space-y-5 pr-1 text-xs">
+        
+        <!-- SECTION 1: NASKAH SOAL SISWA (NO ANSWERS) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <h4 class="font-extrabold text-white text-sm">1. Naskah Soal Ujian (Edisi Siswa — Tanpa Kunci Jawaban)</h4>
+            </div>
+            <span class="text-slate-400 text-[11px]">Format: Kop Ujian + Petunjuk + LJK</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Naskah resmi siap print untuk latihan mandiri atau dibagikan ke siswa di kelas tanpa ada bocoran kunci jawaban.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <a href="downloads/PM_UTBK_Paket_A_Naskah_Soal.pdf" download="PM_UTBK_Paket_A_Naskah_Soal.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <span class="font-bold block">Paket A — Standar BPPP Inti</span>
+                  <span class="text-[10px] text-slate-400">20 Soal • PDF (327 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-600/20 text-emerald-300 font-bold text-[11px] group-hover:bg-emerald-600 group-hover:text-white transition">Unduh PDF</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_B_Naskah_Soal.pdf" download="PM_UTBK_Paket_B_Naskah_Soal.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <span class="font-bold block">Paket B — Infrastruktur & Energi</span>
+                  <span class="text-[10px] text-slate-400">20 Soal • PDF (336 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-600/20 text-emerald-300 font-bold text-[11px] group-hover:bg-emerald-600 group-hover:text-white transition">Unduh PDF</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_C_Naskah_Soal.pdf" download="PM_UTBK_Paket_C_Naskah_Soal.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <span class="font-bold block">Paket C — Finansial & Bisnis</span>
+                  <span class="text-[10px] text-slate-400">20 Soal • PDF (334 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-600/20 text-emerald-300 font-bold text-[11px] group-hover:bg-emerald-600 group-hover:text-white transition">Unduh PDF</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_D_Naskah_Soal.pdf" download="PM_UTBK_Paket_D_Naskah_Soal.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <span class="font-bold block">Paket D — Data Sains & Algoritma</span>
+                  <span class="text-[10px] text-slate-400">20 Soal • PDF (343 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-600/20 text-emerald-300 font-bold text-[11px] group-hover:bg-emerald-600 group-hover:text-white transition">Unduh PDF</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_E_Naskah_Soal.pdf" download="PM_UTBK_Paket_E_Naskah_Soal.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group sm:col-span-2">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <span class="font-bold block">Paket E — Ekologi, Hayati & Ketahanan Pangan</span>
+                  <span class="text-[10px] text-slate-400">20 Soal • PDF (343 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-600/20 text-emerald-300 font-bold text-[11px] group-hover:bg-emerald-600 group-hover:text-white transition">Unduh PDF</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- SECTION 2: KUNCI & PEMBAHASAN GURU -->
+        <div class="space-y-3 pt-3 border-t border-slate-800">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <h4 class="font-extrabold text-white text-sm">2. Kunci & Pembahasan Lengkap (Mode Guru & Tutor)</h4>
+            </div>
+            <span class="text-amber-400/90 text-[11px] font-semibold">Edisi Khusus Pendidik / Pembahasan</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Dilengkapi kunci jawaban resmi, tabel rangkuman jawaban, langkah bedah soal matematis lengkap dengan KaTeX, dan Arich Shortcut tips cepat.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <a href="downloads/PM_UTBK_Paket_A_Kunci_dan_Pembahasan_Guru.pdf" download="PM_UTBK_Paket_A_Kunci_dan_Pembahasan_Guru.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-check" class="w-4 h-4 text-amber-400"></i>
+                <div>
+                  <span class="font-bold block">Kunci & Pembahasan Paket A</span>
+                  <span class="text-[10px] text-slate-400">Lengkap KaTeX • PDF (496 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold text-[11px] group-hover:bg-amber-600 group-hover:text-white transition">Unduh Edisi Guru</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_B_Kunci_dan_Pembahasan_Guru.pdf" download="PM_UTBK_Paket_B_Kunci_dan_Pembahasan_Guru.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-check" class="w-4 h-4 text-amber-400"></i>
+                <div>
+                  <span class="font-bold block">Kunci & Pembahasan Paket B</span>
+                  <span class="text-[10px] text-slate-400">Lengkap KaTeX • PDF (490 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold text-[11px] group-hover:bg-amber-600 group-hover:text-white transition">Unduh Edisi Guru</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_C_Kunci_dan_Pembahasan_Guru.pdf" download="PM_UTBK_Paket_C_Kunci_dan_Pembahasan_Guru.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-check" class="w-4 h-4 text-amber-400"></i>
+                <div>
+                  <span class="font-bold block">Kunci & Pembahasan Paket C</span>
+                  <span class="text-[10px] text-slate-400">Lengkap KaTeX • PDF (486 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold text-[11px] group-hover:bg-amber-600 group-hover:text-white transition">Unduh Edisi Guru</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_D_Kunci_dan_Pembahasan_Guru.pdf" download="PM_UTBK_Paket_D_Kunci_dan_Pembahasan_Guru.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-check" class="w-4 h-4 text-amber-400"></i>
+                <div>
+                  <span class="font-bold block">Kunci & Pembahasan Paket D</span>
+                  <span class="text-[10px] text-slate-400">Lengkap KaTeX • PDF (493 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold text-[11px] group-hover:bg-amber-600 group-hover:text-white transition">Unduh Edisi Guru</span>
+            </a>
+
+            <a href="downloads/PM_UTBK_Paket_E_Kunci_dan_Pembahasan_Guru.pdf" download="PM_UTBK_Paket_E_Kunci_dan_Pembahasan_Guru.pdf" class="p-3 rounded-xl bg-dark-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-between text-slate-200 hover:text-white transition group sm:col-span-2">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="file-check" class="w-4 h-4 text-amber-400"></i>
+                <div>
+                  <span class="font-bold block">Kunci & Pembahasan Paket E</span>
+                  <span class="text-[10px] text-slate-400">Lengkap KaTeX • PDF (485 KB)</span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold text-[11px] group-hover:bg-amber-600 group-hover:text-white transition">Unduh Edisi Guru</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-end shrink-0">
+        <button type="button" onclick="document.getElementById('modal-direct-pdf-downloads').classList.add('hidden')" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition cursor-pointer">
+          Tutup
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -3726,6 +4341,36 @@ function doPost(e) {
     // ----------------------------------------------------
     // NAVIGATION CONTROLLER
     // ----------------------------------------------------
+
+    function filterPMPackages(filter) {
+      const allCards = document.querySelectorAll('#pm-dedicated-catalog-cards .pm-pkg-card');
+      const filterBtns = document.querySelectorAll('.pm-filter-btn');
+      filterBtns.forEach(b => {
+        b.className = 'pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition cursor-pointer';
+      });
+      const activeBtn = document.getElementById('pm-filter-' + filter);
+      if (activeBtn) {
+        activeBtn.className = 'pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition cursor-pointer';
+      }
+      allCards.forEach(card => {
+        if (filter === 'all' || card.classList.contains('pm-pkg-' + filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+
+    function openPDFDownloadsModal() {
+      const modal = document.getElementById('modal-direct-pdf-downloads');
+      if (modal) {
+        modal.classList.remove('hidden');
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+    window.openPDFDownloadsModal = openPDFDownloadsModal;
+
     function switchView(viewName) {
       // Close mobile drawer if open
       const drawer = document.getElementById('sidebar-drawer');
