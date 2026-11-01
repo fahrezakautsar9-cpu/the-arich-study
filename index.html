@@ -4771,6 +4771,7 @@ function doPost(e) {
       const subContainer = document.getElementById('detail-subtopics-container');
       const curSize = localStorage.getItem('arich_font_size') || 'md';
       subContainer.className = `space-y-6 reader-size-${curSize}`;
+      const isChapterPhysics = (ch.subject === 'Fisika') || (ch.id && ch.id.includes('fisik')) || (ch.badge && ch.badge.includes('Fisika')) || (ch.title && ch.title.toLowerCase().includes('fisika'));
 
       subContainer.innerHTML = ch.subtopics.map((sub, idx) => {
         const exampleText = sub.exampleProblem || sub.example;
@@ -4798,7 +4799,7 @@ function doPost(e) {
             <div class="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-100 shadow-sm space-y-1.5">
               <div class="flex items-center gap-2 text-amber-300 font-extrabold text-xs sm:text-sm tracking-wide">
                 <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
-                <span>Trik Kilat & Jalan Pintas Matematika:</span>
+                <span>${isChapterPhysics ? 'Trik Kilat & Rumus Sakti Fisika:' : 'Trik Kilat & Jalan Pintas Matematika:'}</span>
               </div>
               <div class="reader-text text-amber-200/90 leading-relaxed font-medium">
                 ${formatMateriMarkdown(quickTipText)}
@@ -4810,7 +4811,7 @@ function doPost(e) {
             <div class="p-4 sm:p-6 rounded-2xl bg-dark-900/95 border border-indigo-500/25 text-slate-200 shadow-inner space-y-2.5">
               <div class="flex items-center gap-2 text-indigo-300 font-extrabold text-xs sm:text-sm tracking-wide">
                 <i data-lucide="lightbulb" class="w-4 h-4 text-indigo-400"></i>
-                <span>Contoh Soal & Pembahasan Bertahap:</span>
+                <span>${isChapterPhysics ? 'Contoh Soal Terbimbing & Pembahasan Bertahap:' : 'Contoh Soal & Pembahasan Bertahap:'}</span>
               </div>
               <div class="reader-text text-slate-200 leading-relaxed">
                 ${formatMateriMarkdown(exampleText)}
