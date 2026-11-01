@@ -93,76 +93,126 @@
     const styleEl = document.createElement('style');
     styleEl.id = 'pm-engine-custom-styles';
     styleEl.textContent = `
-      /* Split Screen Layout Variables & Animation */
+      /* Modern Professional PM UTBK Theme */
       .pm-split-container {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 1rem;
-        height: calc(100vh - 120px);
-        min-height: 580px;
+        gap: 1.25rem;
+        height: calc(100vh - 125px);
+        min-height: 600px;
       }
       @media (min-width: 1024px) {
         .pm-split-container {
-          grid-template-columns: minmax(360px, 48%) minmax(400px, 52%);
-          height: calc(100vh - 110px);
+          grid-template-columns: minmax(380px, 47%) minmax(420px, 53%);
+          height: calc(100vh - 115px);
         }
       }
 
-      /* Custom High-Contrast Scrollbars for Stimulus & Questions */
+      /* Ultra-Clean Smooth Scrollbars */
       .pm-custom-scroll::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
       }
       .pm-custom-scroll::-webkit-scrollbar-track {
-        background: rgba(15, 23, 42, 0.6);
-        border-radius: 9999px;
+        background: transparent;
       }
       .pm-custom-scroll::-webkit-scrollbar-thumb {
-        background: rgba(71, 85, 105, 0.7);
+        background: rgba(148, 163, 184, 0.2);
         border-radius: 9999px;
       }
       .pm-custom-scroll::-webkit-scrollbar-thumb:hover {
-        background: rgba(6, 182, 212, 0.8);
+        background: rgba(148, 163, 184, 0.4);
       }
 
-      /* Option Eliminator Strikethrough Effects */
+      /* Option Eliminator Strikethrough Effects (Classy & Subdued) */
       .pm-option-eliminated {
-        opacity: 0.38 !important;
-        background-color: rgba(15, 23, 42, 0.4) !important;
-        border-color: rgba(71, 85, 105, 0.4) !important;
-        position: relative;
-        filter: grayscale(80%);
+        opacity: 0.32 !important;
+        background-color: rgba(15, 23, 42, 0.35) !important;
+        border-color: rgba(51, 65, 85, 0.4) !important;
+        filter: grayscale(100%);
+        transition: all 0.2s ease;
       }
       .pm-option-eliminated .pm-option-text {
         text-decoration: line-through;
-        text-decoration-color: #f43f5e;
-        text-decoration-thickness: 2.5px;
-        color: #94a3b8 !important;
+        text-decoration-color: #64748b;
+        text-decoration-thickness: 1.5px;
+        color: #64748b !important;
       }
 
-      /* Timer Warning Pulse Animations */
+      /* 20-Question Quick Strip Bar (Horizontal Scrollable) */
+      .pm-quick-strip {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+      }
+      .pm-quick-strip::-webkit-scrollbar {
+        height: 3px;
+      }
+      .pm-quick-strip::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.2);
+        border-radius: 9999px;
+      }
+
+      .pm-strip-pill {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.15s ease;
+        cursor: pointer;
+        user-select: none;
+      }
+      .pm-strip-pill-unanswered {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(51, 65, 85, 0.6);
+        color: #94a3b8;
+      }
+      .pm-strip-pill-unanswered:hover {
+        border-color: #64748b;
+        color: #f1f5f9;
+      }
+      .pm-strip-pill-answered {
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #34d399;
+      }
+      .pm-strip-pill-doubt {
+        background: rgba(245, 158, 11, 0.2);
+        border: 1px solid rgba(245, 158, 11, 0.5);
+        color: #fbbf24;
+      }
+      .pm-strip-pill-active {
+        background: #4f46e5 !important;
+        border-color: #818cf8 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+      }
+
+      /* Timer Warning Pulse Animations (Restrained & Elegant) */
       @keyframes timer-warning-pulse {
-        0%, 100% { transform: scale(1); border-color: rgba(244, 63, 94, 0.5); }
-        50% { transform: scale(1.03); border-color: rgba(244, 63, 94, 1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.5); }
+        0%, 100% { border-color: rgba(244, 63, 94, 0.4); }
+        50% { border-color: rgba(244, 63, 94, 0.9); box-shadow: 0 0 10px rgba(244, 63, 94, 0.3); }
       }
       .pm-timer-urgent {
-        animation: timer-warning-pulse 1.2s infinite ease-in-out;
+        animation: timer-warning-pulse 1.4s infinite ease-in-out;
         color: #f43f5e !important;
-        background-color: rgba(244, 63, 94, 0.15) !important;
+        background-color: rgba(244, 63, 94, 0.1) !important;
+        border-color: rgba(244, 63, 94, 0.4) !important;
       }
 
-      /* Complex Question Table Styling */
+      /* Professional Table Hairlines */
       .pm-tf-table tr:hover td {
-        background-color: rgba(30, 41, 59, 0.4);
+        background-color: rgba(30, 41, 59, 0.35);
       }
-
-      /* Deconstructor Clue Step Badge */
-      .pm-clue-step-card {
-        transition: all 0.2s ease;
-      }
-      .pm-clue-step-card:hover {
-        border-color: rgba(6, 182, 212, 0.5);
-        box-shadow: 0 4px 20px -2px rgba(6, 182, 212, 0.15);
+      .pm-tf-btn {
+        transition: all 0.15s ease;
       }
 
       /* Fact Extraction Table Review */
@@ -170,6 +220,7 @@
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        color: #94a3b8;
       }
       .pm-extraction-table td {
         vertical-align: top;
@@ -195,21 +246,21 @@
       <!-- ==================================================== -->
       <div id="view-pm-exam" class="hidden flex-1 flex flex-col space-y-3 pb-8 select-none">
         
-        <!-- 1. Top Control Bar (Timer, Stats, Scratchpad, Submit) -->
-        <div class="clean-card rounded-2xl px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-xs border border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-16 z-30 shadow-lg">
+        <!-- 1. Sleek Top Control Bar -->
+        <header class="clean-card rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs border border-slate-800/90 bg-dark-900/95 backdrop-blur-md sticky top-16 z-30 shadow-md">
           
-          <!-- Left: Module Title & Info -->
+          <!-- Left: Exit, Exam Badge, and Live Status -->
           <div class="flex items-center gap-2.5">
-            <button onclick="window.featuresPMEngine.confirmExitExam()" class="px-2.5 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white font-semibold flex items-center gap-1 transition" title="Keluar dari Modul PM">
+            <button onclick="window.featuresPMEngine.confirmExitExam()" class="px-2.5 py-1.5 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700/80 text-slate-300 hover:text-white font-medium flex items-center gap-1.5 transition cursor-pointer" title="Keluar dari Ujian">
               <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
               <span class="hidden sm:inline">Keluar</span>
             </button>
             <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold text-[11px] tracking-wide">
-                UTBK PM
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold text-[11px] tracking-wide">
+                UTBK SNBT
               </span>
-              <span class="font-bold text-white text-xs hidden md:inline" id="pm-mode-badge-label">
-                Simulasi CAT Resmi
+              <span class="font-bold text-slate-100 text-xs hidden md:inline" id="pm-mode-badge-label">
+                Penalaran Matematika
               </span>
             </div>
             <span class="text-slate-600 hidden sm:inline">•</span>
@@ -218,99 +269,100 @@
 
           <!-- Center: Segmented Mobile Tab Switcher (< lg) -->
           <div class="flex lg:hidden items-center p-0.5 rounded-xl bg-dark-950 border border-slate-800 text-[11px] font-semibold">
-            <button type="button" onclick="window.featuresPMEngine.switchMobileTab('stimulus')" id="pm-tab-btn-stimulus" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
-              📜 Wacana
+            <button type="button" onclick="window.featuresPMEngine.switchMobileTab('stimulus')" id="pm-tab-btn-stimulus" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Wacana</span>
             </button>
-            <button type="button" onclick="window.featuresPMEngine.switchMobileTab('question')" id="pm-tab-btn-question" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-bold transition">
-              📝 Soal & Jawab
+            <button type="button" onclick="window.featuresPMEngine.switchMobileTab('question')" id="pm-tab-btn-question" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-bold transition flex items-center gap-1.5">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              <span>Soal</span>
             </button>
           </div>
 
-          <!-- Right: Tools, Timer & Submit -->
+          <!-- Right: Tools, Timer & Submit Button -->
           <div class="flex items-center gap-2 ml-auto">
             
             <!-- In-Exam Scratchpad Trigger -->
-            <button onclick="window.toggleExamScratchpad()" id="btn-pm-scratchpad" title="Buka Papan Coretan Digital Canvas" class="px-2.5 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 hover:text-cyan-200 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs">
-              <span>✏️</span>
+            <button onclick="window.toggleExamScratchpad()" id="btn-pm-scratchpad" title="Buka Papan Coretan Digital" class="px-2.5 py-1.5 rounded-xl border border-slate-700/80 bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white text-xs font-medium flex items-center gap-1.5 transition cursor-pointer">
+              <i data-lucide="pen-tool" class="w-3.5 h-3.5 text-indigo-400"></i>
               <span class="hidden sm:inline">Coretan</span>
-              <span id="pm-scratchpad-dot" class="hidden w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              <span id="pm-scratchpad-dot" class="hidden w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
             </button>
 
             <!-- Deconstructor Clue (Drill Mode only) -->
-            <button onclick="window.featuresPMEngine.openDeconstructorModal()" id="btn-pm-deconstructor" title="Lihat Petunjuk Pemodelan (Mode Belajar)" class="hidden px-2.5 py-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 hover:text-amber-200 text-xs font-semibold items-center gap-1.5 transition cursor-pointer">
-              <span>💡</span>
+            <button onclick="window.featuresPMEngine.openDeconstructorModal()" id="btn-pm-deconstructor" title="Lihat Petunjuk Pemodelan (Mode Belajar)" class="hidden px-2.5 py-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-medium items-center gap-1.5 transition cursor-pointer">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
               <span class="hidden md:inline">Petunjuk</span>
             </button>
 
             <!-- CAT Timer 42.5 Minutes -->
-            <div id="pm-timer-badge" class="flex items-center gap-1.5 font-mono font-bold text-amber-400 px-3 py-1.5 rounded-xl bg-dark-950 border border-slate-800 shadow-inner">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <div id="pm-timer-badge" class="flex items-center gap-1.5 font-mono font-bold text-slate-200 px-3 py-1.5 rounded-xl bg-dark-950 border border-slate-800 shadow-inner">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
               <span id="pm-timer-display" class="tracking-wider">42:30</span>
             </div>
 
-            <!-- Number Matrix Drawer Button (Mobile) -->
-            <button onclick="window.featuresPMEngine.toggleMobileMatrixDrawer()" class="lg:hidden p-1.5 rounded-xl bg-dark-850 border border-slate-700 text-slate-300 hover:text-white" title="Buka Matriks Nomor Soal">
-              <i data-lucide="grid" class="w-4 h-4"></i>
+            <!-- Number Matrix Drawer Button (Mobile/Desktop) -->
+            <button onclick="window.featuresPMEngine.toggleMobileMatrixDrawer()" class="px-2.5 py-1.5 rounded-xl bg-dark-850 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-medium flex items-center gap-1.5 transition cursor-pointer" title="Lihat Daftar 20 Nomor">
+              <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span class="hidden md:inline">20 Nomor</span>
             </button>
 
             <!-- Submit Exam Button -->
-            <button onclick="window.featuresPMEngine.confirmSubmitExam()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md shadow-emerald-900/30">
+            <button onclick="window.featuresPMEngine.confirmSubmitExam()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-sm cursor-pointer">
               Selesai Ujian
             </button>
           </div>
 
-        </div>
+        </header>
 
-        <!-- 2. Adaptive Split-Screen Layout (Left: Stimulus Pane | Right: Question Pane) -->
+        <!-- 2. Split-Screen Layout (Left: Stimulus Pane | Right: Question Pane) -->
         <div class="pm-split-container">
           
           <!-- ============================================== -->
           <!-- PANEL KIRI: WACANA STIMULUS DOKUMEN & GRAFIK   -->
           <!-- ============================================== -->
-          <div id="pm-pane-stimulus" class="clean-card rounded-2xl p-4 sm:p-5 flex flex-col border border-slate-800 bg-dark-900/90 overflow-hidden relative">
+          <div id="pm-pane-stimulus" class="clean-card rounded-2xl p-5 sm:p-6 flex flex-col border border-slate-800/80 bg-dark-900/95 overflow-hidden relative shadow-lg">
             
             <!-- Stimulus Header Bar -->
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800/80 mb-3 gap-2 flex-wrap">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3 gap-2 flex-wrap">
               <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center text-xs border border-cyan-500/30">
-                  📜
+                <span class="px-2.5 py-1 rounded-lg bg-dark-850 border border-slate-700/80 text-indigo-300 text-xs font-semibold flex items-center gap-1.5">
+                  <i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-400"></i>
+                  <span id="pm-stimulus-badge">Wacana 1 (Soal 1 – 4)</span>
                 </span>
-                <span id="pm-stimulus-badge" class="px-2 py-0.5 rounded-md bg-cyan-950/60 text-cyan-300 border border-cyan-500/30 text-[11px] font-bold">
-                  Wacana 1 (Soal 1 – 4)
-                </span>
-                <span id="pm-stimulus-domain-tag" class="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 text-[11px]">
+                <span id="pm-stimulus-domain-tag" class="px-2 py-0.5 rounded text-[11px] text-slate-400 bg-dark-950 border border-slate-800/80">
                   Aljabar & Bilangan
                 </span>
               </div>
 
               <!-- Zoom Controls for Stimulus Reader -->
               <div class="flex items-center gap-1 text-slate-400">
-                <button onclick="window.featuresPMEngine.adjustStimulusZoom(-15)" class="px-2 py-1 rounded bg-dark-950 hover:bg-slate-800 text-[11px] border border-slate-800 font-mono" title="Perkecil Ukuran Teks">
+                <button onclick="window.featuresPMEngine.adjustStimulusZoom(-15)" class="px-2 py-1 rounded-lg bg-dark-950 hover:bg-slate-800 text-[11px] border border-slate-800 font-mono transition" title="Perkecil Ukuran Teks">
                   A-
                 </button>
-                <button onclick="window.featuresPMEngine.adjustStimulusZoom(+15)" class="px-2 py-1 rounded bg-dark-950 hover:bg-slate-800 text-[11px] border border-slate-800 font-mono" title="Perbesar Ukuran Teks">
+                <button onclick="window.featuresPMEngine.adjustStimulusZoom(+15)" class="px-2 py-1 rounded-lg bg-dark-950 hover:bg-slate-800 text-[11px] border border-slate-800 font-mono transition" title="Perbesar Ukuran Teks">
                   A+
                 </button>
               </div>
             </div>
 
             <!-- Stimulus Title -->
-            <h3 id="pm-stimulus-title" class="text-sm sm:text-base font-bold text-white mb-2 leading-snug">
+            <h3 id="pm-stimulus-title" class="text-sm sm:text-base font-bold text-white mb-3 leading-snug">
               Wacana 1: Sistem Tarif Listrik Rumah Tangga Berjenjang
             </h3>
 
             <!-- Stimulus Scrollable Body (Independent scroll) -->
-            <div id="pm-stimulus-content-body" class="flex-1 overflow-y-auto pr-1.5 pm-custom-scroll space-y-3">
+            <div id="pm-stimulus-content-body" class="flex-1 overflow-y-auto pr-1.5 pm-custom-scroll space-y-3 text-slate-200 leading-relaxed">
               <!-- Rendered via JS -->
             </div>
 
             <!-- Bottom Sticky Notice for Multi-Question Reference -->
-            <div class="pt-2.5 mt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+            <div class="pt-3 mt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
               <span class="flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span>Wacana ini digunakan untuk menjawab <strong>Soal 1 s.d. 4</strong></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>Wacana ini digunakan untuk <strong>Soal 1 s.d. 4</strong></span>
               </span>
-              <span class="text-slate-500 hidden sm:inline">Scroll untuk membaca tabel & diagram</span>
+              <span class="text-slate-500 hidden sm:inline">Gulir ke bawah untuk melihat tabel & diagram</span>
             </div>
 
           </div>
@@ -318,28 +370,36 @@
           <!-- ============================================== -->
           <!-- PANEL KANAN: LEMBAR PERTANYAAN & JAWABAN       -->
           <!-- ============================================== -->
-          <div id="pm-pane-question" class="flex flex-col space-y-3 overflow-hidden">
+          <div id="pm-pane-question" class="flex flex-col space-y-2 overflow-hidden">
             
+            <!-- Quick Question Navigation Strip (Desktop 20-Pill Bar) -->
+            <div class="hidden lg:flex items-center justify-between px-3 py-2 rounded-xl bg-dark-900/90 border border-slate-800/80">
+              <span class="text-[11px] font-semibold text-slate-400 mr-2 shrink-0">Daftar Soal:</span>
+              <div id="pm-desktop-quick-strip" class="pm-quick-strip flex-1">
+                <!-- 20 pill buttons injected dynamically -->
+              </div>
+            </div>
+
             <!-- Question Card Workspace -->
-            <div class="clean-card rounded-2xl p-5 sm:p-6 flex-1 flex flex-col border border-slate-800 bg-dark-900/90 overflow-hidden relative">
+            <div class="clean-card rounded-2xl p-5 sm:p-6 flex-1 flex flex-col border border-slate-800/80 bg-dark-900/95 overflow-hidden relative shadow-lg">
               
               <!-- Question Header -->
               <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4 gap-2 flex-wrap">
                 <div class="flex items-center gap-2">
-                  <span id="pm-q-num-pill" class="px-2.5 py-0.5 rounded-lg bg-indigo-600 text-white font-bold text-xs">
+                  <span id="pm-q-num-pill" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold text-xs">
                     Soal No. 1 dari 20
                   </span>
-                  <span id="pm-q-type-pill" class="px-2 py-0.5 rounded-md bg-slate-800 text-indigo-300 text-[11px] font-semibold border border-indigo-500/20">
+                  <span id="pm-q-type-pill" class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
                     Pilihan Ganda
                   </span>
-                  <span id="pm-q-domain-pill" class="px-2 py-0.5 rounded-md bg-dark-950 text-slate-400 text-[10px] hidden sm:inline">
+                  <span id="pm-q-domain-pill" class="px-2 py-0.5 rounded text-[10px] text-slate-400 bg-dark-950 hidden sm:inline">
                     Bilangan
                   </span>
                 </div>
 
                 <div class="flex items-center gap-2">
                   <!-- Ragu-ragu (Doubt) Flag -->
-                  <button onclick="window.featuresPMEngine.toggleCurrentDoubt()" id="pm-btn-doubt" class="px-2.5 py-1 rounded-lg border border-slate-700 text-slate-400 hover:text-amber-300 text-xs flex items-center gap-1.5 transition cursor-pointer">
+                  <button onclick="window.featuresPMEngine.toggleCurrentDoubt()" id="pm-btn-doubt" class="px-2.5 py-1 rounded-lg border border-slate-700/80 text-slate-400 hover:text-amber-300 text-xs flex items-center gap-1.5 transition cursor-pointer">
                     <i data-lucide="flag" class="w-3.5 h-3.5"></i>
                     <span id="pm-doubt-label">Tandai Ragu</span>
                   </button>
@@ -350,7 +410,7 @@
               <div class="flex-1 overflow-y-auto pr-1 pm-custom-scroll space-y-4">
                 
                 <!-- Prompt (KaTeX) -->
-                <div id="pm-question-prompt" class="text-sm sm:text-base font-medium text-white leading-relaxed">
+                <div id="pm-question-prompt" class="text-sm sm:text-base font-medium text-slate-100 leading-relaxed">
                   <!-- Prompt text & formulas -->
                 </div>
 
@@ -363,20 +423,20 @@
 
               <!-- Question Navigation Footer -->
               <div class="flex items-center justify-between pt-4 border-t border-slate-800 mt-3 gap-2">
-                <button onclick="window.featuresPMEngine.navigateQuestion(-1)" id="pm-btn-prev" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition">
+                <button onclick="window.featuresPMEngine.navigateQuestion(-1)" id="pm-btn-prev" class="px-4 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer">
                   <i data-lucide="chevron-left" class="w-4 h-4"></i>
                   <span>Sebelumnya</span>
                 </button>
 
                 <div class="flex items-center gap-2">
                   <!-- Mobile Matrix Button Quick Peek -->
-                  <button onclick="window.featuresPMEngine.toggleMobileMatrixDrawer()" class="px-3 py-2 rounded-xl bg-dark-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 border border-slate-700">
-                    <i data-lucide="grid" class="w-3.5 h-3.5"></i>
-                    <span>Daftar Soal</span>
+                  <button onclick="window.featuresPMEngine.toggleMobileMatrixDrawer()" class="px-3 py-2 rounded-xl bg-dark-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 border border-slate-700 cursor-pointer">
+                    <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <span>20 Soal</span>
                   </button>
                 </div>
 
-                <button onclick="window.featuresPMEngine.navigateQuestion(+1)" id="pm-btn-next" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition">
+                <button onclick="window.featuresPMEngine.navigateQuestion(+1)" id="pm-btn-next" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-indigo-600/20">
                   <span>Selanjutnya</span>
                   <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
@@ -394,11 +454,11 @@
       <!-- MODAL / DRAWER: 20-QUESTION MATRIX PALETTE           -->
       <!-- ==================================================== -->
       <div id="modal-pm-matrix" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="clean-card rounded-2xl p-5 max-w-md w-full border border-slate-700 bg-slate-900 shadow-2xl space-y-4">
+        <div class="clean-card rounded-2xl p-5 max-w-md w-full border border-slate-800 bg-slate-900 shadow-2xl space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800">
             <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
-              <span>Navigasi Soal Penalaran Matematika (20 Nomor)</span>
+              <i data-lucide="layout-grid" class="w-4 h-4 text-indigo-400"></i>
+              <span>Daftar Nomor Soal UTBK (20 Soal)</span>
             </h3>
             <button onclick="window.featuresPMEngine.toggleMobileMatrixDrawer()" class="p-1 rounded-lg text-slate-400 hover:text-white">
               <i data-lucide="x" class="w-4 h-4"></i>
@@ -425,8 +485,8 @@
               <span>Belum Dijawab</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
-              <span>Ada Coretan Scratchpad</span>
+              <span class="w-3 h-3 rounded-full bg-indigo-400"></span>
+              <span>Ada Coretan</span>
             </div>
           </div>
         </div>
@@ -436,15 +496,15 @@
       <!-- MODAL: DECONSTRUCTOR CLUE (PETUNJUK PEMODELAN)       -->
       <!-- ==================================================== -->
       <div id="modal-pm-deconstructor" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="clean-card rounded-2xl p-5 max-w-lg w-full border border-amber-500/40 bg-slate-900 shadow-2xl space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-amber-500/20">
+        <div class="clean-card rounded-2xl p-5 max-w-lg w-full border border-slate-800 bg-slate-900 shadow-2xl space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
             <div class="flex items-center gap-2">
-              <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center justify-center text-sm font-bold">
-                💡
-              </span>
+              <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
               <div>
                 <h3 class="text-sm font-bold text-white">Petunjuk Pemodelan Matematika</h3>
-                <span class="text-[10px] text-slate-400">Mode Belajar Mandiri (Scaffolding Cognitive Hints)</span>
+                <span class="text-[10px] text-slate-400">Mode Latihan Mandiri (Cognitive Scaffolding)</span>
               </div>
             </div>
             <button onclick="window.featuresPMEngine.closeDeconstructorModal()" class="p-1 rounded-lg text-slate-400 hover:text-white">
@@ -454,34 +514,31 @@
 
           <!-- 3-Tier Scaffolding Cards -->
           <div class="space-y-2.5 text-xs text-slate-300">
-            <!-- Stage 1: Variables -->
-            <div class="p-3 rounded-xl bg-dark-950 border border-slate-800 pm-clue-step-card space-y-1">
-              <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider block">
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-slate-800 space-y-1">
+              <span class="text-[10px] font-bold text-indigo-300 uppercase tracking-wider block">
                 Tahap 1: Ekstraksi Besaran & Variabel
               </span>
               <div id="pm-clue-variables" class="leading-relaxed"></div>
             </div>
 
-            <!-- Stage 2: Relations / Formula -->
-            <div class="p-3 rounded-xl bg-dark-950 border border-slate-800 pm-clue-step-card space-y-1">
-              <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-slate-800 space-y-1">
+              <span class="text-[10px] font-bold text-amber-300 uppercase tracking-wider block">
                 Tahap 2: Pembentukan Relasi Matematis
               </span>
               <div id="pm-clue-relations" class="leading-relaxed"></div>
             </div>
 
-            <!-- Stage 3: Solution Strategy -->
-            <div class="p-3 rounded-xl bg-dark-950 border border-slate-800 pm-clue-step-card space-y-1">
-              <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
-                Tahap 3: Rekomendasi Algoritma Solusi
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-slate-800 space-y-1">
+              <span class="text-[10px] font-bold text-emerald-300 uppercase tracking-wider block">
+                Tahap 3: Rekomendasi Solusi
               </span>
               <div id="pm-clue-strategy" class="leading-relaxed"></div>
             </div>
           </div>
 
           <div class="pt-2 text-center">
-            <button onclick="window.featuresPMEngine.closeDeconstructorModal()" class="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs transition">
-              Saya Paham, Lanjut Hitung Sendiri
+            <button onclick="window.featuresPMEngine.closeDeconstructorModal()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition cursor-pointer">
+              Saya Mengerti, Lanjutkan Pengerjaan
             </button>
           </div>
         </div>
@@ -493,40 +550,40 @@
       <div id="view-pm-review" class="hidden flex-1 flex flex-col space-y-5 pb-16">
         
         <!-- Header Banner: Diagnostic Summary -->
-        <div class="clean-card rounded-2xl p-5 sm:p-6 border border-slate-800 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 relative overflow-hidden shadow-xl">
-          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="clean-card rounded-2xl p-6 border border-slate-800 bg-gradient-to-r from-slate-900 via-dark-900 to-indigo-950/30 relative overflow-hidden shadow-xl">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="px-2.5 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300 font-bold text-xs border border-indigo-500/30">
-                  Hasil Diagnostik Pasca Ujian
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 font-semibold text-xs border border-indigo-500/30">
+                  Laporan Evaluasi UTBK
                 </span>
                 <span class="text-xs text-slate-400 font-mono" id="pm-review-date"></span>
               </div>
               <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
-                Analisis Kemampuan Penalaran Matematika UTBK
+                Diagnostik Penalaran Matematika
               </h2>
-              <p class="text-xs text-slate-300 mt-1 max-w-xl">
-                Laporan komprehensif penguasaan 4 domain materi, kecepatan pengerjaan, dan review soal dengan tabel dekonstruksi fakta stimulus.
+              <p class="text-xs text-slate-400 mt-1 max-w-xl leading-relaxed">
+                Evaluasi komprehensif penguasaan 4 domain materi UTBK, kecepatan pengerjaan, dan analisis dekonstruksi wacana.
               </p>
             </div>
 
             <div class="flex items-center gap-3 shrink-0">
-              <div class="text-center px-4 py-2.5 rounded-xl bg-dark-950 border border-slate-700">
+              <div class="text-center px-5 py-3 rounded-xl bg-dark-950 border border-slate-800">
                 <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Skor Skala UTBK</span>
-                <span class="text-2xl font-black text-emerald-400 font-mono" id="pm-review-scaled-score">720</span>
-                <span class="text-[10px] text-slate-500 block">Skala 200 - 800+</span>
+                <span class="text-3xl font-black text-emerald-400 font-mono mt-0.5 block" id="pm-review-scaled-score">720</span>
+                <span class="text-[10px] text-slate-500 block">Rentang 200 - 800+</span>
               </div>
 
-              <div class="text-center px-4 py-2.5 rounded-xl bg-dark-950 border border-slate-700">
-                <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Akurasi Soal</span>
-                <span class="text-2xl font-black text-white font-mono" id="pm-review-accuracy">16 / 20</span>
+              <div class="text-center px-5 py-3 rounded-xl bg-dark-950 border border-slate-800">
+                <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Akurasi Jawaban</span>
+                <span class="text-3xl font-black text-white font-mono mt-0.5 block" id="pm-review-accuracy">16 / 20</span>
                 <span class="text-[10px] text-slate-400 block" id="pm-review-percent">80% Benar</span>
               </div>
             </div>
           </div>
 
           <!-- 4-Domain Breakdown Grid Cards -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5 pt-4 border-t border-slate-800" id="pm-review-domains-grid">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5 pt-4 border-t border-slate-800/80" id="pm-review-domains-grid">
             <!-- Rendered via JS -->
           </div>
         </div>
@@ -546,7 +603,7 @@
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="window.featuresPMEngine.startNewPMExam('cat')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+            <button onclick="window.featuresPMEngine.startNewPMExam('cat')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-indigo-600/20">
               <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
               <span>Ulangi Simulasi</span>
             </button>
@@ -554,12 +611,12 @@
         </div>
 
         <!-- Review Cards Container -->
-        <div id="pm-review-cards-list" class="space-y-5">
+        <div id="pm-review-cards-list" class="space-y-4">
           <!-- Rendered via JS -->
         </div>
 
       </div>
-    `;
+    `;;
 
     mainContainer.insertAdjacentHTML('beforeend', pmExamMarkup);
     cacheDOMElements();
@@ -673,6 +730,7 @@
     renderQuestion(0);
     updateMatrixPalette();
     updateAnsweredStat();
+    updateDesktopQuickStrip();
 
     // Lucide Icons
     if (window.lucide) window.lucide.createIcons();
@@ -824,7 +882,7 @@
     const container = DOM.answerContainer;
     container.innerHTML = '';
 
-    // TYPE 1: SINGLE CHOICE WITH OPTION ELIMINATOR
+    // TYPE 1: SINGLE CHOICE (REFINED PROFESSIONAL CARDS)
     if (q.type === 'single_choice') {
       const selectedOption = PMState.answers[qIdx];
       const eliminatedSet = PMState.eliminatedOptions[qIdx];
@@ -834,8 +892,8 @@
         const isEliminated = eliminatedSet.has(oIdx);
 
         let cardCls = isSelected 
-          ? 'p-3 rounded-xl bg-indigo-950/50 border-2 border-indigo-500 text-white flex items-center justify-between transition cursor-pointer shadow-md shadow-indigo-900/20'
-          : 'p-3 rounded-xl bg-dark-950/70 border border-slate-800 text-slate-300 hover:border-slate-700 flex items-center justify-between transition cursor-pointer';
+          ? 'p-3.5 rounded-xl bg-indigo-600/10 border border-indigo-500 text-white flex items-center justify-between transition cursor-pointer ring-1 ring-indigo-500/30'
+          : 'p-3.5 rounded-xl bg-dark-950/70 border border-slate-800 text-slate-200 hover:border-slate-700 flex items-center justify-between transition cursor-pointer group';
 
         if (isEliminated) {
           cardCls += ' pm-option-eliminated';
@@ -843,31 +901,31 @@
 
         const letterBadgeCls = isSelected
           ? 'bg-indigo-600 text-white font-bold ring-2 ring-indigo-400'
-          : 'bg-slate-800 text-slate-400 font-semibold';
+          : 'bg-slate-800 text-slate-400 font-semibold group-hover:text-slate-200 group-hover:bg-slate-750';
 
         return `
           <div class="${cardCls}" onclick="window.featuresPMEngine.handleOptionSelect(${qIdx}, ${oIdx})">
             <!-- Left: Option Letter & Text -->
-            <div class="flex items-center space-x-3 min-w-0 pr-2">
-              <span class="w-6 h-6 rounded-lg text-xs flex items-center justify-center shrink-0 ${letterBadgeCls}">
+            <div class="flex items-center space-x-3 min-w-0 pr-3">
+              <span class="w-7 h-7 rounded-lg text-xs flex items-center justify-center shrink-0 transition ${letterBadgeCls}">
                 ${String.fromCharCode(65 + oIdx)}
               </span>
               <div class="pm-option-text text-xs sm:text-sm font-medium leading-relaxed">${opt}</div>
             </div>
 
-            <!-- Right: Eliminator Tool & Selection Indicator -->
+            <!-- Right: Eliminator Tool & Selected Icon -->
             <div class="flex items-center gap-2 shrink-0" onclick="event.stopPropagation()">
-              ${isEliminated ? '<span class="text-[10px] text-rose-400 font-bold bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">Dicoret</span>' : ''}
-              
               <!-- Option Eliminator Strikethrough Button -->
               <button type="button" 
                       onclick="window.featuresPMEngine.toggleOptionEliminate(${qIdx}, ${oIdx})" 
-                      title="${isEliminated ? 'Pulihkan opsi ini' : 'Coret opsi yang mustahil (Option Eliminator)'}"
-                      class="p-1.5 rounded-lg border transition ${isEliminated ? 'border-rose-500/40 bg-rose-500/20 text-rose-300' : 'border-slate-800 hover:border-slate-600 text-slate-500 hover:text-slate-300'}">
-                <i data-lucide="${isEliminated ? 'rotate-ccw' : 'strikethrough'}" class="w-3.5 h-3.5"></i>
+                      title="${isEliminated ? 'Pulihkan opsi ini' : 'Coret opsi yang salah (Option Eliminator)'}"
+                      class="px-2 py-1 rounded-lg border text-xs font-semibold transition ${isEliminated ? 'border-rose-500/40 bg-rose-500/10 text-rose-300' : 'border-slate-800 hover:border-slate-700 text-slate-500 hover:text-slate-300'}">
+                ${isEliminated ? '<span class="text-[10px]">Coretan Aktif</span>' : '<span class="text-[11px] line-through font-mono">S</span>'}
               </button>
 
-              <span class="${isSelected ? 'text-indigo-400 font-bold text-sm' : 'text-transparent'}">✓</span>
+              <div class="w-5 h-5 rounded-full flex items-center justify-center ${isSelected ? 'bg-indigo-600 text-white' : 'border border-slate-700 text-transparent'}">
+                <i data-lucide="check" class="w-3 h-3"></i>
+              </div>
             </div>
           </div>
         `;
@@ -881,16 +939,16 @@
       const currentAns = PMState.answers[qIdx] || new Array(q.statements.length).fill(null);
 
       let tableHtml = `
-        <div class="overflow-x-auto rounded-xl border border-slate-700 bg-dark-950/80">
+        <div class="overflow-x-auto rounded-xl border border-slate-800 bg-dark-950/90 shadow-inner">
           <table class="w-full text-xs text-left border-collapse pm-tf-table">
             <thead>
-              <tr class="border-b border-slate-700 bg-slate-900/90 text-slate-300">
-                <th class="p-3 font-bold">Pernyataan Konseptual</th>
+              <tr class="border-b border-slate-800 bg-slate-900/90 text-slate-400">
+                <th class="p-3 font-semibold text-[11px] uppercase tracking-wider">Pernyataan Konseptual</th>
                 <th class="p-3 text-center w-28 font-bold text-emerald-400">Benar</th>
                 <th class="p-3 text-center w-28 font-bold text-rose-400">Salah</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-800">
+            <tbody class="divide-y divide-slate-800/80">
       `;
 
       q.statements.forEach((stmt, sIdx) => {
@@ -899,28 +957,22 @@
         const isFalseSelected = val === false;
 
         tableHtml += `
-          <tr class="hover:bg-slate-900/40 transition">
-            <td class="p-3 text-slate-200 text-xs sm:text-sm font-medium leading-relaxed">
+          <tr class="hover:bg-slate-800/30 transition">
+            <td class="p-3 text-slate-200 leading-relaxed font-medium">
               ${stmt.text}
             </td>
-            
-            <!-- Radio Benar -->
-            <td class="p-2 text-center align-middle">
+            <td class="p-3 text-center">
               <button type="button" 
                       onclick="window.featuresPMEngine.handleComplexSelect(${qIdx}, ${sIdx}, true)"
-                      class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 mx-auto ${isTrueSelected ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/40 ring-2 ring-emerald-400' : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'}">
-                <span>Benar</span>
-                ${isTrueSelected ? '<span>✓</span>' : ''}
+                      class="pm-tf-btn px-4 py-1.5 rounded-lg border text-xs font-bold transition cursor-pointer ${isTrueSelected ? 'bg-emerald-600 text-white border-emerald-500 shadow-md' : 'bg-dark-900 border-slate-800 text-slate-400 hover:text-white'}">
+                Benar
               </button>
             </td>
-
-            <!-- Radio Salah -->
-            <td class="p-2 text-center align-middle">
+            <td class="p-3 text-center">
               <button type="button" 
                       onclick="window.featuresPMEngine.handleComplexSelect(${qIdx}, ${sIdx}, false)"
-                      class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 mx-auto ${isFalseSelected ? 'bg-rose-600 text-white shadow-md shadow-rose-900/40 ring-2 ring-rose-400' : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'}">
-                <span>Salah</span>
-                ${isFalseSelected ? '<span>✓</span>' : ''}
+                      class="pm-tf-btn px-4 py-1.5 rounded-lg border text-xs font-bold transition cursor-pointer ${isFalseSelected ? 'bg-rose-600 text-white border-rose-500 shadow-md' : 'bg-dark-900 border-slate-800 text-slate-400 hover:text-white'}">
+                Salah
               </button>
             </td>
           </tr>
@@ -931,43 +983,40 @@
             </tbody>
           </table>
         </div>
-        <p class="text-[11px] text-slate-400 italic">Pilihlah salah satu opsi (Benar atau Salah) pada setiap baris pernyataan.</p>
       `;
 
       container.innerHTML = tableHtml;
     }
 
-    // TYPE 3: NUMERIC / SHORT MATH INPUT
+    // TYPE 3: NUMERIC SHORT INPUT (REFINED)
     else if (q.type === 'numeric_input') {
-      const val = PMState.answers[qIdx] !== null ? PMState.answers[qIdx] : '';
+      const currentAns = PMState.answers[qIdx];
+      const val = (currentAns !== null && currentAns !== undefined) ? currentAns : '';
 
       container.innerHTML = `
-        <div class="p-4 rounded-xl border border-slate-700 bg-dark-950/80 space-y-3">
-          <label class="block text-xs font-bold text-slate-300">
-            Tuliskan Nilai Jawaban Akhir Anda:
+        <div class="p-5 rounded-2xl bg-dark-950/90 border border-slate-800 space-y-3">
+          <label class="text-xs font-semibold text-slate-300 block">
+            Ketikkan nilai numerik akhir hasil kalkulasi Anda:
           </label>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
             <div class="relative flex-1 max-w-xs">
               <input type="text" 
                      id="pm-numeric-field" 
                      value="${val}" 
                      placeholder="Contoh: 75 atau 0.25" 
                      oninput="window.featuresPMEngine.handleNumericInput(${qIdx}, this.value)"
-                     class="w-full px-4 py-2.5 rounded-xl bg-dark-900 border-2 border-indigo-500/50 focus:border-indigo-400 text-white font-mono text-base font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition">
+                     class="w-full px-4 py-2.5 rounded-xl bg-dark-900 border border-slate-700 focus:border-indigo-400 text-white font-mono text-base font-bold focus:outline-none focus:ring-1 focus:ring-indigo-500/50 transition">
             </div>
-            ${q.numericUnit ? `<span class="text-xs font-bold text-cyan-400 bg-cyan-950/50 px-2.5 py-1.5 rounded-lg border border-cyan-500/30 font-mono">${q.numericUnit}</span>` : ''}
+            ${q.numericUnit ? `<span class="text-xs font-bold text-slate-300 bg-slate-800 px-3 py-2.5 rounded-xl border border-slate-700 font-mono">${q.numericUnit}</span>` : ''}
           </div>
           <p class="text-[11px] text-slate-400 leading-normal">
-            Masukkan angka rasional murni tanpa tanda kurung atau simbol mata uang. Gunakan tanda titik atau koma untuk bilangan desimal.
+            Gunakan tanda koma (,) atau titik (.) untuk desimal. Angka murni tanpa simbol mata uang.
           </p>
         </div>
       `;
     }
   }
 
-  // ============================================================================
-  // 9. STUDENT ACTIONS & INTERACTION LOGIC
-  // ============================================================================
   function handleOptionSelect(qIdx, oIdx) {
     const eliminatedSet = PMState.eliminatedOptions[qIdx];
     if (eliminatedSet.has(oIdx)) {
@@ -1071,6 +1120,37 @@
     });
 
     DOM.statAnswered.textContent = `${count}/${PM_CONFIG.TOTAL_QUESTIONS} Terjawab`;
+  }
+
+  
+  // Update 20-Pill Desktop Quick Navigation Strip
+  function updateDesktopQuickStrip() {
+    const strip = document.getElementById('pm-desktop-quick-strip');
+    if (!strip) return;
+
+    let html = '';
+    for (let i = 0; i < PM_CONFIG.TOTAL_QUESTIONS; i++) {
+      const isCurrent = (i === PMState.currentQuestionIndex);
+      const ans = PMState.answers[i];
+      const isDoubt = PMState.doubts[i];
+
+      let isAnswered = false;
+      const q = PMState.questions[i];
+      if (q) {
+        if (q.type === 'single_choice' && ans !== null) isAnswered = true;
+        else if (q.type === 'numeric_input' && ans !== null && ans !== '') isAnswered = true;
+        else if (q.type === 'complex_tf' && Array.isArray(ans) && ans.every(v => v !== null)) isAnswered = true;
+      }
+
+      let cls = 'pm-strip-pill ';
+      if (isCurrent) cls += 'pm-strip-pill-active ';
+      else if (isDoubt) cls += 'pm-strip-pill-doubt ';
+      else if (isAnswered) cls += 'pm-strip-pill-answered ';
+      else cls += 'pm-strip-pill-unanswered ';
+
+      html += `<button type="button" onclick="window.featuresPMEngine.jumpToQuestion(${i})" class="${cls}" title="Soal No. ${i + 1}">${i + 1}</button>`;
+    }
+    strip.innerHTML = html;
   }
 
   function updateMatrixPalette() {

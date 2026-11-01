@@ -42,19 +42,19 @@
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-200">
                 <tr class="hover:bg-slate-800/40">
-                  <td class="p-2.5 font-semibold text-cyan-400">Blok I (Dasar)</td>
+                  <td class="p-2.5 font-semibold text-slate-100 font-medium">Blok I (Dasar)</td>
                   <td class="p-2.5">0 s.d. $100\\text{ kWh}$ pertama</td>
-                  <td class="p-2.5 font-mono text-emerald-400 font-bold">$Rp1.350,00$</td>
+                  <td class="p-2.5 font-mono text-slate-200 font-semibold">$Rp1.350,00$</td>
                 </tr>
                 <tr class="hover:bg-slate-800/40">
-                  <td class="p-2.5 font-semibold text-amber-400">Blok II (Menengah)</td>
+                  <td class="p-2.5 font-semibold text-slate-100 font-medium">Blok II (Menengah)</td>
                   <td class="p-2.5">Diatas $100\\text{ kWh}$ hingga $250\\text{ kWh}$ ($150\\text{ kWh}$ berikutnya)</td>
-                  <td class="p-2.5 font-mono text-amber-400 font-bold">$Rp1.650,00$</td>
+                  <td class="p-2.5 font-mono text-slate-200 font-semibold">$Rp1.650,00$</td>
                 </tr>
                 <tr class="hover:bg-slate-800/40">
-                  <td class="p-2.5 font-semibold text-rose-400">Blok III (Tinggi)</td>
+                  <td class="p-2.5 font-semibold text-slate-100 font-medium">Blok III (Tinggi)</td>
                   <td class="p-2.5">Diatas $250\\text{ kWh}$</td>
-                  <td class="p-2.5 font-mono text-rose-400 font-bold">$Rp2.000,00$</td>
+                  <td class="p-2.5 font-mono text-slate-200 font-semibold">$Rp2.000,00$</td>
                 </tr>
               </tbody>
             </table>
@@ -119,17 +119,17 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 my-3">
             <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 text-center">
-              <span class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider block">Pipa Pengisi A</span>
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Pipa Pengisi A</span>
               <span class="text-sm font-bold text-white font-mono">Debit: $120\\text{ L/menit}$</span>
               <p class="text-[10px] text-slate-400 mt-1">Pompa utama dari sumber mata air</p>
             </div>
             <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 text-center">
-              <span class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider block">Pipa Pengisi B</span>
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Pipa Pengisi B</span>
               <span class="text-sm font-bold text-white font-mono">Debit: $80\\text{ L/menit}$</span>
               <p class="text-[10px] text-slate-400 mt-1">Pompa cadangan filtrasi sekunder</p>
             </div>
             <div class="p-3 rounded-xl bg-dark-900 border border-slate-800 text-center">
-              <span class="text-[10px] text-rose-400 font-bold uppercase tracking-wider block">Katup Pembuangan C</span>
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Katup Pembuangan C</span>
               <span class="text-sm font-bold text-white font-mono">Debit: $150\\text{ L/menit}$</span>
               <p class="text-[10px] text-slate-400 mt-1">Laju alir distribusi jam sibuk</p>
             </div>
@@ -166,19 +166,19 @@
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-200">
                 <tr>
-                  <td class="p-2 font-semibold text-cyan-400">Toko Fisik</td>
+                  <td class="p-2 font-semibold text-slate-100 font-medium">Toko Fisik</td>
                   <td class="p-2">Diskon langsung $20\\%$</td>
                   <td class="p-2">Tidak ada voucher</td>
                   <td class="p-2 text-emerald-400">Gratis (Ambil di tempat)</td>
                 </tr>
                 <tr>
-                  <td class="p-2 font-semibold text-amber-400">Marketplace A</td>
+                  <td class="p-2 font-semibold text-slate-100 font-medium">Marketplace A</td>
                   <td class="p-2">Diskon bertingkat $15\\% + 5\\%$</td>
                   <td class="p-2 font-mono">Cashback $Rp300.000,00$</td>
                   <td class="p-2 font-mono">$Rp100.000,00$ (Subsidi $50\\%$)</td>
                 </tr>
                 <tr>
-                  <td class="p-2 font-semibold text-indigo-400">Marketplace B</td>
+                  <td class="p-2 font-semibold text-slate-100 font-medium">Marketplace B</td>
                   <td class="p-2">Diskon langsung $10\\%$</td>
                   <td class="p-2">Cashback $10\\%$ (maksimal $Rp1.000.000$)</td>
                   <td class="p-2 text-emerald-400">Gratis Ongkir Sepenuhnya</td>
@@ -216,10 +216,10 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-200 font-mono">
-                <tr><td class="p-2 text-emerald-400">Tepat Waktu ($0 - 2$)</td><td class="p-2">1</td><td class="p-2">45</td><td class="p-2">45</td></tr>
-                <tr><td class="p-2 text-cyan-400">Terlambat Ringan ($3 - 5$)</td><td class="p-2">4</td><td class="p-2">30</td><td class="p-2">75</td></tr>
-                <tr><td class="p-2 text-amber-400">Terlambat Sedang ($6 - 8$)</td><td class="p-2">7</td><td class="p-2">15</td><td class="p-2">90</td></tr>
-                <tr><td class="p-2 text-rose-400">Terlambat Berat ($9 - 11$)</td><td class="p-2">10</td><td class="p-2">10</td><td class="p-2">100</td></tr>
+                <tr><td class="p-2 text-slate-200 font-medium">Tepat Waktu ($0 - 2$)</td><td class="p-2">1</td><td class="p-2">45</td><td class="p-2">45</td></tr>
+                <tr><td class="p-2 text-slate-200 font-medium">Terlambat Ringan ($3 - 5$)</td><td class="p-2">4</td><td class="p-2">30</td><td class="p-2">75</td></tr>
+                <tr><td class="p-2 text-slate-200 font-medium">Terlambat Sedang ($6 - 8$)</td><td class="p-2">7</td><td class="p-2">15</td><td class="p-2">90</td></tr>
+                <tr><td class="p-2 text-slate-200 font-medium">Terlambat Berat ($9 - 11$)</td><td class="p-2">10</td><td class="p-2">10</td><td class="p-2">100</td></tr>
               </tbody>
             </table>
           </div>
