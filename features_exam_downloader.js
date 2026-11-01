@@ -1053,20 +1053,20 @@
                   <span class="text-xs text-slate-300 leading-relaxed">Siap uji untuk siswa. Tanpa spoiler kunci jawaban.</span>
                 </label>
 
-                <label class="clean-card p-3.5 rounded-xl border border-indigo-500/40 bg-indigo-950/20 hover:border-indigo-400 flex flex-col justify-between cursor-pointer group transition">
+                <label id="med-lbl-solution" onclick="window.TheArichExamDownloader.handleSolutionOptionClick(event)" class="clean-card p-3.5 rounded-xl border ${window.isTeacherUnlocked ? 'border-indigo-500/40 bg-indigo-950/20 hover:border-indigo-400' : 'border-slate-800/80 bg-slate-900/40 opacity-70'} flex flex-col justify-between cursor-pointer group transition">
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="font-extrabold text-indigo-200 text-sm">Soal + Kunci & Solusi</span>
-                    <input type="radio" name="med-content-mode" value="soal_solution" class="w-4 h-4 accent-indigo-500">
+                    <span class="font-extrabold ${window.isTeacherUnlocked ? 'text-indigo-200' : 'text-slate-400'} text-sm">Soal + Kunci &amp; Solusi</span>
+                    ${window.isTeacherUnlocked ? '<input type="radio" name="med-content-mode" value="soal_solution" class="w-4 h-4 accent-indigo-500">' : '<span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> Mode Guru</span>'}
                   </div>
-                  <span class="text-xs text-slate-300 leading-relaxed">Naskah lengkap + pembahasan KaTeX di halaman lampiran.</span>
+                  <span class="text-xs ${window.isTeacherUnlocked ? 'text-slate-300' : 'text-slate-400'} leading-relaxed">${window.isTeacherUnlocked ? 'Naskah lengkap + pembahasan KaTeX di halaman lampiran.' : 'Hanya ada di Mode Guru. Memerlukan PIN Guru.'}</span>
                 </label>
 
-                <label class="clean-card p-3.5 rounded-xl border border-slate-800 hover:border-slate-600 bg-slate-900/90 flex flex-col justify-between cursor-pointer group transition">
+                <label id="med-lbl-keyonly" onclick="window.TheArichExamDownloader.handleSolutionOptionClick(event)" class="clean-card p-3.5 rounded-xl border ${window.isTeacherUnlocked ? 'border-slate-800 hover:border-slate-600 bg-slate-900/90' : 'border-slate-800/80 bg-slate-900/40 opacity-70'} flex flex-col justify-between cursor-pointer group transition">
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="font-extrabold text-white text-sm">Kunci & Pembahasan</span>
-                    <input type="radio" name="med-content-mode" value="solution_only" class="w-4 h-4 accent-indigo-500">
+                    <span class="font-extrabold ${window.isTeacherUnlocked ? 'text-white' : 'text-slate-400'} text-sm">Kunci &amp; Pembahasan</span>
+                    ${window.isTeacherUnlocked ? '<input type="radio" name="med-content-mode" value="solution_only" class="w-4 h-4 accent-indigo-500">' : '<span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> Mode Guru</span>'}
                   </div>
-                  <span class="text-xs text-slate-300 leading-relaxed">Panduan pengajar & kunci jawaban cepat untuk koreksi.</span>
+                  <span class="text-xs ${window.isTeacherUnlocked ? 'text-slate-300' : 'text-slate-400'} leading-relaxed">${window.isTeacherUnlocked ? 'Panduan pengajar & kunci jawaban cepat untuk koreksi.' : 'Hanya ada di Mode Guru. Memerlukan PIN Guru.'}</span>
                 </label>
               </div>
             </div>
@@ -1383,7 +1383,23 @@
   }
 
   // ============================================================================
-  // 9. PUBLIC REGISTRATION
+    function handleSolutionOptionClick(e) {
+    if (!window.isTeacherUnlocked) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (confirm("Kunci Jawaban & Pembahasan hanya ada di Mode Guru.\n\nApakah Anda ingin memasukkan PIN Guru sekarang?")) {
+        if (window.promptTeacherPinForDownloader) {
+          window.promptTeacherPinForDownloader();
+        } else if (window.promptTeacherPin) {
+          window.promptTeacherPin();
+        }
+      }
+    }
+  }
+
+// 9. PUBLIC REGISTRATION
   // ============================================================================
 
   window.TheArichExamDownloader = {
@@ -1402,6 +1418,17 @@
     triggerPrint,
     triggerOfflineDownload,
     closeModal,
+    handleSolutionOptionClick,
+    onTeacherModeChange: function() {
+      const modal = document.getElementById('modal-exam-download');
+      if (modal) {
+        modal.remove();
+        ensureModalExists();
+        if (DownloaderState.currentSource) {
+          openModalWithSource(DownloaderState.currentSource);
+        }
+      }
+    },
     generateExamSheetHTML,
     buildFullPrintableDocumentHTML,
     getState: () => DownloaderState

@@ -3008,6 +3008,10 @@
             <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px] hidden sm:inline">
               Mode Santai (Tanpa Timer)
             </span>
+
+            <div id="pm-study-teacher-status-container" class="inline-flex items-center">
+              <!-- Rendered via features_pm_engine.js -->
+            </div>
           </div>
 
           <div class="flex items-center gap-2">
@@ -3083,44 +3087,70 @@
               <!-- Interactive options -->
             </div>
 
-            <!-- Instant Feedback / Reveal Card -->
-            <div class="p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/40 space-y-3" id="pm-study-key-card">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
-                    <i data-lucide="check" class="w-4 h-4"></i>
+            <!-- TEACHER-ONLY AREA: Kunci Resmi, Pembahasan KaTeX & Arich Shortcut (Hanya Tampil di Mode Guru) -->
+            <div id="pm-study-teacher-solution-area" class="space-y-4 hidden">
+              <!-- Instant Feedback / Reveal Card -->
+              <div class="p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/40 space-y-3" id="pm-study-key-card">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
+                      <i data-lucide="check" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block">Kunci Jawaban Resmi (Mode Guru)</span>
+                      <span class="text-base font-extrabold text-white" id="pm-study-key-text">B</span>
+                    </div>
                   </div>
-                  <div>
-                    <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block">Kunci Jawaban Resmi</span>
-                    <span class="text-base font-extrabold text-white" id="pm-study-key-text">B</span>
-                  </div>
+                  <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5">
+                    <i data-lucide="unlock" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    Standar BP3 • Mode Guru Aktif
+                  </span>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
-                  Standar BP3
-                </span>
+              </div>
+
+              <!-- Step by Step KaTeX Solution -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-dark-950 border border-slate-800 space-y-3">
+                <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm border-b border-slate-800/80 pb-2">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                  <span>Langkah Pembahasan Matematis Lengkap (KaTeX):</span>
+                </div>
+                <div class="text-sm sm:text-base text-slate-200 leading-relaxed space-y-2.5" id="pm-study-solution-body">
+                  <!-- KaTeX derivation steps -->
+                </div>
+              </div>
+
+              <!-- Arich Shortcut Card -->
+              <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-950/30 to-dark-900 border border-amber-500/30 space-y-2">
+                <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                  <i data-lucide="zap" class="w-4 h-4"></i>
+                  <span>Arich Shortcut &amp; Trik Cepat UTBK:</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium" id="pm-study-shortcut-text">
+                  Shortcut text
+                </p>
               </div>
             </div>
 
-            <!-- Step by Step KaTeX Solution -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-dark-950 border border-slate-800 space-y-3">
-              <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm border-b border-slate-800/80 pb-2">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>Langkah Pembahasan Matematis Lengkap (KaTeX):</span>
+            <!-- STUDENT-MODE LOCKED NOTICE: Ditampilkan jika bukan Mode Guru -->
+            <div id="pm-study-student-locked-card" class="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-dark-900 to-dark-950 border border-slate-800 text-center space-y-3.5 shadow-lg">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-sm">
+                <i data-lucide="lock" class="w-6 h-6"></i>
               </div>
-              <div class="text-sm sm:text-base text-slate-200 leading-relaxed space-y-2.5" id="pm-study-solution-body">
-                <!-- KaTeX derivation steps -->
+              <div class="space-y-1">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-extrabold text-[11px] uppercase tracking-wider">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+                  <span>Kunci Jawaban &amp; Pembahasan Hanya Ada di Mode Guru</span>
+                </div>
+                <h4 class="text-base font-extrabold text-white">Mode Siswa: Kunci Resmi &amp; KaTeX Terkunci</h4>
+                <p class="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
+                  Sesuai instruksi pengajar, kunci jawaban resmi Standar BP3 dan langkah pembahasan KaTeX hanya dapat diakses melalui <strong>Mode Guru</strong> agar siswa dapat berlatih bernalar mandiri tanpa spoiler jawaban.
+                </p>
               </div>
-            </div>
-
-            <!-- Arich Shortcut Card -->
-            <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-950/30 to-dark-900 border border-amber-500/30 space-y-2">
-              <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
-                <i data-lucide="zap" class="w-4 h-4"></i>
-                <span>Arich Shortcut &amp; Trik Cepat UTBK:</span>
+              <div class="pt-1">
+                <button type="button" onclick="window.promptTeacherPinForStudy ? window.promptTeacherPinForStudy() : window.promptTeacherPin()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs inline-flex items-center gap-2 transition shadow-md shadow-amber-500/20 cursor-pointer">
+                  <i data-lucide="key-round" class="w-4 h-4"></i> Masuk Mode Guru (Buka Kunci &amp; Pembahasan)
+                </button>
               </div>
-              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium" id="pm-study-shortcut-text">
-                Shortcut text
-              </p>
             </div>
 
             <!-- Bottom Question Navigation -->
@@ -4056,7 +4086,10 @@ function doPost(e) {
 
     let currentStudent = null;
     let currentGradeData = null;
+    let currentView = 'dashboard';
+    window.currentView = 'dashboard';
     let isTeacherUnlocked = false;
+    window.isTeacherUnlocked = false;
     let isAnswerKeyUnlocked = false;
     let isSolutionVisible = false;
     let isAudio = true;
@@ -4372,6 +4405,8 @@ function doPost(e) {
     window.openPDFDownloadsModal = openPDFDownloadsModal;
 
     function switchView(viewName) {
+      currentView = viewName;
+      window.currentView = viewName;
       // Close mobile drawer if open
       const drawer = document.getElementById('sidebar-drawer');
       if (!drawer.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
@@ -5423,20 +5458,59 @@ function doPost(e) {
       }
     }
 
-    function closeTeacherPinModal() {
+    
+    window.promptTeacherPinForStudy = function() {
+      window._teacherPinSuccessCallback = function() {
+        if (window.featuresPMEngine && window.featuresPMEngine.onTeacherModeChange) {
+          window.featuresPMEngine.onTeacherModeChange();
+        }
+      };
+      promptTeacherPin();
+    };
+
+    window.promptTeacherPinForDownloader = function() {
+      window._teacherPinSuccessCallback = function() {
+        if (window.TheArichExamDownloader && window.TheArichExamDownloader.onTeacherModeChange) {
+          window.TheArichExamDownloader.onTeacherModeChange();
+        }
+      };
+      promptTeacherPin();
+    };
+function closeTeacherPinModal() {
       document.getElementById('modal-teacher-pin').classList.add('hidden');
     }
 
     function handlePinVerify(e) {
       e.preventDefault();
       const pin = document.getElementById('input-teacher-pin').value.trim();
-      if (pin === TEACHER_PIN) {
+      if (pin === TEACHER_PIN || pin === ANSWER_KEY_PIN) {
         isTeacherUnlocked = true;
+        window.isTeacherUnlocked = true;
         closeTeacherPinModal();
         document.getElementById('sb-teacher-label').textContent = 'Mode Guru (Aktif)';
         document.getElementById('sb-teacher-icon').setAttribute('data-lucide', 'unlock');
-        lucide.createIcons();
-        switchView('teacher-dashboard');
+        if (window.lucide) lucide.createIcons();
+
+        // Notifikasi ke seluruh modul aktif bahwa Mode Guru telah terbuka
+        if (window.featuresPMEngine && window.featuresPMEngine.onTeacherModeChange) {
+          window.featuresPMEngine.onTeacherModeChange();
+        }
+        if (window.TheArichExamDownloader && window.TheArichExamDownloader.onTeacherModeChange) {
+          window.TheArichExamDownloader.onTeacherModeChange();
+        }
+
+        if (window._teacherPinSuccessCallback) {
+          const cb = window._teacherPinSuccessCallback;
+          window._teacherPinSuccessCallback = null;
+          cb();
+        } else {
+          // Jika sedang di mode belajar PM atau detail materi, tetap di layar sekarang agar tidak terlempar
+          const pmStudyEl = document.getElementById('view-pm-study');
+          const isPMStudyOpen = pmStudyEl && !pmStudyEl.classList.contains('hidden');
+          if (!isPMStudyOpen && currentView !== 'exam' && currentView !== 'materi-detail') {
+            switchView('teacher-dashboard');
+          }
+        }
       } else {
         document.getElementById('pin-error-alert').classList.remove('hidden');
       }

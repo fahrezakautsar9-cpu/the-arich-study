@@ -1176,36 +1176,70 @@
     if (btnPrev) btnPrev.disabled = (index === 0);
     if (btnNext) btnNext.disabled = (index === pkg.questions.length - 1);
 
-    // 3. Render Interactive Options
-    renderPMStudyOptions(q);
+    const isTeacher = !!(window.isTeacherUnlocked);
+    const teacherArea = document.getElementById('pm-study-teacher-solution-area');
+    const studentLocked = document.getElementById('pm-study-student-locked-card');
+    const teacherStatusContainer = document.getElementById('pm-study-teacher-status-container');
 
-    // 4. Render Official Answer Key
-    const keyTextEl = document.getElementById('pm-study-key-text');
-    if (keyTextEl) {
-      if (q.type === 'single_choice') {
-        const normalizedOpts = normalizeStudyOptions(q);
-        const correctLetter = getStudyCorrectLetter(q);
-        const correctOpt = normalizedOpts.find(o => o.key === correctLetter);
-        keyTextEl.innerHTML = `Pilihan <span class="text-emerald-400 font-extrabold text-base">${correctLetter}</span> ${correctOpt ? `&nbsp;—&nbsp; <span class="text-slate-100 font-medium">${correctOpt.text}</span>` : ''}`;
-      } else if (q.type === 'complex_tf') {
-        const statements = q.statements || [];
-        const summary = statements.map((st, sIdx) => `Pernyataan ${sIdx + 1}: <strong class="${st.isTrue ? 'text-emerald-400' : 'text-rose-400'}">${st.isTrue ? 'BENAR' : 'SALAH'}</strong>`).join(' • ');
-        keyTextEl.innerHTML = summary;
-      } else if (q.type === 'numeric_input') {
-        keyTextEl.innerHTML = `Jawaban Angka: <span class="text-emerald-400 font-mono font-extrabold text-lg">${q.correctNumeric}</span>`;
+    // Update Status Pill in Top Toolbar
+    if (teacherStatusContainer) {
+      if (isTeacher) {
+        teacherStatusContainer.innerHTML = `
+          <span class="px-2.5 py-1 rounded-xl bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-extrabold text-[11px] inline-flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="unlock" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Mode Guru (Kunci Aktif)</span>
+          </span>
+        `;
+      } else {
+        teacherStatusContainer.innerHTML = `
+          <button type="button" onclick="window.promptTeacherPinForStudy ? window.promptTeacherPinForStudy() : window.promptTeacherPin()" class="px-2.5 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[11px] inline-flex items-center gap-1.5 transition cursor-pointer" title="Klik untuk membuka Kunci & Pembahasan">
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Mode Siswa (Kunci Terkunci)</span>
+          </button>
+        `;
       }
     }
 
-    // 5. Render Step-by-Step KaTeX Solution
-    const solEl = document.getElementById('pm-study-solution-body');
-    if (solEl) {
-      solEl.innerHTML = q.explanation || '<p class="text-slate-400 italic">Pembahasan lengkap sedang disiapkan.</p>';
-    }
+    // 3. Render Interactive Options (Siswa tidak diberi spoiler)
+    renderPMStudyOptions(q);
 
-    // 6. Render Arich Shortcut
-    const shortcutEl = document.getElementById('pm-study-shortcut-text');
-    if (shortcutEl) {
-      shortcutEl.textContent = q.tacticalShortcut || q.shortcut || "Tips: Gunakan teknik estimasi cerdas untuk mengeliminasi opsi yang tidak logis dalam waktu 30 detik.";
+    if (isTeacher) {
+      // HANYA MODE GURU: Buka Kunci Jawaban Resmi, Pembahasan KaTeX & Shortcut
+      if (teacherArea) teacherArea.classList.remove('hidden');
+      if (studentLocked) studentLocked.classList.add('hidden');
+
+      // 4. Render Official Answer Key
+      const keyTextEl = document.getElementById('pm-study-key-text');
+      if (keyTextEl) {
+        if (q.type === 'single_choice') {
+          const normalizedOpts = normalizeStudyOptions(q);
+          const correctLetter = getStudyCorrectLetter(q);
+          const correctOpt = normalizedOpts.find(o => o.key === correctLetter);
+          keyTextEl.innerHTML = `Pilihan <span class="text-emerald-400 font-extrabold text-base">${correctLetter}</span> ${correctOpt ? `&nbsp;—&nbsp; <span class="text-slate-100 font-medium">${correctOpt.text}</span>` : ''}`;
+        } else if (q.type === 'complex_tf') {
+          const statements = q.statements || [];
+          const summary = statements.map((st, sIdx) => `Pernyataan ${sIdx + 1}: <strong class="${st.isTrue ? 'text-emerald-400' : 'text-rose-400'}">${st.isTrue ? 'BENAR' : 'SALAH'}</strong>`).join(' • ');
+          keyTextEl.innerHTML = summary;
+        } else if (q.type === 'numeric_input') {
+          keyTextEl.innerHTML = `Jawaban Angka: <span class="text-emerald-400 font-mono font-extrabold text-lg">${q.correctNumeric}</span>`;
+        }
+      }
+
+      // 5. Render Step-by-Step KaTeX Solution
+      const solEl = document.getElementById('pm-study-solution-body');
+      if (solEl) {
+        solEl.innerHTML = q.explanation || '<p class="text-slate-400 italic">Pembahasan lengkap sedang disiapkan.</p>';
+      }
+
+      // 6. Render Arich Shortcut
+      const shortcutEl = document.getElementById('pm-study-shortcut-text');
+      if (shortcutEl) {
+        shortcutEl.textContent = q.tacticalShortcut || q.shortcut || "Tips: Gunakan teknik estimasi cerdas untuk mengeliminasi opsi yang tidak logis dalam waktu 30 detik.";
+      }
+    } else {
+      // MODE SISWA: KUNCI & PEMBAHASAN DIKUNCI RAPAT (ZERO SPOILER)
+      if (teacherArea) teacherArea.classList.add('hidden');
+      if (studentLocked) studentLocked.classList.remove('hidden');
     }
 
     if (window.lucide) window.lucide.createIcons();
@@ -1233,6 +1267,7 @@
   function renderPMStudyOptions(q) {
     const container = document.getElementById('pm-study-options-container');
     if (!container) return;
+    const isTeacher = !!(window.isTeacherUnlocked);
 
     if (q.type === 'single_choice') {
       const userPick = PMStudyState.selectedOption;
@@ -1241,16 +1276,29 @@
       let html = '';
 
       if (userPick) {
-        const isCorrect = (userPick === correctLetter);
-        html += `
-          <div class="p-3.5 rounded-xl ${isCorrect ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300' : 'bg-rose-500/15 border border-rose-500/30 text-rose-300'} text-xs font-semibold flex items-center justify-between mb-3 shadow-sm">
-            <div class="flex items-center gap-2">
-              <i data-lucide="${isCorrect ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i>
-              <span>${isCorrect ? 'Jawabanmu Tepat Sekali! Mantap 👍' : `Pilihanmu (${userPick}) belum tepat. Kunci yang benar adalah ${correctLetter}.`}</span>
+        if (isTeacher) {
+          const isCorrect = (userPick === correctLetter);
+          html += `
+            <div class="p-3.5 rounded-xl ${isCorrect ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300' : 'bg-rose-500/15 border border-rose-500/30 text-rose-300'} text-xs font-semibold flex items-center justify-between mb-3 shadow-sm">
+              <div class="flex items-center gap-2">
+                <i data-lucide="${isCorrect ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i>
+                <span>${isCorrect ? 'Jawaban Tepat Sekali! Cocok dengan Kunci Resmi BP3.' : `Pilihan (${userPick}) belum tepat. Kunci yang benar adalah ${correctLetter}.`}</span>
+              </div>
+              <button type="button" onclick="resetPMStudySelection()" class="text-[11px] underline font-bold opacity-80 hover:opacity-100 cursor-pointer">Coba Ulang</button>
             </div>
-            <button type="button" onclick="resetPMStudySelection()" class="text-[11px] underline font-bold opacity-80 hover:opacity-100 cursor-pointer">Coba Ulang</button>
-          </div>
-        `;
+          `;
+        } else {
+          // Mode Siswa: Simpan pilihan untuk latihan tanpa bocoran kunci
+          html += `
+            <div class="p-3.5 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 text-xs font-semibold flex items-center justify-between mb-3 shadow-sm">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400"></i>
+                <span>Pilihan jawabanmu: <strong>Pilihan ${userPick}</strong> tersimpan. Kunci jawaban & pembahasan hanya ada di Mode Guru.</span>
+              </div>
+              <button type="button" onclick="resetPMStudySelection()" class="text-[11px] underline font-bold opacity-80 hover:opacity-100 cursor-pointer">Ganti Pilihan</button>
+            </div>
+          `;
+        }
       }
 
       html += normalizedOpts.map(opt => {
@@ -1259,13 +1307,19 @@
         let stateStyle = 'border-slate-800 bg-slate-900/80 hover:border-indigo-500/50 hover:bg-slate-800/80 text-slate-100';
         let badgeStyle = 'bg-slate-800 text-slate-200 border border-slate-700';
 
-        if (userPick) {
+        if (isTeacher) {
           if (isCorrectKey) {
             stateStyle = 'border-emerald-500/80 bg-emerald-950/30 text-white shadow-emerald-500/10 shadow-md ring-1 ring-emerald-500/50';
             badgeStyle = 'bg-emerald-600 text-white font-extrabold';
           } else if (isUserSelected) {
             stateStyle = 'border-rose-500/80 bg-rose-950/30 text-white ring-1 ring-rose-500/50';
             badgeStyle = 'bg-rose-600 text-white font-extrabold';
+          }
+        } else {
+          // Mode Siswa: Warna netral indigo, tidak membocorkan benar/salah!
+          if (isUserSelected) {
+            stateStyle = 'border-indigo-500/80 bg-indigo-950/30 text-white ring-1 ring-indigo-500/50 shadow-md shadow-indigo-500/10';
+            badgeStyle = 'bg-indigo-600 text-white font-extrabold';
           }
         }
 
@@ -1277,7 +1331,8 @@
             <div class="flex-1 text-sm sm:text-base font-medium leading-relaxed">
               ${opt.text}
             </div>
-            ${userPick && isCorrectKey ? '<span class="text-xs font-bold text-emerald-400 shrink-0 self-center">✓ Kunci</span>' : ''}
+            ${isTeacher && isCorrectKey ? '<span class="text-xs font-bold text-emerald-400 shrink-0 self-center">✓ Kunci Resmi</span>' : ''}
+            ${!isTeacher && isUserSelected ? '<span class="text-xs font-semibold text-indigo-300 shrink-0 self-center">Pilihanmu</span>' : ''}
           </div>
         `;
       }).join('');
@@ -1285,13 +1340,15 @@
       container.innerHTML = html;
     } else if (q.type === 'complex_tf') {
       const statements = q.statements || [];
+      PMStudyState.studentTFAnswers = PMStudyState.studentTFAnswers || {};
+
       let html = `
         <div class="rounded-xl border border-slate-800 overflow-hidden">
           <table class="w-full text-left text-xs sm:text-sm">
             <thead class="bg-dark-950 border-b border-slate-800 text-slate-400">
               <tr>
                 <th class="p-3 font-semibold">Pernyataan Soal</th>
-                <th class="p-3 text-center w-28 font-semibold">Status Kunci</th>
+                <th class="p-3 text-center w-36 font-semibold">${isTeacher ? 'Status Kunci Resmi' : 'Uji Pilihan Siswa'}</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-800 bg-slate-900/60">
@@ -1299,6 +1356,25 @@
 
       statements.forEach((st, sIdx) => {
         const isTrue = !!st.isTrue;
+        const currentAns = PMStudyState.studentTFAnswers[sIdx];
+        let actionCol = '';
+
+        if (isTeacher) {
+          actionCol = `
+            <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${isTrue ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
+              ${isTrue ? 'BENAR' : 'SALAH'}
+            </span>
+          `;
+        } else {
+          // Siswa dapat memilih Benar atau Salah tanpa spoiler kunci!
+          actionCol = `
+            <div class="inline-flex items-center gap-1.5">
+              <button type="button" onclick="handleStudyTFSelect(${sIdx}, true)" class="px-2.5 py-1 rounded-lg text-xs font-bold transition ${currentAns === true ? 'bg-indigo-600 text-white' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'}">Benar</button>
+              <button type="button" onclick="handleStudyTFSelect(${sIdx}, false)" class="px-2.5 py-1 rounded-lg text-xs font-bold transition ${currentAns === false ? 'bg-indigo-600 text-white' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'}">Salah</button>
+            </div>
+          `;
+        }
+
         html += `
           <tr class="hover:bg-slate-800/40 transition">
             <td class="p-3 text-slate-100 leading-relaxed">
@@ -1306,9 +1382,7 @@
               ${st.statement || st.text || ''}
             </td>
             <td class="p-3 text-center">
-              <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${isTrue ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
-                ${isTrue ? 'BENAR' : 'SALAH'}
-              </span>
+              ${actionCol}
             </td>
           </tr>
         `;
@@ -1321,12 +1395,13 @@
       `;
       container.innerHTML = html;
     } else if (q.type === 'numeric_input') {
+      const storedVal = PMStudyState.studentNumericAnswer !== undefined ? PMStudyState.studentNumericAnswer : '';
       container.innerHTML = `
         <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/70 space-y-3">
           <label class="block text-xs font-bold text-slate-300">Uji Jawaban Isianmu Sendiri:</label>
           <div class="flex items-center gap-2 max-w-sm">
-            <input type="number" id="input-pm-study-num" placeholder="Ketik angka..." class="flex-1 p-2.5 rounded-xl bg-dark-950 border border-slate-700 text-white font-mono font-bold text-sm focus:outline-none focus:border-indigo-500">
-            <button type="button" onclick="handlePMStudyNumericCheck()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer">Periksa</button>
+            <input type="number" id="input-pm-study-num" value="${storedVal}" placeholder="Ketik angka..." class="flex-1 p-2.5 rounded-xl bg-dark-950 border border-slate-700 text-white font-mono font-bold text-sm focus:outline-none focus:border-indigo-500">
+            <button type="button" onclick="handlePMStudyNumericCheck()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer">Simpan</button>
           </div>
           <div id="pm-study-num-feedback" class="text-xs font-semibold mt-1"></div>
         </div>
@@ -1334,7 +1409,17 @@
     }
   }
 
-  function handlePMStudyOptionSelect(optKey) {
+  function handleStudyTFSelect(sIdx, val) {
+    PMStudyState.studentTFAnswers = PMStudyState.studentTFAnswers || {};
+    PMStudyState.studentTFAnswers[sIdx] = val;
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+    const q = pkg.questions[PMStudyState.currentQuestionIndex];
+    if (q) renderPMStudyOptions(q);
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+function handlePMStudyOptionSelect(optKey) {
     PMStudyState.selectedOption = optKey;
     const pkgs = window.PM_PACKAGES || {};
     const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
@@ -1362,20 +1447,27 @@
     if (!input || !fb) return;
 
     const val = parseFloat(input.value);
-    const pkgs = window.PM_PACKAGES || {};
-    const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
-    const q = pkg.questions[PMStudyState.currentQuestionIndex];
-    const expected = parseFloat(q.correctNumeric);
-
     if (isNaN(val)) {
       fb.innerHTML = '<span class="text-amber-400">Silakan masukkan angka terlebih dahulu.</span>';
       return;
     }
 
-    if (Math.abs(val - expected) < 0.001) {
-      fb.innerHTML = '<span class="text-emerald-400 font-bold">✓ Tepat sekali! Jawabanmu cocok dengan kunci resmi (' + expected + ').</span>';
+    PMStudyState.studentNumericAnswer = val;
+    const isTeacher = !!(window.isTeacherUnlocked);
+
+    if (isTeacher) {
+      const pkgs = window.PM_PACKAGES || {};
+      const pkg = pkgs[PMStudyState.currentPackageId] || pkgs['paket-1'];
+      const q = pkg.questions[PMStudyState.currentQuestionIndex];
+      const expected = parseFloat(q.correctNumeric);
+
+      if (Math.abs(val - expected) < 0.001) {
+        fb.innerHTML = '<span class="text-emerald-400 font-bold">✓ Tepat sekali! Cocok dengan kunci resmi (' + expected + ').</span>';
+      } else {
+        fb.innerHTML = '<span class="text-rose-400 font-bold">✗ Belum tepat. Angka: ' + val + ', Kunci Resmi: ' + expected + '.</span>';
+      }
     } else {
-      fb.innerHTML = '<span class="text-rose-400 font-bold">✗ Belum tepat. Angka yang kamu masukkan: ' + val + ', sedangkan kunci resminya adalah ' + expected + '.</span>';
+      fb.innerHTML = '<span class="text-indigo-300 font-semibold">✓ Jawaban isianmu tersimpan: <strong>' + val + '</strong>. Kunci angka resmi hanya dapat dibuka di Mode Guru.</span>';
     }
   }
 
@@ -2279,6 +2371,11 @@
     filterReviewSheet,
     viewStudentScratchpad,
     getState: () => PMState,
+    onTeacherModeChange: function() {
+      renderPMStudyQuestion(PMStudyState.currentQuestionIndex);
+      if (window.lucide) window.lucide.createIcons();
+      triggerStudyLatex();
+    },
     getStudyState: () => PMStudyState
   };
 
