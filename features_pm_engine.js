@@ -256,12 +256,16 @@
               <span class="hidden sm:inline">Keluar</span>
             </button>
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold text-[11px] tracking-wide">
-                UTBK SNBT
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold text-[11px] tracking-wide" id="pm-package-badge">
+                UTBK SNBT • Paket A
               </span>
               <span class="font-bold text-slate-100 text-xs hidden md:inline" id="pm-mode-badge-label">
                 Penalaran Matematika
               </span>
+              <button type="button" onclick="window.featuresPMEngine.openPackagePicker()" class="px-2 py-0.5 rounded-md bg-dark-950 hover:bg-slate-800 border border-slate-700/70 text-slate-300 hover:text-white text-[10px] font-semibold flex items-center gap-1 transition" title="Ganti Paket Latihan">
+                <i data-lucide="layers" class="w-3 h-3 text-indigo-400"></i>
+                <span class="hidden sm:inline">Pilih Paket</span>
+              </button>
             </div>
             <span class="text-slate-600 hidden sm:inline">•</span>
             <span class="text-slate-400 font-mono text-[11px]" id="pm-stat-answered">0/20 Terjawab</span>
@@ -547,6 +551,34 @@
       <!-- ==================================================== -->
       <!-- VIEW: POST-EXAM DIAGNOSTIC ANALYTICS & REVIEW SHEET  -->
       <!-- ==================================================== -->
+      
+      <!-- ==================================================== -->
+      <!-- MODAL: PACKAGE PICKER (PILIH PAKET UTBK PM)          -->
+      <!-- ==================================================== -->
+      <div id="modal-pm-packages" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="clean-card rounded-2xl p-5 max-w-3xl w-full border border-slate-800 bg-slate-900 shadow-2xl space-y-4 my-8">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
+                <i data-lucide="layers" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white">Katalog Paket Penalaran Matematika (PM)</h3>
+                <span class="text-xs text-slate-400">Pilih dari 5 Paket Standar BPPP Kemendikbudristek • Total 100 Soal HOTS</span>
+              </div>
+            </div>
+            <button type="button" onclick="window.featuresPMEngine.closePackagePicker()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- 5 Package Cards Grid in Modal -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[65vh] overflow-y-auto pr-1" id="pm-package-modal-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
       <div id="view-pm-review" class="hidden flex-1 flex flex-col space-y-5 pb-16">
         
         <!-- Header Banner: Diagnostic Summary -->
@@ -554,8 +586,8 @@
           <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
             <div>
               <div class="flex items-center gap-2 mb-1.5">
-                <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 font-semibold text-xs border border-indigo-500/30">
-                  Laporan Evaluasi UTBK
+                <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 font-semibold text-xs border border-indigo-500/30" id="pm-review-package-badge">
+                  UTBK SNBT • Paket A
                 </span>
                 <span class="text-xs text-slate-400 font-mono" id="pm-review-date"></span>
               </div>
@@ -603,9 +635,13 @@
           </div>
 
           <div class="flex items-center gap-2">
+            <button onclick="window.featuresPMEngine.openPackagePicker()" class="px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Pilih Paket Lain</span>
+            </button>
             <button onclick="window.featuresPMEngine.startNewPMExam('cat')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-indigo-600/20">
               <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-              <span>Ulangi Simulasi</span>
+              <span>Ulangi Paket Ini</span>
             </button>
           </div>
         </div>
@@ -677,17 +713,22 @@
       reviewAccuracy: document.getElementById('pm-review-accuracy'),
       reviewPercent: document.getElementById('pm-review-percent'),
       reviewDomainsGrid: document.getElementById('pm-review-domains-grid'),
-      reviewCardsList: document.getElementById('pm-review-cards-list')
+      reviewCardsList: document.getElementById('pm-review-cards-list'),
+      packageBadge: document.getElementById('pm-package-badge'),
+      modalPackages: document.getElementById('modal-pm-packages'),
+      packageModalList: document.getElementById('pm-package-modal-list'),
+      reviewPackageBadge: document.getElementById('pm-review-package-badge')
     };
   }
 
   // ============================================================================
   // 5. LIFECYCLE & START EXAMINATION
   // ============================================================================
-  function startPMExam(mode = 'cat') {
+  function startPMExam(mode = 'cat', packageId = 'paket-1') {
     PMState.examMode = mode;
     PMState.isActive = true;
     PMState.currentQuestionIndex = 0;
+    PMState.currentPackageId = packageId;
     PMState.timeRemaining = PM_CONFIG.TOTAL_SECONDS;
     PMState.answers = new Array(PM_CONFIG.TOTAL_QUESTIONS).fill(null);
     PMState.doubts = new Array(PM_CONFIG.TOTAL_QUESTIONS).fill(false);
@@ -699,10 +740,24 @@
     // Clear drawings repo for new exam if requested
     window.userDrawings = window.userDrawings || {};
 
-    // Load authentic stimuli & question bank
-    if (window.PM_QUESTIONS && window.PM_STIMULI) {
-      PMState.questions = window.PM_QUESTIONS;
-      PMState.stimuliMap = {};
+    // Load authentic stimuli & question bank based on packageId
+    const pkgs = window.PM_PACKAGES || {};
+    const pkg = pkgs[packageId] || pkgs['paket-1'] || {
+      id: 'paket-1',
+      code: 'Paket A',
+      title: 'Paket A — Standar BPPP Inti',
+      questions: window.PM_QUESTIONS || [],
+      stimuli: window.PM_STIMULI || []
+    };
+
+    PMState.currentPackage = pkg;
+    PMState.questions = pkg.questions || window.PM_QUESTIONS || [];
+    PMState.stimuliMap = {};
+    if (pkg.stimuli && Array.isArray(pkg.stimuli)) {
+      pkg.stimuli.forEach(s => {
+        PMState.stimuliMap[s.id] = s;
+      });
+    } else if (window.PM_STIMULI) {
       window.PM_STIMULI.forEach(s => {
         PMState.stimuliMap[s.id] = s;
       });
@@ -713,12 +768,16 @@
     DOM.viewPmExam.classList.remove('hidden');
 
     // Configure mode
+    const pkgBadgeCode = (PMState.currentPackage && PMState.currentPackage.code) ? PMState.currentPackage.code : 'Paket A';
+    if (DOM.packageBadge) {
+      DOM.packageBadge.textContent = 'UTBK SNBT • ' + pkgBadgeCode;
+    }
     if (mode === 'drill') {
-      DOM.modeBadgeLabel.textContent = "Mode Drill Mandiri";
+      DOM.modeBadgeLabel.textContent = "Mode Drill Mandiri • " + pkgBadgeCode;
       DOM.btnDeconstructor.classList.remove('hidden');
       DOM.btnDeconstructor.classList.add('flex');
     } else {
-      DOM.modeBadgeLabel.textContent = "Simulasi CAT UTBK (42,5 Menit)";
+      DOM.modeBadgeLabel.textContent = "Simulasi CAT (42,5m) • " + pkgBadgeCode;
       DOM.btnDeconstructor.classList.add('hidden');
       DOM.btnDeconstructor.classList.remove('flex');
     }
@@ -737,12 +796,13 @@
   }
 
   function hideAllViews() {
-    const views = [
-      'view-materi-catalog', 'view-materi-detail', 'view-cheatsheet',
-      'view-exam-catalog', 'view-exam', 'view-exam-review',
+    const viewIds = [
+      'view-student-gate', 'view-dashboard', 'view-materi-catalog', 'view-materi-detail',
+      'view-exam-catalog', 'view-exam', 'view-exam-result', 'view-exam-review',
+      'view-history', 'view-teacher-dashboard', 'view-mathlab', 'view-cheatsheet',
       'view-pm-exam', 'view-pm-review', 'view-error-bank'
     ];
-    views.forEach(id => {
+    viewIds.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.add('hidden');
     });
@@ -795,6 +855,84 @@
   }
 
   // ============================================================================
+    // ============================================================================
+  // 6. PACKAGE PICKER CATALOG & MODAL HELPERS
+  // ============================================================================
+  function startNewPMExam(mode = 'cat', packageId = null) {
+    startPMExam(mode, packageId || PMState.currentPackageId || 'paket-1');
+  }
+
+  function openPackagePicker() {
+    renderPackagePickerCards('pm-package-modal-list');
+    const modal = document.getElementById('modal-pm-packages');
+    if (modal) {
+      modal.classList.remove('hidden');
+      if (window.lucide) window.lucide.createIcons();
+    }
+  }
+
+  function closePackagePicker() {
+    const modal = document.getElementById('modal-pm-packages');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+  function renderPackagePickerCards(containerId = 'pm-package-catalog-cards') {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const pkgs = window.PM_PACKAGES || {};
+    const pkgKeys = ['paket-1', 'paket-2', 'paket-3', 'paket-4', 'paket-5'];
+
+    const html = pkgKeys.map(k => {
+      const p = pkgs[k];
+      if (!p) return '';
+      const isCurrent = (PMState.currentPackageId === k);
+      return `
+        <div class="clean-card rounded-2xl p-4 sm:p-5 border ${isCurrent ? 'border-indigo-500/60 bg-indigo-950/20 shadow-indigo-500/10 shadow-lg' : 'border-slate-800 bg-slate-900/90'} hover:border-slate-700 transition flex flex-col justify-between space-y-3.5">
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg ${isCurrent ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold' : 'bg-slate-800 text-slate-300 font-semibold'} text-xs tracking-wide">
+                ${p.code}
+              </span>
+              <span class="text-xs text-slate-400 font-mono flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span>${p.questions ? p.questions.length : 20} Soal • 42,5m</span>
+              </span>
+            </div>
+
+            <h4 class="text-sm font-bold text-white leading-snug">
+              ${p.title}
+            </h4>
+            <p class="text-xs text-slate-400 leading-relaxed line-clamp-3">
+              ${p.description}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Bilangan</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Aljabar</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Geometri</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium">Data & Peluang</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2.5">
+            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('drill', '${k}')" class="flex-1 py-2 px-3 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition text-center cursor-pointer">
+              Mode Drill
+            </button>
+            <button type="button" onclick="window.featuresPMEngine.closePackagePicker(); window.featuresPMEngine.startPMExam('cat', '${k}')" class="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/20 cursor-pointer">
+              Mulai CAT
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+    if (window.lucide) window.lucide.createIcons();
+  }
+
   // 7. QUESTION & STIMULUS RENDERING
   // ============================================================================
   function renderQuestion(index) {
@@ -1325,6 +1463,9 @@
 
     // Save Result
     PMState.diagnosticResult = {
+      packageId: PMState.currentPackageId || 'paket-1',
+      packageCode: (PMState.currentPackage && PMState.currentPackage.code) ? PMState.currentPackage.code : 'Paket A',
+      packageTitle: (PMState.currentPackage && PMState.currentPackage.title) ? PMState.currentPackage.title : 'Paket A — Standar BPPP Inti',
       itemResults,
       correctCount,
       totalQuestions: PM_CONFIG.TOTAL_QUESTIONS,
@@ -1358,6 +1499,9 @@
     DOM.viewPmReview.classList.remove('hidden');
 
     DOM.reviewDate.textContent = res.submittedAt;
+    if (DOM.reviewPackageBadge) {
+      DOM.reviewPackageBadge.textContent = res.packageTitle || 'Paket A — Standar BPPP Inti';
+    }
     DOM.reviewScaledScore.textContent = res.scaledScore;
     DOM.reviewAccuracy.textContent = `${res.correctCount} / ${res.totalQuestions}`;
     DOM.reviewPercent.textContent = `${res.accuracyPercent}% Akurasi`;
@@ -1634,6 +1778,11 @@
   function init() {
     injectPMStyles();
     injectPMMarkup();
+    // Render package cards in catalog or modal if present
+    setTimeout(() => {
+      renderPackagePickerCards('pm-package-catalog-cards');
+      renderPackagePickerCards('pm-package-modal-list');
+    }, 100);
   }
 
   if (document.readyState === 'loading') {
@@ -1646,6 +1795,10 @@
   window.featuresPMEngine = {
     init,
     startPMExam,
+    startNewPMExam,
+    openPackagePicker,
+    closePackagePicker,
+    renderPackagePickerCards,
     renderQuestion,
     handleOptionSelect,
     toggleOptionEliminate,
@@ -1669,5 +1822,6 @@
 
   // Expose root shortcut
   window.startPMExam = startPMExam;
+  window.openPMPackagePicker = openPackagePicker;
 
 })(window, document);

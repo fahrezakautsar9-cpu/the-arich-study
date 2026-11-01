@@ -1044,4 +1044,15 @@
   window.PM_STIMULI = PM_STIMULI;
   window.PM_QUESTIONS = PM_QUESTIONS;
 
+  window.PM_PACKAGES = window.PM_PACKAGES || {};
+  window.PM_PACKAGES['paket-1'] = {
+    id: 'paket-1',
+    code: 'Paket A',
+    title: 'Paket A — Standar BPPP Inti',
+    description: 'Tarif Listrik Progresif, Desain Wadah Kemasan Silinder, Titik Impas (BEP) Armada Logistik, Efikasi Vaksinasi, dan Survei Indeks Finansial Gen-Z.',
+    durationMinutes: 42.5,
+    stimuli: PM_STIMULI,
+    questions: PM_QUESTIONS
+  };
+
 })(typeof window !== 'undefined' ? window : globalThis);

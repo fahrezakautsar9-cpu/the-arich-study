@@ -189,6 +189,7 @@
             correctAnsText = Array.isArray(q.statements) ? q.statements.map(s => s.correct ? 'B' : 'S').join(', ') : '-';
           }
 
+          const pkgCode = (PMState && PMState.currentPackage && PMState.currentPackage.code) ? `${PMState.currentPackage.code} • ` : '';
           const stimulusSnippet = q.stimulusTitle ? `[Stimulus: ${q.stimulusTitle}] ` : '';
 
           const mistakeItem = {
@@ -198,10 +199,10 @@
             source: 'pm_utbk',
             gradeCode: 'UTBK',
             gradeName: 'Penalaran Matematika UTBK',
-            chapterId: 'utbk_pm',
-            chapterTitle: `PM UTBK • ${q.domain || 'Penalaran'}`,
+            chapterId: (PMState && PMState.currentPackageId) ? `utbk_pm_${PMState.currentPackageId}` : 'utbk_pm',
+            chapterTitle: `PM UTBK • ${pkgCode}${q.domain || 'Penalaran'}`,
             questionId: qId,
-            questionText: stimulusSnippet + (q.question || ''),
+            questionText: stimulusSnippet + (q.prompt || q.question || ''),
             options: q.options || [],
             type: q.type || 'single_choice',
             correctNumeric: q.correctNumeric,
