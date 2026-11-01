@@ -32,6 +32,210 @@
   overflow: hidden !important;
 }
 
+/* ========================================================================== */
+/* LIVE PREVIEW MODAL ON SCREEN (#preview-paper-sheet)                       */
+/* ========================================================================== */
+#preview-paper-sheet {
+  background: #ffffff !important;
+  color: #090d16 !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+#preview-paper-sheet .exam-print-kop {
+  padding-bottom: 4px !important;
+  margin-bottom: 8px !important;
+}
+#preview-paper-sheet .kop-header-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-bottom: 6px !important;
+}
+#preview-paper-sheet .kop-brand {
+  flex: 1 !important;
+  padding-right: 15px !important;
+}
+#preview-paper-sheet .kop-logo-title {
+  font-size: 15pt !important;
+  font-weight: 900 !important;
+  color: #3730a3 !important;
+  letter-spacing: 0.8px !important;
+  line-height: 1.1 !important;
+}
+#preview-paper-sheet .kop-logo-sub {
+  font-size: 8.5pt !important;
+  color: #1e293b !important;
+  font-weight: 700 !important;
+  margin-top: 2px !important;
+  line-height: 1.2 !important;
+}
+#preview-paper-sheet .kop-logo-curriculum {
+  font-size: 8pt !important;
+  color: #64748b !important;
+  font-weight: 500 !important;
+  margin-top: 1px !important;
+}
+#preview-paper-sheet .kop-score-box {
+  width: 135px !important;
+  border: 1.5px solid #0f172a !important;
+  border-radius: 6px !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  margin-top: 1px !important;
+}
+#preview-paper-sheet .score-rubric-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 7pt !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#preview-paper-sheet .score-rubric-table thead tr th {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+  padding: 3px 2px !important;
+  border-bottom: 1.5px solid #0f172a !important;
+  font-size: 6.5pt !important;
+  letter-spacing: 0.3px !important;
+}
+#preview-paper-sheet .score-rubric-table thead tr th:first-child {
+  border-right: 1px solid #cbd5e1 !important;
+  width: 50% !important;
+}
+#preview-paper-sheet .score-rubric-table tbody tr td {
+  height: 25px !important;
+  background: #ffffff !important;
+  vertical-align: middle !important;
+}
+#preview-paper-sheet .score-rubric-table tbody tr td:first-child {
+  border-right: 1px solid #cbd5e1 !important;
+}
+#preview-paper-sheet .score-rubric-table tfoot tr td {
+  background: #f8fafc !important;
+  color: #64748b !important;
+  font-size: 5.5pt !important;
+  font-weight: 600 !important;
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 1.5px 0 !important;
+}
+#preview-paper-sheet .kop-divider-double {
+  border-top: 2.5px solid #0f172a !important;
+  border-bottom: 0.75px solid #0f172a !important;
+  height: 3px !important;
+  margin: 5px 0 7px 0 !important;
+}
+#preview-paper-sheet .kop-doc-title {
+  font-size: 9.5pt !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 4px !important;
+  padding: 3.5px 8px !important;
+  margin-bottom: 7px !important;
+  letter-spacing: 0.8px !important;
+  color: #0f172a !important;
+  text-transform: uppercase !important;
+}
+#preview-paper-sheet .kop-meta-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-bottom: 4px !important;
+  table-layout: fixed !important;
+}
+#preview-paper-sheet .meta-col-left {
+  width: 48.5% !important;
+  vertical-align: top !important;
+  padding: 0 !important;
+}
+#preview-paper-sheet .meta-col-divider {
+  width: 3% !important;
+}
+#preview-paper-sheet .meta-col-right {
+  width: 48.5% !important;
+  vertical-align: top !important;
+  padding: 0 !important;
+}
+#preview-paper-sheet .meta-subtable {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 8.5pt !important;
+  line-height: 1.35 !important;
+}
+#preview-paper-sheet .meta-subtable tr td {
+  padding: 2px 0 !important;
+  vertical-align: top !important;
+}
+#preview-paper-sheet .meta-lbl {
+  width: 102px !important;
+  min-width: 102px !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  white-space: nowrap !important;
+}
+#preview-paper-sheet .meta-sep {
+  width: 12px !important;
+  min-width: 12px !important;
+  text-align: center !important;
+  color: #64748b !important;
+  font-weight: bold !important;
+}
+#preview-paper-sheet .meta-val {
+  color: #0f172a !important;
+  word-break: normal !important;
+}
+#preview-paper-sheet .meta-line-cell {
+  width: 100% !important;
+  vertical-align: bottom !important;
+  padding-bottom: 3px !important;
+}
+#preview-paper-sheet .print-fill-line {
+  border-bottom: 1.5px dotted #64748b !important;
+  height: 13px !important;
+  width: 100% !important;
+  display: block !important;
+}
+#preview-paper-sheet .exam-print-instructions {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  margin-bottom: 10px !important;
+  font-size: 7.5pt !important;
+}
+#preview-paper-sheet .instructions-title {
+  font-weight: 800 !important;
+  margin-bottom: 2px !important;
+  color: #0f172a !important;
+  letter-spacing: 0.3px !important;
+}
+#preview-paper-sheet .instructions-list {
+  margin: 0 !important;
+  padding-left: 16px !important;
+  color: #334155 !important;
+  line-height: 1.4 !important;
+}
+#preview-paper-sheet .instructions-list li {
+  margin-bottom: 1.5px !important;
+}
+#preview-paper-sheet .exam-print-section-divider {
+  text-align: center !important;
+  margin: 10px 0 14px !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  line-height: 0.1em !important;
+}
+#preview-paper-sheet .exam-print-section-divider span {
+  background: #ffffff !important;
+  padding: 0 10px !important;
+  font-weight: 800 !important;
+  font-size: 8.5pt !important;
+  color: #3730a3 !important;
+  letter-spacing: 1px !important;
+}
+
 @media print {
   /* 1. Global Reset for Clean Paper Printing */
   html, body {
@@ -388,9 +592,8 @@
 
   /* Kop Surat Resmi */
   .exam-print-kop {
-    border-bottom: 3px double #0f172a !important;
-    padding-bottom: 8px !important;
-    margin-bottom: 12px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 8px !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
@@ -399,99 +602,182 @@
     display: flex !important;
     justify-content: space-between !important;
     align-items: flex-start !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .kop-brand {
+    flex: 1 !important;
+    padding-right: 15px !important;
   }
 
   .kop-logo-title {
     font-size: 15pt !important;
     font-weight: 900 !important;
     color: #3730a3 !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.8px !important;
+    line-height: 1.1 !important;
   }
 
   .kop-logo-sub {
     font-size: 8.5pt !important;
-    color: #334155 !important;
+    color: #1e293b !important;
     font-weight: 700 !important;
+    margin-top: 2px !important;
+    line-height: 1.2 !important;
   }
 
   .kop-logo-curriculum {
     font-size: 8pt !important;
-    color: #475569 !important;
+    color: #64748b !important;
+    font-weight: 500 !important;
+    margin-top: 1px !important;
   }
 
+  /* Score Rubric Box */
   .kop-score-box {
+    width: 135px !important;
     border: 1.5px solid #0f172a !important;
     border-radius: 6px !important;
-    width: 110px !important;
-    text-align: center !important;
-    padding: 4px !important;
     background: #ffffff !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    margin-top: 1px !important;
   }
 
-  .score-box-title {
+  .score-rubric-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
     font-size: 7pt !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .score-rubric-table thead tr th {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
     font-weight: 800 !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    padding-bottom: 2px !important;
-    color: #0f172a !important;
-  }
-
-  .score-box-val {
-    font-size: 15pt !important;
-    font-weight: 900 !important;
-    height: 24px !important;
-    color: #0f172a !important;
-  }
-
-  .score-box-denom {
+    padding: 3px 2px !important;
+    border-bottom: 1.5px solid #0f172a !important;
     font-size: 6.5pt !important;
-    color: #64748b !important;
+    letter-spacing: 0.3px !important;
   }
 
+  .score-rubric-table thead tr th:first-child {
+    border-right: 1px solid #cbd5e1 !important;
+    width: 50% !important;
+  }
+
+  .score-rubric-table tbody tr td {
+    height: 25px !important;
+    background: #ffffff !important;
+    vertical-align: middle !important;
+  }
+
+  .score-rubric-table tbody tr td:first-child {
+    border-right: 1px solid #cbd5e1 !important;
+  }
+
+  .score-rubric-table tfoot tr td {
+    background: #f8fafc !important;
+    color: #64748b !important;
+    font-size: 5.5pt !important;
+    font-weight: 600 !important;
+    border-top: 1px solid #e2e8f0 !important;
+    padding: 1.5px 0 !important;
+  }
+
+  /* Formal Double Line */
+  .kop-divider-double {
+    border-top: 2.5px solid #0f172a !important;
+    border-bottom: 0.75px solid #0f172a !important;
+    height: 3px !important;
+    margin: 5px 0 7px 0 !important;
+  }
+
+  /* Document Title */
   .kop-doc-title {
-    font-size: 10.5pt !important;
+    font-size: 9.5pt !important;
     font-weight: 800 !important;
     text-align: center !important;
-    background: #f1f5f9 !important;
-    border-top: 1px solid #cbd5e1 !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    padding: 3px 6px !important;
-    margin-bottom: 8px !important;
-    letter-spacing: 0.5px !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 4px !important;
+    padding: 3.5px 8px !important;
+    margin-bottom: 7px !important;
+    letter-spacing: 0.8px !important;
     color: #0f172a !important;
+    text-transform: uppercase !important;
   }
 
-  .kop-meta-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 3px 20px !important;
+  /* 2-Column Metadata Table */
+  .kop-meta-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 4px !important;
+    table-layout: fixed !important;
+  }
+
+  .meta-col-left {
+    width: 48.5% !important;
+    vertical-align: top !important;
+    padding: 0 !important;
+  }
+
+  .meta-col-divider {
+    width: 3% !important;
+  }
+
+  .meta-col-right {
+    width: 48.5% !important;
+    vertical-align: top !important;
+    padding: 0 !important;
+  }
+
+  .meta-subtable {
+    width: 100% !important;
+    border-collapse: collapse !important;
     font-size: 8.5pt !important;
+    line-height: 1.35 !important;
   }
 
-  .meta-row {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+  .meta-subtable tr td {
+    padding: 2px 0 !important;
+    vertical-align: top !important;
   }
 
-  .meta-label {
-    color: #475569 !important;
-    min-width: 105px !important;
+  .meta-lbl {
+    width: 102px !important;
+    min-width: 102px !important;
     font-weight: 600 !important;
+    color: #475569 !important;
+    white-space: nowrap !important;
+  }
+
+  .meta-sep {
+    width: 12px !important;
+    min-width: 12px !important;
+    text-align: center !important;
+    color: #64748b !important;
+    font-weight: bold !important;
   }
 
   .meta-val {
     color: #0f172a !important;
-    flex: 1 !important;
-    text-align: left !important;
+    word-break: normal !important;
   }
 
-  .meta-line {
-    flex: 1 !important;
-    color: #94a3b8 !important;
-    font-family: monospace !important;
-    letter-spacing: 1px !important;
+  .meta-line-cell {
+    width: 100% !important;
+    vertical-align: bottom !important;
+    padding-bottom: 3px !important;
+  }
+
+  .print-fill-line {
+    border-bottom: 1.5px dotted #64748b !important;
+    height: 13px !important;
+    width: 100% !important;
+    display: block !important;
   }
 
   /* Petunjuk Pengerjaan */
@@ -499,17 +785,18 @@
     background: #f8fafc !important;
     border: 1px solid #cbd5e1 !important;
     border-radius: 6px !important;
-    padding: 8px 12px !important;
-    margin-bottom: 12px !important;
-    font-size: 8pt !important;
+    padding: 6px 12px !important;
+    margin-bottom: 10px !important;
+    font-size: 7.5pt !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
 
   .instructions-title {
     font-weight: 800 !important;
-    margin-bottom: 3px !important;
+    margin-bottom: 2px !important;
     color: #0f172a !important;
+    letter-spacing: 0.3px !important;
   }
 
   .instructions-list {
@@ -517,6 +804,10 @@
     padding-left: 16px !important;
     color: #334155 !important;
     line-height: 1.4 !important;
+  }
+
+  .instructions-list li {
+    margin-bottom: 1.5px !important;
   }
 
   .exam-print-section-divider {
@@ -744,17 +1035,30 @@
     color: #475569 !important;
   }
 
-  .ljk-student-info-box {
+  .ljk-student-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
     font-size: 8pt !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 8px !important;
     border-bottom: 1px dashed #cbd5e1 !important;
-    padding-bottom: 6px !important;
+    padding-bottom: 4px !important;
   }
-
-  .ljk-info-row {
-    display: flex !important;
-    justify-content: space-between !important;
-    margin-bottom: 4px !important;
+  .ljk-student-table td {
+    padding: 2.5px 0 !important;
+    vertical-align: middle !important;
+  }
+  .ljk-lbl {
+    font-weight: 600 !important;
+    color: #334155 !important;
+    white-space: nowrap !important;
+    width: 85px !important;
+  }
+  .ljk-sep {
+    width: 12px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    color: #64748b !important;
+  }
   }
 
   .ljk-petunjuk {

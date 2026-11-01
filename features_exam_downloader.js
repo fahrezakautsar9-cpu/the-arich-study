@@ -67,11 +67,21 @@
       qs = window.SOAL_BANK_PER_BAB[chapterId];
     }
 
-    const gradeTitle = gradeData ? gradeData.gradeName : 'Matematika SMA/SMP';
-    const chTitle = ch ? ch.title : 'Latihan Soal Terstandar';
-    const chBadge = ch ? (ch.number ? `Bab ${ch.number}` : (ch.badge || 'Bab')) : 'Bab';
+    const gradeTitle = gradeData ? gradeData.gradeName : 'Matematika SMA';
     const isPhysics = ch && ch.subject === 'Fisika';
     const subject = isPhysics ? 'Fisika' : 'Matematika';
+
+    // Format clean title without redundant duplicated badges
+    let rawTitle = ch ? ch.title : 'Latihan Soal Terstandar';
+    let cleanTitle = rawTitle.trim();
+    
+    // Construct clean grade and curriculum level
+    let gradeLevel = gradeTitle;
+    if (ch && ch.badge) {
+      if (!gradeLevel.toLowerCase().includes(ch.badge.toLowerCase())) {
+        gradeLevel += ` (${ch.badge})`;
+      }
+    }
 
     const normalizedQuestions = qs.map((q, idx) => ({
       id: q.id || (idx + 1),
@@ -89,8 +99,9 @@
       type: 'chapter',
       id: chapterId,
       subject: subject,
-      title: `${chBadge}: ${chTitle}`,
-      subtitle: `${gradeTitle} • Kurikulum Merdeka (Standar Asesmen Nasional)`,
+      title: cleanTitle,
+      gradeLevel: gradeLevel,
+      subtitle: `${gradeLevel} • Kurikulum Merdeka`,
       duration: '30 Menit',
       questionCount: normalizedQuestions.length,
       questions: normalizedQuestions,
@@ -131,8 +142,9 @@
       id: packageId,
       subject: 'Penalaran Matematika (PM)',
       title: `${pkg.code}: ${pkg.title}`,
-      subtitle: `Simulasi Terstandar BPPP Kemendikbudristek • Seleksi Nasional Berdasarkan Tes (SNBT)`,
-      duration: '42,5 Menit (Standar CAT Resmi)',
+      gradeLevel: 'Persiapan SNBT UTBK (Standar BPPP Kemendikbudristek)',
+      subtitle: `Simulasi Terstandar BPPP Kemendikbudristek • SNBT UTBK`,
+      duration: '42,5 Menit (Standar CAT)',
       questionCount: normalizedQuestions.length,
       questions: normalizedQuestions,
       stimuli: pkg.stimuli || []
@@ -144,11 +156,18 @@
     const qs = window.activeQuestions || [];
     const gradeData = window.currentGradeData;
 
-    const gradeTitle = gradeData ? gradeData.gradeName : 'Matematika';
+    const gradeTitle = gradeData ? gradeData.gradeName : 'Matematika SMA';
     const chTitle = ch ? ch.title : 'Latihan Soal CBT';
-    const chBadge = ch ? (ch.number ? `Bab ${ch.number}` : (ch.badge || 'Bab')) : 'Bab';
     const isPhysics = ch && ch.subject === 'Fisika';
     const subject = isPhysics ? 'Fisika' : 'Matematika';
+
+    let cleanTitle = chTitle.trim();
+    let gradeLevel = gradeTitle;
+    if (ch && ch.badge) {
+      if (!gradeLevel.toLowerCase().includes(ch.badge.toLowerCase())) {
+        gradeLevel += ` (${ch.badge})`;
+      }
+    }
 
     const normalizedQuestions = qs.map((q, idx) => ({
       id: q.id || (idx + 1),
@@ -166,8 +185,9 @@
       type: 'cbt',
       id: ch ? ch.id : 'current-cbt',
       subject: subject,
-      title: `${chBadge}: ${chTitle}`,
-      subtitle: `${gradeTitle} • Lembar Ujian CBT (The Arich Study)`,
+      title: cleanTitle,
+      gradeLevel: gradeLevel,
+      subtitle: `${gradeLevel} • Kurikulum Merdeka`,
       duration: '30 Menit',
       questionCount: normalizedQuestions.length,
       questions: normalizedQuestions,
@@ -239,6 +259,7 @@
     if (includeHeader) {
       html += `
         <div class="exam-print-kop">
+          <!-- TOP ROW: KOP LOGO & NILAI RUBRIC BOX -->
           <div class="kop-header-row">
             <div class="kop-brand">
               <div class="kop-logo-title">THE ARICH STUDY</div>
@@ -246,50 +267,95 @@
               <div class="kop-logo-curriculum">${source.subtitle}</div>
             </div>
             <div class="kop-score-box">
-              <div class="score-box-title">NILAI / PARAF</div>
-              <div class="score-box-val">&nbsp;</div>
-              <div class="score-box-denom">Rentang 0 - 100</div>
+              <table class="score-rubric-table">
+                <thead>
+                  <tr>
+                    <th>NILAI AKHIR</th>
+                    <th>PARAF GURU</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="score-cell">&nbsp;</td>
+                    <td class="sign-cell">&nbsp;</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="2">Rentang Skor: 0 – 100</td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
 
+          <!-- FORMAL DOUBLE LINE DIVIDER -->
+          <div class="kop-divider-double"></div>
+
+          <!-- DOCUMENT TITLE -->
           <div class="kop-doc-title">
             LEMBAR NASKAH SOAL UJIAN & ASESMEN MATEMATIKA
           </div>
 
-          <div class="kop-meta-grid">
-            <div class="meta-row">
-              <span class="meta-label">Mata Pelajaran:</span>
-              <span class="meta-val"><strong>${source.subject}</strong></span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Nama Siswa:</span>
-              <span class="meta-line">........................................................................</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Paket / Bab:</span>
-              <span class="meta-val"><strong>${source.title}</strong></span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">No. Peserta / NIS:</span>
-              <span class="meta-line">........................................................................</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Alokasi Waktu:</span>
-              <span class="meta-val">${source.duration}</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Kelas / Sekolah:</span>
-              <span class="meta-line">........................................................................</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Jumlah Soal:</span>
-              <span class="meta-val">${source.questionCount} Butir Soal</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Tanggal Ujian:</span>
-              <span class="meta-line">........................................................................</span>
-            </div>
-          </div>
+          <!-- 2-COLUMN METADATA TABLE -->
+          <table class="kop-meta-table">
+            <tr>
+              <!-- LEFT COLUMN: DETAIL UJIAN (50%) -->
+              <td class="meta-col-left">
+                <table class="meta-subtable">
+                  <tr>
+                    <td class="meta-lbl">Mata Pelajaran</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-val"><strong>${source.subject}</strong></td>
+                  </tr>
+                  <tr>
+                    <td class="meta-lbl">Materi / Bab</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-val"><strong>${source.title}</strong></td>
+                  </tr>
+                  <tr>
+                    <td class="meta-lbl">Tingkat / Fase</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-val">${source.gradeLevel || source.subtitle}</td>
+                  </tr>
+                  <tr>
+                    <td class="meta-lbl">Alokasi Waktu</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-val">${source.duration} &bull; ${source.questionCount} Butir Soal</td>
+                  </tr>
+                </table>
+              </td>
+
+              <!-- CENTER GAP -->
+              <td class="meta-col-divider"></td>
+
+              <!-- RIGHT COLUMN: IDENTITAS SISWA (50%) -->
+              <td class="meta-col-right">
+                <table class="meta-subtable">
+                  <tr>
+                    <td class="meta-lbl">Nama Siswa</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-line-cell"><div class="print-fill-line"></div></td>
+                  </tr>
+                  <tr>
+                    <td class="meta-lbl">No. Peserta / NIS</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-line-cell"><div class="print-fill-line"></div></td>
+                  </tr>
+                  <tr>
+                    <td class="meta-lbl">Kelas / Ruang</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-line-cell"><div class="print-fill-line"></div></td>
+                  </tr>
+                  <tr>
+                    <td class="meta-lbl">Tanggal Ujian</td>
+                    <td class="meta-sep">:</td>
+                    <td class="meta-line-cell"><div class="print-fill-line"></div></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
         </div>
       `;
     }
@@ -305,6 +371,7 @@
             <li>Untuk soal <strong>Pilihan Ganda</strong>, pilihlah satu jawaban yang paling tepat dengan memberikan tanda silang (X) atau menghitamkan bulatan pada huruf A, B, C, D, atau E.</li>
             <li>Untuk soal <strong>Pilihan Ganda Kompleks</strong>, beri tanda centang (✓) pada kolom Benar atau Salah untuk tiap butir pernyataan.</li>
             <li>Dahulukan menjawab butir-butir soal yang Anda anggap lebih mudah. Gunakan ruang kosong pada lembar ini untuk coretan hitung.</li>
+            <li>Periksalah kembali seluruh lembar jawaban Anda sebelum naskah dikumpulkan kepada pengawas.</li>
           </ol>
         </div>
       `;
@@ -430,10 +497,26 @@
             <div class="ljk-subtitle">${source.title} • ${source.subtitle}</div>
           </div>
 
-          <div class="ljk-student-info-box">
-            <div class="ljk-info-row"><span>Nama Lengkap : ................................................................</span> <span>No. Peserta : ..............................</span></div>
-            <div class="ljk-info-row"><span>Kelas / Sekolah : ................................................................</span> <span>Tanda Tangan : ..............................</span></div>
-          </div>
+          <table class="ljk-student-table">
+            <tr>
+              <td class="ljk-lbl">Nama Lengkap</td>
+              <td class="ljk-sep">:</td>
+              <td class="ljk-val"><div class="print-fill-line"></div></td>
+              <td style="width: 25px;"></td>
+              <td class="ljk-lbl">No. Peserta</td>
+              <td class="ljk-sep">:</td>
+              <td class="ljk-val"><div class="print-fill-line"></div></td>
+            </tr>
+            <tr>
+              <td class="ljk-lbl">Kelas / Sekolah</td>
+              <td class="ljk-sep">:</td>
+              <td class="ljk-val"><div class="print-fill-line"></div></td>
+              <td style="width: 25px;"></td>
+              <td class="ljk-lbl">Tanda Tangan</td>
+              <td class="ljk-sep">:</td>
+              <td class="ljk-val"><div class="print-fill-line"></div></td>
+            </tr>
+          </table>
 
           <div class="ljk-petunjuk">
             Petunjuk: Silang (X) atau hitamkan penuh bulatan pilihan jawaban Anda:
@@ -638,27 +721,46 @@
     * { box-sizing: border-box; }
     
     /* Kop Surat */
-    .exam-print-kop { border-bottom: 3px double #0f172a; padding-bottom: 8px; margin-bottom: 12px; page-break-inside: avoid; }
-    .kop-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-    .kop-brand { flex: 1; }
-    .kop-logo-title { font-size: 15pt; font-weight: 900; color: #3730a3; letter-spacing: 0.5px; }
-    .kop-logo-sub { font-size: 8.5pt; color: #334155; font-weight: 700; }
-    .kop-logo-curriculum { font-size: 8pt; color: #64748b; }
-    .kop-score-box { border: 1.5px solid #0f172a; border-radius: 6px; width: 115px; text-align: center; padding: 4px; background: #ffffff; }
-    .score-box-title { font-size: 7.5pt; font-weight: 800; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; color: #0f172a; }
-    .score-box-val { font-size: 16pt; font-weight: 900; height: 26px; }
-    .score-box-denom { font-size: 6.5pt; color: #64748b; }
-    .kop-doc-title { font-size: 11pt; font-weight: 800; text-align: center; background: #f1f5f9; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; padding: 4px; margin-bottom: 8px; letter-spacing: 0.5px; color: #0f172a; }
-    .kop-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; font-size: 8.5pt; }
-    .meta-row { display: flex; justify-content: space-between; align-items: center; }
-    .meta-label { color: #475569; min-width: 105px; font-weight: 600; }
-    .meta-val { color: #0f172a; flex: 1; text-align: left; }
-    .meta-line { flex: 1; color: #94a3b8; font-family: monospace; letter-spacing: 1px; }
+    .exam-print-kop { padding-bottom: 4px; margin-bottom: 8px; page-break-inside: avoid; }
+    .kop-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .kop-brand { flex: 1; padding-right: 15px; }
+    .kop-logo-title { font-size: 15pt; font-weight: 900; color: #3730a3; letter-spacing: 0.8px; line-height: 1.1; }
+    .kop-logo-sub { font-size: 8.5pt; color: #1e293b; font-weight: 700; margin-top: 2px; line-height: 1.2; }
+    .kop-logo-curriculum { font-size: 8pt; color: #64748b; font-weight: 500; margin-top: 1px; }
+
+    /* Score Rubric Box */
+    .kop-score-box { width: 135px; border: 1.5px solid #0f172a; border-radius: 6px; background: #ffffff; overflow: hidden; margin-top: 1px; }
+    .score-rubric-table { width: 100%; border-collapse: collapse; font-size: 7pt; text-align: center; margin: 0; padding: 0; }
+    .score-rubric-table thead tr th { background: #f1f5f9; color: #0f172a; font-weight: 800; padding: 3px 2px; border-bottom: 1.5px solid #0f172a; font-size: 6.5pt; letter-spacing: 0.3px; }
+    .score-rubric-table thead tr th:first-child { border-right: 1px solid #cbd5e1; width: 50%; }
+    .score-rubric-table tbody tr td { height: 25px; background: #ffffff; vertical-align: middle; }
+    .score-rubric-table tbody tr td:first-child { border-right: 1px solid #cbd5e1; }
+    .score-rubric-table tfoot tr td { background: #f8fafc; color: #64748b; font-size: 5.5pt; font-weight: 600; border-top: 1px solid #e2e8f0; padding: 1.5px 0; }
+
+    /* Formal Double Line */
+    .kop-divider-double { border-top: 2.5px solid #0f172a; border-bottom: 0.75px solid #0f172a; height: 3px; margin: 5px 0 7px 0; }
+
+    /* Document Title */
+    .kop-doc-title { font-size: 9.5pt; font-weight: 800; text-align: center; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3.5px 8px; margin-bottom: 7px; letter-spacing: 0.8px; color: #0f172a; text-transform: uppercase; }
+
+    /* 2-Column Metadata Table */
+    .kop-meta-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; table-layout: fixed; }
+    .meta-col-left { width: 48.5%; vertical-align: top; padding: 0; }
+    .meta-col-divider { width: 3%; }
+    .meta-col-right { width: 48.5%; vertical-align: top; padding: 0; }
+    .meta-subtable { width: 100%; border-collapse: collapse; font-size: 8.5pt; line-height: 1.35; }
+    .meta-subtable tr td { padding: 2px 0; vertical-align: top; }
+    .meta-lbl { width: 102px; min-width: 102px; font-weight: 600; color: #475569; white-space: nowrap; }
+    .meta-sep { width: 12px; min-width: 12px; text-align: center; color: #64748b; font-weight: bold; }
+    .meta-val { color: #0f172a; word-break: normal; }
+    .meta-line-cell { width: 100%; vertical-align: bottom; padding-bottom: 3px; }
+    .print-fill-line { border-bottom: 1.5px dotted #64748b; height: 13px; width: 100%; display: block; }
 
     /* Instructions */
-    .exam-print-instructions { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 8pt; page-break-inside: avoid; }
-    .instructions-title { font-weight: 800; margin-bottom: 3px; color: #0f172a; }
-    .instructions-list { margin: 0; padding-left: 16px; color: #334155; line-height: 1.45; }
+    .exam-print-instructions { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 12px; margin-bottom: 10px; font-size: 7.5pt; page-break-inside: avoid; }
+    .instructions-title { font-weight: 800; margin-bottom: 2px; color: #0f172a; letter-spacing: 0.3px; }
+    .instructions-list { margin: 0; padding-left: 16px; color: #334155; line-height: 1.4; }
+    .instructions-list li { margin-bottom: 1.5px; }
 
     /* Divider */
     .exam-print-section-divider { text-align: center; margin: 10px 0 14px; border-bottom: 1px solid #cbd5e1; line-height: 0.1em; page-break-inside: avoid; }
@@ -702,8 +804,10 @@
     .ljk-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 10px; }
     .ljk-title { font-size: 13pt; font-weight: 900; color: #0f172a; letter-spacing: 0.5px; }
     .ljk-subtitle { font-size: 8.5pt; color: #475569; }
-    .ljk-student-info-box { font-size: 8.5pt; margin-bottom: 10px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 6px; }
-    .ljk-info-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .ljk-student-table { width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 8px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 4px; }
+    .ljk-student-table td { padding: 2.5px 0; vertical-align: middle; }
+    .ljk-lbl { font-weight: 600; color: #334155; white-space: nowrap; width: 85px; }
+    .ljk-sep { width: 12px; text-align: center; font-weight: bold; color: #64748b; }
     .ljk-petunjuk { font-size: 8pt; font-weight: 700; color: #475569; margin-bottom: 8px; }
     .ljk-columns-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .ljk-col { border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; }
