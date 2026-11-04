@@ -4455,12 +4455,16 @@ function doPost(e) {
         document.getElementById('top-bar-title').textContent = 'Lembar Rumus Sakti';
         renderCheatSheets();
       } else if (viewName === 'dashboard') {
+        activeReadingGrade = null;
         document.getElementById('top-bar-title').textContent = 'Dashboard';
         renderDashboardChapters();
         renderDashboardStats();
       } else if (viewName === 'materi-catalog') {
+        activeReadingGrade = null;
         document.getElementById('top-bar-title').textContent = 'Katalog Materi';
         renderMateriCatalog();
+      } else if (viewName === 'materi-detail') {
+        document.getElementById('top-bar-title').textContent = 'Detail Modul Pembelajaran';
       } else if (viewName === 'exam-catalog') {
         document.getElementById('top-bar-title').textContent = 'Pilih Bab Latihan';
         renderExamCatalog();
@@ -4616,8 +4620,9 @@ function doPost(e) {
         const textHover = isPhysics ? 'group-hover:text-sky-300' : 'group-hover:text-indigo-300';
         const topGlow = isPhysics ? 'from-sky-500/40 to-cyan-400/10' : 'from-indigo-500/40 to-purple-400/10';
 
+        const currentGradeCode = currentStudent ? String(currentStudent.grade) : '11';
         return `
-        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-2xl p-5 cursor-pointer ${borderHover} hover:shadow-xl transition group relative overflow-hidden flex flex-col justify-between">
+        <div onclick="openChapterDetail('${ch.id}', '${currentGradeCode}')" class="clean-card rounded-2xl p-5 cursor-pointer ${borderHover} hover:shadow-xl transition group relative overflow-hidden flex flex-col justify-between">
           <div class="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r ${topGlow} opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div>
             <div class="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg border ${badgeStyle} mb-2.5">${badgeText}</div>
@@ -4656,8 +4661,9 @@ function doPost(e) {
         const btnColor = isPhysics ? 'text-sky-400' : 'text-indigo-400';
         const topGlow = isPhysics ? 'from-sky-500/40 to-cyan-400/10' : 'from-indigo-500/40 to-purple-400/10';
 
+        const currentGradeCode = currentStudent ? String(currentStudent.grade) : '11';
         return `
-        <div onclick="openChapterDetail('${ch.id}')" class="clean-card rounded-2xl p-5 cursor-pointer ${borderHover} hover:shadow-xl transition group relative overflow-hidden flex flex-col justify-between">
+        <div onclick="openChapterDetail('${ch.id}', '${currentGradeCode}')" class="clean-card rounded-2xl p-5 cursor-pointer ${borderHover} hover:shadow-xl transition group relative overflow-hidden flex flex-col justify-between">
           <div class="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r ${topGlow} opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div>
             <div class="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg border ${badgeStyle} mb-2.5">${badgeText}</div>
@@ -4775,15 +4781,56 @@ function doPost(e) {
     let activeReadingGrade = null; // Decoupled for cross-grade reading
 
     function openChapterDetail(chapterId, optionalGradeId) {
+      if (!chapterId) return;
+
       const studentGrade = currentStudent ? String(currentStudent.grade) : '11';
-      const targetGrade = optionalGradeId ? String(optionalGradeId) : (activeReadingGrade || studentGrade);
+      let ch = null;
+      let targetGrade = optionalGradeId ? String(optionalGradeId) : null;
+
+      // Level 1: If targetGrade is specified, search in that grade first
+      if (targetGrade && window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[targetGrade] && window.ALL_GRADES_DATA[targetGrade].chapters) {
+        ch = window.ALL_GRADES_DATA[targetGrade].chapters.find(c => c.id === chapterId);
+      }
+
+      // Level 2: Search in currentGradeData (active grade curriculum)
+      if (!ch && currentGradeData && currentGradeData.chapters) {
+        ch = currentGradeData.chapters.find(c => c.id === chapterId);
+        if (ch) {
+          targetGrade = studentGrade;
+        }
+      }
+
+      // Level 3: Search in studentGrade in ALL_GRADES_DATA
+      if (!ch && window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[studentGrade] && window.ALL_GRADES_DATA[studentGrade].chapters) {
+        ch = window.ALL_GRADES_DATA[studentGrade].chapters.find(c => c.id === chapterId);
+        if (ch) {
+          targetGrade = studentGrade;
+        }
+      }
+
+      // Level 4: Search across ALL grades in ALL_GRADES_DATA (exhaustive fallback)
+      if (!ch && window.ALL_GRADES_DATA) {
+        for (const [gKey, gData] of Object.entries(window.ALL_GRADES_DATA)) {
+          if (gData && gData.chapters) {
+            const found = gData.chapters.find(c => c.id === chapterId);
+            if (found) {
+              ch = found;
+              targetGrade = gKey;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!ch) {
+        console.warn('[TheArichStudy] Chapter not found for ID:', chapterId);
+        return;
+      }
+
+      targetGrade = targetGrade || studentGrade;
       activeReadingGrade = targetGrade;
 
-      const sourceGradeData = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[targetGrade]) ? window.ALL_GRADES_DATA[targetGrade] : currentGradeData;
-      if (!sourceGradeData || !sourceGradeData.chapters) return;
-
-      const ch = sourceGradeData.chapters.find(c => c.id === chapterId);
-      if (!ch) return;
+      const sourceGradeData = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[targetGrade]) ? window.ALL_GRADES_DATA[targetGrade] : (currentGradeData || {});
       window.currentDetailChapter = ch;
       window.currentDetailGrade = targetGrade;
 
@@ -4793,7 +4840,8 @@ function doPost(e) {
         if (targetGrade !== studentGrade) {
           cgBanner.classList.remove('hidden');
           const myGradeName = (window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[studentGrade]) ? window.ALL_GRADES_DATA[studentGrade].gradeName : `Kelas ${studentGrade}`;
-          document.getElementById('cg-banner-title').textContent = `Mode Baca Lintas Jenjang • ${sourceGradeData.gradeName}`;
+          const currentGradeName = sourceGradeData.gradeName || `Kelas ${targetGrade}`;
+          document.getElementById('cg-banner-title').textContent = `Mode Baca Lintas Jenjang • ${currentGradeName}`;
           document.getElementById('cg-banner-registered').textContent = myGradeName;
         } else {
           cgBanner.classList.add('hidden');
@@ -4802,16 +4850,17 @@ function doPost(e) {
 
       document.getElementById('detail-chapter-num').textContent = ch.number ? `Bab ${ch.number}` : (ch.badge || 'Modul Bab');
       document.getElementById('detail-chapter-title').textContent = ch.title;
-      document.getElementById('detail-chapter-summary').textContent = ch.summary;
+      document.getElementById('detail-chapter-summary').textContent = ch.summary || '';
       const countEl = document.getElementById('detail-subtopics-count');
-      if (countEl) countEl.textContent = `${ch.subtopics ? ch.subtopics.length : 0} Subtopik`;
+      const subtopicsList = Array.isArray(ch.subtopics) ? ch.subtopics : [];
+      if (countEl) countEl.textContent = `${subtopicsList.length} Subtopik`;
 
       const subContainer = document.getElementById('detail-subtopics-container');
       const curSize = localStorage.getItem('arich_font_size') || 'md';
       subContainer.className = `space-y-6 reader-size-${curSize}`;
       const isChapterPhysics = (ch.subject === 'Fisika') || (ch.id && ch.id.includes('fisik')) || (ch.badge && ch.badge.includes('Fisika')) || (ch.title && ch.title.toLowerCase().includes('fisika'));
 
-      subContainer.innerHTML = ch.subtopics.map((sub, idx) => {
+      subContainer.innerHTML = subtopicsList.map((sub, idx) => {
         const exampleText = sub.exampleProblem || sub.example;
         const quickTipText = sub.quickTip;
         const cleanConcept = (sub.concept || '').replace(/[$`"]/g, ' ');
@@ -4990,9 +5039,29 @@ function doPost(e) {
     }
 
     function startChapterExam(chapterId) {
-      if (!currentGradeData || !currentGradeData.chapters) return;
-      let ch = currentGradeData.chapters.find(c => c.id === chapterId);
-      if (!ch) ch = currentGradeData.chapters[0];
+      if (!chapterId) return;
+      let ch = null;
+
+      // 1. Try currentGradeData
+      if (currentGradeData && currentGradeData.chapters) {
+        ch = currentGradeData.chapters.find(c => c.id === chapterId);
+      }
+      // 2. Try window.currentDetailGrade
+      if (!ch && window.currentDetailGrade && window.ALL_GRADES_DATA && window.ALL_GRADES_DATA[window.currentDetailGrade]) {
+        ch = window.ALL_GRADES_DATA[window.currentDetailGrade].chapters?.find(c => c.id === chapterId);
+      }
+      // 3. Try across all grades
+      if (!ch && window.ALL_GRADES_DATA) {
+        for (const gData of Object.values(window.ALL_GRADES_DATA)) {
+          if (gData && gData.chapters) {
+            const found = gData.chapters.find(c => c.id === chapterId);
+            if (found) { ch = found; break; }
+          }
+        }
+      }
+      if (!ch && currentGradeData && currentGradeData.chapters) {
+        ch = currentGradeData.chapters[0];
+      }
       if (!ch) return;
 
       if (!ch.questions || ch.questions.length === 0) {
