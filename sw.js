@@ -3,16 +3,18 @@
  * High-performance offline caching for core app shell, local curricula, and CDN dependencies.
  */
 
-const CACHE_NAME = 'the-arich-study-v1.7.0';
-const CDN_CACHE_NAME = 'the-arich-study-cdn-v1';
+const CACHE_NAME = 'the-arich-study-v1.8.7';
+const CDN_CACHE_NAME = 'the-arich-study-cdn-v2';
 
 // Static Shell & Curricula to pre-cache immediately
 const PRECACHE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './app.css',
+  './app.js',
   './print.css',
-  './theme.css',
+  './theme.css?v=pm-course-complete-20261105-2',
   './features_student_exp.js',
   './features_assessment.js',
   './features_adaptive_learning.js',
@@ -20,12 +22,12 @@ const PRECACHE_ASSETS = [
   './features_exam_scratchpad.js',
   './features_ui_pwa.js',
   './features_pm_engine.js',
+  './features_pm_learning.js?v=pm-course-complete-20261105-2',
   './features_smart_error_bank.js',
   './features_exam_downloader.js',
   './icons/icon-192.svg',
   './icons/icon-512.svg',
   './icons/icon-maskable.svg',
-  './data/cloud_config.js',
   './data/kurmer_kelas7_materi.js',
   './data/kurmer_kelas8_materi.js',
   './data/kurmer_kelas9_materi.js',
@@ -38,6 +40,7 @@ const PRECACHE_ASSETS = [
   './data/utbk_pm_paket3.js',
   './data/utbk_pm_paket4.js',
   './data/utbk_pm_paket5.js',
+  './data/utbk_pm_materi.js?v=pm-course-complete-20261105-2',
   './data/utbk_penalaran_matematika.js',
   './data/curriculum_all_grades.js',
   './data/soal_bank_per_bab.js'
@@ -45,8 +48,7 @@ const PRECACHE_ASSETS = [
 
 // Essential Third-Party CDN Scripts & Styles to cache
 const CDN_URLS = [
-  'https://cdn.tailwindcss.com',
-  'https://unpkg.com/lucide@latest',
+  'https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js',
   'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
   'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js',
   'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js',
@@ -119,7 +121,7 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // Ignore non-GET requests (e.g. POST sync to Google Sheets)
+  // Ignore non-GET requests. The static app does not send student data to a server.
   if (req.method !== 'GET') {
     return;
   }
@@ -149,11 +151,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // B. CDN Assets (KaTeX, Tailwind, Google Fonts, Lucide, Unpkg)
+  // B. CDN Assets (KaTeX, Google Fonts, and pinned Lucide)
   if (
     url.hostname.includes('cdn.jsdelivr.net') ||
     url.hostname.includes('unpkg.com') ||
-    url.hostname.includes('cdn.tailwindcss.com') ||
     url.hostname.includes('fonts.googleapis.com') ||
     url.hostname.includes('fonts.gstatic.com')
   ) {

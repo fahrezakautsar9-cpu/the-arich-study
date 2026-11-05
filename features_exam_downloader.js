@@ -142,9 +142,9 @@
       id: packageId,
       subject: 'Penalaran Matematika (PM)',
       title: `${pkg.code}: ${pkg.title}`,
-      gradeLevel: 'Persiapan SNBT UTBK (Standar BPPP Kemendikbudristek)',
-      subtitle: `Simulasi Terstandar BPPP Kemendikbudristek • SNBT UTBK`,
-      duration: '42,5 Menit (Standar CAT)',
+      gradeLevel: 'Latihan mandiri Penalaran Matematika',
+      subtitle: 'Soal orisinal, bukan butir UTBK resmi • Acuan format: kerangka SNPMB 2026',
+      duration: '42 menit 30 detik',
       questionCount: normalizedQuestions.length,
       questions: normalizedQuestions,
       stimuli: pkg.stimuli || []

@@ -1,8 +1,8 @@
 /**
  * ==============================================================================
  * THE ARICH STUDY — PAKET B (PAKET 2) PENALARAN MATEMATIKA (PM) UTBK-SNBT
- * Standar Resmi BPPP / SNPMB Kemendikbudristek & Kurikulum Merdeka
- * Total 20 Soal HOTS (4 Domain Inti: Bilangan, Aljabar, Geometri, Data & Peluang)
+ * Latihan Penalaran Matematika bergaya UTBK-SNBT & Kurikulum Merdeka
+ * Total 20 soal latihan (4 ranah: Bilangan, Aljabar, Geometri, Data & Peluang)
  * ==============================================================================
  */
 
@@ -386,7 +386,7 @@
       prompt: "Berdasarkan stimulus sistem PLTS atap keluarga Dr. Hendra, tentukan nilai kebenaran (Benar atau Salah) dari setiap pernyataan berikut!",
       statements: [
         {
-          text: "Dengan penghematan tahunan sekitar $\\text{Rp}6.652.125,00$ pada tahun pertama, modal investasi awal sebesar $\\text{Rp}36.000.000,00$ akan balik modal (payback period sederhana) dalam waktu kurang dari 6 tahun.",
+          text: "Penghematan pada tahun pertama cukup untuk menutup modal investasi awal sebesar $\\text{Rp}36.000.000,00$ dalam waktu kurang dari 6 tahun.",
           correct: true
         },
         {
@@ -974,7 +974,7 @@
           correct: true
         },
         {
-          text: "Nilai median dari tekanan darah sistolik awal pada sampel pasien tersebut bernilai sama dengan nilai rata-ratanya, yaitu tepat 160 mmHg.",
+          text: "Median distribusi teoretis tekanan darah sistolik awal sama dengan nilai rata-ratanya, yaitu 160 mmHg.",
           correct: true
         },
         {
@@ -1020,6 +1020,7 @@
     title: 'Paket B — Infrastruktur, Energi & Finansial',
     description: 'Efisiensi PLTS Atap, Desain Kubah Geodesik, Skema Kredit KUR UMKM, Laju Aliran Venturi, dan Uji Klinis Terapi Hipertensi.',
     durationMinutes: 42.5,
+    provenance: { kind: 'original_practice', creator: 'The Arich Study', isOfficialItem: false, alignedTo: 'SNPMB UTBK 2026 framework' },
     stimuli: PM_PAKET2_STIMULI,
     questions: PM_PAKET2_QUESTIONS
   };

@@ -1,8 +1,8 @@
 /**
  * ==============================================================================
  * THE ARICH STUDY — PAKET D (PAKET 4) PENALARAN MATEMATIKA (PM) UTBK-SNBT
- * Standar Resmi BPPP / SNPMB Kemendikbudristek & Kurikulum Merdeka
- * Total 20 Soal HOTS (4 Domain Inti: Bilangan, Aljabar, Geometri, Data & Peluang)
+ * Latihan Penalaran Matematika bergaya UTBK-SNBT & Kurikulum Merdeka
+ * Total 20 soal latihan (4 ranah: Bilangan, Aljabar, Geometri, Data & Peluang)
  * ==============================================================================
  */
 
@@ -627,7 +627,7 @@
       subtopic: "Dosis Tambahan Redosing Interval",
       type: "numeric_input",
       level: "Sedang",
-      prompt: "Dokter menjadwalkan pemberian dosis infus berikutnya tepat saat konsentrasi mencapai MEC ($10\\text{ mg/L}$ pada $t = 12\\text{ jam}$). Jika pada saat itu diberikan suntikan booster seketika yang menambah konsentrasi sebesar $+40\\text{ mg/L}$, berapakah konsentrasi obat baru dalam darah pasien tepat setelah penyuntikan tersebut (tuliskan angka konsentrasinya dalam mg/L)?",
+      prompt: "Dokter menjadwalkan pemberian dosis infus berikutnya saat konsentrasi mencapai MEC ($10\\text{ mg/L}$). Jika pada saat itu diberikan suntikan booster seketika yang menambah konsentrasi sebesar $+40\\text{ mg/L}$, berapakah konsentrasi obat baru dalam darah pasien tepat setelah penyuntikan tersebut (tuliskan angka konsentrasinya dalam mg/L)?",
       correctNumeric: 50,
       numericTolerance: 0,
       numericUnit: "mg/L",
@@ -994,6 +994,7 @@
     title: 'Paket D — Mobilitas Urban, Aviasi & Farmakokinetika',
     description: 'Jejak Karbon Komuter KRL vs Mobil, Radar Glide Slope Pesawat, Peluruhan Konsentrasi Antibiotik, Portofolio Investasi, dan Regresi Asesmen Numerasi.',
     durationMinutes: 42.5,
+    provenance: { kind: 'original_practice', creator: 'The Arich Study', isOfficialItem: false, alignedTo: 'SNPMB UTBK 2026 framework' },
     stimuli: PM_PAKET4_STIMULI,
     questions: PM_PAKET4_QUESTIONS
   };

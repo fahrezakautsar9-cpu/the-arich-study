@@ -328,7 +328,7 @@
     const chapterTitle = chapter ? chapter.title : 'Matematika Terapan';
     const chapterId = chapter ? chapter.id : 'math';
 
-    // Unique Verification Hash (High Entropy & Deterministic)
+    // Short local reference only; this value is not a signature or verification code.
     const seed = `${studentName}|${gradeShort}|${chapterId}|${score}|${timestamp || Date.now()}`;
     let hash = 0;
     for (let i = 0; i < seed.length; i++) {
@@ -338,7 +338,7 @@
     const cleanGrade = (gradeShort.replace(/\D/g, '') || '11');
     const hexHash = Math.abs(hash).toString(16).toUpperCase().padStart(4, '0').slice(-4);
     const certYear = new Date().getFullYear();
-    const verificationId = `CERT-ARICH-K${cleanGrade}-${certYear}-${hexHash}`;
+    const verificationId = `LOKAL-K${cleanGrade}-${certYear}-${hexHash}`;
 
     // Predikat determination
     let predicate = 'Cum Laude (Sangat Memuaskan)';
@@ -422,7 +422,7 @@
     `;
   }
 
-  function getOfficialEmbossedSealSvg() {
+  function getLocalLearningBadgeSvg() {
     return `
       <svg viewBox="0 0 120 120" class="w-20 h-20 sm:w-24 sm:h-24 mx-auto" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -439,7 +439,7 @@
         <!-- Text Arc Simulation / Embellishment -->
         <g fill="#fef3c7" font-size="6.5" font-weight="bold" font-family="'Plus Jakarta Sans', sans-serif" text-anchor="middle">
           <text x="60" y="32" letter-spacing="1.5">★ THE ARICH STUDY ★</text>
-          <text x="60" y="94" letter-spacing="1">OFFICIAL SEAL</text>
+          <text x="60" y="94" letter-spacing="1">LOCAL BADGE</text>
         </g>
         <!-- Center Emblem -->
         <path d="M60,42 L64,52 L75,52 L66,59 L70,70 L60,63 L50,70 L54,59 L45,52 L56,52 Z" fill="#fef3c7"/>
@@ -550,7 +550,7 @@
             <div class="flex items-center justify-between pb-3 border-b border-slate-800">
               <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
                 <i data-lucide="award" class="w-4 h-4"></i>
-                <span>E-Sertifikat Kelulusan Resmi • The Arich Study</span>
+                <span>Sertifikat Apresiasi Belajar • The Arich Study</span>
               </div>
               <div class="flex items-center gap-2">
                 <button onclick="printCertificate()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 transition cursor-pointer">
@@ -584,29 +584,29 @@
                   <!-- Header Organization -->
                   <div class="space-y-0.5 mb-4">
                     <span class="text-[10px] sm:text-xs font-extrabold tracking-[0.25em] text-[#b45309] uppercase block">
-                      LEMBAGA PENDIDIKAN & RISET SAINS
+                      CATATAN BELAJAR MANDIRI
                     </span>
                     <h2 class="text-xl sm:text-2xl font-black tracking-wide text-slate-950 uppercase font-serif">
                       THE ARICH STUDY
                     </h2>
                     <p class="text-[10px] text-slate-600 tracking-wider">
-                      Center of Advanced Mathematics, Physics & STEM Excellence
+                      Bukan lembaga sertifikasi atau sekolah
                     </p>
                   </div>
 
                   <!-- Certificate Title -->
                   <div class="my-4 py-2 border-y border-[#b45309]/30">
                     <h1 class="text-base sm:text-lg md:text-xl font-extrabold tracking-wider text-slate-900 uppercase">
-                      CERTIFICATE OF MASTERY & ACADEMIC EXCELLENCE
+                      LEARNING ACHIEVEMENT
                     </h1>
                     <p class="text-xs italic text-[#b45309] font-serif mt-0.5">
-                      Sertifikat Kelulusan & Penguasaan Kompetensi Modul
+                      Sertifikat apresiasi belajar mandiri
                     </p>
                   </div>
 
                   <!-- Recipient Presentation -->
                   <div class="my-4 space-y-1">
-                    <p class="text-xs text-slate-600">Sertifikat ini dengan penuh kehormatan dan kebanggaan dianugerahkan kepada:</p>
+                    <p class="text-xs text-slate-600">Apresiasi belajar ini dibuat untuk:</p>
                     <div id="cert-recipient-name" class="text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-wide text-slate-950 capitalize py-1">
                       -
                     </div>
@@ -618,7 +618,7 @@
                   <!-- Achievement Description -->
                   <div class="my-4 max-w-xl mx-auto text-xs sm:text-sm text-slate-700 leading-relaxed space-y-1">
                     <p>
-                      Telah menunjukkan kompetensi dan penguasaan materi yang luar biasa pada modul
+                      Telah menyelesaikan latihan pada materi
                       <strong id="cert-chapter-name" class="text-slate-950 font-extrabold">-</strong>
                       (<span id="cert-subject-grade" class="font-semibold text-indigo-950">-</span>)
                       dengan nilai akhir evaluasi
@@ -641,21 +641,21 @@
                         </svg>
                       </div>
                       <div class="border-t border-slate-700 pt-1">
-                        <p class="text-xs font-black text-slate-900">Dr. Fahr Arich, M.Sc.</p>
-                        <p class="text-[9px] text-slate-600 uppercase font-bold tracking-wider">Lead Academic Director</p>
-                        <p class="text-[8px] text-slate-500">The Arich Study</p>
+                        <p class="text-xs font-black text-slate-900">The Arich Study</p>
+                        <p class="text-[9px] text-slate-600 uppercase font-bold tracking-wider">Apresiasi belajar mandiri</p>
+                        <p class="text-[8px] text-slate-500">Dibuat otomatis di browser</p>
                       </div>
                     </div>
 
                     <!-- Official Embossed Center Seal -->
                     <div class="space-y-1 flex flex-col items-center justify-center">
-                      ${getOfficialEmbossedSealSvg()}
+                      ${getLocalLearningBadgeSvg()}
                       <div class="mt-1">
                         <p id="cert-verification-id" class="font-mono text-[9px] font-black text-slate-800 tracking-wider">
                           CERT-ARICH-K11-2026-XXXX
                         </p>
                         <p id="cert-issue-date" class="text-[8px] text-slate-600">
-                          Diterbitkan: -
+                          Dibuat otomatis: -
                         </p>
                       </div>
                     </div>
@@ -669,9 +669,9 @@
                         </svg>
                       </div>
                       <div class="border-t border-slate-700 pt-1">
-                        <p class="text-xs font-black text-slate-900">Prof. Kautsar Wardana, Ph.D.</p>
-                        <p class="text-[9px] text-slate-600 uppercase font-bold tracking-wider">Head of STEM Assessment</p>
-                        <p class="text-[8px] text-slate-500">Curriculum & Certification</p>
+                        <p class="text-xs font-black text-slate-900">Latihan di perangkat ini</p>
+                        <p class="text-[9px] text-slate-600 uppercase font-bold tracking-wider">Tanpa verifikasi institusi</p>
+                        <p class="text-[8px] text-slate-500">Bukan sertifikasi formal</p>
                       </div>
                     </div>
 
@@ -685,7 +685,7 @@
             <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-slate-400">
               <span class="flex items-center gap-1.5">
                 <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-                E-Sertifikat terverifikasi resmi dan sah sebagai bukti ketuntasan belajar bab.
+                Sertifikat apresiasi otomatis; bukan dokumen resmi atau sertifikasi terverifikasi.
               </span>
               <div class="flex items-center gap-2 w-full sm:w-auto">
                 <button onclick="printCertificate()" class="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer">
@@ -757,7 +757,7 @@
                 </span>
               </div>
               <h4 class="text-sm sm:text-base font-extrabold text-white truncate">Sertifikat Kelulusan Bab & Keunggulan Akademik</h4>
-              <p class="text-xs text-slate-300">Selamat! Nilaimu melampaui batas kelulusan (KKM: 70). Klaim e-sertifikat resmimu sekarang.</p>
+              <p class="text-xs text-slate-300">Nilaimu mencapai batas latihan (70). Buat sertifikat apresiasi belajar yang dapat dicetak.</p>
             </div>
           </div>
           <button onclick="openCertificateModal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-0.5 cursor-pointer">
@@ -1227,10 +1227,10 @@
     if (predEl) predEl.textContent = certData.predicate;
 
     const idEl = document.getElementById('cert-verification-id');
-    if (idEl) idEl.textContent = certData.verificationId;
+      if (idEl) idEl.textContent = `Kode lokal: ${certData.verificationId}`;
 
     const dateEl = document.getElementById('cert-issue-date');
-    if (dateEl) dateEl.textContent = `Diterbitkan: ${certData.issueDateStr}`;
+      if (dateEl) dateEl.textContent = `Dibuat otomatis: ${certData.issueDateStr}`;
   }
 
   function openExamReview() {

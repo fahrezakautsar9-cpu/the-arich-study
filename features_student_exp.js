@@ -29,7 +29,7 @@
  *    - Official The Arich Study Crest/Logo, student bio, KKM 70 analysis
  *    - CBT Performance Table, summary metrics, qualitative predicates (A/B/C)
  *    - Editable teacher evaluation narrative & recommendations
- *    - Legal sign-off block with dual signatures & official seal
+ *    - Local printable learning summary with clear non-official status
  *    - Dedicated @media print CSS for crisp, high-fidelity A4 printing & PDF export
  * ============================================================================
  */
@@ -939,14 +939,16 @@
 
       const td = document.createElement('td');
       td.className = 'td-rapor-action py-2.5 px-3 text-center';
-      td.innerHTML = `
-        <button onclick="window.TheArichStudentExp.openReportModal('${encodeURIComponent(studentName)}')"
-                class="px-2.5 py-1 rounded-xl bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 text-[11px] font-bold flex items-center gap-1.5 transition mx-auto shadow-sm"
-                title="Buka & Cetak Rapor Resmi Siswa">
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'px-2.5 py-1 rounded-xl bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 text-[11px] font-bold flex items-center gap-1.5 transition mx-auto shadow-sm';
+      button.title = 'Buka rekap belajar lokal siswa';
+      button.innerHTML = `
           <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-          <span>Cetak Rapor</span>
-        </button>
+          <span>Cetak Rekap</span>
       `;
+      button.addEventListener('click', () => openReportModal(studentName));
+      td.appendChild(button);
       row.appendChild(td);
     });
 
@@ -972,10 +974,10 @@
   }
 
   /**
-   * Opens the Official Student Report Card Modal.
+   * Opens a local learning summary. This output is not an official school report.
    */
   function openReportModal(studentNameQuery) {
-    studentNameQuery = studentNameQuery ? decodeURIComponent(studentNameQuery).trim() : '';
+    studentNameQuery = String(studentNameQuery || '').trim();
 
     // Merge latest data from localStorage and cached state
     const localAccounts = JSON.parse(localStorage.getItem(STORAGE_KEYS.REGISTERED_STUDENTS) || '[]');
@@ -1032,7 +1034,7 @@
 
     renderReportModalContent(targetStudent, allStudents, allSubmissions);
 
-    const modal = document.getElementById('modal-official-student-rapor');
+    const modal = document.getElementById('modal-local-learning-report');
     if (modal) {
       modal.classList.remove('hidden');
     }
@@ -1040,7 +1042,7 @@
   }
 
   function closeReportModal() {
-    const modal = document.getElementById('modal-official-student-rapor');
+    const modal = document.getElementById('modal-local-learning-report');
     if (modal) {
       modal.classList.add('hidden');
     }
@@ -1050,16 +1052,16 @@
    * Renders the complete A4 printable report card inside the modal.
    */
   function renderReportModalContent(student, allStudents, allSubmissions) {
-    let modal = document.getElementById('modal-official-student-rapor');
+    let modal = document.getElementById('modal-local-learning-report');
     if (!modal) {
       modal = document.createElement('div');
-      modal.id = 'modal-official-student-rapor';
+      modal.id = 'modal-local-learning-report';
       modal.className = 'fixed inset-0 z-50 bg-black/80 backdrop-blur-xs hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto';
       document.body.appendChild(modal);
     }
 
     // Filter submissions for this student
-    const studentSubs = allSubmissions.filter(s => s.studentName && s.studentName.toLowerCase() === student.name.toLowerCase());
+    const studentSubs = allSubmissions.filter(s => String(s.studentName || '').toLowerCase() === String(student.name || '').toLowerCase());
     const totalExams = studentSubs.length;
     const avgScore = totalExams > 0 ? Math.round(studentSubs.reduce((a, b) => a + Number(b.score), 0) / totalExams) : 0;
     const passedCount = studentSubs.filter(s => s.passed || Number(s.score) >= KKM_SCORE).length;
@@ -1098,8 +1100,8 @@
 
     // Student Selector Options
     const studentOptions = allStudents.map(st => `
-      <option value="${encodeURIComponent(st.name)}" ${st.name.toLowerCase() === student.name.toLowerCase() ? 'selected' : ''}>
-        ${st.name} (${st.gradeName || 'Kelas ' + st.grade})
+      <option value="${window.escapeHtml(st.name)}" ${String(st.name || '').toLowerCase() === String(student.name || '').toLowerCase() ? 'selected' : ''}>
+        ${window.escapeHtml(st.name)} (${window.escapeHtml(st.gradeName || 'Kelas ' + st.grade)})
       </option>
     `).join('');
 
@@ -1108,17 +1110,17 @@
     if (studentSubs.length > 0) {
       performanceRows = studentSubs.map((sub, i) => {
         const isPassed = sub.passed || Number(sub.score) >= KKM_SCORE;
-        const subjName = sub.displaySubject || sub.chapterTitle || 'Latihan Bab';
-        const dateStr = sub.timestamp || '-';
+        const subjName = String(sub.displaySubject || sub.chapterTitle || 'Latihan Bab');
+        const dateStr = String(sub.timestamp || '-');
         const subjectCategory = subjName.toLowerCase().includes('fisika') ? 'Fisika' : 'Matematika';
 
         return `
           <tr class="border-b border-slate-200 text-xs text-slate-800">
             <td class="py-2.5 px-3 text-center font-bold text-slate-600">${i + 1}</td>
             <td class="py-2.5 px-3 font-semibold text-slate-800">${subjectCategory}</td>
-            <td class="py-2.5 px-3 font-medium text-slate-900">${subjName}</td>
-            <td class="py-2.5 px-3 text-center text-slate-600 font-mono text-[11px]">${dateStr}</td>
-            <td class="py-2.5 px-3 text-center font-bold font-mono text-sm ${isPassed ? 'text-emerald-700' : 'text-rose-700'}">${sub.score}</td>
+            <td class="py-2.5 px-3 font-medium text-slate-900">${window.escapeHtml(subjName)}</td>
+            <td class="py-2.5 px-3 text-center text-slate-600 font-mono text-[11px]">${window.escapeHtml(dateStr)}</td>
+            <td class="py-2.5 px-3 text-center font-bold font-mono text-sm ${isPassed ? 'text-emerald-700' : 'text-rose-700'}">${Number.isFinite(Number(sub.score)) ? window.escapeHtml(Number(sub.score)) : '-'}</td>
             <td class="py-2.5 px-3 text-center font-mono text-slate-600">${KKM_SCORE}</td>
             <td class="py-2.5 px-3 text-center">
               <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isPassed ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'}">
@@ -1152,7 +1154,7 @@
                 <span>Rapor Capaian Belajar Siswa (Pratinjau Cetak)</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Mode Guru</span>
               </h3>
-              <p class="text-[11px] text-slate-400">Pilih siswa dan klik cetak untuk menghasilkan dokumen resmi format A4 PDF.</p>
+              <p class="text-[11px] text-slate-400">Rekap lokal untuk melihat kemajuan latihan. Hasil cetak ini bukan rapor resmi sekolah.</p>
             </div>
           </div>
 
@@ -1189,16 +1191,16 @@
               </div>
               <div>
                 <h1 class="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 uppercase">THE ARICH STUDY PLATFORM</h1>
-                <p class="text-xs font-bold text-slate-700 uppercase tracking-wide">Pusat Asesmen & Pembelajaran Terstandar Kurikulum Merdeka</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">Sistem Pengukuran Capaian Kompetensi Belajar Siswa • Web: thearichstudy.edu.id</p>
+            <p class="text-xs font-bold text-slate-700 uppercase tracking-wide">Materi latihan dan rekap belajar mandiri</p>
+            <p class="text-[10px] text-slate-500 mt-0.5">Aplikasi belajar statis • data tersimpan pada browser ini</p>
               </div>
             </div>
 
             <!-- Doc Meta Code -->
             <div class="text-right text-[10px] text-slate-500 font-mono hidden sm:block">
-              <span class="block font-bold text-slate-700">DOKUMEN RESMI RAPOR CBT</span>
-              <span>NO: ARICH/RAPOR/${dateNow.getFullYear()}/${Math.floor(100000 + Math.random() * 900000)}</span>
-              <span class="block text-emerald-700 font-semibold">STATUS: TERVERIFIKASI SISTEM ✓</span>
+                <span class="block font-bold text-slate-700">REKAP BELAJAR LOKAL</span>
+                <span>Dibuat: ${formattedPrintDate}</span>
+                <span class="block text-amber-700 font-semibold">BUKAN DOKUMEN RESMI / TERVERIFIKASI</span>
             </div>
           </div>
 
@@ -1214,15 +1216,15 @@
           <div class="rounded-xl border border-slate-300 bg-slate-50/70 p-4 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-xs">
             <div class="flex items-center justify-between border-b border-slate-200/80 pb-1.5">
               <span class="text-slate-500 font-medium">Nama Lengkap Siswa:</span>
-              <span class="font-bold text-slate-900 text-sm uppercase">${student.name}</span>
+              <span class="font-bold text-slate-900 text-sm uppercase">${window.escapeHtml(student.name || 'Siswa')}</span>
             </div>
             <div class="flex items-center justify-between border-b border-slate-200/80 pb-1.5">
               <span class="text-slate-500 font-medium">Jenjang & Kelas:</span>
-              <span class="font-bold text-indigo-900">${student.gradeName || 'Kelas ' + student.grade}</span>
+              <span class="font-bold text-indigo-900">${window.escapeHtml(student.gradeName || 'Kelas ' + student.grade)}</span>
             </div>
             <div class="flex items-center justify-between border-b border-slate-200/80 pb-1.5">
               <span class="text-slate-500 font-medium">Asal Sekolah:</span>
-              <span class="font-semibold text-slate-800">${student.school || 'Sekolah Terdaftar'}</span>
+              <span class="font-semibold text-slate-800">${window.escapeHtml(student.school || 'Belajar Mandiri')}</span>
             </div>
             <div class="flex items-center justify-between border-b border-slate-200/80 pb-1.5">
               <span class="text-slate-500 font-medium">Periode Akademik:</span>
@@ -1233,7 +1235,7 @@
               <span class="font-black text-sm font-mono text-indigo-700">${avgScore} / 100</span>
             </div>
             <div class="flex items-center justify-between pt-1">
-              <span class="text-slate-500 font-medium">Standar KKM Nasional:</span>
+              <span class="text-slate-500 font-medium">Batas lulus latihan:</span>
               <span class="font-bold text-slate-700 font-mono">${KKM_SCORE}</span>
             </div>
           </div>
@@ -1302,45 +1304,45 @@
                 <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                 <span>Predikat Kualitatif: ${predicate}</span>
               </div>
-              <textarea id="rapor-editable-notes" rows="3" class="w-full p-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-xs focus:outline-none focus:border-indigo-600 leading-relaxed font-sans shadow-2xs resize-y">${defaultTeacherRemarks}</textarea>
+              <textarea id="rapor-editable-notes" rows="3" class="w-full p-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-xs focus:outline-none focus:border-indigo-600 leading-relaxed font-sans shadow-2xs resize-y">${window.escapeHtml(defaultTeacherRemarks)}</textarea>
             </div>
           </div>
 
-          <!-- LEGAL SIGN-OFF BLOCK -->
+          <!-- Informational footer; this document carries no institutional authority. -->
           <div class="pt-4 border-t border-slate-300 grid grid-cols-2 gap-8 text-xs text-slate-800">
             <!-- Left Signature: Divisi Akademik -->
             <div class="text-center space-y-1">
               <p class="text-slate-500">Mengetahui,</p>
-              <p class="font-bold text-slate-900">Kepala Divisi Akademik & LMS</p>
+              <p class="font-bold text-slate-900">Catatan pembimbing (opsional)</p>
               <div class="h-20 flex items-center justify-center my-1 relative">
                 <!-- Digital Signature & Official Stamp SVG Illustration -->
                 <div class="w-24 h-16 border-2 border-indigo-700/60 rounded-full flex flex-col items-center justify-center text-[8px] font-bold text-indigo-800 rotate-[-8deg] p-1 shadow-2xs select-none">
-                  <span class="uppercase tracking-widest text-[7px] text-amber-600">★ RESMI ★</span>
+                  <span class="uppercase tracking-widest text-[7px] text-amber-600">★ BELAJAR ★</span>
                   <span class="leading-none text-[8px]">THE ARICH STUDY</span>
                   <span class="text-[7px] font-mono text-slate-500">PUSAT ASESMEN</span>
                 </div>
               </div>
-              <p class="font-bold text-slate-900 underline underline-offset-2">Dr. Fahreza Kautsar, M.Sc.</p>
-              <p class="text-[10px] text-slate-500 font-mono">NIP. 19880415 201201 1 002</p>
+              <p class="font-bold text-slate-900 underline underline-offset-2">The Arich Study</p>
+              <p class="text-[10px] text-slate-500">Rekap dibuat pada perangkat ini</p>
             </div>
 
             <!-- Right Signature: Guru Pembimbing -->
             <div class="text-center space-y-1">
-              <p class="text-slate-500">Dikeluarkan di: Jakarta</p>
+              <p class="text-slate-500">Rekap belajar mandiri</p>
               <p class="text-slate-500">Pada tanggal: <span class="font-semibold text-slate-900">${formattedPrintDate}</span></p>
               <p class="font-bold text-slate-900 mt-1">Guru Pembimbing / Wali Akademik</p>
               <div class="h-16 flex items-center justify-center my-1">
                 <span class="font-serif italic text-lg text-indigo-900 select-none opacity-80">The Arich Academic Team</span>
               </div>
-              <p class="font-bold text-slate-900 underline underline-offset-2">Tim Akademik The Arich Study</p>
-              <p class="text-[10px] text-slate-500 font-mono">ID Fasilitator: ARICH-FAC-2026</p>
+              <p class="font-bold text-slate-900 underline underline-offset-2">Tidak ada tanda tangan/verifikasi institusi</p>
+              <p class="text-[10px] text-slate-500">Data hanya tersedia di browser ini</p>
             </div>
           </div>
 
           <!-- FOOTER WATERMARK -->
           <div class="pt-3 border-t border-slate-200 flex items-center justify-between text-[9px] text-slate-400">
-            <span>Dokumen ini diterbitkan secara resmi melalui Sistem Evaluasi LMS The Arich Study Platform.</span>
-            <span>Halaman 1 dari 1 (Dokumen Sah)</span>
+            <span>Ringkasan latihan lokal; bukan rapor atau dokumen resmi sekolah.</span>
+            <span>Hasil cetak tidak diverifikasi</span>
           </div>
 
         </div>
@@ -1352,7 +1354,7 @@
   }
 
   /**
-   * Triggers browser print dialog for the official report card.
+   * Triggers the browser print dialog for the local learning summary.
    */
   function printReportCard() {
     window.print();
@@ -1408,7 +1410,7 @@
         }
 
         /* Reset modal overlay when printing */
-        #modal-official-student-rapor {
+        #modal-local-learning-report {
           position: static !important;
           background: transparent !important;
           padding: 0 !important;

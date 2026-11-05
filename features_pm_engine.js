@@ -43,7 +43,7 @@
   };
 
   const PMState = {
-    // Mode: 'drill' (latihan mandiri dengan petunjuk) | 'cat' (simulasi resmi 42.5m)
+    // Mode: 'drill' (latihan mandiri dengan petunjuk) | 'cat' (simulasi bertimer 42.5m)
     examMode: 'cat',
     isActive: false,
     currentQuestionIndex: 0,
@@ -257,7 +257,7 @@
             </button>
             <div class="flex items-center gap-2">
               <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold text-[11px] tracking-wide" id="pm-package-badge">
-                UTBK SNBT • Paket A
+                Latihan PM • Paket A
               </span>
               <span class="font-bold text-slate-100 text-xs hidden md:inline" id="pm-mode-badge-label">
                 Penalaran Matematika
@@ -568,7 +568,7 @@
               </div>
               <div>
                 <h3 class="text-base font-bold text-white">Katalog Paket Penalaran Matematika (PM)</h3>
-                <span class="text-xs text-slate-400">Pilih dari 5 Paket Standar BPPP Kemendikbudristek • Total 100 Soal HOTS</span>
+                <span class="text-xs text-slate-400">Pilih dari 5 paket latihan Penalaran Matematika • Total 100 soal</span>
               </div>
             </div>
             <button type="button" onclick="window.featuresPMEngine.closePackagePicker()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
@@ -591,7 +591,7 @@
             <div>
               <div class="flex items-center gap-2 mb-1.5">
                 <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 font-semibold text-xs border border-indigo-500/30" id="pm-review-package-badge">
-                  UTBK SNBT • Paket A
+                  Latihan PM • Paket A
                 </span>
                 <span class="text-xs text-slate-400 font-mono" id="pm-review-date"></span>
               </div>
@@ -599,15 +599,15 @@
                 Diagnostik Penalaran Matematika
               </h2>
               <p class="text-xs text-slate-400 mt-1 max-w-xl leading-relaxed">
-                Evaluasi komprehensif penguasaan 4 domain materi UTBK, kecepatan pengerjaan, dan analisis dekonstruksi wacana.
+                Ringkasan latihan untuk melihat akurasi dan capaian pada empat ranah matematika.
               </p>
             </div>
 
             <div class="flex items-center gap-3 shrink-0">
               <div class="text-center px-5 py-3 rounded-xl bg-dark-950 border border-slate-800">
-                <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Skor Skala UTBK</span>
+                <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Skor latihan internal</span>
                 <span class="text-3xl font-black text-emerald-400 font-mono mt-0.5 block" id="pm-review-scaled-score">720</span>
-                <span class="text-[10px] text-slate-500 block">Rentang 200 - 800+</span>
+                <span class="text-[10px] text-slate-500 block">Bukan skala IRT resmi</span>
               </div>
 
               <div class="text-center px-5 py-3 rounded-xl bg-dark-950 border border-slate-800">
@@ -748,12 +748,12 @@
     // Clear drawings repo for new exam if requested
     window.userDrawings = window.userDrawings || {};
 
-    // Load authentic stimuli & question bank based on packageId
+    // Load the selected practice package and its stimuli.
     const pkgs = window.PM_PACKAGES || {};
     const pkg = pkgs[packageId] || pkgs['paket-1'] || {
       id: 'paket-1',
       code: 'Paket A',
-      title: 'Paket A — Standar BPPP Inti',
+      title: 'Paket A — Penalaran Matematika',
       questions: window.PM_QUESTIONS || [],
       stimuli: window.PM_STIMULI || []
     };
@@ -778,14 +778,14 @@
     // Configure mode
     const pkgBadgeCode = (PMState.currentPackage && PMState.currentPackage.code) ? PMState.currentPackage.code : 'Paket A';
     if (DOM.packageBadge) {
-      DOM.packageBadge.textContent = 'UTBK SNBT • ' + pkgBadgeCode;
+      DOM.packageBadge.textContent = 'Latihan PM • ' + pkgBadgeCode;
     }
     if (mode === 'drill') {
       DOM.modeBadgeLabel.textContent = "Mode Drill Mandiri • " + pkgBadgeCode;
       DOM.btnDeconstructor.classList.remove('hidden');
       DOM.btnDeconstructor.classList.add('flex');
     } else {
-      DOM.modeBadgeLabel.textContent = "Simulasi CAT (42,5m) • " + pkgBadgeCode;
+      DOM.modeBadgeLabel.textContent = "Simulasi bertimer (42:30) • " + pkgBadgeCode;
       DOM.btnDeconstructor.classList.add('hidden');
       DOM.btnDeconstructor.classList.remove('flex');
     }
@@ -886,65 +886,42 @@
     }
   }
 
-    function renderPackagePickerCards(containerId = 'pm-package-catalog-cards') {
+  function renderPMPackageRow(key, pkg) {
+    const questionCount = pkg.questions ? pkg.questions.length : 20;
+    return `
+      <article class="pm-package-row">
+        <div class="pm-package-copy">
+          <div class="pm-package-meta">
+            <span class="pm-package-code">${pkg.code}</span>
+            <span>${questionCount} soal</span>
+            <span>42 menit 30 detik</span>
+          </div>
+          <h4>${pkg.title}</h4>
+          <p>${pkg.description}</p>
+        </div>
+        <div class="pm-package-actions">
+          <button type="button" class="pm-package-secondary" onclick="(window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : null); openPMStudyMode('${key}')">
+            <i data-lucide="book-open" class="w-4 h-4"></i><span>Lihat pembahasan</span>
+          </button>
+          <button type="button" class="pm-package-primary" onclick="(window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : null); startPMExam('cat', '${key}')">
+            <span>Mulai simulasi</span><i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+          <button type="button" class="pm-package-print" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${key}') : null" aria-label="Cetak paket ${pkg.code}" title="Cetak atau simpan sebagai PDF">
+            <i data-lucide="printer" class="w-4 h-4"></i><span>PDF</span>
+          </button>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderPackagePickerCards(containerId = 'pm-package-modal-list') {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    const pkgs = window.PM_PACKAGES || {};
-    const pkgKeys = ['paket-1', 'paket-2', 'paket-3', 'paket-4', 'paket-5'];
-
-    const html = pkgKeys.map(k => {
-      const p = pkgs[k];
-      if (!p) return '';
-      const isCurrent = (PMState.currentPackageId === k);
-      const qCount = p.questions ? p.questions.length : 20;
-
-      return `
-        <div class="clean-card rounded-2xl p-5 border ${isCurrent ? 'border-indigo-500/60 bg-indigo-950/25 shadow-indigo-500/15 shadow-xl' : 'border-slate-800 bg-slate-900/90'} hover:border-slate-700 transition flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="px-3 py-1 rounded-lg ${isCurrent ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold' : 'bg-slate-800 text-slate-200 font-bold'} text-xs tracking-wide">
-                ${p.code}
-              </span>
-              <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
-                <span>${qCount} Soal • 42,5m</span>
-              </span>
-            </div>
-
-            <h4 class="text-base font-extrabold text-white leading-snug">
-              ${p.title}
-            </h4>
-            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed line-clamp-3">
-              ${p.description}
-            </p>
-
-            <div class="flex flex-wrap gap-1.5 pt-1">
-              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Bilangan</span>
-              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Aljabar</span>
-              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Geometri</span>
-              <span class="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-800/90 text-slate-200 border border-slate-700/70 font-medium">Data & Peluang</span>
-            </div>
-          </div>
-
-          <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
-            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${k}') : null" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Cetak / Unduh Naskah Soal ${p.code} (PDF)">
-              <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
-            </button>
-            <button type="button" onclick="(window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : null); openPMStudyMode('${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Bedah Soal & Kunci (Mode Santai Tanpa Timer)">
-              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-              <span>Bedah Soal</span>
-            </button>
-            <button type="button" onclick="(window.featuresPMEngine ? window.featuresPMEngine.closePackagePicker() : null); startPMExam('cat', '${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/25 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT Resmi (42,5 Menit)">
-              <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
-              <span>Mulai CAT</span>
-            </button>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    container.innerHTML = html;
+    const packages = window.PM_PACKAGES || {};
+    const keys = ['paket-1', 'paket-2', 'paket-3', 'paket-4', 'paket-5'];
+    container.classList.add('pm-package-list');
+    container.innerHTML = keys.map(key => packages[key] ? renderPMPackageRow(key, packages[key]) : '').join('');
     if (window.lucide) window.lucide.createIcons();
   }
 
@@ -952,76 +929,13 @@
     const container = document.getElementById('pm-dedicated-catalog-cards');
     if (!container) return;
 
-    // Update filter buttons
-    const filterBtns = document.querySelectorAll('.pm-filter-btn');
-    filterBtns.forEach(b => {
-      b.className = 'pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-dark-850 hover:bg-dark-800 border border-slate-700 text-slate-300 hover:text-white transition cursor-pointer';
-    });
-    const activeBtn = document.getElementById(`pm-filter-${filter}`);
-    if (activeBtn) {
-      activeBtn.className = 'pm-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition cursor-pointer';
-    }
-
-    const pkgs = window.PM_PACKAGES || {};
+    const packages = window.PM_PACKAGES || {};
     const allKeys = ['paket-1', 'paket-2', 'paket-3', 'paket-4', 'paket-5'];
-    const keysToRender = (filter === 'all') ? allKeys : (allKeys.includes(filter) ? [filter] : allKeys);
-
-    const html = keysToRender.map(k => {
-      const p = pkgs[k];
-      if (!p) return '';
-      const qCount = p.questions ? p.questions.length : 20;
-
-      return `
-        <div class="clean-card rounded-2xl p-6 border border-slate-800 hover:border-slate-700 bg-slate-900/90 transition flex flex-col justify-between space-y-5 shadow-lg group">
-          <div class="space-y-3.5">
-            <div class="flex items-center justify-between">
-              <span class="px-3 py-1 rounded-xl bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-xs font-extrabold tracking-wide">
-                ${p.code}
-              </span>
-              <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
-                <span>${qCount} Soal • 42,5m</span>
-              </span>
-            </div>
-
-            <h4 class="text-lg font-extrabold text-white leading-snug group-hover:text-indigo-300 transition">
-              ${p.title}
-            </h4>
-
-            <p class="text-sm text-slate-200 leading-relaxed line-clamp-3">
-              ${p.description}
-            </p>
-
-            <div class="flex flex-wrap gap-1.5 pt-1">
-              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Bilangan</span>
-              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Aljabar</span>
-              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Geometri</span>
-              <span class="px-2.5 py-0.5 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700 font-medium">Data & Peluang</span>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-slate-800 flex items-center justify-between gap-2.5">
-            <button type="button" onclick="window.TheArichExamDownloader ? window.TheArichExamDownloader.openForPMPackage('${k}') : null" class="p-2.5 rounded-xl bg-dark-950 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white transition flex items-center justify-center cursor-pointer shrink-0" title="Cetak / Simpan Naskah PDF ${p.code}">
-              <i data-lucide="printer" class="w-4 h-4 text-indigo-400"></i>
-            </button>
-            <button type="button" onclick="openPMStudyMode('${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" title="Mode Bedah Soal (Tanpa Timer)">
-              <i data-lucide="book-open" class="w-4 h-4"></i>
-              <span>Bedah Soal</span>
-            </button>
-            <button type="button" onclick="startPMExam('cat', '${k}')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition text-center shadow-md shadow-indigo-600/30 cursor-pointer flex items-center justify-center gap-1.5" title="Mulai Simulasi CAT (42,5 Menit)">
-              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-              <span>Mulai CAT</span>
-            </button>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    container.innerHTML = html;
+    const keys = filter !== 'all' && allKeys.includes(filter) ? [filter] : allKeys;
+    container.innerHTML = keys.map(key => packages[key] ? renderPMPackageRow(key, packages[key]) : '').join('');
     if (window.lucide) window.lucide.createIcons();
   }
 
-  // ============================================================================
   // 6B. STUDY / BEDAH SOAL MODE (ZERO TIMER PRESSURE & FULL EXPLANATIONS)
   // ============================================================================
   const PMStudyState = {
@@ -1282,7 +1196,7 @@
             <div class="p-3.5 rounded-xl ${isCorrect ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300' : 'bg-rose-500/15 border border-rose-500/30 text-rose-300'} text-xs font-semibold flex items-center justify-between mb-3 shadow-sm">
               <div class="flex items-center gap-2">
                 <i data-lucide="${isCorrect ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i>
-                <span>${isCorrect ? 'Jawaban Tepat Sekali! Cocok dengan Kunci Resmi BP3.' : `Pilihan (${userPick}) belum tepat. Kunci yang benar adalah ${correctLetter}.`}</span>
+                <span>${isCorrect ? 'Jawaban tepat. Cocok dengan kunci pada paket latihan ini.' : `Pilihan (${userPick}) belum tepat. Kunci latihan yang benar adalah ${correctLetter}.`}</span>
               </div>
               <button type="button" onclick="resetPMStudySelection()" class="text-[11px] underline font-bold opacity-80 hover:opacity-100 cursor-pointer">Coba Ulang</button>
             </div>
@@ -1331,7 +1245,7 @@
             <div class="flex-1 text-sm sm:text-base font-medium leading-relaxed">
               ${opt.text}
             </div>
-            ${isTeacher && isCorrectKey ? '<span class="text-xs font-bold text-emerald-400 shrink-0 self-center">✓ Kunci Resmi</span>' : ''}
+            ${isTeacher && isCorrectKey ? '<span class="text-xs font-bold text-emerald-400 shrink-0 self-center">✓ Kunci Latihan</span>' : ''}
             ${!isTeacher && isUserSelected ? '<span class="text-xs font-semibold text-indigo-300 shrink-0 self-center">Pilihanmu</span>' : ''}
           </div>
         `;
@@ -1348,7 +1262,7 @@
             <thead class="bg-dark-950 border-b border-slate-800 text-slate-400">
               <tr>
                 <th class="p-3 font-semibold">Pernyataan Soal</th>
-                <th class="p-3 text-center w-36 font-semibold">${isTeacher ? 'Status Kunci Resmi' : 'Uji Pilihan Siswa'}</th>
+                <th class="p-3 text-center w-36 font-semibold">${isTeacher ? 'Kunci Paket Latihan' : 'Uji Pilihan Siswa'}</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-800 bg-slate-900/60">
@@ -1462,12 +1376,12 @@ function handlePMStudyOptionSelect(optKey) {
       const expected = parseFloat(q.correctNumeric);
 
       if (Math.abs(val - expected) < 0.001) {
-        fb.innerHTML = '<span class="text-emerald-400 font-bold">✓ Tepat sekali! Cocok dengan kunci resmi (' + expected + ').</span>';
+        fb.innerHTML = '<span class="text-emerald-400 font-bold">✓ Tepat sekali! Cocok dengan kunci latihan (' + expected + ').</span>';
       } else {
-        fb.innerHTML = '<span class="text-rose-400 font-bold">✗ Belum tepat. Angka: ' + val + ', Kunci Resmi: ' + expected + '.</span>';
+        fb.innerHTML = '<span class="text-rose-400 font-bold">✗ Belum tepat. Angka: ' + val + ', kunci latihan: ' + expected + '.</span>';
       }
     } else {
-      fb.innerHTML = '<span class="text-indigo-300 font-semibold">✓ Jawaban isianmu tersimpan: <strong>' + val + '</strong>. Kunci angka resmi hanya dapat dibuka di Mode Guru.</span>';
+      fb.innerHTML = '<span class="text-indigo-300 font-semibold">✓ Jawaban isianmu tersimpan: <strong>' + val + '</strong>. Kunci latihan dapat dibuka di Mode Guru.</span>';
     }
   }
 
@@ -2008,7 +1922,7 @@ function handlePMStudyOptionSelect(optKey) {
     PMState.diagnosticResult = {
       packageId: PMState.currentPackageId || 'paket-1',
       packageCode: (PMState.currentPackage && PMState.currentPackage.code) ? PMState.currentPackage.code : 'Paket A',
-      packageTitle: (PMState.currentPackage && PMState.currentPackage.title) ? PMState.currentPackage.title : 'Paket A — Standar BPPP Inti',
+      packageTitle: (PMState.currentPackage && PMState.currentPackage.title) ? PMState.currentPackage.title : 'Paket A — Penalaran Matematika',
       itemResults,
       correctCount,
       totalQuestions: PM_CONFIG.TOTAL_QUESTIONS,
@@ -2043,7 +1957,7 @@ function handlePMStudyOptionSelect(optKey) {
 
     DOM.reviewDate.textContent = res.submittedAt;
     if (DOM.reviewPackageBadge) {
-      DOM.reviewPackageBadge.textContent = res.packageTitle || 'Paket A — Standar BPPP Inti';
+      DOM.reviewPackageBadge.textContent = res.packageTitle || 'Paket A — Penalaran Matematika';
     }
     DOM.reviewScaledScore.textContent = res.scaledScore;
     DOM.reviewAccuracy.textContent = `${res.correctCount} / ${res.totalQuestions}`;
@@ -2321,9 +2235,8 @@ function handlePMStudyOptionSelect(optKey) {
   function init() {
     injectPMStyles();
     injectPMMarkup();
-    // Render package cards in catalog or modal if present
+    // Render the dedicated package catalog and the optional package picker.
     setTimeout(() => {
-      renderPackagePickerCards('pm-package-catalog-cards');
       renderPackagePickerCards('pm-package-modal-list');
       renderPMPackageCatalog();
     }, 100);

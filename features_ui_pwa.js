@@ -519,16 +519,16 @@
               <!-- Certificate Header -->
               <div class="mb-4">
                 <div class="text-[10px] tracking-[0.25em] font-extrabold uppercase text-indigo-700">
-                  THE ARICH STUDY &bull; PUSAT PEMBELAJARAN MATEMATIKA & FISIKA
+                  THE ARICH STUDY &bull; CATATAN BELAJAR MANDIRI
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1 font-serif uppercase">
-                  SERTIFIKAT KELULUSAN
+                  SERTIFIKAT APRESIASI BELAJAR
                 </h1>
                 <div class="h-0.5 w-24 bg-gradient-to-r from-amber-400 to-indigo-600 mx-auto mt-2"></div>
               </div>
 
               <!-- Certificate Body Text -->
-              <p class="text-xs text-slate-600 italic">Diberikan secara resmi kepada:</p>
+              <p class="text-xs text-slate-600 italic">Apresiasi belajar untuk:</p>
               
               <div class="my-4">
                 <h2 id="cert-student-name" class="text-xl sm:text-2xl font-black text-indigo-950 font-serif tracking-normal border-b-2 border-slate-300 pb-1.5 inline-block min-w-[280px]">
@@ -540,7 +540,7 @@
               </div>
 
               <p class="text-xs sm:text-sm text-slate-700 max-w-lg mx-auto leading-relaxed">
-                Telah berhasil menyelesaikan pembelajaran modul komprehensif dan evaluasi uji kompetensi pada materi:
+                Telah menyelesaikan latihan mandiri pada materi:
               </p>
 
               <!-- Chapter Title Badge -->
@@ -568,22 +568,22 @@
                 <div>
                   <div id="cert-date" class="text-slate-600 text-[11px]">Jakarta, 30 Oktober 2026</div>
                   <div class="h-12 flex items-center justify-center">
-                    <span class="text-indigo-600 font-serif italic text-sm font-bold tracking-wider">The Arich Academy</span>
+                    <span class="text-indigo-600 font-serif italic text-sm font-bold tracking-wider">The Arich Study</span>
                   </div>
                   <div class="font-bold text-slate-800 text-[11px] border-t border-slate-400 pt-1 inline-block min-w-[140px]">
-                    Tim Kurikulum The Arich
+                    Dibuat otomatis di browser
                   </div>
                 </div>
 
                 <div>
-                  <div class="text-slate-600 text-[11px]">Verifikasi Sistem Digital</div>
+                  <div class="text-slate-600 text-[11px]">Kode lokal, bukan verifikasi</div>
                   <div class="h-12 flex items-center justify-center">
                     <div class="w-10 h-10 rounded-full border-2 border-amber-500 flex items-center justify-center text-amber-600 font-mono text-[9px] font-black uppercase">
-                      VERIFIED
+                      LOKAL
                     </div>
                   </div>
                   <div class="font-mono text-[10px] text-slate-500 border-t border-slate-400 pt-1 inline-block min-w-[140px]" id="cert-verify-id">
-                    ID: ARICH-2026-9482
+                    ID: TIDAK TERVERIFIKASI
                   </div>
                 </div>
               </div>
@@ -628,7 +628,7 @@
       year: 'numeric'
     });
 
-    const verifyCode = 'ARICH-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    const verifyCode = 'LOKAL-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
     // Populate data
     document.getElementById('cert-student-name').textContent = student.name;
@@ -681,7 +681,7 @@
             <span class="w-6 h-6 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-xs">
               <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
             </span>
-            <span class="text-xs font-bold tracking-wide">Rapor Belajar Siswa (Academic Report Card)</span>
+            <span class="text-xs font-bold tracking-wide">Rekap Belajar Lokal</span>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="window.TheArichUI.printReportCard()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition">
@@ -702,12 +702,12 @@
             <div>
               <div class="flex items-center gap-2">
                 <span class="font-extrabold text-indigo-700 text-lg sm:text-xl tracking-tight">The Arich <span class="text-slate-900">Study</span></span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold uppercase">Rapor Akademik</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold uppercase">Rekap Nonformal</span>
               </div>
-              <p class="text-xs text-slate-600 mt-0.5">Platform Pembelajaran Terstandar Kurikulum Merdeka Matematika & Fisika</p>
+              <p class="text-xs text-slate-600 mt-0.5">Ringkasan latihan mandiri; bukan rapor resmi sekolah</p>
             </div>
             <div class="text-left sm:text-right text-xs text-slate-500 font-mono">
-              <div id="rc-doc-num">NO: ARICH-RAPOR-2026/01</div>
+              <div id="rc-doc-num">Kode lokal (bukan verifikasi)</div>
               <div id="rc-print-date">Dicetak: 30 Oktober 2026</div>
             </div>
           </div>
@@ -715,7 +715,7 @@
           <!-- Student Profile Grid -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-5">
             <div>
-              <span class="text-slate-500 text-[10px] uppercase font-bold block">Nama Lengkap</span>
+              <span class="text-slate-500 text-[10px] uppercase font-bold block">Nama panggilan</span>
               <strong id="rc-student-name" class="text-slate-900 text-sm">-</strong>
             </div>
             <div>
@@ -723,7 +723,7 @@
               <strong id="rc-student-grade" class="text-slate-900 text-sm">-</strong>
             </div>
             <div>
-              <span class="text-slate-500 text-[10px] uppercase font-bold block">Asal Sekolah</span>
+              <span class="text-slate-500 text-[10px] uppercase font-bold block">Konteks belajar</span>
               <strong id="rc-student-school" class="text-slate-900 text-sm">-</strong>
             </div>
             <div>
@@ -743,7 +743,7 @@
               <div id="rc-total-exams" class="text-2xl font-black text-slate-800 font-mono">0</div>
             </div>
             <div class="p-3 rounded-xl border border-slate-200 bg-white">
-              <span class="text-slate-500 text-[10px] uppercase font-bold block">Status Kelulusan</span>
+              <span class="text-slate-500 text-[10px] uppercase font-bold block">Status latihan</span>
               <div id="rc-status-summary" class="text-base sm:text-lg font-black text-emerald-700 mt-1">Sangat Baik</div>
             </div>
           </div>
@@ -770,7 +770,7 @@
 
           <!-- Notes & Evaluation -->
           <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-xs mb-6 space-y-1">
-            <div class="font-bold text-slate-800">Catatan & Rekomendasi Guru:</div>
+            <div class="font-bold text-slate-800">Catatan belajar:</div>
             <p id="rc-teacher-notes" class="text-slate-600 leading-relaxed">
               Siswa menunjukkan komitmen belajar yang luar biasa dalam mempelajari konsep dan menyelesaikan latihan soal mandiri. Tingkatkan pemahaman pada subtopik pemodelan dan variasi soal HOTS untuk persiapan UTBK SNBT.
             </p>
@@ -785,9 +785,9 @@
               </div>
             </div>
             <div>
-              <div class="text-slate-500 text-[11px]">Guru Pembimbing The Arich Study:</div>
+              <div class="text-slate-500 text-[11px]">Pernyataan:</div>
               <div class="h-16 flex items-end justify-center">
-                <span class="border-b border-slate-400 pb-1 px-8 font-semibold text-slate-800">Tim Kurikulum Akademik</span>
+                <span class="border-b border-slate-400 pb-1 px-8 font-semibold text-slate-800">Rekap otomatis di browser</span>
               </div>
             </div>
           </div>
@@ -808,7 +808,7 @@
     ensureReportCardModalDOM();
 
     const student = window.currentStudent || {
-      name: 'Siswa The Arich Study',
+      name: 'Siswa',
       grade: '11',
       school: 'Belajar Mandiri'
     };
@@ -824,7 +824,7 @@
     } catch (e) {}
 
     // Filter submissions matching this student
-    const studentRecords = db.filter((r) => r.studentName === student.name);
+    const studentRecords = Array.isArray(db) ? db.filter((r) => String(r.studentName || '') === String(student.name || '')) : [];
 
     // XP
     const xp = (typeof window.getStudentXP === 'function') ? window.getStudentXP() : 0;
@@ -853,9 +853,9 @@
     // Populate Fields
     document.getElementById('rc-student-name').textContent = student.name;
     document.getElementById('rc-student-grade').textContent = gradeName;
-    document.getElementById('rc-student-school').textContent = student.school || 'SMAN 1';
+    document.getElementById('rc-student-school').textContent = student.school || 'Belajar Mandiri';
     document.getElementById('rc-student-xp').textContent = `${xp} XP (${lvl.title})`;
-    document.getElementById('rc-doc-num').textContent = `NO: ARICH-RAPOR-${new Date().getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
+    document.getElementById('rc-doc-num').textContent = 'Kode lokal (bukan verifikasi)';
     document.getElementById('rc-print-date').textContent = `Dicetak: ${todayStr}`;
     document.getElementById('rc-avg-score').textContent = avgScore.toString();
     document.getElementById('rc-total-exams').textContent = totalExams.toString();
@@ -882,9 +882,9 @@
         return `
           <tr class="hover:bg-slate-50">
             <td class="p-2 border-r border-slate-200 text-center font-mono">${idx + 1}</td>
-            <td class="p-2 border-r border-slate-200 text-slate-600 text-[11px]">${rec.timestamp || '-'}</td>
-            <td class="p-2 border-r border-slate-200 font-semibold text-slate-800">${rec.chapter || '-'}</td>
-            <td class="p-2 border-r border-slate-200 text-center font-mono">${rec.correct || '0'} / 15</td>
+            <td class="p-2 border-r border-slate-200 text-slate-600 text-[11px]">${window.escapeHtml(rec.timestamp || '-')}</td>
+            <td class="p-2 border-r border-slate-200 font-semibold text-slate-800">${window.escapeHtml(rec.chapter || '-')}</td>
+            <td class="p-2 border-r border-slate-200 text-center font-mono">${window.escapeHtml(Number(rec.correct) || 0)} / 15</td>
             <td class="p-2 border-r border-slate-200 text-center font-black font-mono ${sc >= 80 ? 'text-emerald-700' : sc >= 70 ? 'text-indigo-700' : 'text-rose-600'}">${sc}</td>
             <td class="p-2 text-center font-medium">${pred}</td>
           </tr>

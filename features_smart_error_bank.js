@@ -6,13 +6,12 @@
  * 
  * FITUR UTAMA:
  * 1. Perekaman Kesalahan Otomatis dari Latihan Bab & Penalaran Matematika UTBK.
- * 2. Penyimpanan Permanen Terikat Akun Siswa (Dual-Storage: LocalStorage + Cloud Sync Google Sheets).
+ * 2. Penyimpanan Permanen Terikat Akun Siswa (LocalStorage only).
  * 3. Halaman "Buku Catatan Salah": Filter Jenjang, Status (Perlu Diulang vs Tuntas), dan Pencarian.
  * 4. Mode "Latih Ulang Interaktif (Remedial Practice)": Siswa mencoba ulang soal yang salah
  *    dengan umpan balik langsung, perayaan XP (+25 XP), dan perubahan status menjadi 'TUNTAS'.
  * 5. Ekspor / Cetak Lembar Remedial Pribadi (PDF Print-Ready).
- * 6. Cloud Restore: Saat login di perangkat baru atau setelah bersihkan cache, seluruh histori
- *    dan bank salah ditarik kembali secara otomatis dari Cloud Akun.
+ * 6. Data disimpan lokal pada browser/perangkat ini dan tidak tersinkron ke akun atau server.
  * ==============================================================================
  */
 
@@ -244,178 +243,18 @@
     },
 
     // ============================================================================
-    // 3. CLOUD SYNCHRONIZATION & MULTI-DEVICE RESTORE
+    // 3. LOCAL-ONLY DATA (STATIC HOSTING PRIVACY)
     // ============================================================================
     getWebhookUrl() {
-      return (window.THE_ARICH_CONFIG && window.THE_ARICH_CONFIG.cloudWebhookUrl)
-        || localStorage.getItem('the_arich_cloud_webhook')
-        || '';
+      return '';
     },
 
-    syncMistakesToCloud(mistakesToSync, student) {
-      const webhook = this.getWebhookUrl();
-      const activeStudent = student || window.currentStudent;
-      if (!webhook || !activeStudent || !mistakesToSync || mistakesToSync.length === 0) return;
-
-      const payload = {
-        action: 'sync_mistakes',
-        studentName: activeStudent.name,
-        mistakes: mistakesToSync
-      };
-
-      try {
-        fetch(webhook, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        }).then(r => r.json()).then(res => {
-          if (res && res.status === 'success') {
-            console.log('[ErrorBank] Berhasil sinkron ke Google Sheet Cloud:', res);
-          }
-        }).catch(err => {
-          console.warn('[ErrorBank] Cloud sync tertunda (offline/timeout):', err);
-        });
-      } catch (e) {
-        console.warn('[ErrorBank] Gagal mengirim sync payload:', e);
-      }
+    syncMistakesToCloud() {
+      return false;
     },
 
-    syncStudentAccount(studentName) {
-      const webhook = this.getWebhookUrl();
-      const name = studentName || (window.currentStudent ? window.currentStudent.name : '');
-      if (!webhook || !name) return;
-
-      this.isSyncing = true;
-      this.updateSyncIndicator(true);
-
-      const payload = {
-        action: 'get_student_data',
-        name: name,
-        studentName: name
-      };
-
-      fetch(webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      })
-      .then(res => res.json())
-      .then(data => {
-        this.isSyncing = false;
-        this.updateSyncIndicator(false);
-
-        if (data && data.status === 'success') {
-          console.log('[ErrorBank] Cloud account data pulled successfully:', data);
-
-          // 1. Merge Submissions History
-          if (Array.isArray(data.submissions) && data.submissions.length > 0) {
-            try {
-              const localDb = JSON.parse(localStorage.getItem('the_arich_submissions_db') || '[]');
-              const existingIds = new Set(localDb.map(r => r.timestamp + '_' + r.displaySubject));
-              let addedSubmissions = 0;
-
-              data.submissions.forEach(sub => {
-                const subKey = sub.timestamp + '_' + sub.displaySubject;
-                if (!existingIds.has(subKey)) {
-                  localDb.push({
-                    id: Date.now() + Math.random(),
-                    timestamp: sub.timestamp,
-                    studentName: sub.studentName,
-                    studentClass: sub.studentClass,
-                    displaySubject: sub.displaySubject,
-                    chapterTitle: sub.displaySubject,
-                    correctCount: sub.correctCount,
-                    totalQuestions: sub.totalQuestions,
-                    score: sub.score,
-                    passed: sub.passed,
-                    syncedToCloud: true
-                  });
-                  addedSubmissions++;
-                }
-              });
-
-              if (addedSubmissions > 0) {
-                localStorage.setItem('the_arich_submissions_db', JSON.stringify(localDb));
-              }
-            } catch (e) {
-              console.warn('[ErrorBank] Gagal merge riwayat latihan:', e);
-            }
-          }
-
-          // 2. Merge Mistakes Bank
-          if (Array.isArray(data.mistakes) && data.mistakes.length > 0) {
-            const localMistakes = this.getMistakes({ name: name });
-            const existingQIds = new Map();
-            localMistakes.forEach((m, idx) => existingQIds.set(m.questionId, idx));
-
-            data.mistakes.forEach(cloudM => {
-              if (existingQIds.has(cloudM.questionId)) {
-                // Sinkronkan status tuntas dari cloud jika ada pembaruan
-                const idx = existingQIds.get(cloudM.questionId);
-                if (cloudM.status === 'TUNTAS' && localMistakes[idx].status !== 'TUNTAS') {
-                  localMistakes[idx].status = 'TUNTAS';
-                }
-              } else {
-                localMistakes.push({
-                  id: `err_cloud_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-                  studentName: cloudM.studentName,
-                  timestamp: cloudM.timestamp || new Date().toLocaleString('id-ID'),
-                  source: 'cloud_sync',
-                  gradeCode: cloudM.gradeName || '11',
-                  gradeName: cloudM.gradeName || 'Latihan',
-                  chapterId: 'cloud_ch',
-                  chapterTitle: cloudM.chapterTitle || 'Bab Belajar',
-                  questionId: cloudM.questionId,
-                  questionText: cloudM.questionText || '',
-                  options: [],
-                  userAnswer: cloudM.userAnswer,
-                  userAnswerText: cloudM.userAnswer,
-                  correctAnswer: cloudM.correctAnswer,
-                  correctAnswerText: cloudM.correctAnswer,
-                  explanation: cloudM.explanation || 'Pembahasan dari Cloud.',
-                  quickTip: '',
-                  status: cloudM.status || 'PERLU_DIULANG',
-                  attempts: cloudM.attempts || 1,
-                  lastAttemptAt: cloudM.lastAttemptAt || cloudM.timestamp
-                });
-              }
-            });
-
-            this.saveMistakes(localMistakes, { name: name });
-          }
-
-          // 3. Re-render View jika sedang terbuka
-          const viewEl = document.getElementById('view-error-bank');
-          if (viewEl && !viewEl.classList.contains('hidden')) {
-            this.renderErrorBankView();
-          }
-        }
-      })
-      .catch(err => {
-        this.isSyncing = false;
-        this.updateSyncIndicator(false);
-        console.warn('[ErrorBank] Cloud account pull timeout/error:', err);
-      });
-    },
-
-    updateSyncIndicator(syncing) {
-      const syncBtn = document.getElementById('btn-error-bank-sync');
-      if (!syncBtn) return;
-      if (syncing) {
-        syncBtn.innerHTML = `
-          <svg class="animate-spin w-3.5 h-3.5 text-rose-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-          </svg>
-          <span class="text-xs font-semibold text-rose-300">Menyinkronkan Akun...</span>
-        `;
-      } else {
-        syncBtn.innerHTML = `
-          <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-400 group-hover:text-rose-400 transition"></i>
-          <span class="text-xs font-semibold text-slate-300 group-hover:text-white transition">Sinkron Cloud Akun</span>
-        `;
-        if (window.lucide) window.lucide.createIcons();
-      }
+    syncStudentAccount() {
+      return false;
     },
 
     // ============================================================================
@@ -595,20 +434,20 @@
                   ${isMastered ? '✅ TUNTAS / DIKUASAI' : '⚠️ PERLU DIULANG'}
                 </span>
                 <span class="px-2.5 py-1 rounded-xl text-xs font-bold bg-dark-850 text-indigo-300 border border-indigo-500/30">
-                  ${m.chapterTitle || 'Latihan Bab'}
+                  ${window.escapeHtml(m.chapterTitle || 'Latihan Bab')}
                 </span>
                 <span class="text-[11px] text-slate-500">
-                  Dicatat: ${m.timestamp}
+                  Dicatat: ${window.escapeHtml(m.timestamp || '-')}
                 </span>
               </div>
               <div class="text-[11px] font-semibold text-slate-400">
-                Percobaan: <span class="text-white font-bold">${m.attempts || 1}x</span>
+                Percobaan: <span class="text-white font-bold">${window.escapeHtml(m.attempts || 1)}x</span>
               </div>
             </div>
 
             <!-- Teks Soal -->
             <div class="text-sm sm:text-base text-slate-100 font-medium leading-relaxed overflow-x-auto eb-question-body">
-              ${m.questionText}
+              ${window.sanitizeRichHtml(m.questionText || '')}
             </div>
 
             <!-- Rekap Jawaban Siswa vs Kunci -->
@@ -619,7 +458,7 @@
                   <span>Jawaban Terakhir Siswa:</span>
                 </div>
                 <div class="text-slate-300 pl-5 font-mono break-words">
-                  ${m.userAnswerText || 'Tidak Dijawab'}
+                  ${window.escapeHtml(m.userAnswerText || 'Tidak Dijawab')}
                 </div>
               </div>
               <div class="space-y-1">
@@ -628,7 +467,7 @@
                   <span>Kunci & Petunjuk:</span>
                 </div>
                 <div class="text-slate-300 pl-5 font-mono break-words">
-                  ${isMastered ? (m.correctAnswerText || 'Terselesaikan') : 'Terkunci (Coba Latih Ulang)'}
+                  ${window.escapeHtml(isMastered ? (m.correctAnswerText || 'Terselesaikan') : 'Jawaban tersedia saat latihan ulang')}
                 </div>
               </div>
             </div>
@@ -645,18 +484,18 @@
               <div class="px-4 py-3 border-t border-slate-800 text-slate-300 leading-relaxed space-y-2">
                 ${m.quickTip ? `
                   <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs font-medium">
-                    ⚡ <strong>Trik Cepat:</strong> ${m.quickTip}
+                    ⚡ <strong>Trik Cepat:</strong> ${window.sanitizeRichHtml(m.quickTip)}
                   </div>
                 ` : ''}
                 <div class="text-xs eb-explanation-body">
-                  ${m.explanation || 'Pembahasan bertahap tersedia saat melatih ulang.'}
+                  ${window.sanitizeRichHtml(m.explanation || 'Pembahasan bertahap tersedia saat melatih ulang.')}
                 </div>
               </div>
             </details>
 
             <!-- Action Buttons -->
             <div class="flex items-center justify-end gap-2.5 pt-2">
-              <button onclick="window.TheArichErrorBank.startRemedial('${m.questionId}')" class="px-4 py-2 rounded-xl bg-gradient-to-r ${isMastered ? 'from-slate-700 to-slate-800 text-slate-200' : 'from-rose-600 via-red-600 to-orange-600 text-white shadow-lg shadow-rose-600/20'} font-bold text-xs flex items-center gap-1.5 hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer">
+              <button type="button" data-remedial-question="${window.escapeHtml(m.questionId)}" class="px-4 py-2 rounded-xl bg-gradient-to-r ${isMastered ? 'from-slate-700 to-slate-800 text-slate-200' : 'from-rose-600 via-red-600 to-orange-600 text-white shadow-lg shadow-rose-600/20'} font-bold text-xs flex items-center gap-1.5 hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer">
                 <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
                 <span>${isMastered ? 'Latih Ulang Lagi' : '🎯 Latih Ulang Soal Ini'}</span>
               </button>
@@ -664,6 +503,10 @@
           </div>
         `;
       }).join('');
+
+      container.querySelectorAll('[data-remedial-question]').forEach(button => {
+        button.addEventListener('click', () => this.startRemedial(button.dataset.remedialQuestion));
+      });
 
       if (window.lucide) window.lucide.createIcons();
       if (window.renderMathInElement) {
@@ -724,7 +567,7 @@
 
       // Populate Modal Content
       document.getElementById('rem-modal-chapter').textContent = item.chapterTitle || 'Latihan Soal';
-      document.getElementById('rem-modal-question').innerHTML = item.questionText;
+      document.getElementById('rem-modal-question').innerHTML = window.sanitizeRichHtml(item.questionText || '');
       
       const optContainer = document.getElementById('rem-modal-options-container');
       const feedbackEl = document.getElementById('rem-modal-feedback');
@@ -741,7 +584,7 @@
                 <span class="w-6 h-6 rounded-lg bg-dark-850 group-hover:bg-indigo-600 group-hover:text-white text-indigo-300 font-bold text-xs flex items-center justify-center shrink-0 transition">
                   ${String.fromCharCode(65 + idx)}
                 </span>
-                <span class="text-xs sm:text-sm text-slate-200 font-medium">${opt}</span>
+                <span class="text-xs sm:text-sm text-slate-200 font-medium">${window.escapeHtml(opt)}</span>
               </label>
             `).join('')}
           </div>
@@ -840,7 +683,7 @@
             <span>Luar Biasa, Jawaban Anda Benar! (+25 XP)</span>
           </div>
           <p class="text-xs text-slate-300 font-normal leading-relaxed">
-            Status soal ini telah diperbarui menjadi <strong class="text-emerald-400">TUNTAS</strong> dan otomatis tersinkronkan ke Cloud Akun Anda.
+            Status soal ini disimpan pada browser/perangkat yang sedang digunakan.
           </p>
           <div class="pt-2 flex justify-end">
             <button onclick="window.TheArichErrorBank.closeRemedialModal(); window.TheArichErrorBank.renderErrorBankView();" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition">
@@ -869,7 +712,7 @@
             Jangan menyerah! Coba baca petunjuk di bawah ini dan teliti kembali langkah hitungan Anda:
           </p>
           <div class="p-2.5 rounded-lg bg-dark-900 border border-slate-800 text-amber-300 text-xs font-mono">
-            💡 ${item.quickTip || item.explanation ? (item.quickTip || 'Periksa kembali tanda minus atau langkah penyederhanaan aljabar.') : 'Periksa kembali konsep dasarnya.'}
+            💡 ${window.sanitizeRichHtml(item.quickTip || 'Periksa kembali tanda minus atau langkah penyederhanaan aljabar.')}
           </div>
         `;
         feedbackEl.classList.remove('hidden');
@@ -900,8 +743,6 @@
       if (window.currentStudent) {
         this.updateBadgeCounter(window.currentStudent);
         this.updateDashboardWidget(window.currentStudent);
-        // Otomatis sinkronkan histori akun dari Cloud
-        this.syncStudentAccount(window.currentStudent.name);
       }
     }
   };

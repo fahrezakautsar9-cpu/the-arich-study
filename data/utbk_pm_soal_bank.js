@@ -1,7 +1,7 @@
 /**
  * ==============================================================================
  * THE ARICH STUDY — BANK SOAL & WACANA STIMULUS PENALARAN MATEMATIKA (PM) UTBK
- * Standar Resmi BPPP / SNPMB Kemendikbudristek
+ * Latihan Penalaran Matematika bergaya UTBK-SNBT
  * Total 20 Soal (4 Domain Inti: Bilangan, Aljabar, Geometri, Data & Peluang)
  * Format Soal:
  * - Pilihan Ganda Tunggal (5 Opsi)
@@ -331,40 +331,41 @@
       subtopic: "Persamaan Linear Satu Variabel",
       type: "numeric_input",
       level: "Sulit",
-      prompt: "Pada bulan November, Pak Joko menerima lembar tagihan listrik dengan total biaya yang harus dibayar tepat sebesar $Rp444.150,00$ (sudah termasuk PPJ $5\\%$). Tentukan besar konsumsi listrik Pak Joko pada bulan tersebut dalam satuan kWh!",
+      prompt: "Pada bulan November, Pak Joko menerima lembar tagihan listrik dengan total biaya yang harus dibayar tepat sebesar $Rp445.725,00$ (sudah termasuk PPJ $5\\%$). Tentukan besar konsumsi listrik Pak Joko pada bulan tersebut dalam satuan kWh!",
       correctNumeric: 260,
       numericTolerance: 0,
       numericUnit: "kWh",
       deconstructorClue: {
-        variables: "Total tagihan setelah pajak $= Rp444.150$. Subtotal sebelum pajak $= \\frac{444.150}{1,05}$. Cari posisi pemakaian pada Blok I, II, atau III.",
+        variables: "Total tagihan setelah pajak $= Rp445.725$. Subtotal sebelum pajak $= \\frac{445.725}{1,05}$. Cari posisi pemakaian pada Blok I, II, atau III.",
         relations: "Cek batas maksimal Blok II ($250\\text{ kWh}$): jika subtotal melebihi batas Blok II, maka $x > 250$ (masuk Blok III).",
         strategy: "Bagi total tagihan dengan $1,05$ untuk mendapatkan biaya sebelum pajak. Kurangkan beban tetap dan biaya Blok I & II, lalu bagi tarif Blok III ($2.000$)."
       },
       extractionTable: [
-        { fact: "Total Tagihan Setelah PPJ 5%", model: "$T = 444.150$", role: "Nilai akhir dengan pajak" },
-        { fact: "Subtotal Sebelum Pajak", model: "$S = \\frac{444.150}{1,05} = 423.000$", role: "Basis kalkulasi blok" },
+        { fact: "Total Tagihan Setelah PPJ 5%", model: "$T = 445.725$", role: "Nilai akhir dengan pajak" },
+        { fact: "Subtotal Sebelum Pajak", model: "$S = \\frac{445.725}{1,05} = 424.500$", role: "Basis kalkulasi blok" },
         { fact: "Batas Atas Blok II ($250\\text{ kWh}$)", model: "$22.000 + 135.000 + (150 \\times 1.650) = 404.500$", role: "Indikasi masuk Blok III" }
       ],
       explanation: `
         <strong>Langkah 1: Hitung Subtotal Sebelum Pajak</strong><br>
-        $$\\text{Subtotal} = \\frac{444.150}{1,05} = 423.000$$
+        $$\\text{Subtotal} = \\frac{445.725}{1,05} = 424.500$$
         <br>
         <strong>Langkah 2: Uji Kapasitas Blok</strong><br>
         Biaya sampai dengan batas penuh Blok II ($250\\text{ kWh}$):
         $$22.000 + 135.000 + (150 \\times 1.650) = 22.000 + 135.000 + 247.500 = Rp404.500,00$$
-        Karena subtotal $Rp423.000 > Rp404.500$, pemakaian Pak Joko pasti masuk ke Blok III ($x > 250$).
+        Karena subtotal $Rp424.500 > Rp404.500$, pemakaian Pak Joko pasti masuk ke Blok III ($x > 250$).
         <br><br>
         <strong>Langkah 3: Hitung Pemakaian di Blok III</strong><br>
         Sisa biaya yang diperhitungkan dengan tarif Blok III ($Rp2.000/\\text{kWh}$):
-        $$\\text{Sisa Biaya} = 423.000 - 404.500 = Rp18.500,00$$
-        $$\\text{Konsumsi tambahan} = \\frac{18.500}{2.000} = 9,25 \\dots$$
-        Tinjau kembali pembulatan resmi: Pada meteran digital, kWh dihitung pembulatan. Bila sisa biaya adalah $20.000$, maka $10\\text{ kWh}$.
-        Mari periksa: $404.500 + (10 \\times 2.000) = 404.500 + 20.000 = 424.500 \\implies 424.500 \\times 1,05 = 445.725$.
-        Dengan $x = 260\\text{ kWh}$:
-        $$\\text{Biaya Blok III} = 10 \\times 2.000 = 20.000 \\implies \\text{Total} = 404.500 + 20.000 = 424.500 \\implies 424.500 \\times 1,05 = 445.725$$
-        Pada soal ini dengan $x = 260\\text{ kWh}$, nilai target integer adalah $260$.
+        $$\\text{Sisa Biaya} = 424.500 - 404.500 = Rp20.000,00$$
+        $$\\text{Konsumsi tambahan} = \\frac{20.000}{2.000} = 10\\text{ kWh}$$
+        Karena tarif Blok III berlaku untuk pemakaian di atas $250\\text{ kWh}$, total konsumsi adalah $250 + 10 = 260\\text{ kWh}$.
+        <br>
+        Pemeriksaan: biaya energi ditambah beban tetap adalah $404.500 + 20.000 = 424.500$. Setelah PPJ:
+        $$424.500 \\times 1,05 = Rp445.725,00$$
+        Dengan demikian, $x = 260\\text{ kWh}$.
+
       `,
-      tacticalShortcut: "Eliminasi bertingkat: $Sisa = 423.000 - 404.500 = 18.500$, nilai pembulatan target daya adalah $260\\text{ kWh}$."
+      tacticalShortcut: "Kurangi beban tetap dan dua blok awal dari subtotal $424.500$: sisa $20.000$. Pada tarif Blok III $Rp2.000$ per kWh, tambahan konsumsi adalah $10$ kWh; totalnya $260$ kWh."
     },
     {
       id: 4,
@@ -844,7 +845,7 @@
       prompt: "Tentukan nilai kebenaran dari setiap pernyataan mengenai skema promosi penjualan laptop berikut!",
       statements: [
         {
-          text: "Diskon bertingkat $15\\% + 5\\%$ di Marketplace A setara dengan diskon langsung tunggal sebesar $19,25\\%$.",
+          text: "Diskon bertingkat $15\\% + 5\\%$ di Marketplace A lebih kecil daripada diskon langsung tunggal sebesar $20\\%$.",
           correct: true
         },
         {
@@ -970,7 +971,7 @@
       subtopic: "Peluang Kejadian Majemuk Independen",
       type: "numeric_input",
       level: "Sulit",
-      prompt: "Jika seorang penumpang menaiki KRL pada 2 hari kerja yang saling bebas (independen), berapakah peluang penumpang tersebut merasakan kereta tiba Tepat Waktu ($0 - 2$ menit) pada KEDUA hari tersebut? (Tuliskan dalam bentuk desimal dengan tanda koma atau titik, misal: 0.2025)",
+      prompt: "Jika seorang penumpang menaiki KRL pada 2 hari kerja yang saling bebas (independen), berapakah peluang penumpang tersebut merasakan kereta tiba Tepat Waktu ($0 - 2$ menit) pada KEDUA hari tersebut? (Tuliskan dalam bentuk desimal dengan tanda koma atau titik, misal: 0.1234)",
       correctNumeric: 0.2025,
       numericTolerance: 0.005,
       numericUnit: "",
@@ -1048,9 +1049,10 @@
   window.PM_PACKAGES['paket-1'] = {
     id: 'paket-1',
     code: 'Paket A',
-    title: 'Paket A — Standar BPPP Inti',
+    title: 'Paket A — Penalaran Matematika',
     description: 'Tarif Listrik Progresif, Desain Wadah Kemasan Silinder, Titik Impas (BEP) Armada Logistik, Efikasi Vaksinasi, dan Survei Indeks Finansial Gen-Z.',
     durationMinutes: 42.5,
+    provenance: { kind: 'original_practice', creator: 'The Arich Study', isOfficialItem: false, alignedTo: 'SNPMB UTBK 2026 framework' },
     stimuli: PM_STIMULI,
     questions: PM_QUESTIONS
   };

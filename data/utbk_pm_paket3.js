@@ -1,8 +1,8 @@
 /**
  * ==============================================================================
  * THE ARICH STUDY — PAKET C (PAKET 3) PENALARAN MATEMATIKA (PM) UTBK-SNBT
- * Standar Resmi BPPP / SNPMB Kemendikbudristek & Kurikulum Merdeka
- * Total 20 Soal HOTS (4 Domain Inti: Bilangan, Aljabar, Geometri, Data & Peluang)
+ * Latihan Penalaran Matematika bergaya UTBK-SNBT & Kurikulum Merdeka
+ * Total 20 soal latihan (4 ranah: Bilangan, Aljabar, Geometri, Data & Peluang)
  * ==============================================================================
  */
 
@@ -668,7 +668,7 @@
       prompt: "Berdasarkan stimulus optimasi produksi pabrik daur ulang plastik, tentukan nilai kebenaran dari setiap pernyataan berikut!",
       statements: [
         {
-          text: "Pada kondisi produksi optimal (20 karung Super dan 20 karung Standar), seluruh stok bahan baku cacahan plastik (120 kg) habis terpakai tanpa sisa.",
+          text: "Pada titik produksi optimal, seluruh stok bahan baku cacahan plastik (120 kg) habis terpakai tanpa sisa.",
           correct: true
         },
         {
@@ -776,7 +776,7 @@
       subtopic: "Dampak Inflasi terhadap Keranjang Belanja Riil",
       type: "numeric_input",
       level: "Sedang",
-      prompt: "Jika sekeranjang bahan pangan pokok keluarga dibeli pada bulan Januari dengan total biaya tepat $\\text{Rp}1.000.000,00$, berapakah biaya yang harus dikeluarkan keluarga tersebut untuk membeli isi keranjang belanja yang sama persis pada bulan Maret berdasarkan kenaikan IHK (tuliskan nilai dalam satuan RIBU RUPIAH, misalnya jika Rp1.050.000 tulis 1050)?",
+      prompt: "Jika sekeranjang bahan pangan pokok keluarga dibeli pada bulan Januari dengan total biaya tepat $\\text{Rp}1.000.000,00$, berapakah biaya yang harus dikeluarkan keluarga tersebut untuk membeli isi keranjang belanja yang sama persis pada bulan Maret berdasarkan kenaikan IHK (tuliskan nilai dalam satuan RIBU RUPIAH, misalnya jika Rp1.080.000 tulis 1080)?",
       correctNumeric: 1050,
       numericTolerance: 0,
       numericUnit: "ribu rupiah",
@@ -1006,6 +1006,7 @@
     title: 'Paket C — Smart Mobility, Industri & Ekologi',
     description: 'Radar Kecepatan ETLE Jalan Tol, Waduk Retensi Banjir, Pemrograman Linear Daur Ulang, IHK Inflasi Pangan, dan Quality Control Semikonduktor.',
     durationMinutes: 42.5,
+    provenance: { kind: 'original_practice', creator: 'The Arich Study', isOfficialItem: false, alignedTo: 'SNPMB UTBK 2026 framework' },
     stimuli: PM_PAKET3_STIMULI,
     questions: PM_PAKET3_QUESTIONS
   };

@@ -1,50 +1,44 @@
-# 📐 The Arich Study — Interactive Mathematics Universe
+# The Arich Study
 
-> **Platform Belajar Matematika Interaktif untuk Murid SMP (Kelas 7–9) & SMA (Kelas 10–12)**  
-> Dibuat dengan pendekatan visual, simulasi WebGL/HTML5, dan gamifikasi kuis modern untuk mengubah matematika dari momok abstrak menjadi pengalaman eksplorasi yang menyenangkan.
+Web belajar Matematika dan Fisika dengan materi, latihan interaktif, catatan kesalahan, simulasi, dan cetak PDF. Proyek ini memakai HTML, CSS, dan JavaScript tanpa backend aplikasi.
 
-🔗 **Live Website Demo:** [https://fahrezakautsar9-cpu.github.io/the-arich-study/](https://fahrezakautsar9-cpu.github.io/the-arich-study/)
+## Operasional tanpa biaya aplikasi
 
----
+- Situs dirancang untuk hosting statis seperti GitHub Pages; tidak memerlukan server, database berbayar, atau akun pengguna daring.
+- Styling dibuat saat pengembangan, lalu hasil `app.css` disajikan sebagai berkas statis. Jalankan `npm ci` dan `npm run build:css` setelah mengubah kelas Tailwind.
+- `node_modules` hanya berisi tooling build; browser tidak memerlukannya.
+- Ikon, font, dan renderer matematika masih dimuat dari CDN publik. Service worker menyimpan aset agar kunjungan berikutnya lebih siap digunakan offline.
 
-## 🌟 Modul Perdana (Active Pilot): Matematika Kelas 11 SMA
-### **Topik: Fungsi Komposisi, Invers, dan Domain Alami**
+### Menayangkan lewat GitHub Pages
 
-1. 🏭 **Pabrik Komposisi Fungsi Berantai $(f \circ g)(x)$ & $(g \circ f)(x)$:**
-   - Simulator mesin pipa berantai yang memvisualisasikan bagaimana input $x$ mengalir ke dalam mesin pertama lalu diteruskan ke mesin kedua.
-   - Pembuktian interaktif mengapa $(f \circ g)(x) \ne (g \circ f)(x)$ (tidak komutatif).
-2. ⚠️ **Detektor Lubang Hitam Matematika (Domain Safety Scanner):**
-   - Slider interaktif untuk menguji nilai $x$ pada fungsi pecahan dan bentuk akar.
-   - Peringatan instan saat memasukkan nilai terlarang (penyebut $0$ atau akar bilangan negatif) disertai rumus domain KaTeX.
-3. ⚡ **Mesin Putar Balik & Rumus Kilat Invers $f^{-1}(x)$:**
-   - Visualisasi alur maju $x \to y$ dan alur mundur $y \to x$.
-   - Trik cepat fungsi pecahan linear $\frac{ax+b}{cx+d} \implies \frac{-dx+b}{cx-a}$.
-4. 🎯 **Arena Latihan Soal Gamifikasi (5 Soal Standar UTBK-SNBT):**
-   - Sistem kartu satu per satu (*One Question at a Time*).
-   - Tombol *💡 Butuh Petunjuk?* (Hint langkah demi langkah).
-   - Pembahasan detail LaTeX KaTeX yang langsung muncul setelah menjawab.
-   - Audio synthesized sound effects & confetti perayaan nilai 100.
-   - Fitur **Kirim Rapor ke Guru via WhatsApp** dalam satu klik.
+Repositori publik ini dapat memakai GitHub Pages pada paket GitHub Free. Untuk menerbitkan versi yang sudah di-merge ke `main`:
 
----
+1. Buka **Settings → Pages** di repositori.
+2. Pada **Build and deployment**, pilih **Deploy from a branch**.
+3. Pilih branch `main` dan folder `/(root)`, lalu simpan.
+4. Tunggu workflow Pages selesai, lalu buka URL yang ditampilkan di halaman Pages.
 
-## 🗺️ Roadmap Kurikulum Lengkap
-- **SMP Kelas 7:** Bilangan Bulat, Aljabar Linear 1 Variabel, Perbandingan & Aritmatika Sosial.
-- **SMP Kelas 8:** Relasi & Fungsi, SPLDV Eliminasi-Substitusi, Teorema Pythagoras.
-- **SMP Kelas 9:** Perpangkatan & Bentuk Akar, Persamaan Kuadrat, Transformasi Geometri.
-- **SMA Kelas 10:** Eksponen & Logaritma, Trigonometri Sudut Istimewa, Vektor.
-- **SMA Kelas 11 (ACTIVE):** Fungsi Komposisi & Invers, Barisan & Deret, Matriks, Limit Aljabar.
-- **SMA Kelas 12:** Kalkulus & Turunan, Integral Tentu/Tak Tentu, Statistika, Peluang, UTBK-SNBT.
+Panduan resmi: [mengonfigurasi sumber publikasi GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). Build Tailwind tetap dilakukan lokal; jangan mengubah kelas Tailwind lalu lupa membangun ulang `app.css`.
 
----
+## Privasi dan batas fitur
 
-## 🛠️ Tech Stack
-- **Frontend Core:** Pure HTML5, Modern ECMAScript (Zero build setup required)
-- **Styling & UI:** Tailwind CSS (Modern SaaS & Cyber Dark theme)
-- **Math Engine:** KaTeX LaTeX Renderer
-- **Icons & Visuals:** Lucide Icons & Canvas Confetti
-- **Audio Synthesizer:** Pure Procedural Web Audio API (No audio files needed, 0ms lag)
-- **Hosting:** 100% Free on GitHub Pages (Zero-server cost)
+- Nama panggilan, nilai, progres, dan catatan belajar disimpan di `localStorage` pada browser/perangkat yang sedang dipakai. Data tidak disinkronkan antarperangkat.
+- Pengguna dapat menghapus data lokal, mengunduh cadangan JSON, atau mengekspor rekap CSV. Cadangan berisi data pribadi dan perlu disimpan dengan aman.
+- Penyedia CDN menerima permintaan aset seperti font, ikon, dan KaTeX; profil serta nilai belajar tidak dikirim ke sana.
+- PIN Mode Guru hanya menyembunyikan tampilan di sisi browser. Kunci jawaban ada dalam berkas JavaScript publik, sehingga aplikasi ini tidak cocok untuk ujian rahasia, proktor, atau bukti penilaian resmi.
+- Sertifikat dan rekap cetak adalah keluaran latihan nonformal, bukan dokumen resmi atau terverifikasi sekolah/lembaga.
+- Versi lama pernah memakai Google Apps Script. Menghapus integrasi dari berkas proyek tidak menonaktifkan deployment Google atau menghapus data Sheet yang pernah dibuat; deployment lama perlu dicabut dan data lama perlu ditangani di akun Google yang membuatnya.
 
----
-*Created for students with love by The Arich Study.*
+## Cakupan belajar
+
+Materi dan bank soal untuk beberapa jenjang SMP–SMA tersedia di folder `data/`, tetapi kelengkapan dan kedalaman tiap kelas/topik berbeda. Kelas 11 merupakan pilot aktif yang menjadi fokus pengembangan; jangan menganggap seluruh kurikulum sudah diaudit atau lengkap.
+
+## Berkas utama
+
+- `index.html`: struktur SPA dan seluruh view.
+- `app.js`: alur aplikasi, profil lokal, latihan, rekap, serta backup/restore.
+- `features_*.js`: mesin asesmen, materi interaktif, PWA, gamifikasi, dan fitur belajar lainnya.
+- `data/`: materi kurikulum dan bank soal yang dikirim ke browser.
+- `theme.css`, `print.css`, `app.css`: tema, layout cetak, dan utility CSS terbangun.
+- `sw.js`: cache offline aplikasi dan aset pihak ketiga.
+- `THE_ARICH_STUDY_MASTER_BLUEPRINT.md`: gambaran arsitektur dan batas keamanan.

@@ -865,7 +865,7 @@ if (typeof window.UTBK_PENALARAN_MATEMATIKA !== 'undefined') {
     number: "SNBT",
     badge: "UTBK PM • Simulasi Resmi",
     title: "Penalaran Matematika (PM) UTBK-SNBT 2026",
-    summary: "Simulasi Resmi HOTS BPPP Kemendikbudristek: 4 Domain (Bilangan, Aljabar, Geometri, Data & Peluang) & 3 Format Modern (PG, PG Kompleks Benar/Salah, Isian Singkat) lengkap dengan wacana stimulus dan trik kilat 30 detik.",
+    summary: "Latihan Penalaran Matematika: 4 domain (Bilangan, Aljabar, Geometri, Data & Peluang) dan 3 format (PG, PG kompleks Benar/Salah, Isian Singkat) dengan wacana stimulus.",
     subject: "Matematika",
     icon: "award",
     questions: window.UTBK_PENALARAN_MATEMATIKA,

@@ -1,8 +1,8 @@
 /**
  * ==============================================================================
  * THE ARICH STUDY — PAKET E (PAKET 5) PENALARAN MATEMATIKA (PM) UTBK-SNBT
- * Standar Resmi BPPP / SNPMB Kemendikbudristek & Kurikulum Merdeka
- * Total 20 Soal HOTS (4 Domain Inti: Bilangan, Aljabar, Geometri, Data & Peluang)
+ * Latihan Penalaran Matematika bergaya UTBK-SNBT & Kurikulum Merdeka
+ * Total 20 soal latihan (4 ranah: Bilangan, Aljabar, Geometri, Data & Peluang)
  * ==============================================================================
  */
 
@@ -291,7 +291,7 @@
       subtopic: "Analisis Efisiensi Rute Radial vs Sirkular",
       type: "single_choice",
       level: "Sedang",
-      prompt: "Jika drone menggunakan skema radial (harus kembali ke Hub setiap selesai mengantar satu klinik, yaitu Hub-A-Hub, Hub-B-Hub, dan Hub-C-Hub), total jarak yang ditempuh adalah 32 km. Berapa kilometer jarak yang dihemat jika drone beralih ke skema sirkular multi-drop (17,2 km)?",
+      prompt: "Berapa kilometer jarak yang dihemat jika drone menggunakan skema sirkular multi-drop dibandingkan dengan skema radial, berdasarkan data rute pada stimulus?",
       options: [
         "$$10{,}8\\text{ km}$$",
         "$$12{,}4\\text{ km}$$",
@@ -611,7 +611,7 @@
       subtopic: "Total Take Home Pay (Gaji Pokok + Komisi)",
       type: "numeric_input",
       level: "Sedang",
-      prompt: "Jika staf berhasil menjual 60 paket dalam satu bulan, berapakah total penghasilan kotor (take home pay = gaji pokok + komisi) yang diterima staf tersebut dalam satuan JUTA RUPIAH (tuliskan angka desimalnya menggunakan koma atau titik, misalnya jika 15,5 juta tulis 18.5)?",
+      prompt: "Jika staf berhasil menjual 60 paket dalam satu bulan, berapakah total penghasilan kotor (take home pay = gaji pokok + komisi) yang diterima staf tersebut dalam satuan JUTA RUPIAH (tuliskan angka desimalnya menggunakan koma atau titik, misalnya jika 15,5 juta tulis 15.5)?",
       correctNumeric: 18.5,
       numericTolerance: 0.1,
       numericUnit: "juta rupiah",
@@ -719,7 +719,7 @@
       subtopic: "Efisiensi Kompresi & Penghematan Ruang",
       type: "single_choice",
       level: "Sedang",
-      prompt: "Jika pada tahun ke-3 volume data mentah mencapai 86,4 TB dan perusahaan menerapkan algoritma kompresi data yang menghemat 30% ruang (sehingga ukuran menjadi 70%), berapakah volume data yang harus disimpan di server?",
+      prompt: "Menurut model pertumbuhan pada stimulus, berapakah volume data yang harus disimpan pada tahun ke-3 setelah algoritma kompresi mengurangi 30% dari data mentah?",
       options: [
         "$$56{,}24\\text{ TB}$$",
         "$$60{,}48\\text{ TB}$$",
@@ -751,7 +751,7 @@
       subtopic: "Penghematan Biaya Sewa Server Cloud",
       type: "numeric_input",
       level: "Sedang",
-      prompt: "Dengan biaya sewa server $\\$5{,}00\\text{ per TB per bulan}$, berapakah penghematan biaya sewa cloud yang diperoleh perusahaan dalam SATU BULAN pada tahun ke-3 berkat kompresi data yang menghemat 25,92 TB (tuliskan nilai penghematan dalam DOLLAR AMERIKA)?",
+      prompt: "Dengan biaya sewa server $\\$5{,}00\\text{ per TB per bulan}$, berapakah penghematan biaya sewa cloud dalam satu bulan pada tahun ke-3 jika perusahaan menerapkan kompresi 30% pada data mentah? (Tuliskan nilai dalam dolar Amerika.)",
       correctNumeric: 129.6,
       numericTolerance: 0.1,
       numericUnit: "USD",
@@ -790,8 +790,8 @@
           correct: false
         },
         {
-          text: "Algoritma kompresi 30% berhasil membuat volume data terkompresi pada tahun ke-2 (43,2 TB) bernilai lebih kecil daripada volume data mentah di tahun ke-0 (50 TB).",
-          correct: true
+          text: "Algoritma kompresi 30% membuat volume data terkompresi pada tahun ke-2 menjadi 50,4 TB, lebih kecil daripada volume data mentah di tahun ke-0 (50 TB).",
+          correct: false
         }
       ],
       deconstructorClue: {
@@ -893,7 +893,7 @@
       subtopic: "Teorema Bayes & Positive Predictive Value (PPV)",
       type: "numeric_input",
       level: "Sulit",
-      prompt: "Jika seorang warga dinyatakan berstatus POSITIF dari hasil tes cepat tersebut, berapakah probabilitas bahwa ia SEBENARNYA BENAR-BENAR MENDERITA PENYAKIT tersebut (Positive Predictive Value: $P(\\text{Sakit} \\mid +)$)? Tuliskan persentasenya dibulatkan ke dua angka desimal di belakang koma (misalnya 1.92)! Ganti koma dengan titik bila perlu.",
+      prompt: "Jika seorang warga dinyatakan berstatus POSITIF dari hasil tes cepat tersebut, berapakah probabilitas bahwa ia SEBENARNYA BENAR-BENAR MENDERITA PENYAKIT tersebut (Positive Predictive Value: $P(\\text{Sakit} \\mid +)$)? Tuliskan persentasenya dibulatkan ke dua angka desimal di belakang koma (misalnya 12.34)! Ganti koma dengan titik bila perlu.",
       correctNumeric: 1.92,
       numericTolerance: 0.05,
       numericUnit: "%",
@@ -975,6 +975,7 @@
     title: 'Paket E — Logistik Otomasi, Struktur Parabolik & Bayes',
     description: 'Armada Drone Kurir Otonom, Penampang Terowongan Parabola, Bonus Berjenjang Tim Sales, Server Cloud Storage, dan Teorema Bayes Tes Antigen.',
     durationMinutes: 42.5,
+    provenance: { kind: 'original_practice', creator: 'The Arich Study', isOfficialItem: false, alignedTo: 'SNPMB UTBK 2026 framework' },
     stimuli: PM_PAKET5_STIMULI,
     questions: PM_PAKET5_QUESTIONS
   };
