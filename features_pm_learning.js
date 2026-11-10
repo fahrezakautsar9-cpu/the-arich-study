@@ -157,6 +157,77 @@
     const pitfalls = (item.pitfalls || []).map((text) => `<li>${escapeHTML(text)}</li>`).join('');
     const prev = MODULES[activeIndex - 1];
     const next = MODULES[activeIndex + 1];
+    const hasRichVisual = Boolean(item.visual && item.visual.image);
+    const cleanedConceptHtml = hasRichVisual
+      ? String(item.conceptHtml || '')
+          .replace(/<figure[^>]*class="[^"]*pm-learning-diagram[^"]*"[^>]*>[\s\S]*?<\/figure>/gi, '')
+          .replace(/<svg[^>]*class="[^"]*pm-concept-svg[^"]*"[\s\S]*?<\/svg>/gi, '')
+      : (item.conceptHtml || '');
+
+    const formatGuideText = (txt) => escapeHTML(txt).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    let visualSectionHtml = '';
+    if (hasRichVisual) {
+      const vTitle = item.visual.title || `Visualisasi Konsep: ${item.title}`;
+      const vCaption = item.visual.caption || '';
+      const vGuide = Array.isArray(item.visual.guide) ? item.visual.guide : [];
+      const encImg = encodeURIComponent(item.visual.image);
+      const encTitle = encodeURIComponent(vTitle);
+      const encCap = encodeURIComponent(vCaption);
+      const encGuide = encodeURIComponent(JSON.stringify(vGuide));
+      const lightboxCall = `window.openMateriVisualLightbox('${encImg}', '${encTitle}', '${encCap}', '${encGuide}')`;
+
+      const guideItemsHtml = vGuide.length > 0 ? `
+        <div class="materi-visual-guide pm-visual-guide-box">
+          <div class="materi-visual-guide-header">
+            <i data-lucide="compass" class="w-4 h-4 text-teal-400 shrink-0"></i>
+            <span>Panduan Membaca Gambar (Fokus Visual)</span>
+          </div>
+          <div class="materi-visual-guide-list">
+            ${vGuide.map((step, idx) => `
+              <div class="materi-visual-guide-item">
+                <span class="materi-visual-guide-badge">${idx + 1}</span>
+                <div class="materi-visual-guide-text">${formatGuideText(step)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      visualSectionHtml = `
+        <section class="pm-learning-section pm-learning-visual-section">
+          <div class="materi-visual-card pm-visual-card-inner">
+            <div class="materi-visual-header">
+              <div class="materi-visual-header-left">
+                <span class="materi-visual-icon-box">
+                  <i data-lucide="eye" class="w-4 h-4"></i>
+                </span>
+                <div class="min-w-0">
+                  <span class="materi-visual-badge">Visualisasi &amp; Bedah Konsep</span>
+                  <h4 class="materi-visual-title">${escapeHTML(vTitle)}</h4>
+                </div>
+              </div>
+              <button type="button" onclick="${lightboxCall}" class="materi-visual-zoom-btn no-print" title="Perbesar &amp; Geser Diagram">
+                <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                <span>Perbesar Gambar (Zoom)</span>
+              </button>
+            </div>
+
+            <figure class="materi-visual-figure print-materi-figure">
+              <div class="materi-visual-viewport" onclick="${lightboxCall}" role="button" tabindex="0" aria-label="Perbesar gambar ${escapeHTML(vTitle)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${lightboxCall};}">
+                <img src="${item.visual.image}" alt="${escapeHTML(vTitle)}" loading="lazy" class="materi-visual-img" />
+                <div class="materi-visual-zoom-hint no-print">
+                  <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                  <span>Klik untuk Zoom Interaktif (hingga 300%)</span>
+                </div>
+              </div>
+              ${vCaption ? `<figcaption class="materi-visual-caption">${formatGuideText(vCaption)}</figcaption>` : ''}
+            </figure>
+
+            ${guideItemsHtml}
+          </div>
+        </section>
+      `;
+    }
 
     content.innerHTML = `
       <div class="pm-learning-lesson-head">
@@ -165,7 +236,8 @@
       </div>
       <div class="pm-learning-concepts">${chips}</div>
 
-      <section class="pm-learning-section"><div class="pm-learning-section-label"><span>01</span><h3>Pahami idenya</h3></div><div class="pm-learning-richtext">${item.conceptHtml}</div></section>
+      <section class="pm-learning-section"><div class="pm-learning-section-label"><span>01</span><h3>Pahami idenya</h3></div><div class="pm-learning-richtext">${cleanedConceptHtml}</div></section>
+      ${visualSectionHtml}
       <section class="pm-learning-section"><div class="pm-learning-section-label"><span>02</span><h3>Rumus yang perlu dikenal</h3></div><div class="pm-learning-richtext">${item.formulaHtml}${item.formulaExtraHtml || ''}</div></section>
       <section class="pm-learning-section pm-learning-quick"><div class="pm-learning-section-label"><span>03</span><h3>Cara cepat, dengan alasannya</h3></div><div class="pm-learning-richtext">${item.shortcutHtml}</div></section>
       <section class="pm-learning-example"><p class="pm-eyebrow">Contoh mandiri</p><h3>${escapeHTML(item.example.title)}</h3><p class="pm-learning-example-prompt">${escapeHTML(item.example.prompt)}</p><ol class="pm-learning-steps">${steps}</ol></section>

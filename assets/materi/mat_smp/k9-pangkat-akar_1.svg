@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="849.6pt" height="345.6pt" viewBox="0 0 849.6 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-10T21:48:41.197910</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.6 
+L 849.6 345.6 
+L 849.6 0 
+L 0 0 
+z
+" style="fill: #0f172a"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 46.728 300.672 
+L 401.377541 300.672 
+L 401.377541 62.208 
+L 46.728 62.208 
+z
+" style="fill: #1e293b"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 66.943024 170.70912 
+L 381.162517 170.70912 
+Q 388.964807 170.70912 388.964807 165.462912 
+L 388.964807 78.185088 
+Q 388.964807 72.93888 381.162517 72.93888 
+L 66.943024 72.93888 
+Q 59.140734 72.93888 59.140734 78.185088 
+L 59.140734 165.462912 
+Q 59.140734 170.70912 66.943024 170.70912 
+z
+" clip-path="url(#p6beae1b15a)" style="fill: #0f172a; stroke: #38bdf8; stroke-width: 1.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 66.943024 292.32576 
+L 381.162517 292.32576 
+Q 388.964807 292.32576 388.964807 287.079552 
+L 388.964807 175.955328 
+Q 388.964807 170.70912 381.162517 170.70912 
+L 66.943024 170.70912 
+Q 59.140734 170.70912 59.140734 175.955328 
+L 59.140734 287.079552 
+Q 59.140734 292.32576 66.943024 292.32576 
+z
+" clip-path="url(#p6beae1b15a)" style="fill: #0f172a; stroke: #34d399; stroke-width: 1.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="patch_5">
+    <path d="M 46.728 300.672 
+L 46.728 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 401.377541 300.672 
+L 401.377541 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 46.728 300.672 
+L 401.377541 300.672 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 46.728 62.208 
+L 401.377541 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="224.052771" y="89.659473" transform="rotate(-0 224.052771 89.659473)">FAKTORISASI KUADRAT SEMPURNA:  √(a x b) = √a x √b</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(58.828396 115.46155)">Pecah angka di dalam akar menjadi faktor kuadrat sempurna (4, 9, 16, 25, 36, ...):</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(149.061521 125.14925)">  • √75 = √(25 x 3) = √25 x √3 = 5√3</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(149.061521 134.83695)">  • √48 = √(16 x 3) = √16 x √3 = 4√3</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(151.609021 144.52465)">  • √12 = √(4 x 3)  = √4 x √3  = 2√3</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #34d399" x="224.052771" y="187.421744" transform="rotate(-0 224.052771 187.421744)">OPERASI PENJUMLAHAN AKAR SEJENIS</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(78.394646 215.19669)">Syarat penjumlahan/pengurangan akar: Radikan &amp; Indeks HARUS SAMA!</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(119.212771 224.88439)">Contoh Soal: Sederhanakan bentuk √75 + √48 - √12</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(178.150271 234.57209)">Langkah Penyelesaian:</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(184.090896 244.25979)">  = 5√3 + 4√3 - 2√3</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(176.020271 253.94749)">  = (5 + 4 - 2)√3 = 7√3!</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(66.179021 264.17639)">Pangkat Pecahan:  a^(m/n) = ⁿ√(a^m)   (Contoh: 8^(2/3) = ³√(8²) = ³√64 = 4)</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="224.052771" y="52.208" transform="rotate(-0 224.052771 52.208)">1. Penyederhanaan Bentuk Akar Kuadrat &amp; Penjumlahan Suku Sejenis</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_9">
+    <path d="M 465.214459 300.672 
+L 819.864 300.672 
+L 819.864 62.208 
+L 465.214459 62.208 
+z
+" style="fill: #1e293b"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 485.429483 180.24768 
+L 799.648976 180.24768 
+Q 807.451266 180.24768 807.451266 175.001472 
+L 807.451266 75.800448 
+Q 807.451266 70.55424 799.648976 70.55424 
+L 485.429483 70.55424 
+Q 477.627193 70.55424 477.627193 75.800448 
+L 477.627193 175.001472 
+Q 477.627193 180.24768 485.429483 180.24768 
+z
+" clip-path="url(#pe3363ff54a)" style="fill: #0f172a; stroke: #38bdf8; stroke-width: 1.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 485.429483 292.32576 
+L 799.648976 292.32576 
+Q 807.451266 292.32576 807.451266 287.079552 
+L 807.451266 185.493888 
+Q 807.451266 180.24768 799.648976 180.24768 
+L 485.429483 180.24768 
+Q 477.627193 180.24768 477.627193 185.493888 
+L 477.627193 287.079552 
+Q 477.627193 292.32576 485.429483 292.32576 
+z
+" clip-path="url(#pe3363ff54a)" style="fill: #0f172a; stroke: #fbbf24; stroke-width: 1.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3"/>
+   <g id="matplotlib.axis_4"/>
+   <g id="patch_12">
+    <path d="M 465.214459 300.672 
+L 465.214459 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 819.864 300.672 
+L 819.864 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 465.214459 300.672 
+L 819.864 300.672 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 465.214459 62.208 
+L 819.864 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="642.539229" y="87.274833" transform="rotate(-0 642.539229 87.274833)">TIPE 1: PENYEBUT SATU SUKU  (a / √b)</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(542.260479 114.39966)">Kalikan pembilang dan penyebut dengan √b / √b :</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(579.092979 124.08736)">   (a / √b) x (√b / √b) = (a√b) / b</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(612.077354 133.77506)">Contoh Praktis:</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(584.543604 143.46276)">   6 / √3 = (6 / √3) x (√3 / √3)</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(592.871729 153.15046)">          = (6√3) / 3 = 2√3!</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #fbbf24" x="642.539229" y="196.884319" transform="rotate(-0 642.539229 196.884319)">TIPE 2: PENYEBUT BENTUK SEKAWAN  (Beda Tanda)</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(529.895722 220.446937)">Gunakan rumus selisih kuadrat:  (p + √q)(p - √q) = p² - q</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(563.542315 230.547976)">Soal: Rasionalkan pecahan  6 / (√5 - √2)</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(540.745878 240.114579)">Langkah (Kalikan sekawan pembilang &amp; penyebut):</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(557.994417 249.681183)">   = [6 / (√5 - √2)] x [(√5 + √2) / (√5 + √2)]</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(596.845753 259.247787)">   = 6(√5 + √2) / (5 - 2)</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(577.496307 268.814391)">   = 6(√5 + √2) / 3 = 2(√5 + √2)!</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="642.539229" y="52.208" transform="rotate(-0 642.539229 52.208)">2. Teknik Merasionalkan Penyebut: Tipe Tunggal &amp; Bentuk Sekawan</text>
+   </g>
+  </g>
+  <g id="text_11">
+   <text style="font-weight: 700; font-size: 12.2px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="424.8" y="26.550094" transform="rotate(-0 424.8 26.550094)">OPERASI BENTUK AKAR &amp; MERASIONALKAN PENYEBUT SEKAWAN</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6beae1b15a">
+   <rect x="46.728" y="62.208" width="354.649541" height="238.464"/>
+  </clipPath>
+  <clipPath id="pe3363ff54a">
+   <rect x="465.214459" y="62.208" width="354.649541" height="238.464"/>
+  </clipPath>
+ </defs>
+</svg>

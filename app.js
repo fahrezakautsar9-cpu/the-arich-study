@@ -557,6 +557,377 @@
     // ----------------------------------------------------
     // BEAUTIFUL MARKDOWN FORMATTER FOR MATERI
     // ----------------------------------------------------
+    function escapeVisualHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    if (typeof window.escapeHtml !== 'function') {
+      window.escapeHtml = escapeVisualHtml;
+    }
+
+    function formatInlineMateriText(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-white font-bold">$1</strong>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function renderMateriVisualCardHTML(visual, fallbackTitle) {
+      if (!visual || !visual.image) return '';
+      const vTitle = visual.title || fallbackTitle || 'Diagram & Ilustrasi Konsep';
+      const vCaption = visual.caption || '';
+      const vGuide = Array.isArray(visual.guide) ? visual.guide : [];
+
+      const encImg = encodeURIComponent(visual.image);
+      const encTitle = encodeURIComponent(vTitle);
+      const encCap = encodeURIComponent(vCaption);
+      const encGuide = encodeURIComponent(JSON.stringify(vGuide));
+      const lightboxCall = `window.openMateriVisualLightbox('${encImg}', '${encTitle}', '${encCap}', '${encGuide}')`;
+
+      const guideHtml = vGuide.length > 0 ? `
+        <div class="materi-visual-guide">
+          <div class="materi-visual-guide-header">
+            <i data-lucide="compass" class="w-4 h-4 text-teal-400 shrink-0"></i>
+            <span>Panduan Membaca Gambar (Fokus Visual)</span>
+          </div>
+          <div class="materi-visual-guide-list">
+            ${vGuide.map((step, gIdx) => `
+              <div class="materi-visual-guide-item">
+                <span class="materi-visual-guide-badge">${gIdx + 1}</span>
+                <div class="materi-visual-guide-text reader-text">${formatInlineMateriText(step)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      return `
+        <div class="materi-visual-card">
+          <div class="materi-visual-header">
+            <div class="materi-visual-header-left">
+              <span class="materi-visual-icon-box">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </span>
+              <div class="min-w-0">
+                <span class="materi-visual-badge">Visualisasi &amp; Bedah Konsep</span>
+                <h5 class="materi-visual-title">${escapeVisualHtml(vTitle)}</h5>
+              </div>
+            </div>
+            <button type="button" onclick="${lightboxCall}" class="materi-visual-zoom-btn no-print" title="Perbesar &amp; Geser Diagram">
+              <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+              <span>Perbesar Gambar (Zoom)</span>
+            </button>
+          </div>
+
+          <figure class="materi-visual-figure print-materi-figure">
+            <div class="materi-visual-viewport" onclick="${lightboxCall}" role="button" tabindex="0" aria-label="Perbesar gambar ${escapeVisualHtml(vTitle)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${lightboxCall};}">
+              <img src="${visual.image}" alt="${escapeVisualHtml(vTitle)}" loading="lazy" class="materi-visual-img" />
+              <div class="materi-visual-zoom-hint no-print">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                <span>Klik untuk Zoom Interaktif (hingga 300%)</span>
+              </div>
+            </div>
+            ${vCaption ? `
+              <figcaption class="materi-visual-caption reader-text">
+                ${formatMateriMarkdown(vCaption)}
+              </figcaption>
+            ` : ''}
+          </figure>
+
+          ${guideHtml}
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // INTERACTIVE FULL-SCREEN ZOOM & PAN LIGHTBOX MODAL
+    // ----------------------------------------------------
+    window.renderMateriVisualCardHTML = renderMateriVisualCardHTML;
+    let _materiLightboxZoom = 100;
+    let _materiLightboxDrawerOpen = true;
+    let _materiLightboxKeyHandlerBound = false;
+
+    function safeDecodeVisualParam(val) {
+      if (typeof val !== 'string') return val;
+      try {
+        return val.includes('%') ? decodeURIComponent(val) : val;
+      } catch (e) {
+        return val;
+      }
+    }
+
+    function ensureMateriVisualLightboxModal() {
+      let modal = document.getElementById('materi-visual-lightbox-modal');
+      if (modal) return modal;
+
+      const html = `
+        <div id="materi-visual-lightbox-modal" class="materi-lightbox-modal hidden no-print" role="dialog" aria-modal="true" aria-labelledby="materi-lightbox-title">
+          <!-- Top Toolbar -->
+          <div class="materi-lightbox-toolbar">
+            <div class="materi-lightbox-toolbar-title-wrap">
+              <span class="materi-lightbox-badge">Visualisasi Interaktif</span>
+              <h4 id="materi-lightbox-title" class="materi-lightbox-title">Diagram Konsep</h4>
+            </div>
+            <div class="materi-lightbox-controls">
+              <div class="materi-lightbox-zoom-group" role="group" aria-label="Kontrol Zoom">
+                <button type="button" onclick="window.stepMateriLightboxZoom(-25)" class="materi-lightbox-ctrl-btn" title="Perkecil (-)">
+                  <i data-lucide="zoom-out" class="w-4 h-4"></i>
+                  <span class="sr-only">Zoom Out</span>
+                </button>
+                <button type="button" id="materi-lightbox-zoom-label" onclick="window.setMateriLightboxZoom(100)" class="materi-lightbox-zoom-readout" title="Reset Zoom (100%)">
+                  100%
+                </button>
+                <button type="button" onclick="window.stepMateriLightboxZoom(25)" class="materi-lightbox-ctrl-btn" title="Perbesar hingga 300% (+)">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span class="sr-only">Zoom In</span>
+                </button>
+              </div>
+              <button type="button" id="materi-lightbox-drawer-btn" onclick="window.toggleMateriLightboxDrawer()" class="materi-lightbox-drawer-toggle is-active" title="Tampilkan / Sembunyikan Panduan Membaca Gambar">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Panduan Gambar</span>
+              </button>
+              <button type="button" onclick="window.closeMateriVisualLightbox()" class="materi-lightbox-close-btn" title="Tutup (Esc)">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Interactive Viewport + Collapsible Guide Drawer -->
+          <div class="materi-lightbox-body">
+            <div id="materi-lightbox-viewport" class="materi-lightbox-viewport">
+              <div id="materi-lightbox-stage" class="materi-lightbox-stage">
+                <img id="materi-lightbox-img" src="" alt="" draggable="false" class="materi-lightbox-img" />
+              </div>
+            </div>
+
+            <aside id="materi-lightbox-drawer" class="materi-lightbox-drawer">
+              <div class="materi-lightbox-drawer-head">
+                <div class="flex items-center gap-2 text-teal-300 font-extrabold text-xs sm:text-sm uppercase tracking-wider">
+                  <i data-lucide="compass" class="w-4 h-4 text-teal-400"></i>
+                  <span>Cara Membaca Gambar &amp; Inti Konsep</span>
+                </div>
+                <button type="button" onclick="window.toggleMateriLightboxDrawer()" class="text-slate-400 hover:text-white text-xs font-bold flex items-center gap-1">
+                  <span>Sembunyikan</span>
+                  <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <div class="materi-lightbox-drawer-content">
+                <div id="materi-lightbox-caption" class="materi-lightbox-caption reader-text"></div>
+                <div id="materi-lightbox-guide" class="materi-lightbox-guide-list"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      `;
+
+      document.body.insertAdjacentHTML('beforeend', html);
+      modal = document.getElementById('materi-visual-lightbox-modal');
+
+      // Backdrop click to close (when clicking directly on the empty viewport area around the stage)
+      const viewport = document.getElementById('materi-lightbox-viewport');
+      if (viewport) {
+        let isDragging = false;
+        let dragMoved = false;
+        let startX = 0;
+        let startY = 0;
+        let scrollLeftStart = 0;
+        let scrollTopStart = 0;
+
+        viewport.addEventListener('mousedown', (e) => {
+          if (e.button !== 0) return;
+          isDragging = true;
+          dragMoved = false;
+          startX = e.clientX;
+          startY = e.clientY;
+          scrollLeftStart = viewport.scrollLeft;
+          scrollTopStart = viewport.scrollTop;
+          viewport.classList.add('is-dragging');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            dragMoved = true;
+          }
+          viewport.scrollLeft = scrollLeftStart - dx;
+          viewport.scrollTop = scrollTopStart - dy;
+        });
+
+        window.addEventListener('mouseup', (e) => {
+          if (!isDragging) return;
+          isDragging = false;
+          viewport.classList.remove('is-dragging');
+          if (!dragMoved && e.target === viewport) {
+            window.closeMateriVisualLightbox();
+          }
+        });
+
+        viewport.addEventListener('wheel', (e) => {
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 25 : -25;
+            window.stepMateriLightboxZoom(delta);
+          }
+        }, { passive: false });
+      }
+
+      if (!_materiLightboxKeyHandlerBound) {
+        _materiLightboxKeyHandlerBound = true;
+        document.addEventListener('keydown', (e) => {
+          const activeModal = document.getElementById('materi-visual-lightbox-modal');
+          if (!activeModal || activeModal.classList.contains('hidden')) return;
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            window.closeMateriVisualLightbox();
+          } else if (e.key === '+' || e.key === '=') {
+            e.preventDefault();
+            window.stepMateriLightboxZoom(25);
+          } else if (e.key === '-') {
+            e.preventDefault();
+            window.stepMateriLightboxZoom(-25);
+          } else if (e.key === '0') {
+            e.preventDefault();
+            window.setMateriLightboxZoom(100);
+          }
+        });
+      }
+
+      return modal;
+    }
+
+    window.setMateriLightboxZoom = function(zoomPercent) {
+      const clamped = Math.max(50, Math.min(300, Math.round(Number(zoomPercent) || 100)));
+      _materiLightboxZoom = clamped;
+      const stage = document.getElementById('materi-lightbox-stage');
+      const label = document.getElementById('materi-lightbox-zoom-label');
+      if (stage) {
+        stage.style.width = `${clamped}%`;
+        stage.style.maxWidth = clamped > 100 ? 'none' : '1120px';
+      }
+      if (label) {
+        label.textContent = `${clamped}%`;
+      }
+    };
+
+    window.stepMateriLightboxZoom = function(delta) {
+      window.setMateriLightboxZoom(_materiLightboxZoom + (Number(delta) || 0));
+    };
+
+    window.toggleMateriLightboxDrawer = function(forceState) {
+      const drawer = document.getElementById('materi-lightbox-drawer');
+      const btn = document.getElementById('materi-lightbox-drawer-btn');
+      if (!drawer) return;
+      _materiLightboxDrawerOpen = typeof forceState === 'boolean' ? forceState : !_materiLightboxDrawerOpen;
+      if (_materiLightboxDrawerOpen) {
+        drawer.classList.remove('is-collapsed');
+        if (btn) btn.classList.add('is-active');
+      } else {
+        drawer.classList.add('is-collapsed');
+        if (btn) btn.classList.remove('is-active');
+      }
+    };
+
+    window.closeMateriVisualLightbox = function() {
+      const modal = document.getElementById('materi-visual-lightbox-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+      }
+      document.body.classList.remove('overflow-hidden');
+    };
+
+    window.openMateriVisualLightbox = function(encodedDataOrImgSrc, optTitle, optCaption, optGuideJson) {
+      let imgSrc = '';
+      let title = 'Visualisasi & Bedah Konsep';
+      let caption = '';
+      let guide = [];
+
+      if (encodedDataOrImgSrc && typeof encodedDataOrImgSrc === 'object') {
+        imgSrc = encodedDataOrImgSrc.image || '';
+        title = encodedDataOrImgSrc.title || title;
+        caption = encodedDataOrImgSrc.caption || '';
+        guide = Array.isArray(encodedDataOrImgSrc.guide) ? encodedDataOrImgSrc.guide : [];
+      } else if (typeof encodedDataOrImgSrc === 'string') {
+        const decodedFirst = safeDecodeVisualParam(encodedDataOrImgSrc).trim();
+        if (decodedFirst.startsWith('{')) {
+          try {
+            const parsed = JSON.parse(decodedFirst);
+            imgSrc = parsed.image || '';
+            title = parsed.title || title;
+            caption = parsed.caption || '';
+            guide = Array.isArray(parsed.guide) ? parsed.guide : [];
+          } catch (e) {
+            imgSrc = decodedFirst;
+          }
+        } else {
+          imgSrc = decodedFirst;
+          if (optTitle) title = safeDecodeVisualParam(optTitle);
+          if (optCaption) caption = safeDecodeVisualParam(optCaption);
+          if (Array.isArray(optGuideJson)) {
+            guide = optGuideJson;
+          } else if (typeof optGuideJson === 'string' && optGuideJson.trim()) {
+            const decodedGuide = safeDecodeVisualParam(optGuideJson).trim();
+            try {
+              const parsedGuide = JSON.parse(decodedGuide);
+              if (Array.isArray(parsedGuide)) guide = parsedGuide;
+            } catch (e) {
+              guide = [decodedGuide];
+            }
+          }
+        }
+      }
+
+      if (!imgSrc) return;
+
+      const modal = ensureMateriVisualLightboxModal();
+      const imgEl = document.getElementById('materi-lightbox-img');
+      const titleEl = document.getElementById('materi-lightbox-title');
+      const captionEl = document.getElementById('materi-lightbox-caption');
+      const guideEl = document.getElementById('materi-lightbox-guide');
+
+      if (imgEl) {
+        imgEl.src = imgSrc;
+        imgEl.alt = title;
+      }
+      if (titleEl) {
+        titleEl.textContent = title;
+      }
+      if (captionEl) {
+        captionEl.innerHTML = caption ? formatMateriMarkdown(caption) : '';
+        captionEl.style.display = caption ? 'block' : 'none';
+      }
+      if (guideEl) {
+        if (Array.isArray(guide) && guide.length > 0) {
+          guideEl.innerHTML = guide.map((step, idx) => `
+            <div class="materi-visual-guide-item">
+              <span class="materi-visual-guide-badge">${idx + 1}</span>
+              <div class="materi-visual-guide-text reader-text">${formatInlineMateriText(step)}</div>
+            </div>
+          `).join('');
+          guideEl.style.display = 'grid';
+        } else {
+          guideEl.innerHTML = '';
+          guideEl.style.display = 'none';
+        }
+      }
+
+      const hasDrawerContent = Boolean(caption || (Array.isArray(guide) && guide.length > 0));
+      window.toggleMateriLightboxDrawer(hasDrawerContent);
+      window.setMateriLightboxZoom(100);
+
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+
+      if (window.lucide) window.lucide.createIcons();
+      if (typeof triggerLatex === 'function') triggerLatex(modal);
+    };
+
     function formatMateriMarkdown(text) {
       if (!text) return '';
       let html = text;
@@ -754,6 +1125,8 @@
           <div class="reader-text leading-relaxed text-slate-200">
             ${formatMateriMarkdown(sub.concept)}
           </div>
+
+          ${sub.visual ? renderMateriVisualCardHTML(sub.visual, sub.title) : ''}
 
           ${quickTipText ? `
             <div class="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-100 shadow-sm space-y-1.5">

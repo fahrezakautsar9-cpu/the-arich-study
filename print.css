@@ -1238,3 +1238,102 @@
     justify-content: space-between !important;
   }
 }
+
+
+/* ==========================================================================
+   ILLUSTRATED STUDY MODULES & VISUAL FIGURES IN A4 PRINT
+   ========================================================================== */
+@media print {
+  #materi-visual-lightbox-modal,
+  .materi-visual-zoom-btn,
+  .materi-visual-zoom-hint {
+    display: none !important;
+  }
+
+  .materi-visual-card,
+  .pm-learning-visual-section,
+  .print-materi-figure {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    max-width: 100% !important;
+    margin: 10px 0 12px 0 !important;
+    border: 1.5px solid #334155 !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+  }
+
+  .materi-visual-header {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    padding: 6px 10px !important;
+  }
+
+  .materi-visual-title {
+    color: #0f172a !important;
+    font-size: 9.5pt !important;
+    font-weight: 800 !important;
+  }
+
+  .materi-visual-badge {
+    color: #0f766e !important;
+    font-size: 7pt !important;
+  }
+
+  .materi-visual-viewport,
+  .print-materi-figure img,
+  .materi-visual-img {
+    background-color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 340px !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  .materi-visual-caption,
+  .print-materi-figure figcaption {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+    font-size: 8.5pt !important;
+    line-height: 1.45 !important;
+    padding: 6px 10px !important;
+    border-top: 1px solid #cbd5e1 !important;
+  }
+
+  .materi-visual-guide {
+    background: #f8fafc !important;
+    border-top: 1px dashed #cbd5e1 !important;
+    padding: 6px 10px !important;
+  }
+
+  .materi-visual-guide-header {
+    color: #0f766e !important;
+    font-size: 8pt !important;
+    margin-bottom: 4px !important;
+  }
+
+  .materi-visual-guide-item {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 4px 8px !important;
+    margin-bottom: 4px !important;
+    page-break-inside: avoid !important;
+  }
+
+  .materi-visual-guide-badge {
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+    border: 1px solid #94a3b8 !important;
+  }
+
+  .materi-visual-guide-text {
+    color: #0f172a !important;
+    font-size: 8pt !important;
+  }
+}

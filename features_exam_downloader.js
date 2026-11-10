@@ -97,6 +97,8 @@
 
     return {
       type: 'chapter',
+      summary: ch ? (ch.summary || '') : '',
+      subtopics: (ch && Array.isArray(ch.subtopics)) ? ch.subtopics : [],
       id: chapterId,
       subject: subject,
       title: cleanTitle,
@@ -183,6 +185,8 @@
 
     return {
       type: 'cbt',
+      summary: ch ? (ch.summary || '') : '',
+      subtopics: (ch && Array.isArray(ch.subtopics)) ? ch.subtopics : [],
       id: ch ? ch.id : 'current-cbt',
       subject: subject,
       title: cleanTitle,
@@ -245,12 +249,66 @@
   // 2. DOCUMENT BODY HTML GENERATOR
   // ============================================================================
 
+  function formatPrintMarkdown(text) {
+    if (!text) return '';
+    return String(text)
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .split(/\n\n+/)
+      .map(p => `<p style="margin: 4px 0;">${p.trim().replace(/\n/g, '<br>')}</p>`)
+      .join('');
+  }
+
+  function renderPrintableSubtopicsHTML(source) {
+    if (!source || !Array.isArray(source.subtopics) || source.subtopics.length === 0) return '';
+    let html = `
+      <div class="exam-print-section-divider"><span>RINGKASAN MATERI &amp; VISUALISASI KONSEP</span></div>
+      <div class="exam-print-materi-container">
+    `;
+    source.subtopics.forEach((sub, idx) => {
+      const hasVisual = Boolean(sub.visual && sub.visual.image);
+      const vTitle = hasVisual ? (sub.visual.title || sub.title || `Diagram ${idx + 1}`) : '';
+      const vCaption = hasVisual ? (sub.visual.caption || '') : '';
+      const vGuide = (hasVisual && Array.isArray(sub.visual.guide)) ? sub.visual.guide : [];
+
+      const visualFigureHtml = hasVisual ? `
+        <figure class="print-materi-figure">
+          <div class="print-materi-figure-head">Visualisasi &amp; Bedah Konsep: ${vTitle}</div>
+          <img src="${sub.visual.image}" alt="${vTitle}" />
+          ${vCaption ? `<figcaption><strong>Keterangan Gambar:</strong> ${vCaption.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')}</figcaption>` : ''}
+          ${vGuide.length > 0 ? `
+            <div class="print-materi-guide">
+              <div class="print-materi-guide-title">Panduan Membaca Gambar (Fokus Visual):</div>
+              <ol class="print-materi-guide-list">
+                ${vGuide.map(g => `<li>${String(g).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')}</li>`).join('')}
+              </ol>
+            </div>
+          ` : ''}
+        </figure>
+      ` : '';
+
+      const quickTipText = sub.quickTip || '';
+      const exampleText = sub.exampleProblem || sub.example || '';
+
+      html += `
+        <div class="print-materi-subtopic-card">
+          <div class="print-materi-subtopic-title">${idx + 1}. ${sub.title}</div>
+          <div class="print-materi-subtopic-body">${formatPrintMarkdown(sub.concept)}</div>
+          ${visualFigureHtml}
+          ${quickTipText ? `<div class="print-materi-tip-box"><strong>⚡ Trik Kilat &amp; Rumus Kunci:</strong> ${formatPrintMarkdown(quickTipText)}</div>` : ''}
+          ${exampleText ? `<div class="print-materi-example-box"><strong>💡 Contoh Soal Terbimbing:</strong> ${formatPrintMarkdown(exampleText)}</div>` : ''}
+        </div>
+      `;
+    });
+    html += `</div>`;
+    return html;
+  }
+
   function generateExamSheetHTML(source, config) {
-    if (!source || !source.questions || source.questions.length === 0) {
+    if (!source || ((!source.questions || source.questions.length === 0) && (!source.subtopics || source.subtopics.length === 0))) {
       return '<div style="padding: 24px; text-align: center; color: #64748b;">Belum ada butir soal yang dapat dicetak.</div>';
     }
 
-    const { contentMode, columns, includeHeader, includeInstructions, includeLJK, includeScratchpad } = config;
+    const { contentMode, columns, includeHeader, includeInstructions, includeLJK, includeScratchpad, includeMateriSummary } = config;
     const isTwoCol = (columns === '2col');
 
     let html = '';
@@ -375,6 +433,11 @@
           </ol>
         </div>
       `;
+    }
+
+    // B2. Illustrated Study Module / Materi Summary
+    if ((includeMateriSummary || contentMode === 'materi_only') && Array.isArray(source.subtopics) && source.subtopics.length > 0) {
+      html += renderPrintableSubtopicsHTML(source);
     }
 
     // C. Questions Body
@@ -837,6 +900,21 @@
     .scratchpad-subtitle { font-size: 8.5pt; text-align: center; color: #64748b; margin-bottom: 16px; }
     .scratchpad-grid-lines { height: 720px; border: 1px solid #cbd5e1; background-image: linear-gradient(#e2e8f0 1px, transparent 1px); background-size: 100% 24px; border-radius: 6px; }
 
+    /* Illustrated Study Module / Materi Figures */
+    .exam-print-materi-container { margin-bottom: 14px; }
+    .print-materi-subtopic-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; page-break-inside: avoid; break-inside: avoid; background: #ffffff; }
+    .print-materi-subtopic-title { font-size: 10pt; font-weight: 800; color: #3730a3; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 6px; }
+    .print-materi-subtopic-body { font-size: 8.8pt; color: #0f172a; line-height: 1.55; margin-bottom: 8px; }
+    .print-materi-figure { page-break-inside: avoid !important; break-inside: avoid !important; max-width: 100% !important; margin: 8px 0 10px 0; border: 1.5px solid #334155; border-radius: 6px; overflow: hidden; background: #0f172a; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .print-materi-figure-head { background: #1e293b; color: #f8fafc; font-size: 8pt; font-weight: 800; padding: 5px 10px; border-bottom: 1px solid #334155; letter-spacing: 0.3px; }
+    .print-materi-figure img { display: block; width: 100%; max-width: 100% !important; max-height: 360px; height: auto; object-fit: contain; margin: 0 auto; background: #0f172a; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .print-materi-figure figcaption { background: #f8fafc; color: #1e293b; font-size: 8pt; line-height: 1.45; padding: 6px 10px; border-top: 1px solid #cbd5e1; }
+    .print-materi-guide { background: #f0fdfa; color: #0f172a; font-size: 7.8pt; padding: 6px 10px; border-top: 1px dashed #99f6e4; }
+    .print-materi-guide-title { font-weight: 800; color: #0f766e; margin-bottom: 3px; }
+    .print-materi-guide-list { margin: 0; padding-left: 16px; line-height: 1.45; }
+    .print-materi-tip-box { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 5px 8px; font-size: 8.2pt; margin-top: 6px; border-radius: 0 4px 4px 0; color: #78350f; page-break-inside: avoid; }
+    .print-materi-example-box { background: #f8fafc; border-left: 3px solid #4f46e5; padding: 5px 8px; font-size: 8.2pt; margin-top: 6px; border-radius: 0 4px 4px 0; color: #1e293b; page-break-inside: avoid; }
+
     /* Footer */
     .exam-print-footer { text-align: center; font-size: 7.5pt; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 6px; margin-top: 16px; display: flex; justify-content: space-between; }
     .katex { font-size: 1.05em !important; color: #000000 !important; }
@@ -1115,7 +1193,12 @@
                 </label>
                 <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer text-slate-200 hover:text-white transition">
                   <input type="checkbox" id="med-chk-scratchpad" class="w-4 h-4 accent-indigo-500 rounded">
-                  <span class="text-xs font-semibold">Lembar Buram / Coretan Hitung</span>
+                  <span class="text-xs font-semibold">Lembar Buram / Coretan Hitung (Grid)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer text-slate-200 hover:text-white transition sm:col-span-2">
+                  <input type="checkbox" id="med-chk-materi" class="w-4 h-4 accent-indigo-500 rounded">
+                  <span class="text-xs font-semibold">Sertakan Ringkasan Materi &amp; Diagram Visual Bab (Ilustrasi Buku Cetak)</span>
+
                 </label>
               </div>
             </div>
@@ -1170,6 +1253,7 @@
     const chkInstructions = document.getElementById('med-chk-instructions');
     const chkLJK = document.getElementById('med-chk-ljk');
     const chkScratchpad = document.getElementById('med-chk-scratchpad');
+    const chkMateri = document.getElementById('med-chk-materi');
 
     return {
       contentMode: contentModeEl ? contentModeEl.value : 'soal_only',
@@ -1177,7 +1261,8 @@
       includeHeader: chkHeader ? chkHeader.checked : true,
       includeInstructions: chkInstructions ? chkInstructions.checked : true,
       includeLJK: chkLJK ? chkLJK.checked : true,
-      includeScratchpad: chkScratchpad ? chkScratchpad.checked : false
+      includeScratchpad: chkScratchpad ? chkScratchpad.checked : false,
+      includeMateriSummary: chkMateri ? chkMateri.checked : false
     };
   }
 
@@ -1214,6 +1299,23 @@
       return;
     }
     openModalWithSource(src);
+  }
+
+  function printMateriChapter(chapterId, optionalGrade) {
+    const targetId = chapterId || (window.currentDetailChapter && window.currentDetailChapter.id);
+    const targetGrade = optionalGrade || window.currentDetailGrade;
+    if (!targetId) return;
+    const src = normalizeChapterData(targetId, targetGrade);
+    if (!src) return;
+    triggerPrintExecution(src, {
+      contentMode: 'materi_only',
+      columns: '1col',
+      includeHeader: true,
+      includeInstructions: false,
+      includeLJK: false,
+      includeScratchpad: false,
+      includeMateriSummary: true
+    });
   }
 
   function openForCurrentMateri() {
@@ -1404,6 +1506,8 @@
 
   window.TheArichExamDownloader = {
     openForChapter,
+    printMateriChapter,
+    renderPrintableSubtopicsHTML,
     openForCurrentMateri,
     openForCurrentExam,
     openForCurrentExamReview,
@@ -1436,6 +1540,7 @@
 
   // Expose root shortcut
   window.downloadExamPDF = openForChapter;
+  window.printMateriChapter = printMateriChapter;
   window.downloadPMPDF = openForPMPackage;
 
 })(window, document);

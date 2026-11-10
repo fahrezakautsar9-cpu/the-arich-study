@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="849.6pt" height="345.6pt" viewBox="0 0 849.6 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-10T21:12:59.138434</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.6 
+L 849.6 345.6 
+L 849.6 0 
+L 0 0 
+z
+" style="fill: #0f172a"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 46.728 300.672 
+L 401.377541 300.672 
+L 401.377541 62.208 
+L 46.728 62.208 
+z
+" style="fill: #1e293b"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="me64652cd3d" d="M 0 0 
+L 0 3.5 
+" style="stroke: #cbd5e1; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#me64652cd3d" x="125.757443" y="300.672" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #cbd5e1" transform="translate(57.832318 313.978703)">Perbandingan Angka Mentah</text>
+      <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #cbd5e1" transform="translate(88.883396 323.337731)">(Menyesatkan!)</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#me64652cd3d" x="322.348098" y="300.672" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #cbd5e1" transform="translate(252.46534 313.978703)">Perbandingan Laju per Kapita</text>
+      <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #cbd5e1" transform="translate(257.776043 323.337731)">(Acuan Proporsional Benar)</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <path d="M 46.728 300.672 
+L 401.377541 300.672 
+" clip-path="url(#pa37e6ac206)" style="fill: none; stroke-dasharray: 2.59,1.12; stroke-dashoffset: 0; stroke: #334155; stroke-opacity: 0.7; stroke-width: 0.7"/>
+     </g>
+     <g id="line2d_4">
+      <defs>
+       <path id="mc415fa271c" d="M 0 0 
+L -3.5 0 
+" style="stroke: #cbd5e1; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mc415fa271c" x="46.728" y="300.672" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: end; fill: #cbd5e1" x="39.728" y="303.901336" transform="rotate(-0 39.728 303.901336)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <path d="M 46.728 250.992 
+L 401.377541 250.992 
+" clip-path="url(#pa37e6ac206)" style="fill: none; stroke-dasharray: 2.59,1.12; stroke-dashoffset: 0; stroke: #334155; stroke-opacity: 0.7; stroke-width: 0.7"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mc415fa271c" x="46.728" y="250.992" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: end; fill: #cbd5e1" x="39.728" y="254.221336" transform="rotate(-0 39.728 254.221336)">100</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7">
+      <path d="M 46.728 201.312 
+L 401.377541 201.312 
+" clip-path="url(#pa37e6ac206)" style="fill: none; stroke-dasharray: 2.59,1.12; stroke-dashoffset: 0; stroke: #334155; stroke-opacity: 0.7; stroke-width: 0.7"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mc415fa271c" x="46.728" y="201.312" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: end; fill: #cbd5e1" x="39.728" y="204.541336" transform="rotate(-0 39.728 204.541336)">200</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <path d="M 46.728 151.632 
+L 401.377541 151.632 
+" clip-path="url(#pa37e6ac206)" style="fill: none; stroke-dasharray: 2.59,1.12; stroke-dashoffset: 0; stroke: #334155; stroke-opacity: 0.7; stroke-width: 0.7"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mc415fa271c" x="46.728" y="151.632" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: end; fill: #cbd5e1" x="39.728" y="154.861336" transform="rotate(-0 39.728 154.861336)">300</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <path d="M 46.728 101.952 
+L 401.377541 101.952 
+" clip-path="url(#pa37e6ac206)" style="fill: none; stroke-dasharray: 2.59,1.12; stroke-dashoffset: 0; stroke: #334155; stroke-opacity: 0.7; stroke-width: 0.7"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mc415fa271c" x="46.728" y="101.952" style="fill: #cbd5e1; stroke: #cbd5e1; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: end; fill: #cbd5e1" x="39.728" y="105.181336" transform="rotate(-0 39.728 105.181336)">400</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #cbd5e1" x="17.631906" y="181.44" transform="rotate(-90 17.631906 181.44)">Besaran Banding</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 62.848434 300.672 
+L 125.757443 300.672 
+L 125.757443 101.952 
+L 62.848434 101.952 
+z
+" clip-path="url(#pa37e6ac206)" style="fill: #38bdf8; stroke: #f8fafc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 259.439089 300.672 
+L 322.348098 300.672 
+L 322.348098 280.8 
+L 259.439089 280.8 
+z
+" clip-path="url(#pa37e6ac206)" style="fill: #38bdf8; stroke: #f8fafc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 125.757443 300.672 
+L 188.666453 300.672 
+L 188.666453 241.056 
+L 125.757443 241.056 
+z
+" clip-path="url(#pa37e6ac206)" style="fill: #fb7185; stroke: #f8fafc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 322.348098 300.672 
+L 385.257108 300.672 
+L 385.257108 241.056 
+L 322.348098 241.056 
+z
+" clip-path="url(#pa37e6ac206)" style="fill: #fb7185; stroke: #f8fafc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 46.728 300.672 
+L 46.728 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 401.377541 300.672 
+L 401.377541 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 46.728 300.672 
+L 401.377541 300.672 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 46.728 62.208 
+L 401.377541 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="94.302938" y="95.9904" transform="rotate(-0 94.302938 95.9904)">400 kasus</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #fb7185" x="157.211948" y="235.0944" transform="rotate(-0 157.211948 235.0944)">120 kasus</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.1px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #38bdf8" transform="translate(260.304703 265.704891)">4 / 1.000 jiwa</text>
+    <text style="font-weight: 700; font-size: 8.1px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #38bdf8" transform="translate(252.298359 274.8384)">(0,4% - RENDAH)</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 8.1px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #fb7185" transform="translate(320.395798 225.960891)">12 / 1.000 jiwa</text>
+    <text style="font-weight: 700; font-size: 8.1px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #fb7185" transform="translate(295.126329 235.0944)">(1,2% - 3x LEBIH TINGGI!)</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 189.720912 129.237961 
+Q 143.012172 128.040621 97.868165 126.883392 
+" style="fill: none; stroke: #fbbf24; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 100.947164 128.522832 
+L 97.868165 126.883392 
+L 101.027116 125.403856 
+" style="fill: none; stroke: #fbbf24; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="text_13">
+    <g id="patch_12">
+     <path d="M 194.564172 150.687094 
+L 351.984016 150.687094 
+Q 354.324016 150.687094 354.324016 148.347094 
+L 354.324016 114.4734 
+Q 354.324016 112.1334 351.984016 112.1334 
+L 194.564172 112.1334 
+Q 192.224172 112.1334 192.224172 114.4734 
+L 192.224172 148.347094 
+Q 192.224172 150.687094 194.564172 150.687094 
+z
+" style="fill: #0f172a; stroke: #fbbf24; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #fbbf24" transform="translate(194.564172 120.339244)">KLAIM SALAH:</text>
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #fbbf24" transform="translate(194.564172 129.073538)">'Kota A lebih berbahaya</text>
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #fbbf24" transform="translate(194.564172 137.868769)">karena kasusnya 400 &gt; 120'</text>
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #fbbf24" transform="translate(194.564172 146.664)">--&gt; Mengabaikan jumlah penduduk!</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 10.2px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="224.052771" y="52.208" transform="rotate(-0 224.052771 52.208)">1. Audit Klaim Menyesatkan: Total Kasus vs Rasio per 1.000 Penduduk</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_13">
+     <path d="M 258.005666 90.225188 
+L 396.127541 90.225188 
+Q 397.627541 90.225188 397.627541 88.725188 
+L 397.627541 67.458 
+Q 397.627541 65.958 396.127541 65.958 
+L 258.005666 65.958 
+Q 256.505666 65.958 256.505666 67.458 
+L 256.505666 88.725188 
+Q 256.505666 90.225188 258.005666 90.225188 
+z
+" style="fill: #0f172a; opacity: 0.8; stroke: #475569; stroke-linejoin: miter"/>
+    </g>
+    <g id="patch_14">
+     <path d="M 259.505666 74.656828 
+L 274.505666 74.656828 
+L 274.505666 69.406828 
+L 259.505666 69.406828 
+z
+" style="fill: #38bdf8; stroke: #f8fafc; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 7.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: start; fill: #f8fafc" x="280.505666" y="74.656828" transform="rotate(-0 280.505666 74.656828)">Kota A (Populasi 100.000 jiwa)</text>
+    </g>
+    <g id="patch_15">
+     <path d="M 259.505666 85.665422 
+L 274.505666 85.665422 
+L 274.505666 80.415422 
+L 259.505666 80.415422 
+z
+" style="fill: #fb7185; stroke: #f8fafc; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 7.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: start; fill: #f8fafc" x="280.505666" y="85.665422" transform="rotate(-0 280.505666 85.665422)">Kota B (Populasi 10.000 jiwa)</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_16">
+    <path d="M 465.214459 300.672 
+L 819.864 300.672 
+L 819.864 62.208 
+L 465.214459 62.208 
+z
+" style="fill: #1e293b"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 481.882987 149.962752 
+L 803.195472 149.962752 
+Q 812.06171 149.962752 812.06171 144.001152 
+L 812.06171 78.185088 
+Q 812.06171 72.223488 803.195472 72.223488 
+L 481.882987 72.223488 
+Q 473.016749 72.223488 473.016749 78.185088 
+L 473.016749 144.001152 
+Q 473.016749 149.962752 481.882987 149.962752 
+z
+" clip-path="url(#p61ecd35c7c)" style="fill: #0f172a; stroke: #38bdf8; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 481.882987 223.886592 
+L 803.195472 223.886592 
+Q 812.06171 223.886592 812.06171 217.924992 
+L 812.06171 159.262848 
+Q 812.06171 153.301248 803.195472 153.301248 
+L 481.882987 153.301248 
+Q 473.016749 153.301248 473.016749 159.262848 
+L 473.016749 217.924992 
+Q 473.016749 223.886592 481.882987 223.886592 
+z
+" clip-path="url(#p61ecd35c7c)" style="fill: #0f172a; stroke: #fbbf24; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 481.882987 295.425792 
+L 803.195472 295.425792 
+Q 812.06171 295.425792 812.06171 289.464192 
+L 812.06171 233.186688 
+Q 812.06171 227.225088 803.195472 227.225088 
+L 481.882987 227.225088 
+Q 473.016749 227.225088 473.016749 233.186688 
+L 473.016749 289.464192 
+Q 473.016749 295.425792 481.882987 295.425792 
+z
+" clip-path="url(#p61ecd35c7c)" style="fill: #0f172a; stroke: #34d399; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3"/>
+   <g id="matplotlib.axis_4"/>
+   <g id="patch_20">
+    <path d="M 465.214459 300.672 
+L 465.214459 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 819.864 300.672 
+L 819.864 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 465.214459 300.672 
+L 819.864 300.672 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 465.214459 62.208 
+L 819.864 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="642.539229" y="91.244767" transform="rotate(-0 642.539229 91.244767)">1. HUKUM LOGIKA KLAIM UNIVERSAL ('SELALU / SEMUA') vs EKSISTENSIAL</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(427.31712 114.991537)">- Klaim 'Tarif B SELALU lebih murah': Cukup temukan 1 KONTRA-CONTOH (misal x=2 km) untuk menyalahkan!</text>
+    <text style="font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(414.374604 124.614848)">- Klaim 'ADA jarak di mana Tarif B lebih murah': Cukup temukan 1 contoh valid (misal x=8 km) untuk membenarkan.</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #fbbf24" x="642.539229" y="172.398512" transform="rotate(-0 642.539229 172.398512)">2. BEDAKAN KATA KUNCI BATAS KETAT (&lt;, &gt;) vs INKLUSIF (&lt;=, &gt;=)</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(510.767229 192.458243)">- 'Lebih dari 6 km' (x &gt; 6)  --&gt;  Nilai tepat x = 6 TIDAK TERMASUK!</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(436.098034 202.20493)">- 'Paling sedikit / minimal 6' (x &gt;= 6)  dan  'Paling banyak / maksimal 6' (x &lt;= 6)  --&gt;  x = 6 TERMASUK!</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #34d399" x="642.539229" y="246.246367" transform="rotate(-0 642.539229 246.246367)">3. SETARA-KAN KOMPONEN SEBELUM MEMBANDINGKAN DUA OPSI</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(427.487136 265.223857)">Jangan membandingkan Harga Barang A (belum termasuk pajak 11% + ongkir) dengan Harga Final Barang B.</text>
+    <text style="font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(490.245448 274.847168)">Hitung TOTAL BIAYA AKHIR bersih pada satuan dan periode yang persis sama.</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 10.2px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="642.539229" y="52.208" transform="rotate(-0 642.539229 52.208)">2. Checklist Evaluasi Pernyataan Majemuk &amp; Kata Kunci Pembatas</text>
+   </g>
+  </g>
+  <g id="text_24">
+   <text style="font-weight: 700; font-size: 12.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="424.8" y="26.778047" transform="rotate(-0 424.8 26.778047)">AUDIT KEBENARAN KLAIM DATA: ANGKA MENTAH vs LAJU PER KAPITA &amp; UJI KASUS TEPI</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa37e6ac206">
+   <rect x="46.728" y="62.208" width="354.649541" height="238.464"/>
+  </clipPath>
+  <clipPath id="p61ecd35c7c">
+   <rect x="465.214459" y="62.208" width="354.649541" height="238.464"/>
+  </clipPath>
+ </defs>
+</svg>

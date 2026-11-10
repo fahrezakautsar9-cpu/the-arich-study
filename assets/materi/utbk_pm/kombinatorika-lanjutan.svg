@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="849.6pt" height="345.6pt" viewBox="0 0 849.6 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-10T21:12:58.780565</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.6 
+L 849.6 345.6 
+L 849.6 0 
+L 0 0 
+z
+" style="fill: #0f172a"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 46.728 300.672 
+L 401.377541 300.672 
+L 401.377541 62.208 
+L 46.728 62.208 
+z
+" style="fill: #1e293b"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 63.396528 149.962752 
+L 384.709013 149.962752 
+Q 393.575251 149.962752 393.575251 144.001152 
+L 393.575251 78.185088 
+Q 393.575251 72.223488 384.709013 72.223488 
+L 63.396528 72.223488 
+Q 54.53029 72.223488 54.53029 78.185088 
+L 54.53029 144.001152 
+Q 54.53029 149.962752 63.396528 149.962752 
+z
+" clip-path="url(#p05c22b51a1)" style="fill: #0f172a; stroke: #38bdf8; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 63.396528 223.886592 
+L 384.709013 223.886592 
+Q 393.575251 223.886592 393.575251 217.924992 
+L 393.575251 159.262848 
+Q 393.575251 153.301248 384.709013 153.301248 
+L 63.396528 153.301248 
+Q 54.53029 153.301248 54.53029 159.262848 
+L 54.53029 217.924992 
+Q 54.53029 223.886592 63.396528 223.886592 
+z
+" clip-path="url(#p05c22b51a1)" style="fill: #0f172a; stroke: #34d399; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 63.396528 295.425792 
+L 384.709013 295.425792 
+Q 393.575251 295.425792 393.575251 289.464192 
+L 393.575251 233.186688 
+Q 393.575251 227.225088 384.709013 227.225088 
+L 63.396528 227.225088 
+Q 54.53029 227.225088 54.53029 233.186688 
+L 54.53029 289.464192 
+Q 54.53029 295.425792 63.396528 295.425792 
+z
+" clip-path="url(#p05c22b51a1)" style="fill: #0f172a; stroke: #fbbf24; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="patch_6">
+    <path d="M 46.728 300.672 
+L 46.728 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 401.377541 300.672 
+L 401.377541 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 46.728 300.672 
+L 401.377541 300.672 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 46.728 62.208 
+L 401.377541 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="224.052771" y="91.320752" transform="rotate(-0 224.052771 91.320752)">PERBEDAAN MENDASAR: PERMUTASI P(n,r) vs KOMBINASI C(n,r)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(60.504872 114.957443)">- PERMUTASI (Urutan / Jabatan Penting: Ketua-Wakil-Sekretaris):  P(n,r) = n! / (n-r)!</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(48.151864 124.70413)">- KOMBINASI (Urutan Tidak Penting: Memilih r anggota tim setara): C(n,r) = n! / (r! (n-r)!)</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #34d399" x="224.052771" y="172.398512" transform="rotate(-0 224.052771 172.398512)">TRIK SELEKSI PANITIA BERSYARAT (Misal Pilih 4 dari 8 Orang)</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(42.355857 192.458243)">- Jika 1 orang (Andi) WAJIB MASUK:  Sisa pilih 3 orang dari 7 kandidat  --&gt;  C(7, 3) = 35 cara</text>
+    <text style="font-size: 7.9px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(33.940505 202.20493)">- Jika 1 orang (Budi) DILARANG MASUK:  Pilih 4 orang dari 7 kandidat sisa  --&gt;  C(7, 4) = 35 cara</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #fbbf24" x="224.052771" y="246.246367" transform="rotate(-0 224.052771 246.246367)">PERMUTASI UNSUR SAMA &amp; PELUANG BINOMIAL</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(63.231396 265.223857)">- Unsur Identik (Kata 'MAMA': 2 M, 2 A dari 4 huruf):  N = 4! / (2! . 2!) = 6 susunan</text>
+    <text style="font-size: 7.8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(52.508224 274.847168)">- Binomial (k sukses dari n percobaan independen):  P(X=k) = C(n,k) . p^k . (1-p)^(n-k)</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 10.2px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="224.052771" y="52.208" transform="rotate(-0 224.052771 52.208)">1. Pemilihan Tim dengan Anggota Wajib Ikut / Dilarang Ikut</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_10">
+    <path d="M 465.214459 300.672 
+L 819.864 300.672 
+L 819.864 62.208 
+L 465.214459 62.208 
+z
+" style="fill: #1e293b"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 575.155817 225.55584 
+C 597.258544 225.55584 618.458976 219.651213 634.087964 209.142385 
+C 649.716952 198.633557 658.498459 184.378527 658.498459 169.5168 
+C 658.498459 154.655073 649.716952 140.400043 634.087964 129.891215 
+C 618.458976 119.382387 597.258544 113.47776 575.155817 113.47776 
+C 553.053089 113.47776 531.852657 119.382387 516.223669 129.891215 
+C 500.594681 140.400043 491.813174 154.655073 491.813174 169.5168 
+C 491.813174 184.378527 500.594681 198.633557 516.223669 209.142385 
+C 531.852657 219.651213 553.053089 225.55584 575.155817 225.55584 
+z
+" clip-path="url(#p3386f33582)" style="fill: #0f172a; stroke: #38bdf8; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 687.579721 188.116992 
+L 803.195472 188.116992 
+Q 812.06171 188.116992 812.06171 182.155392 
+L 812.06171 78.185088 
+Q 812.06171 72.223488 803.195472 72.223488 
+L 687.579721 72.223488 
+Q 678.713483 72.223488 678.713483 78.185088 
+L 678.713483 182.155392 
+Q 678.713483 188.116992 687.579721 188.116992 
+z
+" clip-path="url(#p3386f33582)" style="fill: #0f172a; stroke: #fbbf24; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 687.579721 293.041152 
+L 803.195472 293.041152 
+Q 812.06171 293.041152 812.06171 287.079552 
+L 812.06171 197.417088 
+Q 812.06171 191.455488 803.195472 191.455488 
+L 687.579721 191.455488 
+Q 678.713483 191.455488 678.713483 197.417088 
+L 678.713483 287.079552 
+Q 678.713483 293.041152 687.579721 293.041152 
+z
+" clip-path="url(#p3386f33582)" style="fill: #0f172a; stroke: #34d399; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3"/>
+   <g id="matplotlib.axis_4"/>
+   <g id="patch_14">
+    <path d="M 465.214459 300.672 
+L 465.214459 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 819.864 300.672 
+L 819.864 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 465.214459 300.672 
+L 819.864 300.672 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 465.214459 62.208 
+L 819.864 62.208 
+" style="fill: none; stroke: #475569; stroke-width: 1.1; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(543.325817 158.255675)">MEJA BUNDAR</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(548.212692 167.213925)">n = 6 Orang</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(542.635817 176.234675)">P = (6-1)! = 5!</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(550.927067 185.192925)">= 120 cara</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #fbbf24" x="745.387596" y="91.168783" transform="rotate(-0 745.387596 91.168783)">MENGAPA (n - 1)! ?</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(709.147667 100.7459)">Pada meja bundar,</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(713.32612 110.245835)">rotasi kursi tidak</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(710.706315 119.74577)">mengubah urutan</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(733.214979 129.245705)">relatif.</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(715.619878 138.745641)">1 orang dikunci</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(703.580206 148.245576)">sebagai TITIK ACUAN,</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(715.03576 157.745511)">sisa (n-1) orang</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(714.153268 167.245446)">dipermutasikan:</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(712.74501 176.745381)">P_siklis = (n - 1)!</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.3px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #34d399" x="745.387596" y="210.400783" transform="rotate(-0 745.387596 210.400783)">SIKLIS + SYARAT BLOK</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(707.575182 227.180961)">Jika 2 orang (B &amp; C)</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(705.993674 236.680896)">wajib berdampingan</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(703.659612 246.180831)">di meja bundar 6 org:</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(703.287846 255.680766)">Anggap 5 objek siklis:</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(723.385448 265.180701)">(5 - 1)! x 2!</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #f8fafc" transform="translate(709.554924 274.680637)">= 4! x 2 = 48 cara</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 10.2px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #38bdf8" x="642.539229" y="52.208" transform="rotate(-0 642.539229 52.208)">2. Permutasi Melingkar (Siklis): P_siklis = (n - 1)!</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 575.155817 112.762368 
+C 580.046633 112.762368 584.737792 111.455812 588.196121 109.130455 
+C 591.654451 106.805097 593.597593 103.650792 593.597593 100.36224 
+C 593.597593 97.073688 591.654451 93.919383 588.196121 91.594025 
+C 584.737792 89.268668 580.046633 87.962112 575.155817 87.962112 
+C 570.265 87.962112 565.573841 89.268668 562.115512 91.594025 
+C 558.657182 93.919383 556.71404 97.073688 556.71404 100.36224 
+C 556.71404 103.650792 558.657182 106.805097 562.115512 109.130455 
+C 565.573841 111.455812 570.265 112.762368 575.155817 112.762368 
+z
+" clip-path="url(#p3386f33582)" style="fill: #fbbf24; stroke: #f8fafc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 664.225115 147.339648 
+C 669.115931 147.339648 673.807091 146.033092 677.26542 143.707735 
+C 680.723749 141.382377 682.666891 138.228072 682.666891 134.93952 
+C 682.666891 131.650968 680.723749 128.496663 677.26542 126.171305 
+C 673.807091 123.845948 669.115931 122.539392 664.225115 122.539392 
+C 659.334299 122.539392 654.643139 123.845948 651.18481 126.171305 
+C 647.726481 128.496663 645.783339 131.650968 645.783339 134.93952 
+C 645.783339 138.228072 647.726481 141.382377 651.18481 143.707735 
+C 654.643139 146.033092 659.334299 147.339648 664.225115 147.339648 
+z
+" clip-path="url(#p3386f33582)" style="fill: #a78bfa; stroke: #f8fafc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 664.225115 216.494208 
+C 669.115931 216.494208 673.807091 215.187652 677.26542 212.862295 
+C 680.723749 210.536937 682.666891 207.382632 682.666891 204.09408 
+C 682.666891 200.805528 680.723749 197.651223 677.26542 195.325865 
+C 673.807091 193.000508 669.115931 191.693952 664.225115 191.693952 
+C 659.334299 191.693952 654.643139 193.000508 651.18481 195.325865 
+C 647.726481 197.651223 645.783339 200.805528 645.783339 204.09408 
+C 645.783339 207.382632 647.726481 210.536937 651.18481 212.862295 
+C 654.643139 215.187652 659.334299 216.494208 664.225115 216.494208 
+z
+" clip-path="url(#p3386f33582)" style="fill: #a78bfa; stroke: #f8fafc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 575.155817 251.071488 
+C 580.046633 251.071488 584.737792 249.764932 588.196121 247.439575 
+C 591.654451 245.114217 593.597593 241.959912 593.597593 238.67136 
+C 593.597593 235.382808 591.654451 232.228503 588.196121 229.903145 
+C 584.737792 227.577788 580.046633 226.271232 575.155817 226.271232 
+C 570.265 226.271232 565.573841 227.577788 562.115512 229.903145 
+C 558.657182 232.228503 556.71404 235.382808 556.71404 238.67136 
+C 556.71404 241.959912 558.657182 245.114217 562.115512 247.439575 
+C 565.573841 249.764932 570.265 251.071488 575.155817 251.071488 
+z
+" clip-path="url(#p3386f33582)" style="fill: #a78bfa; stroke: #f8fafc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 486.086518 216.494208 
+C 490.977334 216.494208 495.668494 215.187652 499.126823 212.862295 
+C 502.585152 210.536937 504.528294 207.382632 504.528294 204.09408 
+C 504.528294 200.805528 502.585152 197.651223 499.126823 195.325865 
+C 495.668494 193.000508 490.977334 191.693952 486.086518 191.693952 
+C 481.195702 191.693952 476.504542 193.000508 473.046213 195.325865 
+C 469.587884 197.651223 467.644742 200.805528 467.644742 204.09408 
+C 467.644742 207.382632 469.587884 210.536937 473.046213 212.862295 
+C 476.504542 215.187652 481.195702 216.494208 486.086518 216.494208 
+z
+" clip-path="url(#p3386f33582)" style="fill: #a78bfa; stroke: #f8fafc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 486.086518 147.339648 
+C 490.977334 147.339648 495.668494 146.033092 499.126823 143.707735 
+C 502.585152 141.382377 504.528294 138.228072 504.528294 134.93952 
+C 504.528294 131.650968 502.585152 128.496663 499.126823 126.171305 
+C 495.668494 123.845948 490.977334 122.539392 486.086518 122.539392 
+C 481.195702 122.539392 476.504542 123.845948 473.046213 126.171305 
+C 469.587884 128.496663 467.644742 131.650968 467.644742 134.93952 
+C 467.644742 138.228072 469.587884 141.382377 473.046213 143.707735 
+C 476.504542 146.033092 481.195702 147.339648 486.086518 147.339648 
+z
+" clip-path="url(#p3386f33582)" style="fill: #a78bfa; stroke: #f8fafc; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 6.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #0f172a" transform="translate(572.640621 98.516545)">A</text>
+    <text style="font-weight: 700; font-size: 6.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; fill: #0f172a" transform="translate(553.620504 105.795123)">(PATOKAN!)</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="664.225115" y="137.284989" transform="rotate(-0 664.225115 137.284989)">B</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="664.225115" y="206.439549" transform="rotate(-0 664.225115 206.439549)">C</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="575.155817" y="241.016829" transform="rotate(-0 575.155817 241.016829)">D</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="486.086518" y="206.439549" transform="rotate(-0 486.086518 206.439549)">E</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="486.086518" y="137.284989" transform="rotate(-0 486.086518 137.284989)">F</text>
+   </g>
+  </g>
+  <g id="text_20">
+   <text style="font-weight: 700; font-size: 12.5px; font-family: 'DejaVu Sans', 'Segoe UI', 'Arial', sans-serif; text-anchor: middle; fill: #f8fafc" x="424.8" y="26.778047" transform="rotate(-0 424.8 26.778047)">KOMBINATORIKA LANJUTAN: SELEKSI TIM BERSYARAT &amp; PERMUTASI SIKLIS</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p05c22b51a1">
+   <rect x="46.728" y="62.208" width="354.649541" height="238.464"/>
+  </clipPath>
+  <clipPath id="p3386f33582">
+   <rect x="465.214459" y="62.208" width="354.649541" height="238.464"/>
+  </clipPath>
+ </defs>
+</svg>
