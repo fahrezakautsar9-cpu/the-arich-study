@@ -1,16 +1,19 @@
 # The Arich Study — Master Blueprint & System Architecture Documentation
 > **Dokumentasi Lengkap Arsitektur, Skema Data, Logika State, Protokol Keamanan, dan Panduan Kolaborasi Pengembang (The Arich Study Developer & AI Codex Reference)**
 
+> **Batas keamanan yang berlaku:** Situs ini statis. Profil dan hasil belajar hanya tersimpan di browser/perangkat yang aktif. PIN guru adalah kunci tampilan, bukan autentikasi; semua kunci soal yang dipakai klien bisa dibaca dari berkas publik. Jangan pakai untuk ujian rahasia atau penilaian resmi. Integrasi Google Apps Script lama sudah dihapus dari source aktif, tetapi deployment dan Sheet lama tidak otomatis ikut dicabut.
+
 ---
 
 ## 1. Ringkasan Eksekutif & Visi Platform (Executive Overview)
 
-**The Arich Study** adalah platform pembelajaran digital mutakhir berbasis web (*Single Page Application / Progressive Web App*) yang dirancang khusus untuk jenjang **SMP (Kelas 7, 8, 9)** dan **SMA (Kelas 10, 11, 12)** dengan fokus mendalam pada:
-1. **Kurikulum Merdeka — Matematika & Fisika:** Disajikan dengan pendekatan *first-principles pedagogical approach* (penurunan konsep dari nol, intuisi fisis, analogi nyata, peringatan miskonsepsi, dan langkah terstruktur bertahap).
-2. **Penalaran Matematika (PM) UTBK-SNBT BP3 2026:** Standar simulasi Computer-Based Test (CBT) resmi dengan stimulus multisoal, navigasi 20 soal HOTS, mode bedah soal santai (*study mode*), dan proteksi kunci jawaban.
-3. **Keamanan Mode Guru (Teacher Mode):** Proteksi kunci jawaban resmi dan pembahasan langkah KaTeX di balik otentikasi PIN guru (`010822`).
-4. **Universal A4 PDF Compiler:** Kemampuan mengompilasi dan mencetak dokumen naskah soal resmi kop standar ujian dan lembar pembahasan langsung dari browser secara offline tanpa dependensi server backend.
-5. **Zero Backend Runtime Dependency:** 100% berjalan di sisi klien (Client-Side Vanilla JS + Tailwind CSS + KaTeX), dapat di-deploy langsung di GitHub Pages atau server statis apa pun, dengan sinkronisasi opsional ke Google Sheets via Google Apps Script (GAS).
+**The Arich Study** adalah aplikasi belajar berbasis SPA/PWA dengan materi dan latihan Matematika/Fisika SMP–SMA. Materi tersedia untuk kelas 7–12 dengan kedalaman yang berbeda-beda; Kelas 11 adalah pilot aktif.
+
+1. **Materi dan latihan mandiri:** Materi kurikulum, latihan per bab, simulasi penalaran matematika, alat interaktif, catatan kesalahan, dan cetak PDF.
+2. **Hosting statis:** Tidak ada backend aplikasi atau biaya server. Styling Tailwind dibangun saat pengembangan ke `app.css`; browser memuat HTML/CSS/JS statis.
+3. **Data lokal:** Profil panggilan, nilai, dan progres disimpan di `localStorage`. Pengguna bisa membuat cadangan JSON dan ekspor CSV. Tidak ada sinkronisasi kelas/perangkat.
+4. **Aset pihak ketiga:** Ikon, font, KaTeX, dan confetti dimuat dari CDN publik. Data profil dan nilai tidak dikirim bersama permintaan aset.
+5. **Keluaran nonformal:** Rekap dan sertifikat adalah ringkasan/apresiasi latihan buatan aplikasi, bukan dokumen sekolah atau sertifikasi terverifikasi.
 
 ---
 
@@ -40,19 +43,18 @@ flowchart TD
         AllCurriculum["curriculum_all_grades.js (ALL_GRADES_DATA)"]
         SMPData["kurmer_kelas7_9_materi.js"]
         SMAData["kurmer_kelas10_12_materi.js"]
-        UTBKPMPackets["utbk_pm_soal_bank.js & paket 2-5 (100 Soal HOTS)"]
+        UTBKPMPackets["utbk_pm_soal_bank.js & paket 2-5 (100 soal latihan orisinal)"]
         ChapterBanks["soal_bank_per_bab.js"]
     end
 
     subgraph SecurityPrint["Keamanan & Output Ekspor"]
-        TeacherGate["Teacher PIN Protection (010822)"]
+        TeacherGate["UI-only PIN gate (not exam security)"]
         PrintEngine["Isolated Iframe Print Engine (A4 Standard)"]
     end
 
     subgraph ExternalServices["Sinkronisasi & Offline Cache"]
-        SW["sw.js (Service Worker Cache v1.7.0)"]
-        GAS["Google Apps Script Webhook (Cloud Sync)"]
-        CDNs["KaTeX, Tailwind CSS, Lucide Icons, Canvas Confetti"]
+        SW["sw.js (Service Worker Cache v1.8.0)"]
+        CDNs["KaTeX, Lucide, Google Fonts, Canvas Confetti"]
     end
 
     Index --> Router
@@ -63,7 +65,8 @@ flowchart TD
     ExamDownloader --> TeacherGate
     ExamDownloader --> PrintEngine
     Store --> SW
-    Store --> GAS
+    SW --> Index
+    CDNs --> Index
 ```
 
 ---
@@ -75,10 +78,15 @@ Platform The Arich Study disusun secara rapi di dalam folder `the_arich_study/`:
 ```
 the_arich_study/
 ├── index.html                       # Berkas inti SPA (17 view, controller navigasi, modul UI)
+├── app.js                           # Alur aplikasi dan penyimpanan lokal
+├── app.css                          # Utility CSS Tailwind hasil build untuk hosting statis
 ├── manifest.json                    # Metadata PWA (nama aplikasi, icon, theme_color)
-├── sw.js                            # Service Worker offline-first (v1.7.0)
+├── sw.js                            # Service Worker dan cache offline (v1.8.0)
 ├── theme.css                        # Styling pelengkap, custom dark palette & font styling
 ├── print.css                        # Aturan cetak PDF A4 presisi (kop, break-inside, font print)
+├── package.json                     # Tooling build CSS saja (bukan dependensi runtime browser)
+├── tailwind.config.js               # Konfigurasi pemindaian kelas Tailwind
+├── tailwind.input.css                # Input build untuk app.css
 ├── README.md                        # Dokumentasi singkat proyek
 ├── THE_ARICH_STUDY_MASTER_BLUEPRINT.md # Dokumentasi master arsitektur & skema (berkas ini)
 ├── icons/                           # Ikon PWA maskable SVG (192px, 512px)
@@ -86,7 +94,6 @@ the_arich_study/
 │   ├── icon-512.svg
 │   └── icon-maskable.svg
 ├── data/                            # Basis data materi Kurikulum Merdeka & Bank Soal
-│   ├── cloud_config.js              # URL Webhook Google Apps Script untuk cloud sync
 │   ├── curriculum_all_grades.js     # Master registry kurikulum Kelas 7 s/d 12 (ALL_GRADES_DATA)
 │   ├── kurmer_kelas7_materi.js      # Materi Kelas 7 SMP (Fase D)
 │   ├── kurmer_kelas8_materi.js      # Materi Kelas 8 SMP (Fase D)
@@ -111,8 +118,10 @@ the_arich_study/
 ├── features_assessment.js           # Mesin CBT Ujian Harian & Analisis Hasil
 ├── features_exam_scratchpad.js      # Coret-coretan interaktif ujian canvas/teks
 ├── features_ui_pwa.js               # Pengendali tema, drawer sidebar, deteksi offline
-└── GOOGLE_APPS_SCRIPT.gs            # Skrip Google Apps Script untuk Google Sheets Database
+└── downloads/                       # Naskah soal latihan siswa; tidak menyimpan PDF kunci guru
 ```
+
+PDF pembahasan guru disimpan di folder sibling privat, di luar repositori dan hosting statis. Kunci yang ada di bank soal JavaScript tetap dapat dibaca siapa pun; pemindahan PDF hanya mencegah tautan langsung dari situs.
 
 ---
 
@@ -122,23 +131,23 @@ Seluruh navigasi platform dikendalikan oleh fungsi tunggal `switchView(viewName)
 
 | No | ID View (`view-*`) | Fungsi & Deskripsi |
 | :---: | :--- | :--- |
-| 1 | `student-gate` | Gerbang masuk siswa: input nama, jenjang kelas (7-12), sekolah, atau pilih akun tersimpan di perangkat. |
+| 1 | `student-gate` | Gerbang masuk sederhana: nama panggilan opsional, jenjang kelas, atau profil lokal tersimpan. |
 | 2 | `dashboard` | Beranda siswa: widget Lanjut Belajar Terakhir, XP bar, progres level, ringkasan capaian, dan kartu bab kelasnya. |
 | 3 | `materi-catalog` | Katalog modul belajar lengkap dengan filter tombol *Semua*, *Matematika*, dan *Fisika*, serta status progres subtopik. |
 | 4 | `materi-detail` | Pembaca modul materi interaktif (first-principles), ukuran font (A-, A, A+, A++), TTS baca suara, tips cepat, contoh soal terbimbing, scratchpad, dan tombol cetak PDF / mulai tes. |
 | 5 | `exam-catalog` | Katalog latihan CBT per bab dengan status skor tertinggi dan lencana kelulusan (>= 70). |
-| 6 | `exam` | Kanvas ujian CBT resmi: timer hitung mundur 30 menit, navigasi nomor, ragu-ragu, dan modal rumus sakti. |
+| 6 | `exam` | Kanvas latihan bertimer 30 menit, navigasi soal, penanda ragu-ragu, dan modal rumus. Bukan ujian berpengawasan. |
 | 7 | `exam-result` | Analisis hasil ujian: skor nilai 0-100, radar penguasaan, daftar benar/salah, dan rekomendasi remedial. |
-| 8 | `exam-review` | Pembahasan soal nomor per nomor lengkap dengan kunci resmi dan penurunan KaTeX. |
-| 9 | `pm-catalog` | Katalog khusus UTBK Penalaran Matematika: 5 Paket Simulasi (100 Soal) dengan estimasi waktu & tingkat HOTS. |
+| 8 | `exam-review` | Pembahasan latihan per soal dan rumus KaTeX. |
+| 9 | `pm-catalog` | Katalog latihan Penalaran Matematika: 5 paket orisinal (100 soal), masing-masing berdurasi 42 menit 30 detik. |
 | 10 | `pm-exam` | Kanvas CBT UTBK PM: layout split-screen (kiri stimulus narasi/tabel/grafik, kanan pertanyaan), strip cepat 20 nomor. |
-| 11 | `pm-study` | Mode Santai "Bedah Soal" UTBK: eksplorasi soal satu per satu dengan proteksi kunci Mode Guru vs Mode Siswa. |
+| 11 | `pm-study` | Mode santai untuk membahas paket latihan; PIN hanya mengatur tampilan kunci di browser. |
 | 12 | `pm-review` | Pembahasan lengkap lembar hasil ujian UTBK PM. |
 | 13 | `error-bank` | "Buku Catatan Salah": merekam otomatis setiap nomor yang dijawab keliru untuk diulang kembali. |
 | 14 | `mathlab` | 6 Simulasi interaktif: Trigonometri lingkaran satuan, Gerak parabola proyektil, Kalkulator matriks, Teorema Pythagoras, Penjumlahan vektor analitis, Probabilitas spinner. |
 | 15 | `cheatsheet` | "Buku Sakti": ringkasan rumus cepat matematika & fisika siap pakai. |
 | 16 | `history` | Tabel riwayat seluruh nilai ujian siswa di perangkat lokal. |
-| 17 | `teacher-dashboard` | Portal Guru: rekapitulasi nilai seluruh siswa, rata-rata kelas, dan cetak rapor format PDF resmi. |
+| 17 | `teacher-dashboard` | Rekap profil dan latihan yang ada di browser ini; tidak menggabungkan data kelas/perangkat dan bukan rapor resmi. |
 
 ---
 
@@ -177,7 +186,7 @@ Seluruh navigasi platform dikendalikan oleh fungsi tunggal `switchView(viewName)
 ```
 
 ### C. Model Soal UTBK & CBT (`Question`)
-Platform mendukung 3 tipe soal standar BP3:
+Platform mendukung 3 tipe soal pada paket latihan Penalaran Matematika:
 1. **Pilihan Ganda Biasa (`single_choice`):**
    ```javascript
    {
@@ -208,7 +217,7 @@ Platform mendukung 3 tipe soal standar BP3:
        "Biaya sewa rute A lebih efisien daripada rute B.",
        "Kapasitas muat gudang memenuhi batas aman 85%."
      ],
-     "correctAnswers": [true, false],        // Array boolean kunci resmi
+     "correctAnswers": [true, false],        // Array kunci untuk latihan
      "solution": "Pembahasan tiap baris..."
    }
    ```
@@ -251,6 +260,42 @@ Platform mendukung 3 tipe soal standar BP3:
   "school": "SMAN 1 Jakarta"
 }
 ```
+
+### F. Pemetaan Kurikulum & Model Kasus Fisika Kelas 11 (Fase F SMA)
+Modul Fisika Kelas 11 disusun berbasis **Case Archetypes** standar asesmen nasional (UH, PTS, PAS, UTBK SNBT) dengan pembagian semester resmi:
+
+#### Semester 1 (Bab 1 s/d Bab 5):
+1. **Bab 1: Kinematika Vektor Gerak Lurus, Parabola & Melingkar (`k11-fisika-kinematika`)**
+   - *Kasus 1:* Rekonstruksi posisi dari percepatan waktu non-konstan $a(t) = 6t - 4$ via kalkulus integral.
+   - *Kasus 2:* Peluru ditembakkan dari puncak tebing setinggi $h$ dengan sudut elevasi $\theta$ & sifat simetri sudut komplementer $\theta$ vs $90^\circ - \theta$.
+   - *Kasus 3:* Transmisi 3 model roda (seporos $\omega_A = \omega_B$, singgung luar, dan sabuk/rantai $v_A = v_B$).
+2. **Bab 2: Dinamika Gerak Partikel & Aplikasi Hukum Newton (`k11-fisika-dinamika-newton`)**
+   - *Kasus 1:* 4 Skenario timbangan orang di dalam lift ($N = m(g \pm a)$ hingga jatuh bebas $N = 0$).
+   - *Kasus 2:* Bidang miring kasar, pembuktian sudut kritis meluncur $\tan\theta_c = \mu_s$ yang independen terhadap massa.
+   - *Kasus 3:* Pesawat Atwood gantung ganda & katrol meja datar $a = \frac{m_2 - \mu_k m_1}{m_1 + m_2}g$.
+   - *Kasus 4:* Tikungan jalan miring licin (*banked road*) $v_{\text{ideal}} = \sqrt{g R \tan\theta}$ dan ayunan konis.
+3. **Bab 3: Usaha, Teorema Energi Mekanik, Impuls & Tumbukan (`k11-fisika-usaha-energi-momentum`)**
+   - *Kasus 1:* Teorema Usaha-Energi Kinetik via integral grafis $F - x$ ($W_{\text{net}} = \Delta E_k$).
+   - *Kasus 2:* Bukti ketinggian kritis pelepasan roller coaster pada loop vertikal $h_{\min} = 2{,}5 R$.
+   - *Kasus 3:* Ayunan balistik dua tahap (tumbukan momentum tak lenting + ayunan naik energi mekanik) dan pantulan bola berulang $h_n = e^{2n} h_0$.
+4. **Bab 4: Dinamika Rotasi & Kesetimbangan Benda Tegar (`k11-fisika-dinamika-rotasi`)**
+   - *Kasus 1:* Torsi poros ujung batang homogen $I = \frac{1}{3}ML^2$ dan teorema sumbu sejajar.
+   - *Kasus 2:* Balapan menggelinding murni di bidang miring $v = \sqrt{\frac{2gh}{1+k}}$, pembuktian bola pejal menang atas silinder/cincin, dan katrol bermassa masif.
+   - *Kasus 3:* Kesetimbangan tangga bersandar pada dinding licin dan lantai kasar $\tan\theta_{\min} = \frac{1}{2\mu_s}$ serta titik berat benda berlubang.
+5. **Bab 5: Mekanika Fluida Statis & Dinamis (`k11-fisika-fluida`)**
+   - *Kasus 1:* Bejana berhubungan pipa U multi-cairan ($\rho_1 h_1 = \rho_2 h_2$) dan dongkrak Pascal.
+   - *Kasus 2:* Persentase terapung Archimedes $\frac{\rho_b}{\rho_f} = \frac{V_{\text{celup}}}{V_{\text{total}}}$ dan kecepatan terminal Stokes bola dalam fluida kental.
+   - *Kasus 3:* Teorema Torricelli tangki bocor ($v = \sqrt{2gh_1}$, $X = 2\sqrt{h_1 h_2}$), venturimeter, dan gaya angkat sayap pesawat.
+
+#### Semester 2 (Bab 6 s/d Bab 7):
+6. **Bab 6: Gelombang Mekanik, Bunyi & Optika Gelombang Cahaya (`k11-fisika-gelombang-bunyi-cahaya`)**
+   - *Kasus 1:* Persamaan gelombang sinusoidal $y = A \sin(\omega t \mp kx)$, kelajuan fase $v = \omega / k$, dan beda fase.
+   - *Kasus 2:* Resonansi pipa organa terbuka vs tertutup, efek Doppler menyeluruh dengan tanda relatif, dan taraf intensitas desibel (jarak $r_2$ dan multi-sumber $n$).
+   - *Kasus 3:* Interferensi celah ganda Young ($d \frac{y}{L} = n \lambda$) dan difraksi kisi $d \sin\theta = n \lambda$.
+7. **Bab 7: Suhu, Teori Kinetik Gas & Hukum Termodinamika (`k11-fisika-termodinamika`)**
+   - *Kasus 1:* Uji kalor lebur Asas Black campuran es-air (mendeteksi wujud akhir $0^\circ\text{C}$ vs mencair tuntas).
+   - *Kasus 2:* Derajat kebebasan ekuipartisi gas diatomik pada suhu rendah (3), sedang (5), dan tinggi (7).
+   - *Kasus 3:* Usaha siklus grafis $P - V$ dan perhitungan perubahan efisiensi mesin Carnot $\eta = 1 - \frac{T_C}{T_H}$.
 
 ---
 
@@ -313,28 +358,16 @@ function openChapterDetail(chapterId, optionalGradeId) {
 
 ---
 
-## 7. Protokol Keamanan & Mode Guru (Teacher Mode Protocol)
+## 7. Batas Keamanan dan Mode Guru
 
-Untuk menjaga integritas belajar dan mencegah siswa melihat kunci jawaban sebelum menyelesaikan latihan:
+Mode Guru memakai PIN yang diperiksa oleh JavaScript publik di browser. Ini hanya kontrol tampilan untuk belajar bersama, bukan login atau otorisasi keamanan. Siswa yang membuka source, cache, atau berkas bank soal tetap dapat menemukan kunci dan pembahasan.
 
-1. **State Kunci:**
-   - Status Mode Guru disimpan pada flag global `window.isTeacherUnlocked` (boolean, default: `false`).
-   - PIN Resmi: `010822` (atau `090305`).
-2. **Perilaku Mode Siswa (`!window.isTeacherUnlocked`):**
-   - **Tampilan Bedah Soal PM ([features_pm_engine.js](file:///C:/Users/fahreza%20kautsar/Documents/antigravity/mysterious-borg/the_arich_study/features_pm_engine.js)):**
-     - Kartu Kunci Jawaban Resmi, Pembahasan KaTeX langkah demi langkah, dan Formula Praktis **disembunyikan sepenuhnya**.
-     - Ditampilkan kartu pemberitahuan: *"Mode Siswa: Kunci Resmi & KaTeX Terkunci (Latihan Objektif)"* beserta tombol untuk memasukkan PIN Pengajar jika guru sedang mendampingi.
-     - Pilihan ganda bersifat interaktif dengan penanda netral (highlight biru indigo) **tanpa penanda hijau (kunci) atau merah**.
-     - Soal Benar/Salah dan Isian Numerik menyimpan jawaban siswa tanpa membocorkan kebenaran atau nilai angka kunci.
-   - **Cetak / Unduh PDF ([features_exam_downloader.js](file:///C:/Users/fahreza%20kautsar/Documents/antigravity/mysterious-borg/the_arich_study/features_exam_downloader.js)):**
-     - Opsi *"Naskah Soal + Kunci & Solusi"* dan *"Hanya Kunci Jawaban & KaTeX"* dikunci dengan lencana `🔒 Mode Guru`.
-     - Jika siswa menekan tombol Cetak/Unduh, sistem secara otomatis memaksa format dokumen menjadi **"soal_only"** (Naskah Soal Saja Bersih Tanpa Kunci).
-3. **Perilaku Mode Guru (`window.isTeacherUnlocked === true`):**
-   - Menampilkan seluruh kartu kunci resmi (`Standar BP3 • Mode Guru Aktif`), langkah KaTeX, dan trik kilat.
-   - Pilihan ganda menyoroti jawaban benar dengan badge hijau `✓ Kunci Resmi`.
-   - Seluruh 3 format cetak PDF terbuka penuh.
-   - Bar atas menampilkan status aktif `Mode Guru (Kunci Aktif)`.
-   - Ketika PIN berhasil diverifikasi, sistem memicu callback `onTeacherModeChange()` di seluruh komponen yang aktif tanpa memaksa pindah halaman (*seamless in-place refresh*).
+- Jangan gunakan situs ini untuk ujian rahasia, ujian berpengawasan, atau penilaian yang membutuhkan bukti identitas dan integritas.
+- Jangan menaruh soal rahasia, data sekolah, nama lengkap, atau data sensitif pada materi yang dipublikasikan.
+- Data profil/nilai disimpan pada `localStorage` perangkat aktif. Tidak ada sinkronisasi akun; menghapus data browser dapat menghapus progres kecuali pengguna menyimpan cadangan JSON.
+- CSV dan JSON cadangan harus dibagikan dengan hati-hati karena berisi data belajar lokal.
+- Riwayat source lama pernah berisi konfigurasi Google Apps Script. Source aktif sudah menghapus jalur sync, tetapi deployment Google yang pernah dibuat dan data spreadsheet lama harus dicabut/dihapus terpisah oleh pemilik akun.
+- PDF kunci guru dipindah ke folder privat di luar repositori. Ini tidak membuat kunci di file JavaScript menjadi rahasia.
 
 ---
 
@@ -342,8 +375,8 @@ Untuk menjaga integritas belajar dan mencegah siswa melihat kunci jawaban sebelu
 
 Modul ini adalah mesin pembuat dokumen PDF cetak mandiri yang bekerja murni di browser:
 - **Teknologi:** Menggunakan isolated hidden `<iframe>` untuk membangun dokumen HTML standar A4, memicu `window.print()` di dalam iframe tersebut sehingga tidak merusak atau merefresh DOM halaman utama aplikasi.
-- **Kop Surat Ujian Resmi:**
-  - Header kop standar lembaga/ujian nasional dengan garis ganda (*double rule*).
+- **Cetak latihan:**
+  - Header lembar latihan bermerek The Arich Study; tidak mewakili lembaga/ujian nasional.
   - Tabel metadata identitas (Mata Pelajaran, Kelas, Waktu, Tanggal) dengan titik dua (`:`) yang rata kiri sempurna (*aligned colons*).
   - Kotak petunjuk teknis ujian (*Rubrik Pedoman Pengerjaan*).
 - **Tipografi Cetak ([print.css](file:///C:/Users/fahreza%20kautsar/Documents/antigravity/mysterious-borg/the_arich_study/print.css)):**
@@ -355,11 +388,11 @@ Modul ini adalah mesin pembuat dokumen PDF cetak mandiri yang bekerja murni di b
 
 ## 9. PWA, Service Worker & Strategi Offline (`sw.js`)
 
-Aplikasi The Arich Study merupakan PWA penuh dengan Service Worker versi `v1.7.0`:
+Aplikasi The Arich Study menyediakan cache offline dengan Service Worker versi `v1.8.0`:
 1. **Daftar Pre-cache (`PRECACHE_ASSETS`):**
    Seluruh aset inti aplikasi (HTML, CSS, semua berkas modul fitur JS, semua modul kurikulum materi `kurmer_kelas*.js`, bank soal per bab, dan bank soal UTBK PM 1-5) di-precache saat instalasi.
-2. **Caching Pihak Ketiga (`CDN_CACHE_NAME`):**
-   KaTeX (CSS, JS, auto-render), Tailwind CDN, Lucide Icons, Canvas Confetti, dan Google Fonts di-cache dengan strategi *Cache-First with Background Revalidation*.
+2. **Aset build lokal dan CDN (`CDN_CACHE_NAME`):**
+   `app.css` dibangun lokal dan masuk precache. KaTeX, Lucide versi yang dipatok, Canvas Confetti, dan Google Fonts tetap berasal dari CDN serta di-cache setelah tersedia.
 3. **Navigasi HTML:**
    Strategi *Network-First* dengan fallback ke `index.html` cache offline jika tidak ada koneksi internet.
 
@@ -371,7 +404,7 @@ Bagi pengembang manusia maupun agen AI (Codex) yang bekerja pada repositori ini:
 
 ### Aturan Arsitektur & Koding:
 1. **Pertahankan Pure Vanilla JS Modular:** Hindari memasukkan library framework runtime berat (React, Vue, Webpack, Vite, dll.) ke dalam runtime publik kecuali diminta secara eksplisit oleh pemilik proyek. Arsitektur harus tetap ringan, langsung dapat dijalankan via browser statis apa pun.
-2. **Keamanan Kunci Jawaban:** Jangan pernah merender atau membocorkan `correctAnswer`, `correctAnswers`, `correctValue`, atau `solution` kepada siswa kecuali `window.isTeacherUnlocked === true`.
+2. **Batas Kunci Jawaban:** Kontrol PIN di browser bukan proteksi. Jangan menjanjikan kunci tersembunyi/aman; untuk ujian rahasia diperlukan backend autentikasi dan pemberian soal per sesi, yang tidak tersedia pada arsitektur gratis statis ini.
 3. **Penulisan LaTeX / Matematika:**
    - Gunakan delimiter `$...$` untuk inline math KaTeX dan `$$...$$` untuk display math.
    - Jangan menggunakan teks HTML di dalam KaTeX math block.
@@ -379,16 +412,5 @@ Bagi pengembang manusia maupun agen AI (Codex) yang bekerja pada repositori ini:
 4. **Ikonografi:** Gunakan Lucide icons via `<i data-lucide="icon-name"></i>`. Setelah memanipulasi DOM yang menyisipkan ikon baru, panggil `lucide.createIcons()`.
 5. **Dukungan Dua Viewport:** Setiap perubahan UI wajib responsif baik pada tampilan Desktop (>= 1024px) maupun Mobile Smartphone (360px - 414px).
 
-### Protokol Verifikasi Wajib (Crosscheck Battery):
-Sebelum menyatakan tugas selesai, wajib menjalankan pengujian otomatis:
-```bash
-# Contoh pengujian via playwright headless browser:
-python -c "
-# 1. Buka http://localhost:8080/the_arich_study/
-# 2. Uji alur login Kelas 10, 11, dan 12
-# 3. Klik seluruh bab materi dan pastikan materi terbuka sempurna
-# 4. Verifikasi bahwa kunci jawaban terkunci di Mode Siswa
-# 5. Uji pencarian global, widget lanjut baca, dan unduh PDF
-# 6. Pastikan 0 console error dan 0 page error
-"
-```
+### Pemeriksaan perubahan:
+Jalankan `npm run build:css` setelah mengubah kelas Tailwind. Pemeriksaan UI atau tes otomatis dilakukan saat diminta pengguna; jangan menyebut lock PIN sebagai pengamanan ujian.

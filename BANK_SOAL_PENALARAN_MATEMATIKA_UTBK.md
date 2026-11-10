@@ -1,6 +1,6 @@
-# BANK SOAL RESMI PENALARAN MATEMATIKA (PM) UTBK-SNBT
+# BANK LATIHAN PENALARAN MATEMATIKA (PM) BERGAYA UTBK-SNBT
 **Platform: The Arich Study**  
-**Standar Kurikulum: Kurikulum Merdeka & Standar BPPP / SNPMB Kemendikbudristek**  
+**Bahan latihan Penalaran Matematika bergaya UTBK-SNBT; bukan naskah resmi atau terverifikasi penyelenggara.**
 **Level Soal: High Order Thinking Skills (HOTS)**  
 **Status: Terverifikasi 100% KaTeX Murni (0 Syntax Errors / 725 Math Expressions Validated)**
 
@@ -8,9 +8,9 @@
 
 ## 1. Ringkasan Eksekutif & Struktur Bank Soal
 
-Bank Soal Penalaran Matematika (PM) ini disusun secara khusus untuk menyajikan simulasi ujian Computer-Based Test (CBT) yang autentik, relevan dengan fenomena kontekstual dunia nyata (ekonomi digital, rekayasa sipil, logistik, telekomunikasi, dan literasi data), serta menguji penalaran matematis tingkat tinggi tanpa mengandalkan hafalan rumus mekanis semata.
+Bank latihan Penalaran Matematika (PM) ini disusun independen untuk The Arich Study. Soal-soalnya menggunakan konteks sehari-hari dan mengacu pada kerangka PM SNPMB; bank ini bukan kumpulan soal resmi atau soal tahun sebelumnya.
 
-### Distribusi Domain Resmi BPPP Kemendikbudristek
+### Distribusi Domain Latihan Penalaran Matematika
 | Domain Resmi | Cakupan Topik Kontekstual | Jumlah Soal | Format yang Disajikan |
 | :--- | :--- | :---: | :--- |
 | **Domain 1: Bilangan & Aritmetika Sosial** | Diskon bertingkat marketplace promo, perbandingan berbalik nilai proyek terhenti bencana, kurs valuta asing & biaya transfer remitansi, profit margin BEP bisnis F&B, perbandingan efisiensi armada diesel vs van EV, tabungan deposito bunga majemuk berpajak PPh final 20%. | 6 Soal | 3 PG Biasa, 2 PG Kompleks (Tabel Benar/Salah), 1 Isian Singkat Numerik |
@@ -24,7 +24,7 @@ Bank Soal Penalaran Matematika (PM) ini disusun secara khusus untuk menyajikan s
 ## 2. Fitur Unggulan Setiap Butir Soal
 
 1. **Wacana Stimulus Kontekstual Nyata:**
-   Setiap butir soal diawali dengan narasi kaya konteks atau tabel data komparatif yang meniru pola soal resmi SNBT (studi kasus e-commerce, telekomunikasi, manufaktur semikonduktor, manajemen transportasi, perbankan, dan logistik).
+   Setiap butir soal diawali dengan narasi kontekstual atau tabel data komparatif untuk latihan (studi kasus e-commerce, telekomunikasi, manufaktur semikonduktor, manajemen transportasi, perbankan, dan logistik).
 2. **Clue & Petunjuk Pemodelan (Isolasi Variabel):**
    Membantu siswa menjembatani teks cerita ke dalam model matematis: variabel apa yang harus didefinisikan, relasi fungsional apa yang menghubungkan data, serta strategi eliminasi atau kalkulasi yang efisien.
 3. **Pembahasan Konseptual Lengkap (Pure KaTeX):**
