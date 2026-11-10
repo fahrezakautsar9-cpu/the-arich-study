@@ -589,20 +589,17 @@
       const encGuide = encodeURIComponent(JSON.stringify(vGuide));
       const lightboxCall = `window.openMateriVisualLightbox('${encImg}', '${encTitle}', '${encCap}', '${encGuide}')`;
 
+      const guideItemsHtml = typeof window.renderMateriVisualGuideHTML === 'function'
+        ? window.renderMateriVisualGuideHTML(vGuide, formatInlineMateriText)
+        : vGuide.map((step, gIdx) => `<div class="materi-visual-guide-item"><span class="materi-visual-guide-badge">${gIdx + 1}</span><div class="materi-visual-guide-text reader-text">${formatInlineMateriText(step)}</div></div>`).join('');
       const guideHtml = vGuide.length > 0 ? `
         <div class="materi-visual-guide">
           <div class="materi-visual-guide-header">
             <i data-lucide="compass" class="w-4 h-4 text-teal-400 shrink-0"></i>
-            <span>Panduan Membaca Gambar (Fokus Visual)</span>
+            <span>Panduan Membaca Gambar</span>
           </div>
-          <div class="materi-visual-guide-list">
-            ${vGuide.map((step, gIdx) => `
-              <div class="materi-visual-guide-item">
-                <span class="materi-visual-guide-badge">${gIdx + 1}</span>
-                <div class="materi-visual-guide-text reader-text">${formatInlineMateriText(step)}</div>
-              </div>
-            `).join('')}
-          </div>
+          <p class="materi-visual-guide-intro">Baca panel dan labelnya, lalu ikuti langkah di bawah. Cocokkan gambar dengan rumus setelah kamu tahu bagian mana yang sedang dibandingkan.</p>
+          <div class="materi-visual-guide-list">${guideItemsHtml}</div>
         </div>
       ` : '';
 
@@ -626,7 +623,7 @@
 
           <figure class="materi-visual-figure print-materi-figure">
             <div class="materi-visual-viewport" onclick="${lightboxCall}" role="button" tabindex="0" aria-label="Perbesar gambar ${escapeVisualHtml(vTitle)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${lightboxCall};}">
-              <img src="${visual.image}" alt="${escapeVisualHtml(vTitle)}" loading="lazy" class="materi-visual-img" />
+              <img src="${visual.image}" alt="${escapeVisualHtml(`${vTitle}. ${String(vCaption).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}`)}" loading="lazy" class="materi-visual-img" />
               <div class="materi-visual-zoom-hint no-print">
                 <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
                 <span>Klik untuk Zoom Interaktif (hingga 300%)</span>
@@ -893,7 +890,7 @@
 
       if (imgEl) {
         imgEl.src = imgSrc;
-        imgEl.alt = title;
+        imgEl.alt = `${title}. ${String(caption || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}`;
       }
       if (titleEl) {
         titleEl.textContent = title;
@@ -904,12 +901,9 @@
       }
       if (guideEl) {
         if (Array.isArray(guide) && guide.length > 0) {
-          guideEl.innerHTML = guide.map((step, idx) => `
-            <div class="materi-visual-guide-item">
-              <span class="materi-visual-guide-badge">${idx + 1}</span>
-              <div class="materi-visual-guide-text reader-text">${formatInlineMateriText(step)}</div>
-            </div>
-          `).join('');
+          guideEl.innerHTML = typeof window.renderMateriVisualGuideHTML === 'function'
+            ? window.renderMateriVisualGuideHTML(guide, formatInlineMateriText)
+            : guide.map((step, idx) => `<div class="materi-visual-guide-item"><span class="materi-visual-guide-badge">${idx + 1}</span><div class="materi-visual-guide-text reader-text">${formatInlineMateriText(step)}</div></div>`).join('');
           guideEl.style.display = 'grid';
         } else {
           guideEl.innerHTML = '';
@@ -930,10 +924,11 @@
 
     function formatMateriMarkdown(text) {
       if (!text) return '';
-      let html = text;
+      let html = String(text).replace(/\r\n?/g, '\n');
 
       // 1. Convert double asterisks to bold text
-      html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
+      html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="reader-strong">$1</strong>');
+      html = html.replace(/^\s*(?:-{3,}|_{3,}|\*{3,})\s*$/gm, '\n\n__ARICH_READER_HR__\n\n');
 
       // 2. Split into distinct paragraphs
       const paragraphs = html.split(/\n\n+/);
@@ -941,28 +936,42 @@
         p = p.trim();
         if (!p) return '';
 
+        // Markdown horizontal rules were previously shown as three raw dashes.
+        if (p === '__ARICH_READER_HR__' || /^(?:-{3,}|_{3,}|\*{3,})$/.test(p)) {
+          return '<hr class="reader-section-divider" aria-hidden="true">';
+        }
+
+        // Render simple Markdown headings instead of leaving their hash marks visible.
+        if (/^#{1,4}\s+/.test(p)) {
+          const level = Math.min((p.match(/^#+/) || ['##'])[0].length + 2, 6);
+          const title = p.replace(/^#{1,4}\s+/, '');
+          return `<h${level} class="reader-subheading">${title}</h${level}>`;
+        }
+
         // Standalone KaTeX display math block $$...$$
         if (p.startsWith('$$') && p.endsWith('$$')) {
           return `<div class="reader-math-block font-mono text-indigo-300 text-base sm:text-lg">${p}</div>`;
         }
 
         // Numbered lists (1. 2. 3.)
-        if (/^\d+\.\s/.test(p) || p.includes('\n1. ')) {
+        if (/^\s*(?:\d+[.)]|[-*])\s/.test(p) || /(?:^|\n)\s*(?:\d+[.)]|[-*])\s/m.test(p)) {
           const lines = p.split('\n');
           return `<div class="space-y-2.5 my-3">${lines.map(line => {
             line = line.trim();
-            if (/^\d+\.\s/.test(line)) {
+            if (/^\d+[.)]\s/.test(line)) {
               const num = line.match(/^\d+/)[0];
-              const rest = line.replace(/^\d+\.\s*/, '');
+              const rest = line.replace(/^\d+[.)]\s*/, '');
               return `<div class="flex items-start gap-3 text-slate-200">
                 <span class="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 border border-indigo-500/30">${num}</span>
                 <div class="flex-1">${rest}</div>
               </div>`;
-            } else if (line.startsWith('*') || line.startsWith('-')) {
+            } else if (/^[-*]\s/.test(line)) {
               return `<div class="flex items-start gap-2.5 text-slate-200 pl-4">
                 <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
                 <div class="flex-1">${line.replace(/^[\*\-]\s*/, '')}</div>
               </div>`;
+            } else if (/^(?:-{3,}|_{3,}|\*{3,})$/.test(line)) {
+              return '<hr class="reader-section-divider" aria-hidden="true">';
             }
             return `<p class="leading-relaxed text-slate-200 pl-9">${line}</p>`;
           }).join('')}</div>`;
@@ -1107,6 +1116,9 @@
       subContainer.innerHTML = subtopicsList.map((sub, idx) => {
         const exampleText = sub.exampleProblem || sub.example;
         const quickTipText = sub.quickTip;
+        const equationCoach = typeof window.buildFormulaStudyGuide === 'function'
+          ? window.buildFormulaStudyGuide([sub.concept, quickTipText, exampleText], `${ch.subject || ''} ${ch.title || ''} ${ch.summary || ''} ${sub.title || ''} ${sub.concept || ''}`, sub.symbols)
+          : '';
         const cleanConcept = (sub.concept || '').replace(/[$`"]/g, ' ');
 
         return `
@@ -1127,6 +1139,8 @@
           </div>
 
           ${sub.visual ? renderMateriVisualCardHTML(sub.visual, sub.title) : ''}
+
+          ${equationCoach}
 
           ${quickTipText ? `
             <div class="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-100 shadow-sm space-y-1.5">
@@ -2106,7 +2120,9 @@ function closeTeacherPinModal() {
         try {
           renderMathInElement(t, {
             delimiters: [
+              { left: '\\[', right: '\\]', display: true },
               { left: '$$', right: '$$', display: true },
+              { left: '\\(', right: '\\)', display: false },
               { left: '$', right: '$', display: false }
             ],
             ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'],

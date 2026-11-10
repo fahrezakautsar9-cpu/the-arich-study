@@ -154,6 +154,9 @@
     const done = progress.completed.includes(item.id);
     const chips = (item.concepts || []).map((text) => `<span class="pm-learning-concept-chip">${escapeHTML(text)}</span>`).join('');
     const steps = (item.example.steps || []).map((step, index) => `<li><span class="pm-learning-step-number">${index + 1}</span><div>${escapeHTML(step)}</div></li>`).join('');
+    const equationCoach = typeof window.buildFormulaStudyGuide === 'function'
+      ? window.buildFormulaStudyGuide([item.conceptHtml, item.formulaHtml, item.formulaExtraHtml, item.shortcutHtml, item.advancedHtml, item.example.prompt, ...(item.example.steps || [])], `${item.area || ''} ${item.title || ''} ${item.summary || ''} ${(item.concepts || []).join(' ')}`)
+      : '';
     const pitfalls = (item.pitfalls || []).map((text) => `<li>${escapeHTML(text)}</li>`).join('');
     const prev = MODULES[activeIndex - 1];
     const next = MODULES[activeIndex + 1];
@@ -176,20 +179,17 @@
       const encGuide = encodeURIComponent(JSON.stringify(vGuide));
       const lightboxCall = `window.openMateriVisualLightbox('${encImg}', '${encTitle}', '${encCap}', '${encGuide}')`;
 
+      const formattedGuideItems = typeof window.renderMateriVisualGuideHTML === 'function'
+        ? window.renderMateriVisualGuideHTML(vGuide, formatGuideText)
+        : vGuide.map((step, idx) => `<div class="materi-visual-guide-item"><span class="materi-visual-guide-badge">${idx + 1}</span><div class="materi-visual-guide-text">${formatGuideText(step)}</div></div>`).join('');
       const guideItemsHtml = vGuide.length > 0 ? `
         <div class="materi-visual-guide pm-visual-guide-box">
           <div class="materi-visual-guide-header">
             <i data-lucide="compass" class="w-4 h-4 text-teal-400 shrink-0"></i>
-            <span>Panduan Membaca Gambar (Fokus Visual)</span>
+            <span>Panduan Membaca Gambar</span>
           </div>
-          <div class="materi-visual-guide-list">
-            ${vGuide.map((step, idx) => `
-              <div class="materi-visual-guide-item">
-                <span class="materi-visual-guide-badge">${idx + 1}</span>
-                <div class="materi-visual-guide-text">${formatGuideText(step)}</div>
-              </div>
-            `).join('')}
-          </div>
+          <p class="materi-visual-guide-intro">Lihat judul panel dan label ukurannya. Setelah itu, ikuti petunjuk satu per satu dan cocokkan dengan rumus yang dipakai.</p>
+          <div class="materi-visual-guide-list">${formattedGuideItems}</div>
         </div>
       ` : '';
 
@@ -214,7 +214,7 @@
 
             <figure class="materi-visual-figure print-materi-figure">
               <div class="materi-visual-viewport" onclick="${lightboxCall}" role="button" tabindex="0" aria-label="Perbesar gambar ${escapeHTML(vTitle)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${lightboxCall};}">
-                <img src="${item.visual.image}" alt="${escapeHTML(vTitle)}" loading="lazy" class="materi-visual-img" />
+                <img src="${item.visual.image}" alt="${escapeHTML(`${vTitle}. ${String(vCaption).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}`)}" loading="lazy" class="materi-visual-img" />
                 <div class="materi-visual-zoom-hint no-print">
                   <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
                   <span>Klik untuk Zoom Interaktif (hingga 300%)</span>
@@ -239,6 +239,7 @@
       <section class="pm-learning-section"><div class="pm-learning-section-label"><span>01</span><h3>Pahami idenya</h3></div><div class="pm-learning-richtext">${cleanedConceptHtml}</div></section>
       ${visualSectionHtml}
       <section class="pm-learning-section"><div class="pm-learning-section-label"><span>02</span><h3>Rumus yang perlu dikenal</h3></div><div class="pm-learning-richtext">${item.formulaHtml}${item.formulaExtraHtml || ''}</div></section>
+      ${equationCoach}
       <section class="pm-learning-section pm-learning-quick"><div class="pm-learning-section-label"><span>03</span><h3>Cara cepat, dengan alasannya</h3></div><div class="pm-learning-richtext">${item.shortcutHtml}</div></section>
       <section class="pm-learning-example"><p class="pm-eyebrow">Contoh mandiri</p><h3>${escapeHTML(item.example.title)}</h3><p class="pm-learning-example-prompt">${escapeHTML(item.example.prompt)}</p><ol class="pm-learning-steps">${steps}</ol></section>
       <section class="pm-learning-section pm-learning-pitfalls"><div class="pm-learning-section-label"><span>04</span><h3>Kesalahan yang sering terjadi</h3></div><ul class="pm-learning-pitfall-list">${pitfalls}</ul></section>

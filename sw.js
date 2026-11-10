@@ -3,7 +3,7 @@
  * High-performance offline caching for core app shell, local curricula, and CDN dependencies.
  */
 
-const CACHE_NAME = 'the-arich-study-v1.8.7';
+const CACHE_NAME = 'the-arich-study-v1.8.8';
 const CDN_CACHE_NAME = 'the-arich-study-cdn-v2';
 
 // Static Shell & Curricula to pre-cache immediately
@@ -14,7 +14,7 @@ const PRECACHE_ASSETS = [
   './app.css',
   './app.js',
   './print.css',
-  './theme.css?v=pm-course-complete-20261105-2',
+  './theme.css?v=materi-coach-20261110-3',
   './features_student_exp.js',
   './features_assessment.js',
   './features_adaptive_learning.js',
@@ -22,7 +22,8 @@ const PRECACHE_ASSETS = [
   './features_exam_scratchpad.js',
   './features_ui_pwa.js',
   './features_pm_engine.js',
-  './features_pm_learning.js?v=pm-course-complete-20261105-2',
+  './features_materi_coach.js?v=materi-coach-20261110-1',
+  './features_pm_learning.js?v=materi-coach-20261110-1',
   './features_smart_error_bank.js',
   './features_exam_downloader.js',
   './icons/icon-192.svg',
